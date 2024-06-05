@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/login_controller.dart';
+import 'package:fpo_assist/screens/shared/auth/otp_screen.dart';
 import 'package:fpo_assist/screens/shared/auth/signup_screen.dart';
 import 'package:fpo_assist/widgets/custom_text_button.dart';
 import 'package:get/get.dart';
@@ -9,9 +10,7 @@ import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
 import '../../../widgets/textfield_heading_text.dart';
 
-
 class LoginScreen extends StatelessWidget {
-
   final _formKey = GlobalKey<FormState>();
   LoginController controller = Get.put(LoginController());
 
@@ -42,40 +41,58 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(child: Text("Login", style: Theme
-                            .of(context)
-                            .textTheme
-                            .headlineLarge)),
-                        const SizedBox(height: 4,),
                         Center(
-                            child: Text("Welcome, to our platform.", style: Theme
-                                .of(context)
-                                .textTheme
-                                .headlineMedium)),
-                        const SizedBox(height: 24,),
+                            child: Text("Login",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge)),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Center(
+                            child: Text("Welcome, to our platform.",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium)),
+                        const SizedBox(
+                          height: 24,
+                        ),
                         const TextfieldHeadingText(textData: "Phone Number"),
-                        const SizedBox(height: 8,),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         CustomTextField(
+                          inputType: TextInputType.phone,
                           validator: (value) {
                             if (!GetUtils.isPhoneNumber(value!)) {
                               return "Phone is not valid";
                             } else {
                               return null;
                             }
-                        },
+                          },
                           hint: 'Enter your phone',
-                          controller: controller.phoneController,),
-                        const SizedBox(height: 24,),
-                        CustomElevatedButton(widget: controller.loading.value ? progressIndicator() : Text(
-                          "Login",
-                          style: TextStyle(fontFamily: 'Roboto', fontSize: 15, fontWeight: FontWeight.w500),
+                          controller: controller.phoneController,
                         ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        CustomElevatedButton(
+                          widget: controller.loading.value
+                              ? progressIndicator()
+                              : Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
                           buttonColor: Color(0xff00B251),
                           onPress: () {
-                            if (_formKey.currentState!.validate()) {
-                              controller.loginWithEmail();
-                            }
-                          },),
+                            // if (_formKey.currentState!.validate()) {
+                            //   controller.loginWithEmail();
+                            // }
+                            Get.to(()=> OtpScreen(phone: controller.phoneController.text));
+                          },
+                        ),
                       ],
                     ),
                   ),

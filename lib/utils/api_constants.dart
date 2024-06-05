@@ -1,5 +1,6 @@
 class ApiEndPoints {
   static final String baseUrl = 'http://64.227.166.238:8090/';
+  static final String imageBaseUrl = 'http://64.227.166.238:8090/media/';
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
 

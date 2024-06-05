@@ -44,6 +44,7 @@ dependencies:
   sizer: ^2.0.15
   carousel_slider: ^4.2.1
   intl: ^0.19.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

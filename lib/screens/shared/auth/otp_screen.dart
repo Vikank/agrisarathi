@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
 import 'package:fpo_assist/widgets/custom_text_button.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ import 'package:http/http.dart' as http;
 import '../../../utils/api_constants.dart';
 
 class OtpScreen extends StatefulWidget {
-  final String email;
-  const OtpScreen({required this.email});
+  final String phone;
+  const OtpScreen({required this.phone});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -45,7 +46,8 @@ class OtpScreen extends StatefulWidget {
   }
 
   onButtonPressed() async {
-    await Future.delayed(const Duration(seconds: 2), () => otpVerify());
+    // await Future.delayed(const Duration(seconds: 2), () => otpVerify());
+    Get.to(()=>SelectCropScreen());
     return () {};
   }
 
@@ -132,7 +134,7 @@ class OtpScreen extends StatefulWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'OTP has been sent to ${widget.email}',
+                            'OTP has been sent to ${widget.phone}',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
@@ -262,7 +264,7 @@ class OtpScreen extends StatefulWidget {
                           "VERIFY OTP",
                           style: TextStyle(fontFamily: 'Roboto', fontSize: 15, fontWeight: FontWeight.w500),
                         ),),
-                      CustomTextButton(buttonText: "CHANGE EMAIL", buttonColor: Color(0xff00B251), size: 14, onPress: (){
+                      CustomTextButton(buttonText: "CHANGE PHONE", buttonColor: Color(0xff00B251), size: 14, onPress: (){
                         Get.back();
                       }),
                     ],
@@ -283,7 +285,7 @@ class OtpScreen extends StatefulWidget {
     log("OTP is ${int.parse(pinController.text)}");
     var headers = {'Content-Type': 'application/json'};
     Map body = {
-      "email": widget.email,
+      "email": widget.phone,
       "entered_otp": int.parse(pinController.text),
     };
     log("map is ${body}");
