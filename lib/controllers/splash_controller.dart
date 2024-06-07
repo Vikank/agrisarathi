@@ -18,7 +18,7 @@ class SplashController extends GetxController {
     getUserId();
     Future.delayed(const Duration(seconds: 2), () {
       Get.offAll(
-            () => userId.isNotEmpty ? HomeScreen(): const RoleScreen(),
+            () => userId.isNotEmpty ? HomeScreen(): RoleScreen(),
         transition: Transition.rightToLeft,
         duration: const Duration(seconds: 1),
       );

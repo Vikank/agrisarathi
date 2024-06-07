@@ -16,7 +16,7 @@ class ProfileController extends GetxController{
   void logout() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('userId', "");
-    Get.offAll(()=> const RoleScreen());
+    Get.offAll(()=> RoleScreen());
   }
 
   @override

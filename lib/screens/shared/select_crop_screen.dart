@@ -235,57 +235,66 @@ class SelectCropScreen extends StatelessWidget {
                             final crop = controller.displayedCrops[index];
                             return Column(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (crop.status != null && crop.status == true) {
-                                      controller.addSelectedCrop(crop);
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 75,
-                                    width: 75,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 18, vertical: 12),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffE9FDED),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          "${ApiEndPoints.imageBaseUrl}${crop.cropImage}",
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
+                                Stack(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (crop.status != null && crop.status == true) {
+                                          controller.addSelectedCrop(crop);
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 75,
+                                        width: 75,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 18, vertical: 12),
                                         decoration: BoxDecoration(
-                                          // color: const Color(0xff002833d)
-                                          //     .withOpacity(0.06),
-                                          // borderRadius:
-                                          //     BorderRadius.circular(3),
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                            filterQuality: FilterQuality.low,
+                                          color: Color(0xffE9FDED),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
                                           ),
                                         ),
-                                      ),
-                                      placeholder: (context, url) =>
-                                          const CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Container(
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xff002833d)
-                                                    .withOpacity(0.06),
-                                                borderRadius:
-                                                    BorderRadius.circular(3),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "${ApiEndPoints.imageBaseUrl}${crop.cropImage}",
+                                          imageBuilder: (context, imageProvider) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                                filterQuality: FilterQuality.low,
                                               ),
-                                              child: const Icon(Icons.error)),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                child: CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                ),),
+                                          errorWidget: (context, url, error) =>
+                                              Container(
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(0xff002833d)
+                                                        .withOpacity(0.06),
+                                                    borderRadius:
+                                                        BorderRadius.circular(3),
+                                                  ),
+                                                  child: const Icon(Icons.error)),
+                                        ),
+                                        // Image.network(
+                                        //     "http://64.227.166.238:8090/media/${crop.cropImage}", fit: BoxFit.contain),
+                                      ),
                                     ),
-                                    // Image.network(
-                                    //     "http://64.227.166.238:8090/media/${crop.cropImage}", fit: BoxFit.contain),
-                                  ),
+                                    Visibility(
+                                      visible: crop.status != true,
+                                      child: Container(
+                                        height: 75,
+                                        width: 75,
+                                        color: Colors.white70.withOpacity(0.8),
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 Text(
                                   crop.cropName,

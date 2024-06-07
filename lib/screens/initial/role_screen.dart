@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/controllers/select_role_controller.dart';
 import 'package:fpo_assist/screens/shared/auth/language_selection.dart';
 import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
 class RoleScreen extends StatelessWidget {
-  const RoleScreen({super.key});
+  SelectRoleController selectRoleController = Get.put(SelectRoleController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class RoleScreen extends StatelessWidget {
                       ),
                       CustomElevatedButton(
                         buttonColor: Colors.green, onPress: () {
+                        selectRoleController.setUserRole("FARMER");
                           Get.to(()=> LanguageSelection());
                       }, widget: Text("FARMER", style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white),),),
                       SizedBox(
@@ -63,7 +65,10 @@ class RoleScreen extends StatelessWidget {
                         height: 16,
                       ),
                       CustomElevatedButton(
-                        buttonColor: Colors.green, onPress: () {  }, widget: Text("FPO", style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white),),),
+                        buttonColor: Colors.green, onPress: () {
+                        selectRoleController.setUserRole("FPO");
+                        Get.to(()=> LanguageSelection());
+                      }, widget: Text("FPO", style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white),),),
                     ],
                   ),
               ),
