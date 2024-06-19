@@ -11,4 +11,9 @@ static Future<String> getUserRole() async{
   return pref.getString('userRole') ?? "";
 }
 
+static Future<int> getUserLanguage() async{
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  return pref.getInt('selected_language_index') ?? 0;
+}
+
 }
