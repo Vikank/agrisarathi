@@ -20,7 +20,6 @@ class UpdateProfileController extends GetxController{
   final district = TextEditingController();
   final subDistrict = TextEditingController();
   final village = TextEditingController();
-  final landArea = TextEditingController();
   RxString selectedDate = ''.obs;
   String fpoId = '';
   String mobileNumber = '';

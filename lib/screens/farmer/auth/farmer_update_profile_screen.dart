@@ -5,9 +5,13 @@ import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/farmer/farmer_update_profile_controller.dart';
+import '../../../models/select_crop_model.dart';
 import '../../../utils/color_constants.dart';
 
 class FarmerUpdateProfileScreen extends StatelessWidget {
+
+  RxList<Crop> selectedCrops;
+  FarmerUpdateProfileScreen(this.selectedCrops);
 
   FarmerUpdateProfileController controller = Get.put(FarmerUpdateProfileController());
 
@@ -35,12 +39,8 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 .labelMedium!.copyWith(fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
             SizedBox(height: 8,),
             TextFormField(
-              controller: controller.phoneController,
+              controller: controller.nameController,
               decoration: InputDecoration(
-                // border: OutlineInputBorder(
-                //   borderRadius: BorderRadius.all(Radius.circular(4)),
-                //   borderSide: BorderSide(color: Color(0xff959CA3), width: 1),
-                // ),
                 hintStyle:
                 const TextStyle(fontWeight: FontWeight.w400,
                     color: Colors.grey,
@@ -79,7 +79,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
-              Get.to(HomeScreen());
+              controller.updateFarmerDetail(selectedCrops);
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "Save",
               style: TextStyle(fontFamily: 'NotoSans',

@@ -16,9 +16,13 @@ class ApiEndPoints {
 class _AuthEndPoints {
   final String registerEmail = 'Fpo_Signup';
   final String loginEmail = 'Fpo_Login';
+  final String getAllStatesUrl = 'GetallStates';
+  final String getStateWiseDistrictUrl = 'GetStateWiseDistrict';
   final String forgotPasswordGetOtp = 'forgot_sendotp';
   final String verifyOtp = 'verify_otp';
   final String farmerLogin = 'Farmer_Login';
   final String changePassword = 'reset_password';
+  final String createFarmerAddress = 'AddFarmlandByFarmer';
   final String updateFpoDetails = 'FPO_profile_update';
+  final String updateFarmerDetails = 'FPO_profile_update';
 }

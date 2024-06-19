@@ -310,7 +310,7 @@ class SelectCropScreen extends StatelessWidget {
           child: CustomElevatedButton(
             buttonColor: Colors.green,
             onPress: () {
-              Get.to(FarmerUpdateProfileScreen());
+              Get.to(FarmerUpdateProfileScreen(controller.selectedCrops));
             },
             widget: Text(
               "NEXT",
