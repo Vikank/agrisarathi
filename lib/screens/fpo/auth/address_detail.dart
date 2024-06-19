@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fpo_assist/controllers/update_profile_controller.dart';
+import 'package:fpo_assist/controllers/fpo/fpo_update_profile_controller.dart';
 import 'package:fpo_assist/models/select_crop_model.dart';
 import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';

@@ -6,21 +6,14 @@ import 'package:fpo_assist/screens/shared/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/shared/auth/address_detail.dart';
-import '../utils/api_constants.dart';
+import '../../utils/api_constants.dart';
 
 
-class UpdateProfileController extends GetxController{
+class FarmerUpdateProfileController extends GetxController{
   RxBool loading = false.obs;
   final registrationId = TextEditingController();
-  final establishedDate = TextEditingController();
+  final fpoName = TextEditingController();
   final phoneController = TextEditingController();
-  final addressLine = TextEditingController();
-  final pinCode = TextEditingController();
-  final state = TextEditingController();
-  final district = TextEditingController();
-  final subDistrict = TextEditingController();
-  final village = TextEditingController();
   RxString selectedDate = ''.obs;
   String fpoId = '';
   String mobileNumber = '';
@@ -63,12 +56,7 @@ class UpdateProfileController extends GetxController{
       'userid': fpoId,
       'mobile_no': int.parse(phoneNumber),
       'registration_id': registrationId,
-      'established_date': establishedDate,
-      'address': addressLine.text,
-      'village': village.text,
-      'district': district.text,
-      'pincode': int.parse(pinCode.text),
-      'tehsil': subDistrict.text,
+      'fpo_name': fpoName,
       // 'state': state.text,
       'fk_crops': selectedCropIds
     };

@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fpo_assist/controllers/select_crop_controller.dart';
-import 'package:fpo_assist/screens/shared/auth/update_profile_screen.dart';
+import 'package:fpo_assist/controllers/shared/select_crop_controller.dart';
+import 'package:fpo_assist/screens/shared/home_screen.dart';
 import 'package:get/get.dart';
 import '../../utils/api_constants.dart';
 import '../../utils/color_constants.dart';
 import '../../widgets/custom_elevated_button.dart';
+import '../farmer/auth/farmer_update_profile_screen.dart';
 
 class SelectCropScreen extends StatelessWidget {
   CropController controller = Get.put(CropController());
@@ -19,9 +20,8 @@ class SelectCropScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Select Crop',
-          style: Theme.of(context).textTheme.labelLarge,
+          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
         ),
-        centerTitle: true,
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
       ),
@@ -43,16 +43,8 @@ class SelectCropScreen extends StatelessWidget {
                         fillColor: ColorConstants.textFieldBgClr,
                         prefixIcon: const Icon(Icons.search),
                         hintText: "Search crop name here",
+                        hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
                       ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      // _showBottomSheet(context);
-                    },
-                    icon: Icon(
-                      Icons.filter_list,
-                      size: 31,
                     ),
                   ),
                 ],
@@ -62,7 +54,7 @@ class SelectCropScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
                 'You can select upto 5 crops you are interested in',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
               ),
             ),
             SizedBox(
@@ -93,7 +85,7 @@ class SelectCropScreen extends StatelessWidget {
                           ),
                           child: Image.network(
                             'http://64.227.166.238:8090/media/' +
-                                crop.cropImage,
+                                crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -151,7 +143,8 @@ class SelectCropScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black),
+                          color: Colors.black,
+                          fontFamily: 'NotoSans'),
                     ),
                     selected:
                         controller.selectedCategory.value == 'CerealField',
@@ -169,7 +162,7 @@ class SelectCropScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black),
+                          color: Colors.black, fontFamily: 'NotoSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Pulse',
                     selectedColor: Colors.green,
@@ -186,7 +179,7 @@ class SelectCropScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black),
+                          color: Colors.black, fontFamily: 'NotoSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Fruit',
                     selectedColor: Colors.green,
@@ -203,7 +196,7 @@ class SelectCropScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black),
+                          color: Colors.black, fontFamily: 'NotoSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Vegetable',
                     selectedColor: Colors.green,
@@ -256,7 +249,7 @@ class SelectCropScreen extends StatelessWidget {
                                         ),
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                              "${ApiEndPoints.imageBaseUrl}${crop.cropImage}",
+                                          crop.cropImages.isNotEmpty  ? "${ApiEndPoints.imageBaseUrl}${crop.cropImages[0]}" : "",
                                           imageBuilder: (context, imageProvider) =>
                                               Container(
                                             decoration: BoxDecoration(
@@ -299,6 +292,7 @@ class SelectCropScreen extends StatelessWidget {
                                 Text(
                                   crop.cropName,
                                   overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
                                 )
                               ],
                             );
@@ -316,12 +310,12 @@ class SelectCropScreen extends StatelessWidget {
           child: CustomElevatedButton(
             buttonColor: Colors.green,
             onPress: () {
-              Get.to(UpdateProfileScreen(controller.selectedCrops));
+              Get.to(FarmerUpdateProfileScreen());
             },
             widget: Text(
               "NEXT",
               style: TextStyle(
-                  fontFamily: 'Roboto',
+                  fontFamily: 'NotoSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),

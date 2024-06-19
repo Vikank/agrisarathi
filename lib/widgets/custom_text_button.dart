@@ -20,7 +20,7 @@ class CustomTextButton extends StatelessWidget {
       onPressed: onPress,
       child: Text(
         buttonText,
-        style: TextStyle(fontFamily: 'Roboto', fontSize: size, fontWeight: FontWeight.w500, color: buttonColor),
+        style: TextStyle(fontFamily: 'NatoSans', fontSize: size, fontWeight: FontWeight.w500, color: buttonColor),
       ),
     );
   }

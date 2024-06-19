@@ -16,6 +16,7 @@ class ColorConstants {
   // static Color lightScaffoldBackgroundColor = Color('#F9F9F9');
   // static Color darkScaffoldBackgroundColor = Color('#2F2E2E');
   static Color fieldNameColor = hexToColor('#00B251');
+  static Color primaryColor = hexToColor('#00B251');
   static Color textColor = hexToColor('#000000');
   static const Color textFieldBgClr =  Color(0xffF5F5F5);
 }

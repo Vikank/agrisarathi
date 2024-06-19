@@ -6,10 +6,10 @@ import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../utils/api_constants.dart';
+import '../../utils/api_constants.dart';
 
 
-class LoginController extends GetxController{
+class FpoLoginController extends GetxController{
   RxBool passwordVisible = true.obs;
   RxBool loading = false.obs;
   final phoneController = TextEditingController();

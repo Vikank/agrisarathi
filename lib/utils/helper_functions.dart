@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class HelperFunctions extends GetxController{
+class HelperFunctions{
 
 
-Future<String> getUserRole() async{
+static Future<String> getUserRole() async{
   SharedPreferences pref = await SharedPreferences.getInstance();
-  String userRole = pref.get('userRole').toString();
-  return userRole;
+  return pref.getString('userRole') ?? "";
 }
 
 }

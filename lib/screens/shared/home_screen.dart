@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/home_controller.dart';
+import '../../controllers/fpo/fpo_home_controller.dart';
 import '../fpo/dashboard/community_widget.dart';
 import '../fpo/dashboard/dashboard_widget.dart';
 import '../fpo/dashboard/mandi_widget.dart';
@@ -17,12 +17,21 @@ class HomeScreen extends StatelessWidget {
     ProfileWidget(),
   ];
 
+  static List<Widget> _textOptions = <Widget>[
+    Text("Dashboard"),
+    Text("Community"),
+    Text("Mandi"),
+    Text("Profile"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Agri App'),
+        title: Obx(() {
+          return _textOptions.elementAt(controller.selectedIndex.value);
+        }),
         centerTitle: true,
         actions: [
           Padding(
@@ -89,19 +98,27 @@ class HomeScreen extends StatelessWidget {
         return BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value ==0 ? "assets/icons/home_sel.png" : "assets/icons/home_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(controller.selectedIndex.value == 0
+                  ? "assets/icons/home_sel.png"
+                  : "assets/icons/home_unsel.png", width: 24, height: 24,),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value ==1 ? "assets/icons/community_sel.png" : "assets/icons/community_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(controller.selectedIndex.value == 1
+                  ? "assets/icons/community_sel.png"
+                  : "assets/icons/community_unsel.png", width: 24, height: 24,),
               label: 'Community',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value ==2 ? "assets/icons/shop_sel.png" : "assets/icons/shop_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(controller.selectedIndex.value == 2
+                  ? "assets/icons/shop_sel.png"
+                  : "assets/icons/shop_unsel.png", width: 24, height: 24,),
               label: 'Mandi',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value ==3 ? "assets/icons/profile_sel.png" : "assets/icons/profile_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(controller.selectedIndex.value == 3
+                  ? "assets/icons/profile_sel.png"
+                  : "assets/icons/profile_unsel.png", width: 24, height: 24,),
               label: 'Profile',
             ),
           ],
@@ -110,8 +127,14 @@ class HomeScreen extends StatelessWidget {
           unselectedItemColor: Colors.black,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          selectedLabelStyle: TextStyle(color: Colors.green, fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Roboto'),
-          unselectedLabelStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Roboto'),
+          selectedLabelStyle: TextStyle(color: Colors.green,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Roboto'),
+          unselectedLabelStyle: TextStyle(color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Roboto'),
           onTap: controller.updateSelectedIndex,
         );
       }),

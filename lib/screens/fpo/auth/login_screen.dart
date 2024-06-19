@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fpo_assist/controllers/login_controller.dart';
-import 'package:fpo_assist/screens/shared/auth/otp_screen.dart';
-import 'package:fpo_assist/screens/shared/auth/signup_screen.dart';
-import 'package:fpo_assist/widgets/custom_text_button.dart';
+import 'package:fpo_assist/controllers/fpo/fpo_login_controller.dart';
+import 'package:fpo_assist/screens/fpo/auth/otp_screen.dart';
 import 'package:get/get.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
@@ -12,7 +10,7 @@ import '../../../widgets/textfield_heading_text.dart';
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  LoginController controller = Get.put(LoginController());
+  FpoLoginController controller = Get.put(FpoLoginController());
 
   @override
   Widget build(BuildContext context) {
