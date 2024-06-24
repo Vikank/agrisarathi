@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:fpo_assist/screens/shared/home_screen.dart';
+import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
 import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +10,18 @@ import '../../../utils/color_constants.dart';
 class FarmerUpdateProfileScreen extends StatelessWidget {
 
   RxList<Crop> selectedCrops;
+
   FarmerUpdateProfileScreen(this.selectedCrops);
 
-  FarmerUpdateProfileController controller = Get.put(FarmerUpdateProfileController());
+  FarmerUpdateProfileController controller = Get.put(
+      FarmerUpdateProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Farmer Detail", style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter')),
+        title: Text("Farmer Detail", style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter')),
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
@@ -36,7 +38,9 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
             Text("Name", style: Theme
                 .of(context)
                 .textTheme
-                .labelMedium!.copyWith(fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
+                .labelMedium!
+                .copyWith(
+                fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
             SizedBox(height: 8,),
             TextFormField(
               controller: controller.nameController,
@@ -45,29 +49,39 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 const TextStyle(fontWeight: FontWeight.w400,
                     color: Colors.grey,
                     fontSize: 16),
-                hintText: "Number",
+                hintText: "Name",
               ),
             ),
             SizedBox(height: 24,),
-            SizedBox(height: 24,),
-            Text("FPO Name", style: Theme
-                .of(context)
-                .textTheme
-                .labelMedium!.copyWith(fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: controller.fpoName,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintStyle:
-                const TextStyle(fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontSize: 16,
-                  fontFamily: 'NotoSans'
+            Obx(() {
+              return Visibility(
+                visible: controller.fpoNameExist.value,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("FPO Name", style: Theme
+                        .of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontFamily: 'Bitter',
+                        color: ColorConstants.primaryColor),),
+                    SizedBox(height: 8,),
+                    TextFormField(
+                      controller: controller.fpoName,
+                      decoration: InputDecoration(
+                        hintStyle:
+                        const TextStyle(fontWeight: FontWeight.w400,
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontFamily: 'NotoSans'
+                        ),
+                        hintText: "Company Name",
+                      ),
+                    ),
+                  ],
                 ),
-                hintText: "Company Name",
-              ),
-            ),
+              );
+            }),
             SizedBox(height: 24,),
           ],
         ),

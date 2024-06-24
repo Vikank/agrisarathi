@@ -10,12 +10,12 @@ class ProfileController extends GetxController{
   RxString userId = ''.obs;
   void getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    userId.value = pref.get('userId').toString();
+    userId.value = pref.get('farmerId').toString();
   }
 
   void logout() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setString('userId', "");
+    await pref.setString('farmerId', "");
     Get.offAll(()=> RoleScreen());
   }
 

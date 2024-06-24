@@ -91,10 +91,9 @@ class FarmerLoginScreen extends StatelessWidget {
                             ),
                       buttonColor: Color(0xff00B251),
                       onPress: () {
-                        // if (_formKey.currentState!.validate()) {
-                        //   controller.loginWithEmail();
-                        // }
-                        Get.to(()=> OtpScreen(phone: controller.phoneController.text));
+                        if (_formKey.currentState!.validate()) {
+                          Get.to(()=> OtpScreen(phone: controller.phoneController.text));
+                        }
                       },
                     ),
                   ],

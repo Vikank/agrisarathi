@@ -198,7 +198,7 @@ class OtpScreen extends StatefulWidget {
                     validator: (pinValue) {
                       if (pinValue == null || pinValue.isEmpty) {
                         return "enter valid otp";
-                      } else if (pinController.length < 6) {
+                      } else if (pinController.length < 5) {
                         return "enter valid otp";
                       } else {
                         return null;

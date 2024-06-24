@@ -127,8 +127,8 @@ class FarmerAddressDetail extends StatelessWidget {
                             }
                             return null;
                           },
-                          value: farmerAddressController.states.isNotEmpty
-                              ? farmerAddressController.states[0]['state']
+                          value: farmerAddressController.state != null
+                              ? farmerAddressController.state.toString()
                               : null,
                           items: farmerAddressController.states
                               .map<DropdownMenuItem<String>>((state) {
@@ -143,7 +143,7 @@ class FarmerAddressDetail extends StatelessWidget {
                                     element['state'] == newValue)['id'];
                             farmerAddressController.fetchDistricts(
                                 selectedStateId); // Fetch districts on state change
-                            farmerAddressController.state = newValue;
+                            farmerAddressController.state = selectedStateId;
                           },
                         );
                       }),
@@ -180,8 +180,8 @@ class FarmerAddressDetail extends StatelessWidget {
                             }
                             return null;
                           },
-                          value: farmerAddressController.districts.isNotEmpty
-                              ? farmerAddressController.districts[0]['district']
+                          value: farmerAddressController.district != null
+                              ? farmerAddressController.district.toString()
                               : null,
                           items: farmerAddressController.districts
                               .map<DropdownMenuItem<String>>((district) {
@@ -191,7 +191,10 @@ class FarmerAddressDetail extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            farmerAddressController.district = newValue;
+                            int selectedDistrictId = farmerAddressController.districts
+                                .firstWhere((element) =>
+                            element['district'] == newValue)['id'];
+                            farmerAddressController.district = selectedDistrictId;
                           },
                         );
                       }),

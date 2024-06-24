@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/models/select_crop_model.dart';
-import 'package:fpo_assist/screens/shared/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../screens/farmer/dashboard/farmer_home_screen.dart';
 import '../../utils/api_constants.dart';
 
 
@@ -14,27 +14,51 @@ class FarmerUpdateProfileController extends GetxController{
   final fpoName = TextEditingController();
   final nameController = TextEditingController();
   String? farmerId;
+  RxBool fpoNameExist = false.obs;
 
   @override
   void onInit(){
     super.onInit();
-    getFarmerId();
-    // setMobileNumber();
+    getFarmerId().then((value)=>fetchFarmerFpoName());
+    // getFpoName();
   }
 
-  getFarmerId() async{
+  Future<String?>getFarmerId() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     log("fpo id is ${prefs.getString('farmerId')}");
     farmerId = (prefs.getString('farmerId'));
+    return farmerId;
   }
-  // setMobileNumber() async{
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   mobileNumber = (prefs.getString('mobile_no')??'');
-  //   phoneController.text = mobileNumber ?? "";
-  // }
 
   List<int> getSelectedCropIds(RxList<Crop> selectedCrops) {
     return selectedCrops.map((crop) => crop.id).toList();
+  }
+
+  Future<void> fetchFarmerFpoName() async {
+    try {
+      var response = await http.post(
+        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getFarmerFpoName),
+        body: jsonEncode({"userid": 5}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if(data['Fpo Name'] != null){
+          fpoName.text = data['Fpo Name'];
+          fpoNameExist.value = true;
+        } else{
+          fpoName.text = '';
+          fpoNameExist.value = false;
+        }
+      } else {
+        print('Failed to fetch fpo name: ${response.statusCode}');
+        fpoNameExist.value = false;
+      }
+    } catch (e) {
+      print('Error fetching fpo name: $e');
+      fpoNameExist.value = false;
+    }
   }
 
   Future<void> updateFarmerDetail(RxList<Crop> selectedCrops) async {
@@ -45,7 +69,7 @@ class FarmerUpdateProfileController extends GetxController{
         ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.updateFpoDetails);
     Map body = {
       'name': nameController.text,
-      'fpo_name': fpoName,
+      'fpo_name': fpoName.text,
       'fk_crops': selectedCropIds,
       'userid': farmerId
     };
@@ -54,7 +78,7 @@ class FarmerUpdateProfileController extends GetxController{
     await http.post(url, body: jsonEncode(body), headers: headers);
     final json = jsonDecode(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Get.offAll(HomeScreen());
+      Get.offAll(()=>FarmerHomeScreen());
       Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
     } else {

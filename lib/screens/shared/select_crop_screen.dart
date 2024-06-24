@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fpo_assist/controllers/shared/select_crop_controller.dart';
-import 'package:fpo_assist/screens/shared/home_screen.dart';
+import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
 import 'package:get/get.dart';
 import '../../utils/api_constants.dart';
 import '../../utils/color_constants.dart';
@@ -310,7 +310,7 @@ class SelectCropScreen extends StatelessWidget {
           child: CustomElevatedButton(
             buttonColor: Colors.green,
             onPress: () {
-              Get.to(FarmerUpdateProfileScreen(controller.selectedCrops));
+              Get.to(()=>FarmerUpdateProfileScreen(controller.selectedCrops));
             },
             widget: Text(
               "NEXT",

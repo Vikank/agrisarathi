@@ -23,6 +23,7 @@ class _AuthEndPoints {
   final String farmerLogin = 'Farmer_Login';
   final String changePassword = 'reset_password';
   final String createFarmerAddress = 'AddFarmlandByFarmer';
+  final String getFarmerFpoName = 'FarmerFpoPart';
   final String updateFpoDetails = 'FPO_profile_update';
   final String updateFarmerDetails = 'FPO_profile_update';
 }

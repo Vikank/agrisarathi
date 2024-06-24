@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/models/select_crop_model.dart';
-import 'package:fpo_assist/screens/shared/home_screen.dart';
+import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,7 +77,7 @@ class UpdateProfileController extends GetxController{
     final json = jsonDecode(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
       phoneController.clear();
-      Get.offAll(HomeScreen());
+      Get.offAll(FpoHomeScreen());
       Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
     } else {

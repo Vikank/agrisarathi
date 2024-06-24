@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/fpo/fpo_home_controller.dart';
-import '../fpo/dashboard/community_widget.dart';
-import '../fpo/dashboard/dashboard_widget.dart';
-import '../fpo/dashboard/mandi_widget.dart';
-import '../fpo/dashboard/profile_widget.dart';
+import '../../../controllers/fpo/fpo_home_controller.dart';
+import 'farmer_community_widget.dart';
+import 'farmer_dashboard_widget.dart';
+import 'farmer_mandi_widget.dart';
+import 'my_farms_widget.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class FarmerHomeScreen extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
 
   static List<Widget> _widgetOptions = <Widget>[
-    DashboardWidget(),
-    CommunityWidget(),
-    MandiWidget(),
-    ProfileWidget(),
+    FarmerDashboardWidget(),
+    MyFarmsWidget(),
+    FarmerCommunityWidget(),
+    FarmerMandiWidget(),
   ];
 
   static List<Widget> _textOptions = <Widget>[
-    Text("Dashboard"),
+    Text("Agri Sarthi"),
     Text("Community"),
     Text("Mandi"),
     Text("Profile"),
@@ -32,11 +32,10 @@ class HomeScreen extends StatelessWidget {
         title: Obx(() {
           return _textOptions.elementAt(controller.selectedIndex.value);
         }),
-        centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.notifications_none),
+            child: Image.asset("assets/icons/announcements.png", height: 24, width: 24,),
           )
         ],
       ),

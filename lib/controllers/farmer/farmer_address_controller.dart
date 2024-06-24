@@ -14,8 +14,8 @@ class FarmerAddressController extends GetxController{
   RxBool loading = false.obs;
   final addressLine = TextEditingController();
   final pinCode = TextEditingController();
-  String? state;
-  String? district;
+  int? state;
+  int? district;
   final village = TextEditingController();
   String? farmerId;
   int? userLanguage;
@@ -74,7 +74,7 @@ class FarmerAddressController extends GetxController{
     try {
       var response = await http.post(
         Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl),
-        body: jsonEncode({"user_language": 1, "state": 1}),
+        body: jsonEncode({"user_language": 1, "state": stateId}),
         headers: {'Content-Type': 'application/json'},
       );
 
