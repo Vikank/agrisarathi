@@ -17,6 +17,7 @@ class _AuthEndPoints {
   final String registerEmail = 'Fpo_Signup';
   final String loginEmail = 'Fpo_Login';
   final String getAllStatesUrl = 'GetallStates';
+  final String getAllNews = 'GetCurrentNews';
   final String getStateWiseDistrictUrl = 'GetStateWiseDistrict';
   final String forgotPasswordGetOtp = 'forgot_sendotp';
   final String verifyOtp = 'verify_otp';

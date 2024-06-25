@@ -6,7 +6,6 @@ import 'farmer_dashboard_widget.dart';
 import 'farmer_mandi_widget.dart';
 import 'my_farms_widget.dart';
 
-
 class FarmerHomeScreen extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
 
@@ -35,7 +34,41 @@ class FarmerHomeScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: Image.asset("assets/icons/announcements.png", height: 24, width: 24,),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(100),),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/coin.png",
+                        height: 24,
+                        width: 24,
+                      ),
+                      Text(
+                        "300",
+                        style: TextStyle(
+                            fontFamily: 'NotoSans',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Image.asset(
+                  "assets/icons/announcements.png",
+                  height: 24,
+                  width: 24,
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -97,28 +130,44 @@ class FarmerHomeScreen extends StatelessWidget {
         return BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value == 0
-                  ? "assets/icons/home_sel.png"
-                  : "assets/icons/home_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(
+                controller.selectedIndex.value == 0
+                    ? "assets/icons/home_sel.png"
+                    : "assets/icons/home_unsel.png",
+                width: 24,
+                height: 24,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value == 1
-                  ? "assets/icons/community_sel.png"
-                  : "assets/icons/community_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(
+                controller.selectedIndex.value == 1
+                    ? "assets/icons/profile_sel.png"
+                    : "assets/icons/profile_unsel.png",
+                width: 24,
+                height: 24,
+              ),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                controller.selectedIndex.value == 2
+                    ? "assets/icons/community_sel.png"
+                    : "assets/icons/community_unsel.png",
+                width: 24,
+                height: 24,
+              ),
               label: 'Community',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value == 2
-                  ? "assets/icons/shop_sel.png"
-                  : "assets/icons/shop_unsel.png", width: 24, height: 24,),
+              icon: Image.asset(
+                controller.selectedIndex.value == 3
+                    ? "assets/icons/shop_sel.png"
+                    : "assets/icons/shop_unsel.png",
+                width: 24,
+                height: 24,
+              ),
               label: 'Mandi',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(controller.selectedIndex.value == 3
-                  ? "assets/icons/profile_sel.png"
-                  : "assets/icons/profile_unsel.png", width: 24, height: 24,),
-              label: 'Profile',
             ),
           ],
           currentIndex: controller.selectedIndex.value,
@@ -126,11 +175,13 @@ class FarmerHomeScreen extends StatelessWidget {
           unselectedItemColor: Colors.black,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          selectedLabelStyle: TextStyle(color: Colors.green,
+          selectedLabelStyle: TextStyle(
+              color: Colors.green,
               fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: 'Roboto'),
-          unselectedLabelStyle: TextStyle(color: Colors.black,
+          unselectedLabelStyle: TextStyle(
+              color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: 'Roboto'),
