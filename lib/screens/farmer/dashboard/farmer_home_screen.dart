@@ -1,13 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
 import 'package:get/get.dart';
-import '../../../controllers/fpo/fpo_home_controller.dart';
+import 'package:shimmer/shimmer.dart';
 import 'farmer_community_widget.dart';
 import 'farmer_dashboard_widget.dart';
 import 'farmer_mandi_widget.dart';
 import 'my_farms_widget.dart';
 
 class FarmerHomeScreen extends StatelessWidget {
-  final HomeController controller = Get.put(HomeController());
+  FarmerHomeController controller = Get.put(FarmerHomeController());
 
   static List<Widget> _widgetOptions = <Widget>[
     FarmerDashboardWidget(),
@@ -32,44 +35,59 @@ class FarmerHomeScreen extends StatelessWidget {
           return _textOptions.elementAt(controller.selectedIndex.value);
         }),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(4),
+          Obx(() {
+            final farmerDetails = controller
+                .farmerDetails.value.data;
+            return Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Row(
+                children: [
+                  controller.farmerDetailsLoader.value ? Shimmer.fromColors(
+                    baseColor: Color(0xffDFF9ED),
+                    highlightColor: Color(0xffF1FBF2),
+                child: Container(
+                  width: 60,
+                  height: 32,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(100),),
                   ),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/coin.png",
-                        height: 24,
-                        width: 24,
-                      ),
-                      Text(
-                        "300",
-                        style: TextStyle(
-                            fontFamily: 'NotoSans',
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
+                ),
+              ) : farmerDetails.isNotEmpty ? Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(100),),
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/coin.png",
+                          height: 24,
+                          width: 24,
+                        ),
+                        Text(
+                          "${farmerDetails[0].coins}",
+                          style: TextStyle(
+                              fontFamily: 'NotoSans',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ) : SizedBox.shrink(),
+                  SizedBox(
+                    width: 15,
                   ),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Image.asset(
-                  "assets/icons/announcements.png",
-                  height: 24,
-                  width: 24,
-                ),
-              ],
-            ),
-          )
+                  Image.asset(
+                    "assets/icons/announcements.png",
+                    height: 24,
+                    width: 24,
+                  ),
+                ],
+              ),
+            );
+          })
         ],
       ),
       body: Obx(() {

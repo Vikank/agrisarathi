@@ -19,7 +19,7 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       log("user id ${userId}");
       Get.offAll(
-            () => userId.isNotEmpty ? FarmerHomeScreen(): RoleScreen(),
+            () => userId.isNotEmpty && userId != "null" ? FarmerHomeScreen(): RoleScreen(),
         transition: Transition.rightToLeft,
         duration: const Duration(seconds: 1),
       );
