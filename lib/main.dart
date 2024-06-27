@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/screens/initial/splash_screen.dart';
+import 'package:fpo_assist/utils/messages_translation.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -11,8 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: MessagesTranslation(),
+      locale: Locale('en', 'US'),
+      fallbackLocale: Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'AgriSarthi',
         theme: _configureThemeData(),
         home: SplashScreen());
   }

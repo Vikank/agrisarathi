@@ -223,7 +223,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  "Services",
+                  "Services".tr,
                   style: TextStyle(
                       fontFamily: "Bitter",
                       fontWeight: FontWeight.w600,
@@ -281,10 +281,15 @@ class FarmerDashboardWidget extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Image.asset(
-                        "assets/images/detect_disease.png",
-                        height: 40,
-                        width: 40,
+                      GestureDetector(
+                        onTap: (){
+
+                        },
+                        child: Image.asset(
+                          "assets/images/detect_disease.png",
+                          height: 40,
+                          width: 40,
+                        ),
                       ),
                       SizedBox(
                         height: 10,

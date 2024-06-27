@@ -102,7 +102,7 @@ class OtpScreen extends StatefulWidget {
                   height: 75,
                 ),
                 Center(
-                  child: Text('OTP Sent',
+                  child: Text('OTP_Sent'.tr,
                       style: Theme.of(context).textTheme.headlineLarge!
                           .copyWith(fontFamily: 'Bitter')),
                 ),

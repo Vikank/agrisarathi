@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:fpo_assist/screens/initial/role_screen.dart';
+import 'package:fpo_assist/screens/shared/language_selection.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/farmer/dashboard/farmer_home_screen.dart';
@@ -19,7 +18,7 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       log("user id ${userId}");
       Get.offAll(
-            () => userId.isNotEmpty && userId != "null" ? FarmerHomeScreen(): RoleScreen(),
+            () => userId.isNotEmpty && userId != "null" ? FarmerHomeScreen(): LanguageSelection(),
         transition: Transition.rightToLeft,
         duration: const Duration(seconds: 1),
       );

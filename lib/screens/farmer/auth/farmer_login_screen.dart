@@ -34,7 +34,7 @@ class FarmerLoginScreen extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Login With Phone Number",
+                  "Login_With_Phone_Number".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
@@ -45,7 +45,7 @@ class FarmerLoginScreen extends StatelessWidget {
                 height: 4,
               ),
               Center(
-                child: Text("We wil send you an OTP on this number",
+                child: Text("We_wil_send_you_an_OTP_on_this_number".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium!.copyWith(fontFamily: 'NotoSans')),
@@ -53,7 +53,7 @@ class FarmerLoginScreen extends StatelessWidget {
               SizedBox(height: 52,),
               Column(
                 children: [
-                  Text("Enter your Mobile Number",
+                  Text("Enter_your_Mobile_Number".tr,
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall!.copyWith(fontFamily: 'NotoSans', color: ColorConstants.fieldNameColor)),
@@ -68,7 +68,7 @@ class FarmerLoginScreen extends StatelessWidget {
                       inputType: TextInputType.phone,
                       validator: (value) {
                         if (!GetUtils.isPhoneNumber(value!)) {
-                          return "Phone is not valid";
+                          return "Please_enter_a_valid_phone_number".tr;
                         } else {
                           return null;
                         }
@@ -83,7 +83,7 @@ class FarmerLoginScreen extends StatelessWidget {
                       widget: controller.loading.value
                           ? progressIndicator()
                           : Text(
-                              "SEND OTP",
+                              "Send_otp".tr,
                               style: TextStyle(
                                   fontFamily: 'NotoSans',
                                   fontSize: 15,

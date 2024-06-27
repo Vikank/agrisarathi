@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/select_role_controller.dart';
+import 'package:fpo_assist/screens/farmer/auth/farmer_login_screen.dart';
+import 'package:fpo_assist/screens/fpo/auth/login_screen.dart';
 import 'package:fpo_assist/screens/shared/language_selection.dart';
 import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
@@ -30,7 +32,7 @@ class RoleScreen extends StatelessWidget {
                 height: 75,
               ),
               Text(
-                "Who are you?",
+                "Who_are_you".tr,
                 style: Theme
                     .of(context)
                     .textTheme
@@ -42,8 +44,8 @@ class RoleScreen extends StatelessWidget {
               CustomElevatedButton(
                 buttonColor: Colors.green, onPress: () {
                 selectRoleController.setUserRole("FARMER");
-                  Get.to(()=> LanguageSelection());
-              }, widget: Text("FARMER", style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
+                  Get.to(()=> FarmerLoginScreen());
+              }, widget: Text("Farmer".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
 
               SizedBox(
                 height: 24,
@@ -51,8 +53,8 @@ class RoleScreen extends StatelessWidget {
               CustomElevatedButton(
                 buttonColor: Colors.green, onPress: () {
                 selectRoleController.setUserRole("FPO");
-                Get.to(()=> LanguageSelection());
-              }, widget: Text("FPO", style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
+                Get.to(()=> LoginScreen());
+              }, widget: Text("Fpo".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
               SizedBox(
                 height: 5,
               ),
