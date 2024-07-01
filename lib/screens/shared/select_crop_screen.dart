@@ -19,7 +19,7 @@ class SelectCropScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Select Crop',
+          'Select_Crop'.tr,
           style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
         ),
         elevation: 3,
@@ -42,7 +42,7 @@ class SelectCropScreen extends StatelessWidget {
                         filled: true,
                         fillColor: ColorConstants.textFieldBgClr,
                         prefixIcon: const Icon(Icons.search),
-                        hintText: "Search crop name here",
+                        hintText: "Search_crop_name_here".tr,
                         hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
                       ),
                     ),
@@ -53,7 +53,7 @@ class SelectCropScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'You can select upto 5 crops you are interested in',
+                'You_can_select_upto_5_crops_you_are_interested_in'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
               ),
             ),
@@ -139,7 +139,7 @@ class SelectCropScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     label: Text(
-                      'Cereals',
+                      'Cereals'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -158,7 +158,7 @@ class SelectCropScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     label: Text(
-                      'Pulse',
+                      'Pulses'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -175,7 +175,7 @@ class SelectCropScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     label: Text(
-                      'Fruit',
+                      'Fruits'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -192,7 +192,7 @@ class SelectCropScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     label: Text(
-                      'Vegetable',
+                      'Vegetables'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
@@ -313,7 +313,7 @@ class SelectCropScreen extends StatelessWidget {
               Get.to(()=>FarmerUpdateProfileScreen(controller.selectedCrops));
             },
             widget: Text(
-              "NEXT",
+              "Next".tr,
               style: TextStyle(
                   fontFamily: 'NotoSans',
                   fontSize: 15,

@@ -95,7 +95,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
               controller.updateFarmerDetail(selectedCrops);
             }, widget: controller.loading.value ? progressIndicator() : Text(
-              "Save",
+              "Save".tr,
               style: TextStyle(fontFamily: 'NotoSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),

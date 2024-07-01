@@ -111,7 +111,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text('Home'),
+              title: Text('Home'.tr),
               onTap: () {
                 controller.updateSelectedIndex(0);
                 Navigator.pop(context); // Close the drawer
@@ -119,7 +119,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.group),
-              title: Text('Community'),
+              title: Text('Community'.tr),
               onTap: () {
                 controller.updateSelectedIndex(1);
                 Navigator.pop(context); // Close the drawer
@@ -127,7 +127,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.store),
-              title: Text('Mandi'),
+              title: Text('Mandi'.tr),
               onTap: () {
                 controller.updateSelectedIndex(2);
                 Navigator.pop(context); // Close the drawer
@@ -135,7 +135,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.person),
-              title: Text('Profile'),
+              title: Text('Profile'.tr),
               onTap: () {
                 controller.updateSelectedIndex(3);
                 Navigator.pop(context); // Close the drawer
@@ -155,7 +155,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'Home',
+              label: 'Home'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -165,7 +165,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'Profile',
+              label: 'Profile'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -175,7 +175,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'Community',
+              label: 'Community'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -185,7 +185,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'Mandi',
+              label: 'Mandi'.tr,
             ),
           ],
           currentIndex: controller.selectedIndex.value,

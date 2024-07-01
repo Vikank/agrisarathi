@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:fpo_assist/controllers/fpo/fpo_home_controller.dart';
+import 'package:fpo_assist/screens/farmer/detect_disease/select_service_provider.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -283,7 +284,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-
+                          Get.to(()=> SelectServiceProvider());
                         },
                         child: Image.asset(
                           "assets/images/detect_disease.png",

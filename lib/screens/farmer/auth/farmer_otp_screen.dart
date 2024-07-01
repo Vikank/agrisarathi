@@ -113,7 +113,7 @@ class OtpScreen extends StatefulWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'OTP has been sent to ${widget.phone}',
+                      '${'OTP_has_been_sent_to'.tr} ${widget.phone}',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontFamily: 'NotoSans'),
                     ),
@@ -234,7 +234,7 @@ class OtpScreen extends StatefulWidget {
                 SizedBox(
                   height: 16,
                 ),
-                CustomTextButton(buttonText: "CHANGE PHONE NUMBER", buttonColor: Color(0xff00B251), size: 14, onPress: (){
+                CustomTextButton(buttonText: "change_phone_number".tr, buttonColor: Color(0xff00B251), size: 14, onPress: (){
                   Get.back();
                 }),
                 CustomElevatedButton(
@@ -245,7 +245,7 @@ class OtpScreen extends StatefulWidget {
                   }
                       : onButtonPressed,
                   widget: loading ? progressIndicator() : Text(
-                    "VERIFY OTP",
+                    "verify_otp".tr,
                     style: TextStyle(fontFamily: 'NotoSans', fontSize: 15, fontWeight: FontWeight.w500),
                   ),),
               ],

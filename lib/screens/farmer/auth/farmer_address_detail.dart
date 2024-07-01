@@ -18,7 +18,7 @@ class FarmerAddressDetail extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text("Farm's Address",
+        title: Text("Farm’s_Address".tr,
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -39,7 +39,7 @@ class FarmerAddressDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Address",
+                Text("Add_Address".tr,
                     style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         fontFamily: 'Bitter',
                         color: ColorConstants.primaryColor)),
@@ -60,7 +60,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontSize: 12,
                       fontFamily: 'NotoSans',
                     ),
-                    hintText: "Line 1",
+                    hintText: "Address_Line_1".tr,
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -89,7 +89,7 @@ class FarmerAddressDetail extends StatelessWidget {
                             fontSize: 12,
                             fontFamily: 'NotoSans',
                           ),
-                          hintText: "Pin Code",
+                          hintText: "Pin_Code".tr,
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -113,7 +113,7 @@ class FarmerAddressDetail extends StatelessWidget {
                             ),
                           ),
                           hint: Text(
-                            'State',
+                            'State'.tr,
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.grey,
@@ -166,7 +166,7 @@ class FarmerAddressDetail extends StatelessWidget {
                             ),
                           ),
                           hint: Text(
-                            'District',
+                            'District'.tr,
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.grey,
@@ -218,7 +218,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontSize: 12,
                       fontFamily: 'NotoSans',
                     ),
-                    hintText: "Village",
+                    hintText: "Village".tr,
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -230,7 +230,7 @@ class FarmerAddressDetail extends StatelessWidget {
                 SizedBox(
                   height: 48,
                 ),
-                Text("Land Area",
+                Text("Add_Land_Area".tr,
                     style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         fontFamily: 'Bitter',
                         color: ColorConstants.primaryColor)),
@@ -248,7 +248,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontSize: 12,
                       fontFamily: 'NotoSans',
                     ),
-                    hintText: "In acers",
+                    hintText: "Field_area_in_acres".tr,
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -278,7 +278,7 @@ class FarmerAddressDetail extends StatelessWidget {
               widget: farmerAddressController.loading.value
                   ? progressIndicator()
                   : Text(
-                      "NEXT",
+                      "Next".tr,
                       style: TextStyle(
                           fontFamily: 'NotoSans',
                           fontSize: 15,
