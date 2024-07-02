@@ -284,7 +284,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(()=> SelectServiceProvider());
+                          Get.to(SelectServiceProvider());
                         },
                         child: Image.asset(
                           "assets/images/detect_disease.png",
@@ -668,7 +668,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(5.0),
                                   child: Image.network(
-                                    "${ApiEndPoints.baseUrl}${article.image}",
+                                    "${ApiEndPoints.baseUrl}${article.image ?? ""}",
                                     width: 155,
                                     height: 96,
                                     fit: BoxFit.cover,)),

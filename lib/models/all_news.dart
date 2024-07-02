@@ -34,7 +34,7 @@ class Articles {
   late final int newsId;
   late final String title;
   late final String content;
-  late final String image;
+  late final String? image;
   late final String newsType;
   late final String source;
   late final String link;
