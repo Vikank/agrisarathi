@@ -36,11 +36,10 @@ class ChooseFarmLand extends StatelessWidget {
             ),
             SizedBox(height: 24,),
             Expanded(
-              child: ListView.separated(
+              child: controller.farmerLands.value.data!.isNotEmpty ?
+              ListView.separated(
                   itemBuilder: (context, index) {
                     var farmLand = controller.farmerLands.value.data![index];
-                    log("image ${farmLand.cropImages![0]}");
-                    if(index == controller.farmerLands.value.data!.length - 1){
                       return Container(
                         decoration: BoxDecoration(
                           border: Border.all(width: 1, color: Colors.grey),
@@ -62,23 +61,13 @@ class ChooseFarmLand extends StatelessWidget {
                           ],
                         ),
                       );
-                    } else{
-                      Container(
-                        height: 30,
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        margin: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Center(
-                          child: Text("Another crop"),
-                        ),
-                      );
-                    }
                   },
                   separatorBuilder: (context, index) {
                     return SizedBox(
                       height: 10,
                     );
                   },
-                  itemCount: controller.farmerLands.value.data!.length),
+                  itemCount: controller.farmerLands.value.data!.length) : Center(child: Text("No data occurred"),),
             )
           ],
         ),
