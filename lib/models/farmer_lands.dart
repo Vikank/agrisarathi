@@ -32,6 +32,7 @@ class Data {
   double? lat1;
   double? lat2;
   String? crop;
+  List<String>? cropImages;
 
   Data(
       {this.id,
@@ -43,7 +44,8 @@ class Data {
         this.village,
         this.lat1,
         this.lat2,
-        this.crop});
+        this.crop,
+        this.cropImages});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -56,6 +58,7 @@ class Data {
     lat1 = json['lat1'];
     lat2 = json['lat2'];
     crop = json['crop'];
+    cropImages = json['crop_images'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +73,7 @@ class Data {
     data['lat1'] = this.lat1;
     data['lat2'] = this.lat2;
     data['crop'] = this.crop;
+    data['crop_images'] = this.cropImages;
     return data;
   }
 }

@@ -19,7 +19,9 @@ class SelectServiceProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           "Select Service Provider",
           style: TextStyle(
