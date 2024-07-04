@@ -82,8 +82,6 @@ class SelectServiceProvider extends StatelessWidget {
                           .value.data![index];
                       return InkWell(
                         onTap: () {
-                          controller.serviceId.value =
-                              serviceProvider.id ?? 1;
                           if (index != 0) {
                             Fluttertoast.showToast(
                                 msg: "Comming Soon",
@@ -94,7 +92,7 @@ class SelectServiceProvider extends StatelessWidget {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                           }else{
-                            Get.to(ChooseFarmLand());
+                            Get.to(ChooseFarmLand(serviceProvider.id ?? 1));
                           }
                         },
                         child: Column(

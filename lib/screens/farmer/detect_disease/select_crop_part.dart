@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../utils/api_constants.dart';
+import 'how_to_click.dart';
+
+class SelectCropPart extends StatelessWidget {
+  int serviceProviderId;
+  int cropId;
+  int landId;
+  String cropName;
+  String cropImage;
+  SelectCropPart(
+      {required this.serviceProviderId,
+      required this.cropId,
+      required this.landId,
+      required this.cropName,
+      required this.cropImage,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Crop Part",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: (){
+                Get.to(()=> HowToClick(
+                    serviceProviderId: serviceProviderId,
+                    cropId: cropId,
+                    landId: landId,
+                  filterType: "crop",
+                ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                child: Row(
+                  children: [
+                    Image.network(
+                      '${ApiEndPoints.baseUrl}${cropImage ?? ""}',
+                      width: 52,
+                      height: 52,
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      "${cropName ?? ""}",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "NotoSans",
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            GestureDetector(
+              onTap: (){
+                Get.to(()=> HowToClick(
+                  serviceProviderId: serviceProviderId,
+                  cropId: cropId,
+                  landId: landId,
+                  filterType: "leaf",
+                ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/leaf.png",
+                      width: 52,
+                      height: 52,
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      "Leaf's",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "NotoSans",
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

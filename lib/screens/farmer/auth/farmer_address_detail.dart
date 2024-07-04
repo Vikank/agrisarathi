@@ -271,9 +271,10 @@ class FarmerAddressDetail extends StatelessWidget {
             child: CustomElevatedButton(
               buttonColor: Colors.green,
               onPress: () {
-                if (_formKey.currentState!.validate()) {
-                  farmerAddressController.postFarmerAddress();
-                }
+                // if (_formKey.currentState!.validate()) {
+                //   farmerAddressController.postFarmerAddress();
+                // }
+                Get.to(() => SelectCropScreen());
               },
               widget: farmerAddressController.loading.value
                   ? progressIndicator()

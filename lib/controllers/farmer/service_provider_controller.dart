@@ -12,7 +12,6 @@ import 'package:http/http.dart' as http;
 
 class ServiceProviderController extends GetxController{
 
-  RxInt serviceId = 0.obs;
   RxBool loading = true.obs;
   var serviceProviderModel = ServiceProviderModel().obs;
 

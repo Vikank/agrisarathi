@@ -10,6 +10,9 @@ import '../../widgets/custom_elevated_button.dart';
 import '../farmer/auth/farmer_update_profile_screen.dart';
 
 class SelectCropScreen extends StatelessWidget {
+
+  final int? serviceProviderId;
+  SelectCropScreen({super.key, this.serviceProviderId});
   CropController controller = Get.put(CropController());
 
   @override
