@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
+import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/api_constants.dart';
+import '../../shared/select_crop_screen.dart';
 
 class ChooseFarmLand extends StatelessWidget {
   final int serviceProviderId;
