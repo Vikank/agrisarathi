@@ -156,9 +156,10 @@ class HowToClick extends StatelessWidget {
             child: CustomElevatedButton(
               buttonColor: Colors.green,
               onPress: () {
+                controller.openCamera(serviceProviderId, cropId, landId, filterType);
               },
               widget: Text(
-                "Next".tr,
+                "Open Camera".tr,
                 style: TextStyle(
                     fontFamily: 'NotoSans',
                     fontSize: 15,

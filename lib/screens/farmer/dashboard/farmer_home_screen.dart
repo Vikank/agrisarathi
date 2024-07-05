@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -14,16 +16,16 @@ class FarmerHomeScreen extends StatelessWidget {
 
   static List<Widget> _widgetOptions = <Widget>[
     FarmerDashboardWidget(),
-    MyFarmsWidget(),
+    const MyFarmsWidget(),
     FarmerCommunityWidget(),
     FarmerMandiWidget(),
   ];
 
   static List<Widget> _textOptions = <Widget>[
-    Text("Agri Sarthi"),
-    Text("Community"),
-    Text("Mandi"),
-    Text("Profile"),
+    const Text("Agri Sarthi"),
+    const Text("Community"),
+    const Text("Mandi"),
+    const Text("Profile"),
   ];
 
   @override
@@ -43,21 +45,21 @@ class FarmerHomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   controller.farmerDetailsLoader.value ? Shimmer.fromColors(
-                    baseColor: Color(0xffDFF9ED),
-                    highlightColor: Color(0xffF1FBF2),
+                    baseColor: const Color(0xffDFF9ED),
+                    highlightColor: const Color(0xffF1FBF2),
                 child: Container(
                   width: 60,
                   height: 32,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(100),),
                   ),
                 ),
               ) : farmerDetails.isNotEmpty ? Container(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.all(Radius.circular(100),),
+                      borderRadius: const BorderRadius.all(Radius.circular(100),),
                     ),
                     child: Row(
                       children: [
@@ -68,15 +70,15 @@ class FarmerHomeScreen extends StatelessWidget {
                         ),
                         Text(
                           "${farmerDetails[0].coins}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'NotoSans',
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
-                  ) : SizedBox.shrink(),
-                  SizedBox(
+                  ) : const SizedBox.shrink(),
+                  const SizedBox(
                     width: 15,
                   ),
                   Image.asset(
@@ -94,54 +96,61 @@ class FarmerHomeScreen extends StatelessWidget {
         return _widgetOptions.elementAt(controller.selectedIndex.value);
       }),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Row(
+                children: [
+                  Image.asset("assets/images/logo.png", height: 40,),
+                  const Spacer(),
+                  InkWell(
+                    onTap: (){
+                      Get.back();
+                    },
+                      child: const Icon(Icons.close, size: 24,))
+                ],
               ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              const SizedBox(height: 24,),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Image.asset("assets/images/diagnosis.png", width: 20, height: 20,),
+                title: Text('Home'.tr),
+                onTap: () {
+                  controller.updateSelectedIndex(0);
+                  Navigator.pop(context); // Close the drawer
+                },
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'.tr),
-              onTap: () {
-                controller.updateSelectedIndex(0);
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.group),
-              title: Text('Community'.tr),
-              onTap: () {
-                controller.updateSelectedIndex(1);
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.store),
-              title: Text('Mandi'.tr),
-              onTap: () {
-                controller.updateSelectedIndex(2);
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'.tr),
-              onTap: () {
-                controller.updateSelectedIndex(3);
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-          ],
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.group),
+                title: Text('Community'.tr),
+                onTap: () {
+                  controller.updateSelectedIndex(1);
+                  Navigator.pop(context); // Close the drawer
+                },
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.store),
+                title: Text('Mandi'.tr),
+                onTap: () {
+                  controller.updateSelectedIndex(2);
+                  Navigator.pop(context); // Close the drawer
+                },
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.person),
+                title: Text('Profile'.tr),
+                onTap: () {
+                  controller.updateSelectedIndex(3);
+                  Navigator.pop(context); // Close the drawer
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Obx(() {
@@ -193,12 +202,12 @@ class FarmerHomeScreen extends StatelessWidget {
           unselectedItemColor: Colors.black,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
               color: Colors.green,
               fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: 'Roboto'),
-          unselectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(
               color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.w400,
