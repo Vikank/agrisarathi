@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
+import 'package:fpo_assist/screens/farmer/diagnosis/disease_detection_history.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'farmer_community_widget.dart';
@@ -95,61 +96,91 @@ class FarmerHomeScreen extends StatelessWidget {
       body: Obx(() {
         return _widgetOptions.elementAt(controller.selectedIndex.value);
       }),
-      drawer: Drawer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Row(
-                children: [
-                  Image.asset("assets/images/logo.png", height: 40,),
-                  const Spacer(),
-                  InkWell(
-                    onTap: (){
-                      Get.back();
-                    },
-                      child: const Icon(Icons.close, size: 24,))
-                ],
-              ),
-              const SizedBox(height: 24,),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Image.asset("assets/images/diagnosis.png", width: 20, height: 20,),
-                title: Text('Home'.tr),
-                onTap: () {
-                  controller.updateSelectedIndex(0);
-                  Navigator.pop(context); // Close the drawer
-                },
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.group),
-                title: Text('Community'.tr),
-                onTap: () {
-                  controller.updateSelectedIndex(1);
-                  Navigator.pop(context); // Close the drawer
-                },
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.store),
-                title: Text('Mandi'.tr),
-                onTap: () {
-                  controller.updateSelectedIndex(2);
-                  Navigator.pop(context); // Close the drawer
-                },
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.person),
-                title: Text('Profile'.tr),
-                onTap: () {
-                  controller.updateSelectedIndex(3);
-                  Navigator.pop(context); // Close the drawer
-                },
-              ),
-            ],
+      drawer: SafeArea(
+        child: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Image.asset("assets/images/logo.png", height: 40,),
+                    const Spacer(),
+                    InkWell(
+                      onTap: (){
+                        Get.back();
+                      },
+                        child: const Icon(Icons.close, size: 24,))
+                  ],
+                ),
+                const SizedBox(height: 24,),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset("assets/images/diagnosis.png", width: 20, height: 20,),
+                  title: Text('Diagnosis'.tr, style: TextStyle(
+                    fontFamily: "Bitter",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700
+                  ),),
+                  onTap: () {
+                    Get.to(()=> DiseaseDetectionHistory());
+                  },
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset("assets/images/leaderboard.png", width: 20, height: 20,),
+                  title: Text('Rewards'.tr, style: TextStyle(
+                      fontFamily: "Bitter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700
+                  ),),
+                  onTap: () {
+                    controller.updateSelectedIndex(1);
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset("assets/images/crop_suggestion.png", width: 20, height: 20,),
+                  title: Text('Crop Suggestion'.tr, style: TextStyle(
+                      fontFamily: "Bitter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700
+                  ),),
+                  onTap: () {
+                    controller.updateSelectedIndex(2);
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset("assets/images/profile.png", width: 20, height: 20,),
+                  title: Text('Profile'.tr, style: TextStyle(
+                      fontFamily: "Bitter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700
+                  ),),
+                  onTap: () {
+                    controller.updateSelectedIndex(3);
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                Spacer(),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset("assets/images/logout.png", width: 20, height: 20,),
+                  title: Text('Log out'.tr, style: TextStyle(
+                      fontFamily: "Bitter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700
+                  ),),
+                  onTap: () {
+                    controller.updateSelectedIndex(3);
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

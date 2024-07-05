@@ -30,6 +30,7 @@ class FarmerHomeController extends GetxController{
   Future<String?>getFarmerId() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     farmerId = (prefs.getString('farmerId'));
+    log("farmer id ${farmerId}");
     return farmerId;
   }
 

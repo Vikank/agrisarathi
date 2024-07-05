@@ -266,7 +266,7 @@ class OtpScreen extends StatefulWidget {
     log("OTP is ${int.parse(pinController.text)}");
     var headers = {'Content-Type': 'application/json'};
     Map body = {
-      "email": widget.phone,
+      "mobile_no": widget.phone,
       "user_language": 1,
     };
     log("map is ${body}");
@@ -279,6 +279,7 @@ class OtpScreen extends StatefulWidget {
           Get.snackbar("Success", "Otp verified");
           final json = jsonDecode(response.body);
           var farmerId = json['obj_id'];
+          log("farmer id to be set ${json['obj_id']}");
           final SharedPreferences prefs = await _prefs;
           await prefs.setString('farmerId', farmerId.toString());
           await prefs.setString('mobile_no', widget.phone);

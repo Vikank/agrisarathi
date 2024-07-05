@@ -33,7 +33,7 @@ class FarmerAddressController extends GetxController{
 
   getFarmerId() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    log("fpo id is ${prefs.getString('farmerId')}");
+    log("farmer id is ${prefs.getString('farmerId')}");
     farmerId = (prefs.getString('farmerId'));
   }
 
