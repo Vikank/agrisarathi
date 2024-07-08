@@ -1,4 +1,5 @@
 // video_controller.dart
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -127,8 +128,9 @@ class DiseaseDetectionVideoController extends GetxController {
     request.fields['fk_userid'] = farmerId!;
     request.fields['filter_type'] = filterType;
     request.fields['user_language'] = userLanguage.toString();
+    // request.fields['user_language'] = "1";
     request.fields['farmer_land_id'] = landId.toString();
-
+    print('request is: ${request.fields}');
     try {
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
@@ -137,7 +139,9 @@ class DiseaseDetectionVideoController extends GetxController {
         var data = json.decode(response.body);
         print('Response: ${data}');
         diseaseResultModel = DiseaseResultModel.fromJson(data);
-        Get.to(DiseaseResultScreen());
+        Timer(Duration(seconds: 2), () {
+          Get.to(DiseaseResultScreen());
+        });
       } else {
         Get.back();
         Fluttertoast.showToast(

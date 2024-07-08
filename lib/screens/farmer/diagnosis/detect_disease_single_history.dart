@@ -12,10 +12,10 @@ class SingleDiseaseHistory extends StatelessWidget {
 
   SingleDiseaseHistory({required this.diseaseData});
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -31,73 +31,203 @@ class SingleDiseaseHistory extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 190,
-                width: double.infinity,
-                child: Image.network(ApiEndPoints.baseUrl+ diseaseData.diseaseResults!.first.images!,
-                    fit: BoxFit.cover, width: double.infinity)
-              ),
-              diseaseData.diseaseResults!.first.symptom != "" ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Text("Symptoms", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily: "Bitter"),),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text("${diseaseData.diseaseResults!.first.symptom}"),
-                ],
-              ) :  SizedBox.shrink(),
+                  height: 190,
+                  width: double.infinity,
+                  child: Image.network(
+                      ApiEndPoints.baseUrl +
+                          diseaseData.diseaseResults!.first.images!,
+                      fit: BoxFit.cover,
+                      width: double.infinity)),
+              diseaseData.diseaseResults!.first.treatment == "" &&
+                      diseaseData.diseaseResults!.first.treatmentbefore == "" &&
+                      diseaseData.diseaseResults!.first.treatmentfield == "" &&
+                      diseaseData.diseaseResults!.first.suggestiveproduct ==
+                          "" &&
+                      diseaseData.diseaseResults!.first.symptom != ""
+                  ? Text(
+                      diseaseData.diseaseResults!.first.symptom!,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          fontFamily: "Bitter"),
+                    )
+                  : SizedBox.shrink(),
+              diseaseData.diseaseResults!.first.symptom != ""
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Symptoms",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: "Bitter"),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text("${diseaseData.diseaseResults!.first.symptom}"),
+                      ],
+                    )
+                  : SizedBox.shrink(),
               SizedBox(
                 height: 16,
               ),
               Visibility(
-                visible: diseaseData.diseaseResults!.first.cropId != 5 && diseaseData.diseaseResults!.first.cropId != 73,
+                visible: diseaseData.diseaseResults!.first.cropId != 5 &&
+                    diseaseData.diseaseResults!.first.cropId != 73,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Treatments before Sowing", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily: "Bitter"),),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text("${diseaseData.diseaseResults!.first.treatmentbefore}"),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text("Treatments in field", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily: "Bitter"),),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text("${diseaseData.diseaseResults!.first.treatmentfield}"),
-                    SizedBox(
-                      height: 16,
-                    ),
+                    diseaseData.diseaseResults!.first.treatmentbefore != ""
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Treatments before Sowing",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    fontFamily: "Bitter"),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                  "${diseaseData.diseaseResults!.first.treatmentbefore}"),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          )
+                        : SizedBox.shrink(),
+                    diseaseData.diseaseResults!.first.treatmentfield != ""
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Treatments in field",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    fontFamily: "Bitter"),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                  "${diseaseData.diseaseResults!.first.treatmentfield}"),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          )
+                        : SizedBox.shrink(),
                   ],
                 ),
               ),
-              Visibility(
-                visible: diseaseData.diseaseResults!.first.cropId == 5 || diseaseData.diseaseResults!.first.cropId == 73,
-                child: Column(
-                  children: [
-                    Text("Treatment", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily: "Bitter"),),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text("${diseaseData.diseaseResults!.first.treatment}"),
-                    SizedBox(height: 16,),
-                  ],
-                ),
-              ),
-              Text("Sustainable methods", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily: "Bitter"),),
-              SizedBox(
-                height: 8,
-              ),
-              Text("${diseaseData.diseaseResults!.first.suggestiveproduct}"),
+              diseaseData.diseaseResults!.first.treatment != ""
+                  ? Visibility(
+                      visible: diseaseData.diseaseResults!.first.cropId == 5 ||
+                          diseaseData.diseaseResults!.first.cropId == 73,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Treatment",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                fontFamily: "Bitter"),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                              "${diseaseData.diseaseResults!.first.treatment}"),
+                          SizedBox(
+                            height: 16,
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox.shrink(),
+              diseaseData.diseaseResults!.first.suggestiveproduct != ""
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Sustainable methods",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: "Bitter"),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                            "${diseaseData.diseaseResults!.first.suggestiveproduct}"),
+                      ],
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(height: 24),
+              if (diseaseData.productDiseaseResults != null &&
+                  diseaseData.productDiseaseResults!.isNotEmpty)
+                _buildProductResultsSection(diseaseData.productDiseaseResults!),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildProductResultsSection(List<ProductDiseaseResults> products) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Recommended Products',
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Bitter")),
+        SizedBox(height: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            var product = products[index];
+            return ListTile(
+              leading: Image.network(
+                'http://64.227.166.238:8090${product.productimage}',
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.grey[300],
+                  child: Icon(Icons.error),
+                ),
+              ),
+              title: Text(product.productname ?? 'N/A',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Bitter")),
+              subtitle: Text(
+                  '${product.category ?? 'N/A'} - ${product.price ?? 'N/A'}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "NanoSans")),
+            );
+          },
+        ),
+      ],
     );
   }
 }
