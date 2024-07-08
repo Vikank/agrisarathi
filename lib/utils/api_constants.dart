@@ -29,4 +29,6 @@ class _AuthEndPoints {
   final String getAllNews = 'GetCurrentNews';
   final String getFarmerLands = 'GetFarmbyFarmer';
   final String getFarmerDetails = 'GetFarmProfileDetails';
+  final String getDiseaseHistory = 'GetDiagnosisReport';
+  final String getSingleDiseaseHistory = 'GetSingleDiagnosisReport';
 }

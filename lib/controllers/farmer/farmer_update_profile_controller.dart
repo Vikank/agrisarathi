@@ -66,11 +66,10 @@ class FarmerUpdateProfileController extends GetxController{
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.updateFpoDetails);
+        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.updateFarmerDetails);
     Map body = {
       'name': nameController.text,
       'fpo_name': fpoName.text,
-      'fk_crops': selectedCropIds,
       'userid': farmerId
     };
     print("data: ${jsonEncode(body)}");
