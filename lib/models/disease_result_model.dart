@@ -36,6 +36,7 @@ class DiseaseResults {
   String? treatmentbefore;
   String? treatmentfield;
   String? treatment;
+  String? message;
   String? suggestiveproduct;
   List<Images>? images;
   String? basePath;
@@ -46,6 +47,7 @@ class DiseaseResults {
         this.treatmentbefore,
         this.treatmentfield,
         this.treatment,
+        this.message,
         this.suggestiveproduct,
         this.images,
         this.basePath});
@@ -57,6 +59,7 @@ class DiseaseResults {
     treatmentbefore = json['treatmentbefore'];
     treatmentfield = json['treatmentfield'];
     treatment = json['treatment'];
+    message = json['message'];
     suggestiveproduct = json['suggestiveproduct'];
     if (json['images'] != null) {
       images = <Images>[];
@@ -75,6 +78,7 @@ class DiseaseResults {
     data['treatmentbefore'] = treatmentbefore;
     data['treatmentfield'] = treatmentfield;
     data['treatment'] = treatment;
+    data['message'] = message;
     data['suggestiveproduct'] = suggestiveproduct;
     if (images != null) {
       data['images'] = images!.map((v) => v.toJson()).toList();

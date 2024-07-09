@@ -94,7 +94,7 @@ class MessagesTranslation extends Translations{
       "Potato_plants_require 75_to_135_or_more_cool_weather,_frost-free_days_to_extend_harvest_depending_on_the_variety._Potato_plants_do_not_grow_well_in_extreme_heat_or_dry_soil._High_temperatures_can_cause_grown-up_potatoes_to_discolour_inside.": "Potato plants require 75 to 135 or more cool weather, frost-free days to extend harvest depending on the variety. Potato plants do not grow well in extreme heat or dry soil. High temperatures can cause grown-up potatoes to discolour inside.",
       "Today’s_Weather": "Today’s Weather",
       "Next_5_Day’s_Weather": "Next 5 Day’s Weather",
-      "Service_provider": "Service provider",
+      "Service_provider": "Select Service Provider",
       "Please_select_your_service_provider_whose_app_you_wanna_use.": "Please select your service provider whose app you wanna use.",
       "Please_select_your_crop_which_you_are_scanning": "Please select your crop which you are scanning",
       "Finished_Product": "Finished Product",
@@ -237,7 +237,16 @@ class MessagesTranslation extends Translations{
       "View_more": "View more",
       "Winners_of_last_Month": "Winners of last Month",
       "How_to_earn_points": "How to earn points",
-      "Clear_Notification": "Clear Notification"
+      "Clear_Notification": "Clear Notification",
+      "Another_crop": "Another crop",
+      "Farm_land": "Farm land",
+      "Tutorial": "Tutorial",
+      "Learn_with_video_how_to_do_it": "Learn with video, how to do it",
+      "Camera": "Camera",
+      "Gallery": "Gallery",
+      "Failed_to_load_video": "Failed to load video",
+      "Crop_part": "Crop Part",
+      "Leaf": "Leaf's"
     },
     'hi_IN': {
       "Select_language": "भाषा चुने",
@@ -330,7 +339,7 @@ class MessagesTranslation extends Translations{
       "Potato_plants_require 75_to_135_or_more_cool_weather,_frost-free_days_to_extend_harvest_depending_on_the_variety._Potato_plants_do_not_grow_well_in_extreme_heat_or_dry_soil._High_temperatures_can_cause_grown-up_potatoes_to_discolour_inside.": "आलू के पौधों को किस्म के आधार पर फसल बढ़ाने के लिए 75 से 135 या अधिक ठंडे मौसम, ठंढ-मुक्त दिनों की आवश्यकता होती है। अत्यधिक गर्मी या सूखी मिट्टी में आलू के पौधे अच्छे से विकसित नहीं हो पाते हैं। उच्च तापमान के कारण बड़े हुए आलू अंदर से ख़राब हो सकते हैं।",
       "Today’s_Weather": "आज का मौसम",
       "Next_5_Day’s_Weather": "अगले 5 दिन का मौसम",
-      "Service_provider": "सेवा प्रदाता",
+      "Service_provider": "सेवा प्रदाता का चयन करें",
       "Please_select_your_service_provider_whose_app_you_wanna_use.": "कृपया अपना सेवा प्रदाता चुनें जिसका ऐप आप उपयोग करना चाहते हैं।",
       "Please_select_your_crop_which_you_are_scanning": "कृपया अपनी फसल चुनें जिसे आप स्कैन कर रहे हैं",
       "Finished_Product": "तैयार उत्पाद",
@@ -473,7 +482,20 @@ class MessagesTranslation extends Translations{
       "View_more": "और देखें",
       "Winners_of_last_Month": "पिछले महीने के विजेता",
       "How_to_earn_points": "अंक कैसे अर्जित करें",
-      "Clear_Notification": "स्पष्ट अधिसूचना"
+      "Clear_Notification": "स्पष्ट अधिसूचना",
+      "Another_crop": "किसी और फसल के लिए",
+      "Farm_land": "कृषि भूमि",
+      "Take_a_Pic": "फोटो खींचे",
+      "Tutorial": "ट्यूटोरियल",
+      "Get_Medicines": "दवाइयाँ प्राप्त करें",
+      "Learn_with_video_how_to_do_it": "सीखने के लिए वीडियो का उपयोग करें, इसे कैसे करें।",
+      "Camera": "कैमरा",
+      "Gallery": "गैलरी",
+      "Crop_part": "फसल भाग",
+      "Failed_to_load_video": "वीडियो लोड करने में विफल",
+      "Leaf": "पत्ता",
+      "Select_Crop": "फसल का चयन करें",
+
     },
   };
 }

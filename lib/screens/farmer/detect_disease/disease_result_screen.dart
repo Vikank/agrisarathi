@@ -5,6 +5,7 @@ import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 
 import '../../../models/disease_result_model.dart';
+import '../text_format_treatment.dart';
 
 class DiseaseResultScreen extends StatelessWidget {
 
@@ -18,7 +19,7 @@ class DiseaseResultScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Diagnosis",
+          "Diagnosis".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
@@ -73,36 +74,40 @@ class DiseaseResultScreen extends StatelessWidget {
                   controller.diseaseResultModel.diseaseResults!.treatmentfield == "" &&
                   controller.diseaseResultModel.diseaseResults!.suggestiveproduct ==
                       "" &&
-                  controller.diseaseResultModel.diseaseResults!.symptom != ""
-                  ? Text(
-                controller.diseaseResultModel.diseaseResults!.symptom!,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    fontFamily: "Bitter"),
-              )
-                  : SizedBox.shrink(),
-              controller.diseaseResultModel.diseaseResults!.symptom != ""
-                  ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    "Symptoms",
-                    style: TextStyle(
+                  controller.diseaseResultModel.diseaseResults!.symptom == ""
+                  ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                                      controller.diseaseResultModel.diseaseResults!.message!,
+                                      style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         fontFamily: "Bitter"),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text("${controller.diseaseResultModel.diseaseResults!.symptom}"),
-                ],
-              )
+                                    ),
+                    ),
+                  )
                   : SizedBox.shrink(),
+                  controller.diseaseResultModel.diseaseResults!.symptom == ""
+                  ?  SizedBox.shrink() : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        "Symptoms",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            fontFamily: "Bitter"),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text("${controller.diseaseResultModel.diseaseResults!.symptom}"),
+                    ],
+                  ),
               SizedBox(
                 height: 16,
               ),
@@ -176,8 +181,7 @@ class DiseaseResultScreen extends StatelessWidget {
                     SizedBox(
                       height: 8,
                     ),
-                    Text(
-                        "${controller.diseaseResultModel.diseaseResults!.treatment}"),
+                    FormattedTreatmentText(treatment: controller.diseaseResultModel.diseaseResults!.treatment ?? ''),
                     SizedBox(
                       height: 16,
                     ),

@@ -7,13 +7,13 @@ import 'how_to_click.dart';
 class SelectCropPart extends StatelessWidget {
   int serviceProviderId;
   int cropId;
-  int landId;
+  String? landId;
   String cropName;
   String cropImage;
   SelectCropPart(
       {required this.serviceProviderId,
       required this.cropId,
-      required this.landId,
+      this.landId,
       required this.cropName,
       required this.cropImage,
       super.key});
@@ -25,7 +25,7 @@ class SelectCropPart extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Crop Part",
+          "Crop_part".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
@@ -40,7 +40,7 @@ class SelectCropPart extends StatelessWidget {
                 Get.to(()=> HowToClick(
                     serviceProviderId: serviceProviderId,
                     cropId: cropId,
-                    landId: landId,
+                    landId: "",
                   filterType: "crop",
                 ));
               },
@@ -82,7 +82,7 @@ class SelectCropPart extends StatelessWidget {
                 Get.to(()=> HowToClick(
                   serviceProviderId: serviceProviderId,
                   cropId: cropId,
-                  landId: landId,
+                  landId: "",
                   filterType: "leaf",
                 ));
               },

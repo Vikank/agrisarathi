@@ -96,9 +96,31 @@ class DiseaseDetectionVideoController extends GetxController {
       update();
     }
   }
+  Future<void> openGallery(
+      {required int serviceProviderId,
+        required int cropId,
+        required String landId,
+        required String filterType}) async {
+    try {
+      XFile? pickedImage =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        image.value = File(pickedImage.path);
+        uploadImage(File(image.value?.path ?? ""), serviceProviderId, cropId,
+            landId, filterType);
+      } else {
+        print("No image picked.");
+      }
+    } catch (e) {
+      print("Error picking image: $e");
+    }
+  }
 
   Future<void> openCamera(
-      int serviceProviderId, int cropId, int landId, String filterType) async {
+      {required int serviceProviderId,
+      required int cropId,
+      required String landId,
+      required String filterType}) async {
     try {
       XFile? pickedImage =
           await ImagePicker().pickImage(source: ImageSource.camera);
@@ -115,7 +137,7 @@ class DiseaseDetectionVideoController extends GetxController {
   }
 
   Future<void> uploadImage(File imageFile, int serviceProviderId, int cropId,
-      int landId, String filterType) async {
+      String landId, String filterType) async {
     Get.dialog(
         barrierColor: Colors.white,
         useSafeArea: false,

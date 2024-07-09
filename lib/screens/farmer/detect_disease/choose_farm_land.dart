@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../utils/api_constants.dart';
 import '../../shared/select_crop_screen.dart';
+import 'choose_another_crop.dart';
 
 class ChooseFarmLand extends StatelessWidget {
   final int serviceProviderId;
@@ -55,7 +56,7 @@ class ChooseFarmLand extends StatelessWidget {
                         cropId: farmLand.cropId!,
                         cropName: farmLand.crop!,
                         cropImage: farmLand.cropImages![0],
-                        landId: farmLand.id!));
+                        landId: farmLand.id! as String));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -111,7 +112,7 @@ class ChooseFarmLand extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(SelectCropScreen(serviceProviderId: serviceProviderId));
+                Get.to(ChooseAnotherCrop(serviceProviderId: serviceProviderId));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12),

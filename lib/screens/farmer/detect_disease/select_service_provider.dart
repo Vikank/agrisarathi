@@ -23,7 +23,7 @@ class SelectServiceProvider extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Select Service Provider",
+          "Service_provider".tr,
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -35,34 +35,35 @@ class SelectServiceProvider extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextFormField(
-                textAlignVertical: TextAlignVertical.center,
-                onChanged: (value) => {},
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: ColorConstants.textFieldBgClr,
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: "Search_Service_Provider".tr,
-                    hintStyle: TextStyle(fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'NotoSans')
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 16),
+            //   child: TextFormField(
+            //     textAlignVertical: TextAlignVertical.center,
+            //     onChanged: (value) => {},
+            //     decoration: InputDecoration(
+            //         border: InputBorder.none,
+            //         filled: true,
+            //         fillColor: ColorConstants.textFieldBgClr,
+            //         prefixIcon: const Icon(Icons.search),
+            //         hintText: "Search_Service_Provider".tr,
+            //         hintStyle: TextStyle(fontSize: 12,
+            //             fontWeight: FontWeight.w400,
+            //             fontFamily: 'NotoSans')
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 24,
+            // ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'Please_select_your_service_provider_whose_app_you_wanna_use'
+                'Please_select_your_service_provider_whose_app_you_wanna_use.'
                     .tr,
                 style: TextStyle(fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'NotoSans'),
+                    fontFamily: 'NotoSans',
+                color: Color(0xff262626)),
               ),
             ),
             SizedBox(height: 24,),

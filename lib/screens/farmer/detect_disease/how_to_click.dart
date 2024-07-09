@@ -9,7 +9,7 @@ import '../../../widgets/custom_elevated_button.dart';
 class HowToClick extends StatelessWidget {
   int serviceProviderId;
   int cropId;
-  int landId;
+  String landId;
   String filterType;
   HowToClick(
       {required this.serviceProviderId,
@@ -28,13 +28,13 @@ class HowToClick extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Tutorial",
+          "Tutorial".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,7 +58,7 @@ class HowToClick extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Take a Pic",
+                      "Take_a_Pic".tr,
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -83,7 +83,7 @@ class HowToClick extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Get Diagnosis",
+                      "Get_Diagnosis".tr,
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -108,7 +108,7 @@ class HowToClick extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Get Medicines",
+                      "Get_Medicines".tr,
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -122,7 +122,7 @@ class HowToClick extends StatelessWidget {
               height: 24,
             ),
             Text(
-              "Learn with video, how to do it",
+              "Learn_with_video_how_to_do_it".tr,
               style: TextStyle(
                   fontFamily: "Bitter",
                   fontSize: 14,
@@ -137,7 +137,7 @@ class HowToClick extends StatelessWidget {
               } else if (controller.errorMessage.isNotEmpty) {
                 return Center(child: Text(controller.errorMessage.value));
               } else if (controller.chewieController.value == null) {
-                return Center(child: Text('Failed to load video'));
+                return Center(child: Text('Failed_to_load_video'.tr));
               } else {
                 return Container(
                   height: 180,
@@ -145,29 +145,45 @@ class HowToClick extends StatelessWidget {
                 );
               }
             }),
+            Spacer(),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomElevatedButton(
+                    buttonColor: Colors.green,
+                    onPress: () {
+                      controller.openGallery(serviceProviderId: serviceProviderId, cropId: cropId, landId : landId, filterType: filterType);
+                    },
+                    widget: Text(
+                      "Gallery".tr,
+                      style: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                Expanded(
+                  child: CustomElevatedButton(
+                    buttonColor: Colors.green,
+                    onPress: () {
+                      controller.openCamera(serviceProviderId: serviceProviderId, cropId: cropId, landId : landId, filterType: filterType);
+                    },
+                    widget: Text(
+                      "Camera".tr,
+                      style: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          elevation: 10,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
-            child: CustomElevatedButton(
-              buttonColor: Colors.green,
-              onPress: () {
-                controller.openCamera(serviceProviderId, cropId, landId, filterType);
-              },
-              widget: Text(
-                "Open Camera".tr,
-                style: TextStyle(
-                    fontFamily: 'NotoSans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-        ),
     );
   }
 }

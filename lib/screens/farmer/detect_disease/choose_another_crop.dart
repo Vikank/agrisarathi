@@ -1,17 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fpo_assist/controllers/farmer/choose_another_crop_controller.dart';
 import 'package:fpo_assist/controllers/shared/select_crop_controller.dart';
+import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
 import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
 import 'package:get/get.dart';
-import '../../utils/api_constants.dart';
-import '../../utils/color_constants.dart';
-import '../../widgets/custom_elevated_button.dart';
-import '../farmer/auth/farmer_update_profile_screen.dart';
 
-class SelectCropScreen extends StatelessWidget {
+import '../../../utils/api_constants.dart';
+import '../../../utils/color_constants.dart';
+import '../../../widgets/custom_elevated_button.dart';
 
-  CropController controller = Get.put(CropController());
+class ChooseAnotherCrop extends StatelessWidget {
+
+  final int? serviceProviderId;
+  ChooseAnotherCrop({super.key, this.serviceProviderId});
+  ChooseAnotherCropController controller = Get.put(ChooseAnotherCropController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +43,16 @@ class SelectCropScreen extends StatelessWidget {
                       textAlignVertical: TextAlignVertical.center,
                       onChanged: (value) => controller.updateSearchQuery(value),
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: ColorConstants.textFieldBgClr,
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: "Search_crop_name_here".tr,
-                        hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: ColorConstants.textFieldBgClr,
+                          prefixIcon: const Icon(Icons.search),
+                          hintText: "Search_crop_name_here".tr,
+                          hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
                       ),
                     ),
                   ),
                 ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                'You_can_select_upto_5_crops_you_are_interested_in'.tr,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
               ),
             ),
             SizedBox(
@@ -85,7 +82,7 @@ class SelectCropScreen extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            'http://64.227.166.238:8090/media/' +
+                            'http://64.227.166.238:8090/' +
                                 crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
@@ -148,7 +145,7 @@ class SelectCropScreen extends StatelessWidget {
                           fontFamily: 'NotoSans'),
                     ),
                     selected:
-                        controller.selectedCategory.value == 'CerealField',
+                    controller.selectedCategory.value == 'CerealField',
                     selectedColor: Colors.green,
                     onSelected: (isSelected) =>
                         controller.filterCrops(isSelected ? 'CerealField' : ''),
@@ -213,93 +210,93 @@ class SelectCropScreen extends StatelessWidget {
             Expanded(
                 child: controller.displayedCrops.isEmpty
                     ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+                  child: CircularProgressIndicator(),
+                )
                     : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: controller.displayedCrops.length,
-                          itemBuilder: (context, index) {
-                            final crop = controller.displayedCrops[index];
-                            return Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (crop.status != null && crop.status == true) {
-                                          controller.addSelectedCrop(crop);
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 75,
-                                        width: 75,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 18, vertical: 12),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffE9FDED),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                        ),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                          crop.cropImages.isNotEmpty  ? "${ApiEndPoints.imageBaseUrl}${crop.cropImages[0]}" : "",
-                                          imageBuilder: (context, imageProvider) =>
-                                              Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                                filterQuality: FilterQuality.low,
-                                              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GridView.builder(
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    itemCount: controller.displayedCrops.length,
+                    itemBuilder: (context, index) {
+                      final crop = controller.displayedCrops[index];
+                      return Column(
+                        children: [
+                          Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  if (crop.status != null && crop.status == true) {
+                                    controller.addSelectedCrop(crop);
+                                  }
+                                },
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 18, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffE9FDED),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                    crop.cropImages.isNotEmpty  ? "${ApiEndPoints.baseUrl}${crop.cropImages[0]}" : "",
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                              filterQuality: FilterQuality.low,
                                             ),
                                           ),
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                                child: CircularProgressIndicator(
-                                                  color: Colors.white,
-                                                ),),
-                                          errorWidget: (context, url, error) =>
-                                              Container(
-                                                  decoration: BoxDecoration(
-                                                    color: const Color(0xff002833d)
-                                                        .withOpacity(0.06),
-                                                    borderRadius:
-                                                        BorderRadius.circular(3),
-                                                  ),
-                                                  child: const Icon(Icons.error)),
                                         ),
-                                        // Image.network(
-                                        //     "http://64.227.166.238:8090/media/${crop.cropImage}", fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: crop.status != true,
-                                      child: Container(
-                                        height: 75,
-                                        width: 75,
-                                        color: Colors.white70.withOpacity(0.8),
-                                      ),
-                                    )
-                                  ],
+                                    placeholder: (context, url) =>
+                                    const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xff002833d)
+                                                  .withOpacity(0.06),
+                                              borderRadius:
+                                              BorderRadius.circular(3),
+                                            ),
+                                            child: const Icon(Icons.error)),
+                                  ),
+                                  // Image.network(
+                                  //     "http://64.227.166.238:8090/media/${crop.cropImage}", fit: BoxFit.contain),
                                 ),
-                                Text(
-                                  crop.cropName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
-                                )
-                              ],
-                            );
-                          },
-                        ),
-                      )),
+                              ),
+                              Visibility(
+                                visible: crop.status != true,
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  color: Colors.white70.withOpacity(0.8),
+                                ),
+                              )
+                            ],
+                          ),
+                          Text(
+                            crop.cropName,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                )),
           ],
         );
       }),
@@ -311,7 +308,11 @@ class SelectCropScreen extends StatelessWidget {
           child: CustomElevatedButton(
             buttonColor: Colors.green,
             onPress: () {
-              Get.to(()=>FarmerUpdateProfileScreen(controller.selectedCrops));
+              Get.to(()=>SelectCropPart(
+                  serviceProviderId: serviceProviderId!,
+                  cropId: controller.selectedCrops.first.id,
+                  cropName: controller.selectedCrops.first.cropName,
+                  cropImage: controller.selectedCrops.first.cropImages.first));
             },
             widget: Text(
               "Next".tr,
