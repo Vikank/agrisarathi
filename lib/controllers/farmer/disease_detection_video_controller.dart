@@ -116,6 +116,21 @@ class DiseaseDetectionVideoController extends GetxController {
 
   Future<void> uploadImage(File imageFile, int serviceProviderId, int cropId,
       int landId, String filterType) async {
+    Get.dialog(
+        barrierColor: Colors.white,
+        useSafeArea: false,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: 100,
+                child: Image.asset(
+                  "assets/gif/detect_disease_loader.gif",
+                  fit: BoxFit.contain,
+                )),
+          ],
+        ));
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.detectDisease),
@@ -139,9 +154,8 @@ class DiseaseDetectionVideoController extends GetxController {
         var data = json.decode(response.body);
         print('Response: ${data}');
         diseaseResultModel = DiseaseResultModel.fromJson(data);
-        Timer(Duration(seconds: 2), () {
-          Get.to(DiseaseResultScreen());
-        });
+        Get.back();
+        Get.to(DiseaseResultScreen());
       } else {
         Get.back();
         Fluttertoast.showToast(
