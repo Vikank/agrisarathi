@@ -246,7 +246,8 @@ class MessagesTranslation extends Translations{
       "Gallery": "Gallery",
       "Failed_to_load_video": "Failed to load video",
       "Crop_part": "Crop Part",
-      "Leaf": "Leaf's"
+      "Leaf": "Leaf's",
+      "News_Details": "News Details"
     },
     'hi_IN': {
       "Select_language": "भाषा चुने",
@@ -495,7 +496,7 @@ class MessagesTranslation extends Translations{
       "Failed_to_load_video": "वीडियो लोड करने में विफल",
       "Leaf": "पत्ता",
       "Select_Crop": "फसल का चयन करें",
-
+      "News_Details": "समाचार विवरण"
     },
   };
 }

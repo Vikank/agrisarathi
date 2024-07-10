@@ -593,7 +593,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(()=>NewsListView());
+                          Get.to(NewsListView());
                         },
                         child: Text(
                           "View All",

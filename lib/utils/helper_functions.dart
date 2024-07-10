@@ -21,7 +21,7 @@ String formatDate(String? dateString) {
   if (dateString == null) return 'Unknown Date';
   try {
     final DateTime date = DateTime.parse(dateString);
-    return DateFormat('d MMM').format(date);
+    return DateFormat('dd MMMM').format(date);
   } catch (e) {
     print('Error parsing date: $e');
     return 'Invalid Date';
