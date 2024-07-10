@@ -85,7 +85,7 @@ class SelectCropScreen extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            'http://64.227.166.238:8090/media/' +
+                            'http://64.227.166.238:8090/' +
                                 crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
@@ -250,7 +250,7 @@ class SelectCropScreen extends StatelessWidget {
                                         ),
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                          crop.cropImages.isNotEmpty  ? "${ApiEndPoints.imageBaseUrl}${crop.cropImages[0]}" : "",
+                                          crop.cropImages.isNotEmpty  ? "${ApiEndPoints.baseUrl}${crop.cropImages[0]}" : "",
                                           imageBuilder: (context, imageProvider) =>
                                               Container(
                                             decoration: BoxDecoration(

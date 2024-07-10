@@ -10,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_home_card.dart';
+import '../news/all_news.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
   FarmerDashboardController controller = Get.put(
@@ -590,13 +591,18 @@ class FarmerDashboardWidget extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 14),
                       ),
-                      Text(
-                        "View All",
-                        style: TextStyle(
-                            color: ColorConstants.primaryColor,
-                            fontFamily: "NanoSans",
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(()=>NewsListView());
+                        },
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                              color: ColorConstants.primaryColor,
+                              fontFamily: "NanoSans",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10),
+                        ),
                       ),
                     ],
                   ),
