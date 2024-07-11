@@ -10,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_home_card.dart';
+import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  "Farms",
+                  "Farms".tr,
                   style: TextStyle(
                       fontFamily: "Bitter",
                       fontWeight: FontWeight.w600,
@@ -210,7 +211,7 @@ class FarmerDashboardWidget extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Image.asset("assets/images/farmer_home_banner.png"),
+              child: controller.userLanguage == 1 ? Image.asset("assets/images/farmer_home_banner.png") : Image.asset("assets/images/farmer_home_banner_hindi.png"),
             ),
             SizedBox(
               height: 16,
@@ -252,7 +253,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "Production",
+                        "Production".tr,
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -272,7 +273,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "Fertilizer\nCalculator",
+                        "Fertilizer_Calculator".tr,
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -297,7 +298,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "Disease",
+                        "Detect_Disease".tr,
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -325,7 +326,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Soil Test Today, Harvest Tomorrow!",
+                      "Soil_Test_Today_Harvest_Tomorrow".tr,
                       style: TextStyle(
                           fontFamily: "Bitter",
                           fontWeight: FontWeight.w600,
@@ -341,7 +342,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Don't leave your farming success to chance – know your soil, grow your future!",
+                                "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future".tr,
                                 style: TextStyle(
                                     fontFamily: "NotoSans",
                                     fontWeight: FontWeight.w400,
@@ -363,7 +364,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "BOOK NOW",
+                                    "Book_Now".tr,
                                     style: TextStyle(
                                         color: ColorConstants.primaryColor,
                                         fontSize: 13,
@@ -399,7 +400,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  "Other Services",
+                  "Other_Services".tr,
                   style: TextStyle(
                       fontFamily: "Bitter",
                       fontWeight: FontWeight.w600,
@@ -428,7 +429,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            "Farmer\nEconomics",
+                            "Farmer_Economics".tr,
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -448,7 +449,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            "Irrigation\nAlarm",
+                            "Irrigation_Alarm".tr,
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -468,7 +469,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            "Soil\nTesting",
+                            "Soil_Testing".tr,
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -482,30 +483,35 @@ class FarmerDashboardWidget extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/gov_schemes.png",
-                            height: 40,
-                            width: 40,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Govt.\nSchemes",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "NotoSans"),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(SchemeListView());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset(
+                              "assets/images/gov_schemes.png",
+                              height: 40,
+                              width: 40,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "gov_scheme".tr,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "NotoSans"),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -529,14 +535,14 @@ class FarmerDashboardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Helpline",
+                          "Helpline".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                               fontFamily: 'Bitter'),
                         ),
                         Text(
-                          "Check number for assistance and support",
+                          "Check_number_for_assistance_and_support".tr,
                           style: Theme
                               .of(context)
                               .textTheme
@@ -585,7 +591,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "News",
+                        "News".tr,
                         style: TextStyle(
                             fontFamily: "Bitter",
                             fontWeight: FontWeight.w600,
@@ -596,7 +602,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                           Get.to(NewsListView());
                         },
                         child: Text(
-                          "View All",
+                          "View_All".tr,
                           style: TextStyle(
                               color: ColorConstants.primaryColor,
                               fontFamily: "NanoSans",

@@ -17,7 +17,7 @@ class SingleNewsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "News Details".tr,
+          "News_Details".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),

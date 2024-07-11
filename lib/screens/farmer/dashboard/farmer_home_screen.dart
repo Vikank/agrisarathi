@@ -17,16 +17,16 @@ class FarmerHomeScreen extends StatelessWidget {
 
   static List<Widget> _widgetOptions = <Widget>[
     FarmerDashboardWidget(),
-    const MyFarmsWidget(),
+    MyFarmsWidget(),
     FarmerCommunityWidget(),
     FarmerMandiWidget(),
   ];
 
   static List<Widget> _textOptions = <Widget>[
-    const Text("Agri Sarthi"),
-    const Text("Community"),
-    const Text("Mandi"),
-    const Text("Profile"),
+     Text("agrisarthi".tr),
+     Text("MyFarms".tr),
+     Text("Community".tr),
+     Text("Mandi".tr),
   ];
 
   @override
@@ -142,7 +142,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: Image.asset("assets/images/crop_suggestion.png", width: 20, height: 20,),
-                  title: Text('Crop Suggestion'.tr, style: TextStyle(
+                  title: Text('Crop_Suggestion'.tr, style: TextStyle(
                       fontFamily: "Bitter",
                       fontSize: 16,
                       fontWeight: FontWeight.w700

@@ -100,7 +100,7 @@ class NewsListView extends StatelessWidget {
   Widget _buildNewsList(BuildContext context) {
     return Obx(() => ListView.separated(
           itemCount: controller.filteredArticles.length,
-          separatorBuilder: (context, index) => Divider(),
+          separatorBuilder: (context, index) => SizedBox(height: 20,),
           itemBuilder: (context, index) {
             var article = controller.filteredArticles[index];
             return InkWell(

@@ -20,7 +20,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Farmer Detail", style: TextStyle(
+        title: Text("farmer_detail".tr, style: TextStyle(
             fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter')),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -35,7 +35,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Name", style: Theme
+            Text("Name".tr, style: Theme
                 .of(context)
                 .textTheme
                 .labelMedium!
@@ -49,7 +49,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 const TextStyle(fontWeight: FontWeight.w400,
                     color: Colors.grey,
                     fontSize: 16),
-                hintText: "Name",
+                hintText: "Name".tr,
               ),
             ),
             SizedBox(height: 24,),
@@ -59,7 +59,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("FPO Name", style: Theme
+                    Text("FPO_Name".tr, style: Theme
                         .of(context)
                         .textTheme
                         .labelMedium!

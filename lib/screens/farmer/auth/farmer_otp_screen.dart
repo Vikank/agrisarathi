@@ -276,7 +276,7 @@ class OtpScreen extends StatefulWidget {
         headers: headers
       );
         if (response.statusCode == 200 || response.statusCode == 201) {
-          Get.snackbar("Success", "Otp verified");
+          Get.snackbar("Success".tr, "Otp_verified".tr);
           final json = jsonDecode(response.body);
           var farmerId = json['obj_id'];
           log("farmer id to be set ${json['obj_id']}");
