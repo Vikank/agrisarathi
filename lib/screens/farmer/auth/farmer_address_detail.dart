@@ -78,6 +78,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       child: TextFormField(
                         controller: farmerAddressController.pinCode,
                         cursorColor: ColorConstants.primaryColor,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
@@ -274,7 +275,7 @@ class FarmerAddressDetail extends StatelessWidget {
                 // if (_formKey.currentState!.validate()) {
                 //   farmerAddressController.postFarmerAddress();
                 // }
-                Get.to(() => SelectCropScreen());
+                Get.to(() => SelectCropScreen(pinCode: int.parse(farmerAddressController.pinCode.text), landArea: int.parse(farmerAddressController.landArea.text), village: farmerAddressController.village.text, state: farmerAddressController.state, addressLine: farmerAddressController.addressLine.text, district: farmerAddressController.district));
               },
               widget: farmerAddressController.loading.value
                   ? progressIndicator()

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/select_crop_model.dart';
+import '../../utils/helper_functions.dart';
 
 class CropController extends GetxController {
   var allCrops = <Crop>[].obs;
@@ -11,11 +12,20 @@ class CropController extends GetxController {
   var selectedCategory = ''.obs;
   var selectedCrops = <Crop>[].obs;
   var searchQuery = ''.obs;
+  int? userLanguage;
 
   @override
   void onInit() {
     super.onInit();
-    fetchCrops();
+    getUserLanguage().then((userlanguage) {
+      fetchCrops();
+    });
+  }
+
+  Future<int?> getUserLanguage() async {
+    userLanguage = await HelperFunctions.getUserLanguage();
+    log("UserRole $userLanguage");
+    return userLanguage;
   }
 
   Future<void> fetchCrops() async {
@@ -61,7 +71,7 @@ class CropController extends GetxController {
   }
 
   void addSelectedCrop(Crop crop) {
-    if (selectedCrops.length < 5 && !selectedCrops.contains(crop)) {
+    if (selectedCrops.length < 1 && !selectedCrops.contains(crop)) {
       selectedCrops.add(crop);
     }
   }

@@ -9,12 +9,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: MessagesTranslation(),
-      locale: Locale('en', 'US'),
-      fallbackLocale: Locale('en', 'US'),
+      locale: Locale('hi', 'IN'),
+      fallbackLocale: Locale('hi', 'IN'),
       debugShowCheckedModeBanner: false,
         title: 'AgriSarthi',
         theme: _configureThemeData(),

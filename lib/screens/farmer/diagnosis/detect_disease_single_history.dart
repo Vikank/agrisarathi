@@ -25,11 +25,31 @@ class SingleDiseaseHistory extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              diseaseData.diseaseResults!.first.disease == ""
+                  ? SizedBox.shrink()
+                  : Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                width: double.infinity,
+                height: 37,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    color: Color(0xffEAFAEB)),
+                child: Text(
+                  "${diseaseData.diseaseResults!.first.disease}",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      fontFamily: "Bitter"),
+                ),
+              ),
+              SizedBox(height: 16,),
               SizedBox(
                   height: 190,
                   width: double.infinity,

@@ -22,7 +22,7 @@ class ChooseFarmLand extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Farm land",
+          "Farm_land".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
@@ -32,7 +32,7 @@ class ChooseFarmLand extends StatelessWidget {
         child: ListView(
           children: [
             Text(
-              "Farms",
+              "farms".tr,
               style: TextStyle(
                 fontFamily: "Bitter",
                 fontSize: 14,
@@ -124,7 +124,7 @@ class ChooseFarmLand extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "Another crop",
+                    "Another_crop".tr,
                     style: TextStyle(
                         fontFamily: "NotoSans",
                         fontSize: 12,

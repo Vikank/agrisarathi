@@ -10,8 +10,14 @@ import '../../../utils/color_constants.dart';
 class FarmerUpdateProfileScreen extends StatelessWidget {
 
   RxList<Crop> selectedCrops;
+  String? addressLine;
+  int? pinCode;
+  int? state;
+  int? district;
+  String? village;
+  int? landArea;
 
-  FarmerUpdateProfileScreen(this.selectedCrops);
+  FarmerUpdateProfileScreen({required this.selectedCrops, this.pinCode, this.landArea, this.village, this.state, this.addressLine, this.district});
 
   FarmerUpdateProfileController controller = Get.put(
       FarmerUpdateProfileController());
@@ -20,7 +26,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Farmer Detail", style: TextStyle(
+        title: Text("farmer_detail".tr, style: TextStyle(
             fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter')),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -35,7 +41,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Name", style: Theme
+            Text("Name".tr, style: Theme
                 .of(context)
                 .textTheme
                 .labelMedium!
@@ -49,7 +55,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 const TextStyle(fontWeight: FontWeight.w400,
                     color: Colors.grey,
                     fontSize: 16),
-                hintText: "Name",
+                hintText: "Name".tr,
               ),
             ),
             SizedBox(height: 24,),
@@ -59,7 +65,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("FPO Name", style: Theme
+                    Text("FPO_Name".tr, style: Theme
                         .of(context)
                         .textTheme
                         .labelMedium!
@@ -93,7 +99,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
-              controller.updateFarmerDetail(selectedCrops);
+              controller.updateFarmerDetail(selectedCrops, pinCode, landArea,  village, state, addressLine, district);
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "Save".tr,
               style: TextStyle(fontFamily: 'NotoSans',

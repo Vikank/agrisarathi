@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../screens/farmer/dashboard/farmer_home_screen.dart';
 import '../../utils/api_constants.dart';
+import '../../utils/helper_functions.dart';
 
 
 class FarmerUpdateProfileController extends GetxController{
@@ -15,12 +16,19 @@ class FarmerUpdateProfileController extends GetxController{
   final nameController = TextEditingController();
   String? farmerId;
   RxBool fpoNameExist = false.obs;
+  int? userLanguage;
 
   @override
   void onInit(){
     super.onInit();
+    getUserLanguage();
     getFarmerId().then((value)=>fetchFarmerFpoName());
-    // getFpoName();
+  }
+
+  Future<int?> getUserLanguage() async {
+    userLanguage = await HelperFunctions.getUserLanguage();
+    log("UserRole $userLanguage");
+    return userLanguage;
   }
 
   Future<String?>getFarmerId() async{
@@ -38,7 +46,7 @@ class FarmerUpdateProfileController extends GetxController{
     try {
       var response = await http.post(
         Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getFarmerFpoName),
-        body: jsonEncode({"userid": 5}),
+        body: jsonEncode({"userid": farmerId}),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -61,7 +69,7 @@ class FarmerUpdateProfileController extends GetxController{
     }
   }
 
-  Future<void> updateFarmerDetail(RxList<Crop> selectedCrops) async {
+  Future<void> updateFarmerDetail(RxList<Crop> selectedCrops, int? pinCode, int? landArea, String? village, int? state, String? addressLine, int? district) async {
     final selectedCropIds = getSelectedCropIds(selectedCrops);
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
@@ -70,9 +78,17 @@ class FarmerUpdateProfileController extends GetxController{
     Map body = {
       'name': nameController.text,
       'fpo_name': fpoName.text,
-      'userid': farmerId
+      'userid': farmerId,
+      'fk_language_id': userLanguage,
+      'pincode': pinCode,
+      'land_area': landArea,
+      'address': addressLine,
+      'village': village,
+      'fk_state_id': state,
+      'fk_district_id': district,
+      'fk_crops_id': selectedCropIds.first
     };
-    print("data: ${jsonEncode(body)}");
+    print("data: ${jsonEncode(body)} ${url}");
     http.Response response =
     await http.post(url, body: jsonEncode(body), headers: headers);
     final json = jsonDecode(response.body);

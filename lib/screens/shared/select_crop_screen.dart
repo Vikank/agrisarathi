@@ -11,6 +11,14 @@ import '../farmer/auth/farmer_update_profile_screen.dart';
 
 class SelectCropScreen extends StatelessWidget {
 
+  String? addressLine;
+  int? pinCode;
+  int? state;
+  int? district;
+  String? village;
+  int? landArea;
+
+  SelectCropScreen({this.pinCode, this.landArea, this.village, this.state, this.addressLine, this.district});
   CropController controller = Get.put(CropController());
 
   @override
@@ -54,7 +62,7 @@ class SelectCropScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'You_can_select_upto_5_crops_you_are_interested_in'.tr,
+                'You_can_select_upto_1_crops_you_are_interested_in'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
               ),
             ),
@@ -311,7 +319,7 @@ class SelectCropScreen extends StatelessWidget {
           child: CustomElevatedButton(
             buttonColor: Colors.green,
             onPress: () {
-              Get.to(()=>FarmerUpdateProfileScreen(controller.selectedCrops));
+              Get.to(()=>FarmerUpdateProfileScreen(selectedCrops: controller.selectedCrops, pinCode: pinCode, landArea: landArea, village: village, state: state, addressLine: addressLine, district: district));
             },
             widget: Text(
               "Next".tr,

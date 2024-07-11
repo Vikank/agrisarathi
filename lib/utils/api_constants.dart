@@ -25,7 +25,7 @@ class _AuthEndPoints {
   final String createFarmerAddress = 'AddFarmlandByFarmer';
   final String getFarmerFpoName = 'FarmerFpoPart';
   final String updateFpoDetails = 'FPO_profile_update';
-  final String updateFarmerDetails = 'FPO_profile_update';
+  final String updateFarmerDetails = 'FarmerUpdte_Profile';
   final String getAllNews = 'GetCurrentNews';
   final String getFarmerLands = 'GetFarmbyFarmer';
   final String getFarmerDetails = 'GetFarmProfileDetails';

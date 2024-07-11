@@ -17,7 +17,7 @@ class SingleNewsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "News Details".tr,
+          "News_Details".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
@@ -37,20 +37,20 @@ class SingleNewsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
-              Text(
-                'Source: ${article.source}',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey[600],
-                ),
-              ),
-              SizedBox(height: 4),
+              // Text(
+              //   'Source: ${article.source}',
+              //   style: TextStyle(
+              //     fontStyle: FontStyle.italic,
+              //     color: Colors.grey[600],
+              //   ),
+              // ),
               Text(
                 '${HelperFunctions().formatDate(article.publishDate)}',
                 style: TextStyle(
                   color: Colors.grey[600],
                 ),
               ),
+              SizedBox(height: 4),
               CachedNetworkImage(
                 imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
                 imageBuilder: (context, imageProvider) => Container(

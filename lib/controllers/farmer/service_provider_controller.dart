@@ -9,16 +9,28 @@ import '../../models/service_provider_model.dart';
 import '../../utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 
+import '../../utils/helper_functions.dart';
+
 
 class ServiceProviderController extends GetxController{
 
   RxBool loading = true.obs;
   var serviceProviderModel = ServiceProviderModel().obs;
+  int? userLanguage;
 
   @override
   void onInit(){
-    getService();
+    getUserLanguage().then((value){
+      getService();
+    });
+    // getService();
     super.onInit();
+  }
+
+
+  Future<int?> getUserLanguage() async {
+    userLanguage = await HelperFunctions.getUserLanguage();
+    return userLanguage;
   }
 
   void getService() async {
@@ -28,7 +40,6 @@ class ServiceProviderController extends GetxController{
       body: jsonEncode({"user_language": "1"}),
       headers: {'Content-Type': 'application/json'},
     );
-
     if (response.statusCode == 200) {
       log("heyyyyyy${response.body}");
       var data = json.decode(response.body);

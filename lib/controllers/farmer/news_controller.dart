@@ -15,29 +15,33 @@ class NewsController extends GetxController {
   int? userLanguage;
 
   final List<Map<String, String>> sources = [
-    {"name": "All", "image": "assets/images/allnews.png", "source": "all"},
     {
-      "name": "ABP Live",
+      "name": "All".tr,
+      "image": "assets/images/allnews.png",
+      "source": "all"
+    },
+    {
+      "name": "ABP_Live".tr,
       "image": "assets/images/abplive.png",
       "source": "ABPLIVE"
     },
     {
-      "name": "Krishak Jagat",
+      "name": "krishak_jagat".tr,
       "image": "assets/images/krishakjagat.png",
       "source": "KRISHAKJAGAT"
     },
     {
-      "name": "Kisan Samadhaan",
+      "name": "KISAN_SAMADHAAN".tr,
       "image": "assets/images/kisansamadhaan.png",
       "source": "KISANSAMADHAAN"
     },
     {
-      "name": "Krishi Jagran",
+      "name": "Krishi_Jagran".tr,
       "image": "assets/images/krishijagran.png",
       "source": "KRISHIJAGRAN"
     },
     {
-      "name": "Kisan Tak",
+      "name": "KISAN_TAK".tr,
       "image": "assets/images/kisantak.png",
       "source": "KISANTAK"
     }

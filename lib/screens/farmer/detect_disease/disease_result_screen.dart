@@ -8,10 +8,9 @@ import '../../../models/disease_result_model.dart';
 import '../text_format_treatment.dart';
 
 class DiseaseResultScreen extends StatelessWidget {
-
-  DiseaseDetectionVideoController controller = Get.put(DiseaseDetectionVideoController());
+  DiseaseDetectionVideoController controller =
+      Get.put(DiseaseDetectionVideoController());
   final CarouselController _controller = CarouselController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +24,42 @@ class DiseaseResultScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              controller.diseaseResultModel.diseaseResults!.disease == ""
+                  ? SizedBox.shrink()
+                  : Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      width: double.infinity,
+                      height: 37,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                          color: Color(0xffEAFAEB)),
+                      child: Text(
+                        "${controller.diseaseResultModel.diseaseResults!.disease}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            fontFamily: "Bitter"),
+                      ),
+                    ),
+              SizedBox(
+                height: 16,
+              ),
               SizedBox(
                 height: 190,
                 width: double.infinity,
                 child: CarouselSlider(
                   items: controller.diseaseResultModel.diseaseResults!.images!
-                      .map((item) => Image.network(ApiEndPoints.imageBaseUrl+item.diseaseFile!,
-                      fit: BoxFit.cover, width: double.infinity))
+                      .map((item) => Image.network(
+                          ApiEndPoints.imageBaseUrl + item.diseaseFile!,
+                          fit: BoxFit.cover,
+                          width: double.infinity))
                       .toList(),
                   carouselController: _controller,
                   options: CarouselOptions(
@@ -50,18 +73,21 @@ class DiseaseResultScreen extends StatelessWidget {
               Obx(() {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: controller.diseaseResultModel.diseaseResults!.images!.asMap().entries.map((entry) {
+                  children: controller
+                      .diseaseResultModel.diseaseResults!.images!
+                      .asMap()
+                      .entries
+                      .map((entry) {
                     return GestureDetector(
                       onTap: () => _controller.animateToPage(entry.key),
                       child: Container(
                         width: 8.0,
                         height: 8.0,
-                        margin:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color:
-                            controller.currentCarousel.value == entry.key
+                            color: controller.currentCarousel.value == entry.key
                                 ? Colors.green
                                 : Colors.grey[100]),
                       ),
@@ -70,148 +96,171 @@ class DiseaseResultScreen extends StatelessWidget {
                 );
               }),
               controller.diseaseResultModel.diseaseResults!.treatment == "" &&
-                  controller.diseaseResultModel.diseaseResults!.treatmentbefore == "" &&
-                  controller.diseaseResultModel.diseaseResults!.treatmentfield == "" &&
-                  controller.diseaseResultModel.diseaseResults!.suggestiveproduct ==
-                      "" &&
-                  controller.diseaseResultModel.diseaseResults!.symptom == ""
+                      controller
+                              .diseaseResultModel.diseaseResults!.treatmentbefore ==
+                          "" &&
+                      controller.diseaseResultModel.diseaseResults!
+                              .treatmentfield ==
+                          "" &&
+                      controller.diseaseResultModel.diseaseResults!
+                              .suggestiveproduct ==
+                          "" &&
+                      controller.diseaseResultModel.diseaseResults!.symptom ==
+                          ""
                   ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                                      controller.diseaseResultModel.diseaseResults!.message!,
-                                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        fontFamily: "Bitter"),
-                                    ),
-                    ),
-                  )
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          controller
+                              .diseaseResultModel.diseaseResults!.message!,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: "Bitter"),
+                        ),
+                      ),
+                    )
                   : SizedBox.shrink(),
-                  controller.diseaseResultModel.diseaseResults!.symptom == ""
-                  ?  SizedBox.shrink() : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        "Symptoms",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            fontFamily: "Bitter"),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text("${controller.diseaseResultModel.diseaseResults!.symptom}"),
-                    ],
-                  ),
+              controller.diseaseResultModel.diseaseResults!.symptom == ""
+                  ? SizedBox.shrink()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Symptoms",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: "Bitter"),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                            "${controller.diseaseResultModel.diseaseResults!.symptom}"),
+                      ],
+                    ),
               SizedBox(
                 height: 16,
               ),
               Visibility(
-                visible: controller.diseaseResultModel.diseaseResults!.cropId != 5 &&
+                visible: controller.diseaseResultModel.diseaseResults!.cropId !=
+                        5 &&
                     controller.diseaseResultModel.diseaseResults!.cropId != 73,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    controller.diseaseResultModel.diseaseResults!.treatmentbefore != ""
+                    controller.diseaseResultModel.diseaseResults!
+                                .treatmentbefore !=
+                            ""
                         ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Treatments before Sowing",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              fontFamily: "Bitter"),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                            "${controller.diseaseResultModel.diseaseResults!.treatmentbefore}"),
-                        SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    )
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Treatments before Sowing",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    fontFamily: "Bitter"),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                  "${controller.diseaseResultModel.diseaseResults!.treatmentbefore}"),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          )
                         : SizedBox.shrink(),
-                    controller.diseaseResultModel.diseaseResults!.treatmentfield != ""
+                    controller.diseaseResultModel.diseaseResults!
+                                .treatmentfield !=
+                            ""
                         ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Treatments in field",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              fontFamily: "Bitter"),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                            "${controller.diseaseResultModel.diseaseResults!.treatmentfield}"),
-                        SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    )
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Treatments in field",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    fontFamily: "Bitter"),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                  "${controller.diseaseResultModel.diseaseResults!.treatmentfield}"),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          )
                         : SizedBox.shrink(),
                   ],
                 ),
               ),
               controller.diseaseResultModel.diseaseResults!.treatment != ""
                   ? Visibility(
-                visible: controller.diseaseResultModel.diseaseResults!.cropId == 5 ||
-                    controller.diseaseResultModel.diseaseResults!.cropId == 73,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Treatment",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          fontFamily: "Bitter"),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    FormattedTreatmentText(treatment: controller.diseaseResultModel.diseaseResults!.treatment ?? ''),
-                    SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
-              )
+                      visible: controller
+                                  .diseaseResultModel.diseaseResults!.cropId ==
+                              5 ||
+                          controller
+                                  .diseaseResultModel.diseaseResults!.cropId ==
+                              73,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Treatment",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                fontFamily: "Bitter"),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          FormattedTreatmentText(
+                              treatment: controller.diseaseResultModel
+                                      .diseaseResults!.treatment ??
+                                  ''),
+                          SizedBox(
+                            height: 16,
+                          ),
+                        ],
+                      ),
+                    )
                   : SizedBox.shrink(),
-              controller.diseaseResultModel.diseaseResults!.suggestiveproduct != ""
+              controller.diseaseResultModel.diseaseResults!.suggestiveproduct !=
+                      ""
                   ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Sustainable methods",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        fontFamily: "Bitter"),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                      "${controller.diseaseResultModel.diseaseResults!.suggestiveproduct}"),
-                ],
-              )
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Sustainable methods",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: "Bitter"),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                            "${controller.diseaseResultModel.diseaseResults!.suggestiveproduct}"),
+                      ],
+                    )
                   : SizedBox.shrink(),
               SizedBox(height: 24),
               if (controller.diseaseResultModel.productDisease != null &&
                   controller.diseaseResultModel.productDisease!.isNotEmpty)
-                _buildProductResultsSection(controller.diseaseResultModel.productDisease!),
+                _buildProductResultsSection(
+                    controller.diseaseResultModel.productDisease!),
             ],
           ),
         ),
@@ -264,5 +313,4 @@ class DiseaseResultScreen extends StatelessWidget {
       ],
     );
   }
-
 }
