@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:fpo_assist/screens/farmer/dashboard/farmer_home_screen.dart';
 import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
 import 'package:fpo_assist/widgets/custom_text_button.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class OtpScreen extends StatefulWidget {
   bool loading = false;
   int _resendDelay = 60;
   Timer? _resendTimer;
+  bool userExist = false;
 
   int get resendDelay => _resendDelay;
 
@@ -49,7 +51,7 @@ class OtpScreen extends StatefulWidget {
 
   onButtonPressed() async {
     await Future.delayed(const Duration(seconds: 2), () => otpVerify());
-    Get.to(()=>FarmerAddressDetail());
+    userExist == true ? Get.offAll(FarmerHomeScreen()) : Get.to(()=>FarmerAddressDetail());
     return () {};
   }
 
@@ -279,6 +281,10 @@ class OtpScreen extends StatefulWidget {
           Get.snackbar("Success".tr, "Otp_verified".tr);
           final json = jsonDecode(response.body);
           var farmerId = json['obj_id'];
+          log("data ye aaya login ka ${json}");
+          setState(() {
+            userExist = json['user_exists'];
+          });
           log("farmer id to be set ${json['obj_id']}");
           final SharedPreferences prefs = await _prefs;
           await prefs.setString('farmerId', farmerId.toString());

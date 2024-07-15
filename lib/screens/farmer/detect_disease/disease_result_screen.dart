@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/disease_detection_video_controller.dart';
@@ -56,10 +57,41 @@ class DiseaseResultScreen extends StatelessWidget {
                 width: double.infinity,
                 child: CarouselSlider(
                   items: controller.diseaseResultModel.diseaseResults!.images!
-                      .map((item) => Image.network(
-                          ApiEndPoints.imageBaseUrl + item.diseaseFile!,
-                          fit: BoxFit.cover,
-                          width: double.infinity))
+                      .map((item) => CachedNetworkImage(
+                    imageUrl: item.id == null ? "http://64.227.166.238:8000${item.diseaseFile!}" : "http://64.227.166.238:8000/media/${item.diseaseFile!}",
+                    imageBuilder: (context, imageProvider) =>
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.low,
+                            ),
+                          ),
+                        ),
+                    placeholder: (context, url) =>
+                    const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),),
+                    errorWidget: (context, url, error) =>
+                        Container(
+                            width: double.infinity,
+                            height: 52,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff002833d)
+                                  .withOpacity(0.06),
+                              borderRadius:
+                              BorderRadius.circular(3),
+                            ),
+                            child: const Icon(Icons.error)),
+                  ),
+                      // Image.network(
+                      //     ApiEndPoints.imageBaseUrl + item.diseaseFile!,
+                      //     fit: BoxFit.cover,
+                      //     width: double.infinity),
+                  )
                       .toList(),
                   carouselController: _controller,
                   options: CarouselOptions(
@@ -285,7 +317,7 @@ class DiseaseResultScreen extends StatelessWidget {
             var product = products[index];
             return ListTile(
               leading: Image.network(
-                'http://64.227.166.238:8090${product.productimage}',
+                'http://64.227.166.238:8000${product.productimage}',
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,

@@ -98,7 +98,7 @@ class FarmerUpdateProfileController extends GetxController{
       loading.value = false;
     } else {
       loading.value = false;
-      Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Error", json['error'].toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
 }

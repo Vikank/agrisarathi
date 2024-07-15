@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  static final String baseUrl = 'http://64.227.166.238:8090/';
-  static final String imageBaseUrl = 'http://64.227.166.238:8090/media/';
+  static final String baseUrl = 'http://64.227.166.238:8000/';
+  static final String imageBaseUrl = 'http://64.227.166.238:8000/media/';
   static final String getCommunityPost = 'Get_Community_Posts_List';
   static const dukanAll = 'Dukan_all';
   static const getOnlyShop = 'Get_CategoryShops';

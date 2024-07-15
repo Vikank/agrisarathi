@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:fpo_assist/screens/initial/splash_screen.dart';
 import 'package:fpo_assist/utils/messages_translation.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load the saved language
+  final prefs = await SharedPreferences.getInstance();
+  int? languageCode = prefs.getInt('selected_language');
+  runApp(MyApp(languageCode: languageCode,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final int? languageCode;
+
+  const MyApp({super.key, this.languageCode});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: MessagesTranslation(),
-      locale: Locale('hi', 'IN'),
-      fallbackLocale: Locale('hi', 'IN'),
+      locale: languageCode == 1 ? Locale('en', 'US') : Locale('hi', 'IN'),
+      fallbackLocale: languageCode == 1 ? Locale('en', 'US') : Locale('hi', 'IN'),
       debugShowCheckedModeBanner: false,
         title: 'AgriSarthi',
         theme: _configureThemeData(),

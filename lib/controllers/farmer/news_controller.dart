@@ -66,7 +66,7 @@ class NewsController extends GetxController {
     try {
       log("api call me aaya ${userLanguage}");
       var response = await http.post(
-        Uri.parse('http://64.227.166.238:8090/GetCurrentNews'),
+        Uri.parse('http://64.227.166.238:8000/GetCurrentNews'),
         body: jsonEncode({"user_language": userLanguage, "filter_type": "all"}),
         headers: {'Content-Type': 'application/json'},
       );

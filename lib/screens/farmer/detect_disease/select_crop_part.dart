@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,10 +55,37 @@ class SelectCropPart extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                 child: Row(
                   children: [
-                    Image.network(
-                      '${ApiEndPoints.baseUrl}${cropImage ?? ""}',
-                      width: 52,
-                      height: 52,
+                    CachedNetworkImage(
+                      imageUrl:
+                      "http://64.227.166.238:8000${cropImage ?? ""}",
+                      imageBuilder: (context, imageProvider) =>
+                          Container(
+                            width: 52,
+                            height: 52,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                                filterQuality: FilterQuality.low,
+                              ),
+                            ),
+                          ),
+                      placeholder: (context, url) =>
+                      const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),),
+                      errorWidget: (context, url, error) =>
+                          Container(
+                              width: 52,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff002833d)
+                                    .withOpacity(0.06),
+                                borderRadius:
+                                BorderRadius.circular(3),
+                              ),
+                              child: const Icon(Icons.error)),
                     ),
                     SizedBox(
                       width: 30,

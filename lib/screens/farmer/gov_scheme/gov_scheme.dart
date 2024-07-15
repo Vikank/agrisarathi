@@ -99,7 +99,7 @@ class SchemeListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl: "http://64.227.166.238:8090${scheme.schemeImage}",
+                imageUrl: "http://64.227.166.238:8000${scheme.schemeImage}",
                 imageBuilder: (context, imageProvider) => Container(
                   height: 96,
                   width: 155,
