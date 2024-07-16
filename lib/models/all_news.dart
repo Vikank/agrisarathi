@@ -31,15 +31,15 @@ class Articles {
     required this.publishDate,
     required this.language,
   });
-  late final int newsId;
-  late final String title;
-  late final String content;
+  late final int? newsId;
+  late final String? title;
+  late final String? content;
   late final String? image;
-  late final String newsType;
-  late final String source;
-  late final String link;
-  late final String publishDate;
-  late final String language;
+  late final String? newsType;
+  late final String? source;
+  late final String? link;
+  late final String? publishDate;
+  late final String? language;
 
   Articles.fromJson(Map<String, dynamic> json){
     newsId = json['news_id'];

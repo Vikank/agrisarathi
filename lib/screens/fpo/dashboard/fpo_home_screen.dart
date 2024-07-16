@@ -12,7 +12,7 @@ class FpoHomeScreen extends StatelessWidget {
 
   static List<Widget> _widgetOptions = <Widget>[
     DashboardWidget(),
-    CommunityWidget(),
+    // CommunityWidget(),
     MandiWidget(),
     ProfileWidget(),
   ];

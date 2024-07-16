@@ -94,6 +94,7 @@ class FarmerDashboardController extends GetxController{
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         news.value = AllNews.fromJson(jsonData);
+        log("log ${news.value}");
         newsLoader.value = false;
       } else {
         newsLoader.value = false;

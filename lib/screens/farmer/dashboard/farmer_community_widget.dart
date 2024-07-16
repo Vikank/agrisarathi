@@ -1,15 +1,35 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:fpo_assist/controllers/community_controller.dart';
 import 'package:get/get.dart';
 
-class FarmerCommunityWidget extends StatelessWidget {
+import '../../../controllers/community_controller.dart';
+import 'community/add_new_post.dart';
+import 'community/post_card.dart';
 
-  CommunityController controller = Get.put(CommunityController());
+class CommunityForumScreen extends StatelessWidget {
+  final CommunityForumController controller = Get.put(CommunityForumController());
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Community Page'),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return ListView.builder(
+          itemCount: controller.posts.length,
+          itemBuilder: (context, index) {
+            return PostCard(post: controller.posts[index]);
+          },
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => Get.to(() => AddPostScreen()),
+      ),
     );
   }
+
 }

@@ -707,7 +707,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 10),
-                              Text(article.title, style: TextStyle(
+                              Text(article.title ?? "", style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "NotoSans",
                                 fontWeight: FontWeight.bold,

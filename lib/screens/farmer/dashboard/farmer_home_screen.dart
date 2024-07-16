@@ -20,7 +20,7 @@ class FarmerHomeScreen extends StatelessWidget {
   static List<Widget> _widgetOptions = <Widget>[
     FarmerDashboardWidget(),
     MyFarmsWidget(),
-    FarmerCommunityWidget(),
+    CommunityForumScreen(),
     FarmerMandiWidget(),
   ];
 
