@@ -10,15 +10,15 @@ class NewsArticle {
     required this.publishDate,
     required this.language,
   });
-  late final int newsId;
-  late final String title;
-  late final String content;
+  late final int? newsId;
+  late final String? title;
+  late final String? content;
   late final String? image;
-  late final String newsType;
-  late final String source;
-  late final String link;
-  late final String publishDate;
-  late final String language;
+  late final String? newsType;
+  late final String? source;
+  late final String? link;
+  late final String? publishDate;
+  late final String? language;
 
   NewsArticle.fromJson(Map<String, dynamic> json){
     newsId = json['news_id'];
@@ -28,7 +28,7 @@ class NewsArticle {
     newsType = json['news_type'];
     source = json['source'];
     link = json['link'];
-    publishDate = json['publish_date'];
+    publishDate = json['created_at'];
     language = json['language'];
   }
 
@@ -41,7 +41,7 @@ class NewsArticle {
     _data['news_type'] = newsType;
     _data['source'] = source;
     _data['link'] = link;
-    _data['publish_date'] = publishDate;
+    _data['created_at'] = publishDate;
     _data['language'] = language;
     return _data;
   }

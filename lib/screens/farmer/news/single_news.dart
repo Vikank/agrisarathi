@@ -29,7 +29,7 @@ class SingleNewsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                article.title,
+                article.title ?? "",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -80,7 +80,7 @@ class SingleNewsScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Text(
-                article.content,
+                article.content ?? "",
                 style: TextStyle(fontSize: 16),
               ),
             ],

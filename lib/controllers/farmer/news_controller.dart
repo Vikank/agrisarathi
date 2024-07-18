@@ -94,7 +94,7 @@ class NewsController extends GetxController {
     } else {
       filteredArticles.value = allArticles
           .where(
-              (article) => article.source.toLowerCase() == source.toLowerCase())
+              (article) => article.source!.toLowerCase() == source.toLowerCase())
           .toList();
     }
   }

@@ -19,7 +19,7 @@ class SingleDiseaseHistory extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Diagnosis",
+          "Diagnosis".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),

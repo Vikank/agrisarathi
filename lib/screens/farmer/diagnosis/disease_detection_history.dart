@@ -16,7 +16,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Disease Diagnosis",
+          "Disease_Diagnosis".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),

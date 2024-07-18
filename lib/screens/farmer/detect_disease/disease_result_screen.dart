@@ -162,7 +162,7 @@ class DiseaseResultScreen extends StatelessWidget {
                           height: 16,
                         ),
                         Text(
-                          "Symptoms",
+                          "Symptoms".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,

@@ -142,7 +142,7 @@ class NewsListView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          article.title,
+                          article.title ?? "",
                           style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "NotoSans", fontSize: 12),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
