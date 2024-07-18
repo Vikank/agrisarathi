@@ -289,10 +289,12 @@ class MessagesTranslation extends Translations{
       "Treatments_in_field": "Treatments in field",
       "Sustainable_methods": "Sustainable methods",
       "Treatments": "Treatments",
+      "Recommended Products": "Recommended Products"
     },
     'hi_IN': {
+      "Recommended_Products": "उपयोग किए गए सुझावात्मक उत्पाद",
       "Treatments": "उपचार",
-      "Sustainable_methods": "उपयोग किए गए सुझावात्मक उत्पाद",
+      "Sustainable_methods": "सतत तरीके",
       "Treatments_in_field": "खेत में उपचार",
       "Treatments_before_Sowing": "बुआई से पहले उपचार",
   "Disease_Diagnosis": "रोग निदान",

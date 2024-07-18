@@ -80,7 +80,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                           height: 16,
                         ),
                         Text(
-                          "Symptoms",
+                          "Symptoms".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
@@ -107,7 +107,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Treatments before Sowing",
+                                "Treatments_before_Sowing".tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -129,7 +129,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Treatments in field",
+                                "Treatments_in_field".tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -157,7 +157,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Treatment",
+                            "Treatments".tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
@@ -180,7 +180,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sustainable methods",
+                          "Sustainable_methods".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
@@ -209,7 +209,7 @@ class SingleDiseaseHistory extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Recommended Products',
+        Text('Recommended_Products'.tr,
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

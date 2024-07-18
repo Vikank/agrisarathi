@@ -192,7 +192,7 @@ class DiseaseResultScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Treatments before Sowing",
+                                "Treatments_before_Sowing",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -216,7 +216,7 @@ class DiseaseResultScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Treatments in field",
+                                "Treatments_in_field",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -274,7 +274,7 @@ class DiseaseResultScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sustainable methods",
+                          "Sustainable_methods",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
@@ -304,7 +304,7 @@ class DiseaseResultScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Recommended Products',
+        Text('Recommended_Products',
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
