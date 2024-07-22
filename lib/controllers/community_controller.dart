@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -19,7 +20,9 @@ class CommunityForumController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPosts();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      fetchPosts();
+    });
   }
 
   Future<void> fetchPosts() async {

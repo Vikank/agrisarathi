@@ -8,7 +8,7 @@ import 'community/add_new_post.dart';
 import 'community/post_card.dart';
 
 class CommunityForumScreen extends StatelessWidget {
-  final CommunityForumController controller = Get.put(CommunityForumController());
+  CommunityForumController controller = Get.put(CommunityForumController());
 
   @override
   Widget build(BuildContext context) {
