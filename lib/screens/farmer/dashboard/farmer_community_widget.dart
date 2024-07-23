@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../controllers/community_controller.dart';
 import 'community/add_new_post.dart';
 import 'community/post_card.dart';
+import 'community/post_details_screen.dart';
 
 class CommunityForumScreen extends StatelessWidget {
   CommunityForumController controller = Get.put(CommunityForumController());
@@ -21,7 +22,8 @@ class CommunityForumScreen extends StatelessWidget {
         return ListView.builder(
           itemCount: controller.posts.length,
           itemBuilder: (context, index) {
-            return PostCard(post: controller.posts[index]);
+            return GestureDetector(
+                onTap: () => Get.to(()=>PostDetailsScreen(post: controller.posts[index])), child: PostCard(post: controller.posts[index]));
           },
         );
       }),

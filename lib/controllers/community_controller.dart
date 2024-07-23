@@ -28,7 +28,7 @@ class CommunityForumController extends GetxController {
   Future<void> fetchPosts() async {
     isLoading(true);
     try {
-      final response = await http.post(Uri.parse('${ApiEndPoints.baseUrl}Get_Community_Posts_List?filter_type=farmer'));
+      final response = await http.post(Uri.parse('${ApiEndPoints.baseUrl}Get_Community_Posts_List?filter_type=farmer?'));
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
         posts.value = (jsonData['data'] as List)
@@ -85,7 +85,7 @@ class CommunityForumController extends GetxController {
         // Ideally, the API should return the new comment object
         // For now, we'll create a dummy comment
         var post = posts.firstWhere((p) => p.postId == postId);
-        post.commentList!.add(Comment(
+        post.commentList!.add(CommentList(
           userName: 'Current User', // Replace with actual user name
           userId: currentUserId,
           profilePic: '', // Replace with actual profile pic
@@ -122,7 +122,7 @@ class CommunityForumController extends GetxController {
         for (var post in posts) {
           var comment = post.commentList!.firstWhereOrNull((c) => c.id == commentId);
           if (comment != null) {
-            comment.replyComments!.add(ReplyComment(
+            comment.replyComments!.add(ReplyComments(
               userName: 'Current User', // Replace with actual user name
               userId: currentUserId,
               profilePic: '', // Replace with actual profile pic

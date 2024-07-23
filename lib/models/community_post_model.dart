@@ -1,105 +1,182 @@
 class CommunityPost {
-  final String? userName;
-  final int? userId;
-  final int? postId;
-  final String? profilePic;
-  final String? cropName;
-  final String? postImage;
+  String? userName;
+  int? userId;
+  int? postId;
+  String? profilePic;
+  String? cropName;
+  String? postImage;
   int? likeCount;
-  final String? description;
-  final String? createdDt;
-  final List<Comment>? commentList;
+  bool? isLikedbysameuser;
+  List<UsersLiked>? usersLiked;
+  String? description;
+  String? createdDt;
+  List<CommentList>? commentList;
 
-  CommunityPost({
-    this.userName,
-    this.userId,
-    this.postId,
-    this.profilePic,
-    this.cropName,
-    this.postImage,
-    this.likeCount,
-    this.description,
-    this.createdDt,
-    this.commentList,
-  });
+  CommunityPost(
+      {this.userName,
+        this.userId,
+        this.postId,
+        this.profilePic,
+        this.cropName,
+        this.postImage,
+        this.likeCount,
+        this.isLikedbysameuser,
+        this.usersLiked,
+        this.description,
+        this.createdDt,
+        this.commentList});
 
-  factory CommunityPost.fromJson(Map<String, dynamic> json) {
-    return CommunityPost(
-      userName: json['user_name'] as String?,
-      userId: json['user_id'] != null ? int.tryParse(json['user_id'].toString()) : null,
-      postId: json['post_id'] != null ? int.tryParse(json['post_id'].toString()) : null,
-      profilePic: json['profile_pic'] as String?,
-      cropName: json['crop_name'] as String?,
-      postImage: json['post_image'] as String?,
-      likeCount: json['like_count'] != null ? int.tryParse(json['like_count'].toString()) : null,
-      description: json['description'] as String?,
-      createdDt: json['created_dt'] as String?,
-      commentList: (json['comment_list'] as List?)
-          ?.map((comment) => Comment.fromJson(comment as Map<String, dynamic>))
-          .toList(),
-    );
+  CommunityPost.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'];
+    userId = json['user_id'];
+    postId = json['post_id'];
+    profilePic = json['profile_pic'];
+    cropName = json['crop_name'];
+    postImage = json['post_image'];
+    likeCount = json['like_count'];
+    isLikedbysameuser = json['is_likedbysameuser'];
+    if (json['users_liked'] != null) {
+      usersLiked = <UsersLiked>[];
+      json['users_liked'].forEach((v) {
+        usersLiked!.add(UsersLiked.fromJson(v));
+      });
+    }
+    description = json['description'];
+    createdDt = json['created_dt'];
+    if (json['comment_list'] != null) {
+      commentList = <CommentList>[];
+      json['comment_list'].forEach((v) {
+        commentList!.add(CommentList.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['user_name'] = userName;
+    data['user_id'] = userId;
+    data['post_id'] = postId;
+    data['profile_pic'] = profilePic;
+    data['crop_name'] = cropName;
+    data['post_image'] = postImage;
+    data['like_count'] = likeCount;
+    data['is_likedbysameuser'] = isLikedbysameuser;
+    if (usersLiked != null) {
+      data['users_liked'] = usersLiked!.map((v) => v.toJson()).toList();
+    }
+    data['description'] = description;
+    data['created_dt'] = createdDt;
+    if (commentList != null) {
+      data['comment_list'] = commentList!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
-class Comment {
-  final String? userName;
-  final int? userId;
-  final String? profilePic;
-  final int? id;
-  final String? postComment;
-  final String? createdDt;
-  final List<ReplyComment>? replyComments;
+class UsersLiked {
+  int? userId;
+  String? userName;
+  int? postId;
 
-  Comment({
-    this.userName,
-    this.userId,
-    this.profilePic,
-    this.id,
-    this.postComment,
-    this.createdDt,
-    this.replyComments,
-  });
+  UsersLiked({this.userId, this.userName, this.postId});
 
-  factory Comment.fromJson(Map<String, dynamic> json) {
-    return Comment(
-      userName: json['user_name'] as String?,
-      userId: json['user_id'] != null ? int.tryParse(json['user_id'].toString()) : null,
-      profilePic: json['profile_pic'] as String?,
-      id: json['id'] != null ? int.tryParse(json['id'].toString()) : null,
-      postComment: json['post_comment'] as String?,
-      createdDt: json['created_dt'] as String?,
-      replyComments: (json['reply_comments'] as List?)
-          ?.map((reply) => ReplyComment.fromJson(reply as Map<String, dynamic>))
-          .toList(),
-    );
+  UsersLiked.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    userName = json['user_name'];
+    postId = json['post_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['user_id'] = userId;
+    data['user_name'] = userName;
+    data['post_id'] = postId;
+    return data;
   }
 }
 
-class ReplyComment {
-  final String? userName;
-  final int? userId;
-  final String? profilePic;
-  final int? id;
-  final String? text;
-  final String? createdDt;
+class CommentList {
+  String? userName;
+  int? userId;
+  String? profilePic;
+  int? id;
+  String? postComment;
+  String? createdDt;
+  List<ReplyComments>? replyComments;
 
-  ReplyComment({
-    this.userName,
-    this.userId,
-    this.profilePic,
-    this.id,
-    this.text,
-    this.createdDt,
-  });
+  CommentList(
+      {this.userName,
+        this.userId,
+        this.profilePic,
+        this.id,
+        this.postComment,
+        this.createdDt,
+        this.replyComments});
 
-  factory ReplyComment.fromJson(Map<String, dynamic> json) {
-    return ReplyComment(
-      userName: json['user_name'] as String?,
-      userId: json['user_id'] != null ? int.tryParse(json['user_id'].toString()) : null,
-      profilePic: json['profile_pic'] as String?,
-      id: json['id'] != null ? int.tryParse(json['id'].toString()) : null,
-      text: json['text'] as String?,
-      createdDt: json['created_dt'] as String?,
-    );
+  CommentList.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'];
+    userId = json['user_id'];
+    profilePic = json['profile_pic'];
+    id = json['id'];
+    postComment = json['post_comment'];
+    createdDt = json['created_dt'];
+    if (json['reply_comments'] != null) {
+      replyComments = <ReplyComments>[];
+      json['reply_comments'].forEach((v) {
+        replyComments!.add(ReplyComments.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['user_name'] = userName;
+    data['user_id'] = userId;
+    data['profile_pic'] = profilePic;
+    data['id'] = id;
+    data['post_comment'] = postComment;
+    data['created_dt'] = createdDt;
+    if (replyComments != null) {
+      data['reply_comments'] =
+          replyComments!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ReplyComments {
+  String? userName;
+  int? userId;
+  String? profilePic;
+  int? id;
+  String? text;
+  String? createdDt;
+
+  ReplyComments(
+      {this.userName,
+        this.userId,
+        this.profilePic,
+        this.id,
+        this.text,
+        this.createdDt});
+
+  ReplyComments.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'];
+    userId = json['user_id'];
+    profilePic = json['profile_pic'];
+    id = json['id'];
+    text = json['text'];
+    createdDt = json['created_dt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['user_name'] = userName;
+    data['user_id'] = userId;
+    data['profile_pic'] = profilePic;
+    data['id'] = id;
+    data['text'] = text;
+    data['created_dt'] = createdDt;
+    return data;
   }
 }

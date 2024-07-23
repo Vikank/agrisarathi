@@ -96,8 +96,14 @@ class PostCard extends StatelessWidget {
             children: [
               IconButton(
                 icon: Image.asset("assets/icons/like.png", width: 24, height: 24,),
-                onPressed: () {
-                  // controller.likePost(post.postId!)
+                onPressed: () async {
+                  // bool isPostLiked = await controller.likePost(post.postId!);
+                  bool isPostLiked = await Future.delayed(Duration(seconds: 2), () => true);
+                  if (isPostLiked == true) {
+                    // API Call Success(post liked)
+                    likeCount.value++;
+                    post.likeCount = post.likeCount ?? 0 + 1;
+                  }
                 },
               ),
               Text('Like'),
