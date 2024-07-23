@@ -57,7 +57,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       appBar: AppBar(
         title: Text('Add New Post'),
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
         ),
       ),
@@ -66,6 +66,15 @@ class _AddPostScreenState extends State<AddPostScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            TextFormField(
+              controller: _descriptionController,
+              decoration: InputDecoration(
+                hintText: 'Write your post description...',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -88,15 +97,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 color: Colors.grey[300],
                 child: Center(child: Text('Video selected')),
               ),
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _descriptionController,
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Write your post description...',
-                border: OutlineInputBorder(),
-              ),
-            ),
             SizedBox(height: 16),
             ElevatedButton(
               child: Text('Post'),
