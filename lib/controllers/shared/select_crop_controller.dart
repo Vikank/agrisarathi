@@ -32,7 +32,7 @@ class CropController extends GetxController {
     Map body = {
       "user_language" : 1
     };
-    final response = await http.post(Uri.parse('http://64.227.166.238:8000/Get_Initial_Screen_Crops'), body: jsonEncode(body));
+    final response = await http.post(Uri.parse('https://64.227.166.238/api/Get_Initial_Screen_Crops'), body: jsonEncode(body));
     log(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);

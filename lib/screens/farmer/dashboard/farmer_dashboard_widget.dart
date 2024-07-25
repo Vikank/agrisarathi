@@ -485,35 +485,69 @@ class FarmerDashboardWidget extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      Get.to(SchemeListView());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(SchemeListView());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              "assets/images/gov_schemes.png",
-                              height: 40,
-                              width: 40,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "gov_scheme".tr,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "NotoSans"),
-                              textAlign: TextAlign.center,
+                            Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/gov_schemes.png",
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "gov_scheme".tr,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSans"),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(SchemeListView());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/gov_schemes.png",
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "crop_suggestion".tr,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSans"),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

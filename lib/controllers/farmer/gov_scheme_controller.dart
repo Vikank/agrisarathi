@@ -48,7 +48,7 @@ class SchemeController extends GetxController {
     isLoading(true);
     try {
       var response = await http.post(
-        Uri.parse('http://64.227.166.238:8000/GetallGovtSchemes'),
+        Uri.parse('https://64.227.166.238/api/GetallGovtSchemes'),
         body: jsonEncode({"user_language": userLanguage, "filter_type": "all"}),
         headers: {'Content-Type': 'application/json'},
       );

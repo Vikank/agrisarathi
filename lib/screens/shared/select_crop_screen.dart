@@ -93,7 +93,7 @@ class SelectCropScreen extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            'http://64.227.166.238:8000/' +
+                            'https://64.227.166.238/api/' +
                                 crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
@@ -285,7 +285,7 @@ class SelectCropScreen extends StatelessWidget {
                                                   child: const Icon(Icons.error)),
                                         ),
                                         // Image.network(
-                                        //     "http://64.227.166.238:8000/media/${crop.cropImage}", fit: BoxFit.contain),
+                                        //     "https://64.227.166.238/api/media/${crop.cropImage}", fit: BoxFit.contain),
                                       ),
                                     ),
                                     Visibility(

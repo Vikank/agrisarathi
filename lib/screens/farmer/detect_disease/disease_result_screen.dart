@@ -58,7 +58,7 @@ class DiseaseResultScreen extends StatelessWidget {
                 child: CarouselSlider(
                   items: controller.diseaseResultModel.diseaseResults!.images!
                       .map((item) => CachedNetworkImage(
-                    imageUrl: item.id == null ? "http://64.227.166.238:8000${item.diseaseFile!}" : "http://64.227.166.238:8000/media/${item.diseaseFile!}",
+                    imageUrl: item.id == null ? "http://64.227.166.238:8000${item.diseaseFile!}" : "https://64.227.166.238/api/media/${item.diseaseFile!}",
                     imageBuilder: (context, imageProvider) =>
                         Container(
                           width: double.infinity,
