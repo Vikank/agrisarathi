@@ -95,10 +95,10 @@ class PostCard extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                icon: Image.asset("assets/icons/like.png", width: 24, height: 24,),
+                icon: Icon(Icons.thumb_up_alt_outlined,color: (post.isLikedbysameuser ?? false) ? Colors.blue : Colors.black),
                 onPressed: () async {
-                  // bool isPostLiked = await controller.likePost(post.postId!);
-                  bool isPostLiked = await Future.delayed(Duration(seconds: 2), () => true);
+                  bool isPostLiked = await controller.likePost(post.postId!,true);
+                  // bool isPostLiked = await Future.delayed(Duration(seconds: 2), () => true);
                   if (isPostLiked == true) {
                     // API Call Success(post liked)
                     likeCount.value++;

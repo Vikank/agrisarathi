@@ -3,6 +3,7 @@ import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -15,7 +16,7 @@ class CommunityForumController extends GetxController {
 
   // Assuming these values are set when the user logs in
   late int currentUserId;
-  late String currentUserType;
+  late String currentUserType = "farmer";
 
   @override
   void onInit() {
@@ -23,17 +24,23 @@ class CommunityForumController extends GetxController {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       fetchPosts();
     });
+    getFarmerId();
+  }
+
+  getFarmerId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String s = prefs.getString('farmerId') ?? '-1';
+    currentUserId = int.parse(s);
   }
 
   Future<void> fetchPosts() async {
     isLoading(true);
     try {
-      final response = await http.post(Uri.parse('${ApiEndPoints.baseUrl}Get_Community_Posts_List?filter_type=farmer?'));
+      final response =
+          await http.post(Uri.parse('${ApiEndPoints.baseUrl}Get_Community_Posts_List?filter_type=farmer?'));
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
-        posts.value = (jsonData['data'] as List)
-            .map((post) => CommunityPost.fromJson(post))
-            .toList();
+        posts.value = (jsonData['data'] as List).map((post) => CommunityPost.fromJson(post)).toList();
       } else {
         throw Exception('Failed to load posts');
       }
@@ -44,15 +51,22 @@ class CommunityForumController extends GetxController {
     }
   }
 
-  Future<bool> likePost(int postId) async {
-    var url = Uri.parse('${ApiEndPoints.baseUrl}Like_Post_By_User');
-    var request = http.MultipartRequest('POST', url)
+  Future<bool> likePost(int postId, bool action) async {
+    var url = Uri.parse('${ApiEndPoints.baseUrl}Like_Unlike_Post_By_User');
+    /*var request = http.MultipartRequest('POST', url)
       ..fields['user_id'] = currentUserId.toString()
       ..fields['post_id'] = postId.toString()
-      ..fields['user_type'] = currentUserType;
+      ..fields['user_type'] = currentUserType;*/
 
     try {
-      var response = await request.send();
+      // var response = await request.send();
+      var response = await http.post(url,
+          body: jsonEncode(<String, dynamic>{
+            'user_id': currentUserId.toString(),
+            'fk_post_id': postId.toString(),
+            'action': action ? "like" : "unlike",
+            'user_type': currentUserType
+          }));
       if (response.statusCode == 200) {
         // Update local state
         var post = posts.firstWhere((p) => p.postId == postId);
@@ -72,23 +86,33 @@ class CommunityForumController extends GetxController {
 
   Future<bool> addComment(int postId, String commentText) async {
     var url = Uri.parse('${ApiEndPoints.baseUrl}Comment_On_Post');
-    var request = http.MultipartRequest('POST', url)
+
+    /*var request = http.MultipartRequest('POST', url)
       ..fields['user_id'] = currentUserId.toString()
       ..fields['post_id'] = postId.toString()
       ..fields['comment_text'] = commentText
-      ..fields['user_type'] = currentUserType;
+      ..fields['user_type'] = currentUserType;*/
 
     try {
-      var response = await request.send();
+      // var response = await request.send();
+      var response = await http.post(url,
+          body: jsonEncode(<String, dynamic>{
+            'user_id': currentUserId.toString(),
+            'post_id': postId.toString(),
+            'comment_text': commentText,
+            'user_type': currentUserType
+          }));
       if (response.statusCode == 200) {
         // Update local state
         // Ideally, the API should return the new comment object
         // For now, we'll create a dummy comment
         var post = posts.firstWhere((p) => p.postId == postId);
         post.commentList!.add(CommentList(
-          userName: 'Current User', // Replace with actual user name
+          userName: 'Current User',
+          // Replace with actual user name
           userId: currentUserId,
-          profilePic: '', // Replace with actual profile pic
+          profilePic: '',
+          // Replace with actual profile pic
           id: DateTime.now().millisecondsSinceEpoch,
           postComment: commentText,
           createdDt: DateTime.now().toIso8601String(),
@@ -123,9 +147,11 @@ class CommunityForumController extends GetxController {
           var comment = post.commentList!.firstWhereOrNull((c) => c.id == commentId);
           if (comment != null) {
             comment.replyComments!.add(ReplyComments(
-              userName: 'Current User', // Replace with actual user name
+              userName: 'Current User',
+              // Replace with actual user name
               userId: currentUserId,
-              profilePic: '', // Replace with actual profile pic
+              profilePic: '',
+              // Replace with actual profile pic
               id: DateTime.now().millisecondsSinceEpoch,
               text: replyText,
               createdDt: DateTime.now().toIso8601String(),

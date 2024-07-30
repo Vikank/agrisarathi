@@ -180,3 +180,171 @@ class ReplyComments {
     return data;
   }
 }
+
+/*class CommunityPost {
+  String? userName;
+  int? userId;
+  int? postId;
+  String? profilePic;
+  String? cropName;
+  String? postImage;
+  int? likeCount;
+  bool? isLikedbysameuser;
+  List<UsersLiked>? usersLiked;
+  String? description;
+  String? createdDt;
+  List<CommentList>? commentList;
+
+  CommunityPost({
+    this.userName,
+    this.userId,
+    this.postId,
+    this.profilePic,
+    this.cropName,
+    this.postImage,
+    this.likeCount,
+    this.isLikedbysameuser,
+    this.usersLiked,
+    this.description,
+    this.createdDt,
+    this.commentList,
+  });
+
+  CommunityPost.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'] as String?;
+    userId = json['user_id'] as int?;
+    postId = json['post_id'] as int?;
+    profilePic = json['profile_pic'] as String?;
+    cropName = json['crop_name'] as String?;
+    postImage = json['post_image'] as String?;
+    likeCount = json['like_count'] as int?;
+    isLikedbysameuser = json['is_likedbysameuser'] as bool?;
+    usersLiked = (json['users_liked'] as List?)?.map((dynamic e) => UsersLiked.fromJson(e as Map<String,dynamic>)).toList();
+    description = json['description'] as String?;
+    createdDt = json['created_dt'] as String?;
+    commentList = (json['comment_list'] as List?)?.map((dynamic e) => CommentList.fromJson(e as Map<String,dynamic>)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['user_name'] = userName;
+    json['user_id'] = userId;
+    json['post_id'] = postId;
+    json['profile_pic'] = profilePic;
+    json['crop_name'] = cropName;
+    json['post_image'] = postImage;
+    json['like_count'] = likeCount;
+    json['is_likedbysameuser'] = isLikedbysameuser;
+    json['users_liked'] = usersLiked?.map((e) => e.toJson()).toList();
+    json['description'] = description;
+    json['created_dt'] = createdDt;
+    json['comment_list'] = commentList?.map((e) => e.toJson()).toList();
+    return json;
+  }
+}
+
+class UsersLiked {
+  dynamic userId;
+  dynamic userName;
+  int? postId;
+
+  UsersLiked({
+    this.userId,
+    this.userName,
+    this.postId,
+  });
+
+  UsersLiked.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    userName = json['user_name'];
+    postId = json['post_id'] as int?;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['user_id'] = userId;
+    json['user_name'] = userName;
+    json['post_id'] = postId;
+    return json;
+  }
+}
+
+class CommentList {
+  String? userName;
+  int? userId;
+  String? profilePic;
+  int? id;
+  String? postComment;
+  String? createdDt;
+  List<ReplyComments>? replyComments;
+
+  CommentList({
+    this.userName,
+    this.userId,
+    this.profilePic,
+    this.id,
+    this.postComment,
+    this.createdDt,
+    this.replyComments,
+  });
+
+  CommentList.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'] as String?;
+    userId = json['user_id'] as int?;
+    profilePic = json['profile_pic'] as String?;
+    id = json['id'] as int?;
+    postComment = json['post_comment'] as String?;
+    createdDt = json['created_dt'] as String?;
+    replyComments = (json['reply_comments'] as List?)?.map((dynamic e) => ReplyComments.fromJson(e as Map<String,dynamic>)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['user_name'] = userName;
+    json['user_id'] = userId;
+    json['profile_pic'] = profilePic;
+    json['id'] = id;
+    json['post_comment'] = postComment;
+    json['created_dt'] = createdDt;
+    json['reply_comments'] = replyComments?.map((e) => e.toJson()).toList();
+    return json;
+  }
+}
+
+class ReplyComments {
+  String? userName;
+  int? userId;
+  String? profilePic;
+  int? id;
+  String? text;
+  String? createdDt;
+
+  ReplyComments({
+    this.userName,
+    this.userId,
+    this.profilePic,
+    this.id,
+    this.text,
+    this.createdDt,
+  });
+
+  ReplyComments.fromJson(Map<String, dynamic> json) {
+    userName = json['user_name'] as String?;
+    userId = json['user_id'] as int?;
+    profilePic = json['profile_pic'] as String?;
+    id = json['id'] as int?;
+    text = json['text'] as String?;
+    createdDt = json['created_dt'] as String?;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['user_name'] = userName;
+    json['user_id'] = userId;
+    json['profile_pic'] = profilePic;
+    json['id'] = id;
+    json['text'] = text;
+    json['created_dt'] = createdDt;
+    return json;
+  }
+}*/
