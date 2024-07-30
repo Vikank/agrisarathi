@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/screens/farmer/crop_suggstion/single_crop_suggestion.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 
@@ -57,43 +58,52 @@ class CropSuggestion extends StatelessWidget {
               itemCount: controller.cropSuggestions.length,
               itemBuilder: (context, index) {
                 var crop = controller.cropSuggestions[index];
-                return ListTile(
+                return GestureDetector(
                   onTap: (){
-
+                    Get.to(SingleCropSuggestion(cropId: crop.cropId));
                   },
-                  horizontalTitleGap: 24,
-                  leading: CachedNetworkImage(
-                    imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}',
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 62,
-                      width: 65,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.fitHeight,
-                          filterQuality: FilterQuality.low,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: CachedNetworkImage(
+                            imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}',
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.low,
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                                width: double.infinity,
+                                height: 52,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff002833d).withOpacity(0.06),
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                                child: const Icon(Icons.error)),
+                          ),
                         ),
-                      ),
+                        SizedBox(width: 24,),
+                        Text(crop.cropName ?? '', style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            fontFamily: "NotoSans"
+                        ),),
+                      ],
                     ),
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                        width: double.infinity,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff002833d).withOpacity(0.06),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: const Icon(Icons.error)),
                   ),
-                  title: Text(crop.cropName ?? '', style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    fontFamily: "NotoSans"
-                  ),),
                 );
               }, separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
