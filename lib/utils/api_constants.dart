@@ -31,4 +31,5 @@ class _AuthEndPoints {
   final String getFarmerDetails = 'GetFarmProfileDetails';
   final String getDiseaseHistory = 'GetDiagnosisReport';
   final String getSingleDiseaseHistory = 'GetSingleDiagnosisReport';
+  final String getCropSuggestion = 'Get_Suggested_Crops';
 }

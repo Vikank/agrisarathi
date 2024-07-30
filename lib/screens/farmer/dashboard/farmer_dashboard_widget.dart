@@ -12,6 +12,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../controllers/profile_controller.dart';
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_home_card.dart';
+import '../crop_suggstion/crop_suggestion.dart';
 import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
 
@@ -486,67 +487,59 @@ class FarmerDashboardWidget extends StatelessWidget {
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: (){
                           Get.to(SchemeListView());
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/gov_schemes.png",
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "gov_scheme".tr,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSans"),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            Image.asset(
+                              "assets/images/gov_schemes.png",
+                              height: 40,
+                              width: 40,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "gov_scheme".tr,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "NotoSans"),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(SchemeListView());
+                          Get.to(CropSuggestion());
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/gov_schemes.png",
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "crop_suggestion".tr,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSans"),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            Image.asset(
+                              "assets/images/crop_suggestion.png",
+                              height: 40,
+                              width: 40,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "crop_suggestion".tr,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "NotoSans"),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
                       ),
+                      GestureDetector(child: Container(height: 40, width: 40,))
                     ],
                   ),
                 ],
