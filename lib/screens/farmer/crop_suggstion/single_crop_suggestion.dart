@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import '../../../controllers/farmer/single_crop_suggestion_controller.dart';
 import '../../../models/single_crop_suggestion_model.dart';
@@ -15,10 +16,11 @@ class SingleCropSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crop Suggestion'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
+        backgroundColor: Colors.white,
+        title: Text(
+          "Crop Suggestion".tr,
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
       ),
       body: Obx(() {
@@ -35,29 +37,32 @@ class SingleCropSuggestion extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  crop.cropName ?? '',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: CachedNetworkImage(
-                        imageUrl: crop.cropImage ?? '',
-                        placeholder: (context, url) => CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
+                    Text(
+                      crop.cropName ?? '',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.volume_up),
-                      onPressed: controller.playAudio,
-                    ),
+                    Spacer(),
+                    Obx(() => IconButton(
+                      icon: Icon(controller.isPlaying.value ? Icons.stop : Icons.play_arrow),
+                      onPressed: controller.toggleAudio,
+                    )),
                   ],
                 ),
+                SizedBox(height: 8),
+                SizedBox(
+                  height: 100,
+                  width: double.infinity,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}' ?? '',
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                ),
                 SizedBox(height: 16),
-                Text(crop.description ?? '', style: TextStyle(fontSize: 16)),
+                Text(crop.description ?? '', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans")),
                 SizedBox(height: 16),
                 _buildInfoSection('Requirement', [
                   'Weather: ${crop.weatherTemperature ?? ''}',
@@ -80,11 +85,11 @@ class SingleCropSuggestion extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter")),
         SizedBox(height: 8),
         ...items.map((item) => Padding(
           padding: EdgeInsets.only(bottom: 4),
-          child: Text(item),
+          child: Text(item, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans"),),
         )).toList(),
       ],
     );

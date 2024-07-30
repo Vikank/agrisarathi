@@ -60,7 +60,7 @@ class CropSuggestion extends StatelessWidget {
                 var crop = controller.cropSuggestions[index];
                 return GestureDetector(
                   onTap: (){
-                    Get.to(SingleCropSuggestion(cropId: crop.cropId));
+                    Get.to(()=>SingleCropSuggestion(cropId: crop.cropId));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),

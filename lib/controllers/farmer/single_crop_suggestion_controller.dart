@@ -11,6 +11,15 @@ class SingleCropSuggestionController extends GetxController {
   var cropDetails = Rx<CropDetails?>(null);
   var errorMessage = ''.obs;
   final audioPlayer = AudioPlayer();
+  var isPlaying = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      isPlaying.value = state == PlayerState.playing;
+    });
+  }
 
 
   void fetchSingleCropSuggestion(int cropId) async {
@@ -46,12 +55,26 @@ class SingleCropSuggestionController extends GetxController {
     }
   }
 
-  void playAudio() async {
+
+  void toggleAudio() async {
     if (cropDetails.value?.cropName != null) {
-      String audioUrl = "${ApiEndPoints.baseUrl}${cropDetails.value!.cropAudio}";
-      await audioPlayer.play(UrlSource(audioUrl));
+      String audioUrl = "${ApiEndPoints.baseUrl}/media/cropsuggest_audio/%E0%A4%AA%E0%A4%AF%E0%A4%9C.mp3";
+      if (isPlaying.value) {
+        await audioPlayer.pause();
+      } else {
+        await audioPlayer.play(UrlSource(audioUrl));
+      }
     }
   }
+
+
+  // void playAudio() async {
+  //   if (cropDetails.value?.cropName != null) {
+  //     // String audioUrl = "${ApiEndPoints.baseUrl}${cropDetails.value!.cropAudio}";
+  //     String audioUrl = "${ApiEndPoints.baseUrl}/media/cropsuggest_audio/%E0%A4%AA%E0%A4%AF%E0%A4%9C.mp3";
+  //     await audioPlayer.play(UrlSource(audioUrl));
+  //   }
+  // }
 
   @override
   void onClose() {
