@@ -48,7 +48,7 @@ class PostCard extends StatelessWidget {
           ),
           CachedNetworkImage(
             // imageUrl: '${ApiEndPoints.baseUrl}${post.postImage}',
-            imageUrl: 'http://64.227.166.238:8000${post.postImage}',
+            imageUrl: 'https://api.agrisarathi.com/api/${post.postImage}',
             imageBuilder: (context, imageProvider) => Container(
               height: 180,
               width: double.infinity,

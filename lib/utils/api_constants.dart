@@ -1,6 +1,6 @@
 class ApiEndPoints {
   static final String baseUrl = 'https://api.agrisarathi.com/api/';
-  static final String imageBaseUrl = 'https://64.227.166.238/api/media/';
+  static final String imageBaseUrl = 'https://api.agrisarathi.com/api/media/';
   static final String getCommunityPost = 'Get_Community_Posts_List';
   static const dukanAll = 'Dukan_all';
   static const getOnlyShop = 'Get_CategoryShops';
@@ -33,4 +33,6 @@ class _AuthEndPoints {
   final String getSingleDiseaseHistory = 'GetSingleDiagnosisReport';
   final String getCropSuggestion = 'Get_Suggested_Crops';
   final String getSingleCropSuggestion = 'GetSuggested_Crop_Details';
+  final String fertilizersWithTest = 'Fertilizerswithtest';
+  final String advanceFertilizerCalculator = 'AdvanceFertilizercalculator';
 }

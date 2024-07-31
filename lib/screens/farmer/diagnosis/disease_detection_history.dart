@@ -53,7 +53,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: Image.network(
-                            'http://64.227.166.238:8000${details.image}',
+                            'https://api.agrisarathi.com/api/${details.image}',
                             width: 155,
                             height: 95,
                             fit: BoxFit.cover,

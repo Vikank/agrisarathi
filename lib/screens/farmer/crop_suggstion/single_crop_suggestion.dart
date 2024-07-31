@@ -15,6 +15,7 @@ class SingleCropSuggestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -37,25 +38,29 @@ class SingleCropSuggestion extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      crop.cropName ?? '',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
-                    ),
-                    Spacer(),
-                    Obx(() => IconButton(
-                      icon: Icon(controller.isPlaying.value ? Icons.stop : Icons.play_arrow),
-                      onPressed: controller.toggleAudio,
-                    )),
-                  ],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  color: Color(0xffBAEDBD),
+                  child: Row(
+                    children: [
+                      Text(
+                        crop.cropName ?? '',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
+                      ),
+                      Spacer(),
+                      Obx(() => IconButton(
+                        icon: Icon(controller.isPlaying.value ? Icons.stop : Icons.play_arrow),
+                        onPressed: controller.toggleAudio,
+                      )),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 8),
                 SizedBox(
-                  height: 100,
+                  height: 190,
                   width: double.infinity,
                   child: CachedNetworkImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}' ?? '',
                     placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(Icons.error),

@@ -222,7 +222,7 @@ class SingleDiseaseHistory extends StatelessWidget {
             var product = products[index];
             return ListTile(
               leading: Image.network(
-                'http://64.227.166.238:8000${product.productimage}',
+                'https://api.agrisarathi.com/api/${product.productimage}',
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,

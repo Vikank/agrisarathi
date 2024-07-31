@@ -13,6 +13,7 @@ import '../../../controllers/profile_controller.dart';
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_home_card.dart';
 import '../crop_suggstion/crop_suggestion.dart';
+import '../fertilier_calculator/farm_for_fertilizer.dart';
 import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
 
@@ -265,25 +266,30 @@ class FarmerDashboardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Image.asset(
-                        "assets/images/fertilizer_calci.png",
-                        height: 40,
-                        width: 40,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Fertilizer_Calculator".tr,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "NotoSans"),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(FarmForFertilizer());
+                    },
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/fertilizer_calci.png",
+                          height: 40,
+                          width: 40,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Fertilizer_Calculator".tr,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "NotoSans"),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                   Column(
                     children: [

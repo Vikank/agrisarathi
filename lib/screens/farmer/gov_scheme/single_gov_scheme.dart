@@ -46,7 +46,7 @@ class SingleSchemeScreen extends StatelessWidget {
               height: 16,
             ),
             CachedNetworkImage(
-              imageUrl: "http://64.227.166.238:8000${scheme.schemeImage}",
+              imageUrl: "https://api.agrisarathi.com/api/${scheme.schemeImage}",
               imageBuilder: (context, imageProvider) => Container(
                 height: 190,
                 width: double.infinity,

@@ -58,7 +58,7 @@ class DiseaseResultScreen extends StatelessWidget {
                 child: CarouselSlider(
                   items: controller.diseaseResultModel.diseaseResults!.images!
                       .map((item) => CachedNetworkImage(
-                    imageUrl: item.id == null ? "http://64.227.166.238:8000${item.diseaseFile!}" : "https://64.227.166.238/api/media/${item.diseaseFile!}",
+                    imageUrl: item.id == null ? "https://api.agrisarathi.com/api/${item.diseaseFile!}" : "https://64.227.166.238/api/media/${item.diseaseFile!}",
                     imageBuilder: (context, imageProvider) =>
                         Container(
                           width: double.infinity,
@@ -317,7 +317,7 @@ class DiseaseResultScreen extends StatelessWidget {
             var product = products[index];
             return ListTile(
               leading: Image.network(
-                'http://64.227.166.238:8000${product.productimage}',
+                'https://api.agrisarathi.com/api/${product.productimage}',
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,

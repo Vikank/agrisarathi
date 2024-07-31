@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
 import 'package:get/get.dart';
-
-import '../../../utils/api_constants.dart';
-import '../../shared/select_crop_screen.dart';
 import 'choose_another_crop.dart';
 
 class ChooseFarmLand extends StatelessWidget {
@@ -72,7 +69,7 @@ class ChooseFarmLand extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                          "http://64.227.166.238:8000${farmLand.cropImages![0] ?? ""}",
+                          "https://api.agrisarathi.com/api/${farmLand.cropImages![0] ?? ""}",
                           imageBuilder: (context, imageProvider) =>
                               Container(
                                 width: 52,
