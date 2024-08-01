@@ -23,9 +23,9 @@ class FertilizerCalciController extends GetxController{
         "crop_id": 4,
         "user_language": 1,
         "farm_id": 1,
-        "nitrogen": nitrogenValue.value,
-        "phosphorous": phosphorousValue.value,
-        "potassium": potassiumValue.value
+        "nitrogen": int.parse(nitrogenValue.text),
+        "phosphorous": int.parse(phosphorousValue.text),
+        "potassium": int.parse(potassiumValue.text)
       }),
     );
 

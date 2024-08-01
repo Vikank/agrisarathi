@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:fpo_assist/utils/color_constants.dart';
+import 'package:get/get.dart';
 import '../../../models/fertilizer_calci_response.dart';
+import 'advanced_fertilizer_calci.dart';
 
 class FertilizerResultScreen extends StatelessWidget {
   final FertilizerResponse fertilizerData;
@@ -10,12 +12,14 @@ class FertilizerResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+        backgroundColor: Colors.white,
+        title: Text(
+          "Fertilizer_calculator".tr,
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
-        title: Text('Fertilizer Calculator'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -36,28 +40,27 @@ class FertilizerResultScreen extends StatelessWidget {
   }
 
   Widget _buildSectionCard(String title, Widget content) {
-    return Card(
-      color: Colors.green[50],
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 12),
-            content,
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10.0),
+          width: double.infinity,
+          color: Colors.green[50],
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
+          ),
         ),
-      ),
+        SizedBox(height: 12),
+        content,
+      ],
     );
   }
 
   Widget _buildSoilStructureTable() {
     return Table(
-      border: TableBorder.all(color: Colors.grey[300]!),
+      border: TableBorder.all(color: Colors.grey[300]!, borderRadius: BorderRadius.all(Radius.circular(4))),
       children: [
         TableRow(
           children: ['', 'N', 'P', 'K'].map((e) => _buildTableCell(e, isHeader: true)).toList(),
@@ -84,7 +87,7 @@ class FertilizerResultScreen extends StatelessWidget {
 
   Widget _buildBagsTable() {
     return Table(
-      border: TableBorder.all(color: Colors.grey[300]!),
+      border: TableBorder.all(color: Colors.grey[300]!, borderRadius: BorderRadius.all(Radius.circular(4))),
       children: [
         TableRow(
           children: ['', 'Kg/ha', '50 kg bag', 'Price'].map((e) => _buildTableCell(e, isHeader: true)).toList(),
@@ -110,7 +113,7 @@ class FertilizerResultScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           text,
-          style: TextStyle(fontWeight: isHeader ? FontWeight.bold : FontWeight.normal),
+          style: TextStyle(fontWeight: isHeader ? FontWeight.w500 : FontWeight.w400, fontFamily: "NotoSans", fontSize: isHeader ? 14 : 12),
           textAlign: TextAlign.center,
         ),
       ),
@@ -127,27 +130,31 @@ class FertilizerResultScreen extends StatelessWidget {
           children: [
             Text(
               'Already have some stock',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
             ),
             SizedBox(height: 8),
-            Text('Do you have any stock already with you, then calculate how much you need now'),
+            Text('Do you have any stock already with you, then calculate how much you need now',
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: "NotoSans"),),
             SizedBox(height: 16),
             Row(
               children: [
-                ElevatedButton(
+                OutlinedButton(
                   onPressed: () {
-                    // Implement calculation logic here
+                    Get.to(AdvancedFertilizerCalculatorScreen());
                   },
-                  child: Text('CALCULATE'),
+                  child: Text('CALCULATE',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(4),
+
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
-                Icon(Icons.science, color: Colors.green),
+                Spacer(),
+                Image.asset("assets/images/fertilizer_calci_report.png",
+                width: 49,
+                height: 52),
               ],
             ),
           ],
