@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fpo_assist/controllers/community_controller.dart';
 import 'package:fpo_assist/models/community_post_model.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
@@ -8,15 +9,16 @@ import 'package:get/get.dart';
 class PostDetailsScreen extends StatelessWidget {
   final CommunityPost post;
   final CommunityForumController controller = Get.find();
-
+  int? currentFocussedCommentID;
   PostDetailsScreen({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController commentController = TextEditingController();
     OutlineInputBorder CommentBoxborder =
-    OutlineInputBorder(borderSide: BorderSide(color: Colors.grey), borderRadius: BorderRadius.circular(5));
+        OutlineInputBorder(borderSide: BorderSide(color: Colors.grey), borderRadius: BorderRadius.circular(5));
     RxInt likeCount = post.likeCount!.obs;
-
+    FocusNode myFocusNode = FocusNode();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -112,12 +114,10 @@ class PostDetailsScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      // icon: Image.asset("assets/icons/like.png", width: 24, height: 24, color: post.isLiked ? Colors.blue : null ),
-                      icon: Image.asset(
-                        "assets/icons/like.png",
-                        width: 24,
-                        height: 24,
-                      ),
+                      // icon: Image.asset("assets/icons/like.png", width: 24, height: 24, color: post.isLikedbysameuser??false ? Colors.blue : null ),
+                      // icon: Image.asset("assets/icons/like.png", width: 24, height: 24,),
+                      icon: Icon(Icons.thumb_up_alt_outlined,
+                          color: post.isLikedbysameuser ?? false ? Colors.blue : null),
                       onPressed: () async {
                         // bool isPostLiked = await controller.likePost(post.postId!);
                         bool isPostLiked = await Future.delayed(Duration(seconds: 2), () => true);
@@ -156,6 +156,8 @@ class PostDetailsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     CommentList? comment = post.commentList?[index];
                     return comments(
+                        myFocusNode: myFocusNode,
+                        comment: comment,
                         userName: comment?.userName ?? '',
                         profilePic: comment?.profilePic ?? '',
                         postComment: comment?.postComment ?? '');
@@ -164,6 +166,8 @@ class PostDetailsScreen extends StatelessWidget {
                 Row(mainAxisSize: MainAxisSize.min, children: [
                   Expanded(
                     child: TextField(
+                      focusNode: myFocusNode,
+                      controller: commentController,
                       decoration: InputDecoration(
                           hintText: "Comment",
                           border: CommentBoxborder,
@@ -172,13 +176,18 @@ class PostDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10),
-                  Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                      child: Icon(
-                        Icons.send,
-                        color: Colors.white,
-                      ))
+                  GestureDetector(
+                    onTap: () {
+                      debugPrint("--------Comment -----------------");
+                      controller.addComment(post.postId ?? -1,commentController.text.trim());},
+                    child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                        child: Icon(
+                          Icons.send,
+                          color: Colors.white,
+                        )),
+                  )
                 ])
               ],
             ),
@@ -186,7 +195,56 @@ class PostDetailsScreen extends StatelessWidget {
         ));
   }
 
-  Column comments({required String userName, required String profilePic, required String postComment}) {
+  Column comments(
+      {required FocusNode myFocusNode,
+      required CommentList? comment,
+      required String userName,
+      required String profilePic,
+      required String postComment}) {
+    int replyCommentsCount = comment?.replyComments?.length ?? 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage('${ApiEndPoints.baseUrl}${profilePic}'),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(userName),
+                Text("----"),
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10),
+        Text(postComment),
+        TextButton(
+            onPressed: () {
+              myFocusNode.requestFocus();
+              currentFocussedCommentID = comment?.id;
+            },
+            child: Text(
+              "Reply",
+              style: TextStyle(fontSize: 15, color: Colors.green, decoration: TextDecoration.underline),
+            )),
+        SizedBox(height: 10),
+        for (int i = 0; i < replyCommentsCount; i++)
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: replyComments(comment?.replyComments?[i].profilePic ?? '', comment?.replyComments?[i].userName ?? '',
+                comment?.replyComments?[i].text ?? ''),
+          )
+      ],
+    );
+  }
+
+  Column replyComments(String profilePic, String userName, String postComment) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
