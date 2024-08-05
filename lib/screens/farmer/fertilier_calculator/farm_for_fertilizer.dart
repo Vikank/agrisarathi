@@ -7,11 +7,14 @@ import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
 import 'package:fpo_assist/utils/color_constants.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/farmer/fertilizer_calci_controller.dart';
 import 'another_crop_fetrilizer.dart';
 import 'fertilizer_calci.dart';
+import 'fertilizer_recommended_screen.dart';
 
 class FarmForFertilizer extends StatelessWidget {
   FarmerDashboardController controller = Get.put(FarmerDashboardController());
+  FertilizerCalciController fertilizerCalciController = Get.put(FertilizerCalciController());
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,11 @@ class FarmForFertilizer extends StatelessWidget {
                                   SizedBox(
                                     height: 30,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+                                        Get.back(); // Close the dialog
+                                        await fertilizerCalciController.fetchRecommendedFertilizerData(); // Fetch data
+                                        Get.to(() => FertilizerRecommendedrScreen()); // Navigate to calculator screen
+                                      },
                                       child: Text("NO", style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13,

@@ -35,4 +35,5 @@ class _AuthEndPoints {
   final String getSingleCropSuggestion = 'GetSuggested_Crop_Details';
   final String fertilizersWithTest = 'Fertilizerswithtest';
   final String advanceFertilizerCalculator = 'AdvanceFertilizercalculator';
+  final String fertilizersRecommendedDose = 'FertilizersRecommendedDose';
 }
