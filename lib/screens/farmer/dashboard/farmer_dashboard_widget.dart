@@ -215,7 +215,8 @@ class FarmerDashboardWidget extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: controller.userLanguage == 1 ? Image.asset("assets/images/farmer_home_banner.png") : Image.asset("assets/images/farmer_home_banner_hindi.png"),
+              child: Image.asset("assets/images/farmer_home_banner.png"),
+              // child: controller.userLanguage == 1 ? Image.asset("assets/images/farmer_home_banner.png") : Image.asset("assets/images/farmer_home_banner_hindi.png"),
             ),
             SizedBox(
               height: 16,

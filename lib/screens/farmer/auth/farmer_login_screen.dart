@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/fpo/fpo_login_controller.dart';
 import 'package:fpo_assist/screens/farmer/auth/farmer_otp_screen.dart';
+import 'package:fpo_assist/screens/shared/privacy_policy.dart';
 import 'package:fpo_assist/utils/color_constants.dart';
 import 'package:get/get.dart';
 import '../../../widgets/custom_elevated_button.dart';
@@ -99,6 +100,13 @@ class FarmerLoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 1,),
+              TextButton(
+                onPressed: (){
+                  Get.to(()=>PrivacyPolicy());
+                }, child: Text("Privacy policy and terms & conditions.", style: TextStyle(color: Colors.green, fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Bitter"),),
+
+              )
             ],
           ),
         ),

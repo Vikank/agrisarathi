@@ -19,7 +19,7 @@ class CropController extends GetxController {
   }
 
   Future<void> fetchCrops() async {
-    final response = await http.get(Uri.parse('https://64.227.166.238/api/Get_Initial_Screen_Crops'));
+    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/Get_Initial_Screen_Crops'));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);

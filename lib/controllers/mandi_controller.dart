@@ -153,7 +153,7 @@ class MandiController extends GetxController{
 
   Future<void> getDukanFilterProduct() async {
     var response = await http
-        .get(Uri.parse('https://64.227.166.238/api/getproduct_category'));
+        .get(Uri.parse('https://api.agrisarathi.com/api/getproduct_category'));
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       productModel = ProductModel.fromJson(data);
@@ -172,7 +172,7 @@ class MandiController extends GetxController{
 
   Future<void> getCityFilter() async {
     var response = await http
-        .get(Uri.parse('https://64.227.166.238/api/getallcity'));
+        .get(Uri.parse('https://api.agrisarathi.com/api/getallcity'));
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       cityModel = CityModel.fromJson(data);
@@ -192,7 +192,7 @@ class MandiController extends GetxController{
 
   Future<void> getStateFilter() async {
     var response = await http
-        .get(Uri.parse('https://64.227.166.238/api/getshops_states'));
+        .get(Uri.parse('https://api.agrisarathi.com/api/getshops_states'));
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       stateModel = StateModel.fromJson(data);
@@ -210,7 +210,7 @@ class MandiController extends GetxController{
   }
   Future<void> getSubDistrictFilter() async {
     var response = await http
-        .get(Uri.parse('https://64.227.166.238/api/getshops_states'));
+        .get(Uri.parse('https://api.agrisarathi.com/api/getshops_states'));
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       var stateModel = StateModel.fromJson(data);

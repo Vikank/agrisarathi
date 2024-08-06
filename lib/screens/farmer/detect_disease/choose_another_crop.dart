@@ -82,7 +82,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            'https://64.227.166.238/api/' +
+                            'https://api.agrisarathi.com/api/' +
                                 crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
@@ -274,7 +274,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                                             child: const Icon(Icons.error)),
                                   ),
                                   // Image.network(
-                                  //     "https://64.227.166.238/api/media/${crop.cropImage}", fit: BoxFit.contain),
+                                  //     "https://api.agrisarathi.com/api/media/${crop.cropImage}", fit: BoxFit.contain),
                                 ),
                               ),
                               Visibility(

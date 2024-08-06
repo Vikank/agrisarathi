@@ -82,8 +82,10 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.langSel.value = 2;
-                          controller.changeLanguage('hi', 'IN');
+                          // controller.langSel.value = 2;
+                          // controller.changeLanguage('hi', 'IN');
+                          controller.langSel.value = 1;
+                          controller.changeLanguage('en', 'US');
                         },
                         child: Container(
                           height: 42,

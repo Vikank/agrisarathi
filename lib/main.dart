@@ -22,8 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: MessagesTranslation(),
-      locale: languageCode == 1 ? Locale('en', 'US') : Locale('hi', 'IN'),
-      fallbackLocale: languageCode == 1 ? Locale('en', 'US') : Locale('hi', 'IN'),
+      locale: Locale('en', 'US'),
+      // locale: languageCode == 0 ? Locale('en', 'US') : Locale('hi', 'IN'),
+      fallbackLocale: Locale('en', 'US'),
+      // fallbackLocale: languageCode == 0 ? Locale('en', 'US') : Locale('hi', 'IN'),
       debugShowCheckedModeBanner: false,
         title: 'AgriSarthi',
         theme: _configureThemeData(),
