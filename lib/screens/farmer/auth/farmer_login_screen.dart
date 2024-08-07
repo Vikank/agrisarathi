@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
 import '../../../widgets/textfield_heading_text.dart';
+import '../../shared/privacy_policy_hindi.dart';
 
 class FarmerLoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -103,7 +104,7 @@ class FarmerLoginScreen extends StatelessWidget {
               SizedBox(height: 1,),
               TextButton(
                 onPressed: (){
-                  Get.to(()=>PrivacyPolicy());
+                  Get.to(()=>PrivacyPolicyHindi());
                 }, child: Text("Privacy policy and terms & conditions.", style: TextStyle(color: Colors.green, fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Bitter"),),
 
               )
