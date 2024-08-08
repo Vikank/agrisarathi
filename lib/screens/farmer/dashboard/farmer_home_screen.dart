@@ -206,7 +206,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'Profile'.tr,
+              label: 'My Farms'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(

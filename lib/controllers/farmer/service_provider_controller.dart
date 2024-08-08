@@ -37,7 +37,7 @@ class ServiceProviderController extends GetxController{
     loading.value = true;
     var response = await http.post(
       Uri.parse(ApiEndPoints.baseUrl+ApiEndPoints.getServiceProviderList),
-      body: jsonEncode({"user_language": "2"}),
+      body: jsonEncode({"user_language": "1"}),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {

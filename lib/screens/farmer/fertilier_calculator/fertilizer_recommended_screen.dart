@@ -122,7 +122,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                  Get.to(AdvancedFertilizerCalculatorScreen());
+                  Get.to(()=>AdvancedFertilizerCalculatorScreen());
                 },
                   child: Text('CALCULATE', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),
                   style: ElevatedButton.styleFrom(

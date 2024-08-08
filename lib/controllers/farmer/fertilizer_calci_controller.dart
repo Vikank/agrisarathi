@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,7 @@ class FertilizerCalciController extends GetxController{
     );
 
     if (response.statusCode == 200) {
+      log("fertilizer data ${jsonDecode(response.body)}");
       return FertilizerResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load fertilizer data');

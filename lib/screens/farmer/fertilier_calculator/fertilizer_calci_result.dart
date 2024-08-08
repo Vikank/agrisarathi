@@ -59,53 +59,95 @@ class FertilizerResultScreen extends StatelessWidget {
   }
 
   Widget _buildSoilStructureTable() {
+    // Assuming `fertilizerData` is an instance of ApiResponse from your controller
+    var npkStatus = fertilizerData.npkStatus.isNotEmpty ? fertilizerData.npkStatus[0] : null;
+
+    if (npkStatus == null) {
+      return Center(child: Text('No NPK data available'));
+    }
+
     return Table(
-      border: TableBorder.all(color: Colors.grey[300]!, borderRadius: BorderRadius.all(Radius.circular(4))),
+      border: TableBorder.all(
+        color: Colors.grey[300]!,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
       children: [
         TableRow(
-          children: ['', 'N', 'P', 'K'].map((e) => _buildTableCell(e, isHeader: true)).toList(),
+          children: ['', 'N', 'P', 'K']
+              .map((e) => _buildTableCell(e, isHeader: true))
+              .toList(),
         ),
         TableRow(
           children: [
             'Value',
-            fertilizerData.npkStatus['N'] ?? '',
-            fertilizerData.npkStatus['P'] ?? '',
-            fertilizerData.npkStatus['K'] ?? ''
+            npkStatus.nitrogenValue.toString(),
+            npkStatus.phosphorousValue.toString(),
+            npkStatus.potassiumValue.toString()
           ].map(_buildTableCell).toList(),
         ),
         TableRow(
           children: [
             'Status',
-            fertilizerData.npkStatus['N'] ?? '',
-            fertilizerData.npkStatus['P'] ?? '',
-            fertilizerData.npkStatus['K'] ?? ''
+            npkStatus.n,
+            npkStatus.p,
+            npkStatus.k
           ].map(_buildTableCell).toList(),
         ),
       ],
     );
   }
 
+
   Widget _buildBagsTable() {
+    // Assuming `fertilizerData` is an instance of ApiResponse from your controller
+    var results = fertilizerData.results.isNotEmpty ? fertilizerData.results[0] : null;
+
+    if (results == null) {
+      return Center(child: Text('No fertilizer data available'));
+    }
+
+    // Extract data for each type of fertilizer
+    final urea = results.urea;
+    final superPhosphate = results.superPhosphate;
+    final potash = results.potash;
+
     return Table(
-      border: TableBorder.all(color: Colors.grey[300]!, borderRadius: BorderRadius.all(Radius.circular(4))),
+      border: TableBorder.all(
+        color: Colors.grey[300]!,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
       children: [
         TableRow(
           children: ['', 'Kg/ha', '50 kg bag', 'Price'].map((e) => _buildTableCell(e, isHeader: true)).toList(),
         ),
-        ...fertilizerData.results.entries.map((entry) {
-          final data = entry.value;
-          return TableRow(
-            children: [
-              entry.key,
-              data['Kg/ha'].toString(),
-              data['(50 kg bag)'].toString(),
-              '₹${data['Price (Rs)']}',
-            ].map(_buildTableCell).toList(),
-          );
-        }),
+        TableRow(
+          children: [
+            'Urea',
+            urea.kgPerHa.toString(),
+            urea.bags50Kg.toString(),
+            '₹${urea.priceRs}',
+          ].map(_buildTableCell).toList(),
+        ),
+        TableRow(
+          children: [
+            'Super Phosphate',
+            superPhosphate.kgPerHa.toString(),
+            superPhosphate.bags50Kg.toString(),
+            '₹${superPhosphate.priceRs}',
+          ].map(_buildTableCell).toList(),
+        ),
+        TableRow(
+          children: [
+            'Potash',
+            potash.kgPerHa.toString(),
+            potash.bags50Kg.toString(),
+            '₹${potash.priceRs}',
+          ].map(_buildTableCell).toList(),
+        ),
       ],
     );
   }
+
 
   Widget _buildTableCell(String text, {bool isHeader = false}) {
     return TableCell(
@@ -140,7 +182,7 @@ class FertilizerResultScreen extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    Get.to(AdvancedFertilizerCalculatorScreen());
+                    Get.to(()=>AdvancedFertilizerCalculatorScreen());
                   },
                   child: Text('CALCULATE',
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),

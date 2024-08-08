@@ -81,6 +81,7 @@ class FarmerUpdateProfileController extends GetxController{
       'userid': farmerId,
       'fk_language_id': userLanguage,
       'pincode': pinCode,
+      'land_id': null,
       'land_area': landArea,
       'address': addressLine,
       'village': village,

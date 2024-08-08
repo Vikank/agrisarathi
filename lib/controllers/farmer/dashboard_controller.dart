@@ -61,6 +61,7 @@ class FarmerDashboardController extends GetxController{
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         farmerLands.value = FarmerLands.fromJson(jsonData);
+        log("farmer land ${farmerLands.value.data}");
         cropName.value = farmerLands.value.data![0].crop ?? "";
         farmerLandLoader.value = false;
       } else {

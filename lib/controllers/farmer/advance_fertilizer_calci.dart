@@ -15,7 +15,13 @@ class AdvancedFertilizerCalculatorController extends GetxController {
   Future<void> calculateFertilizer() async {
     isLoading.value = true;
     final url = Uri.parse('https://api.agrisarathi.com/api/AdvanceFertilizercalculator');
-
+    int parseInt(String value) {
+      try {
+        return int.parse(value);
+      } catch (e) {
+        return 0; // Default value for invalid input
+      }
+    }
     try {
       final response = await http.post(
         url,
@@ -24,11 +30,11 @@ class AdvancedFertilizerCalculatorController extends GetxController {
           "user_id": 1,
           "user_language": 1,
           "crop_id": 4,
-          "daep": int.parse(daep.value),
-          "complexes": int.parse(complexes.value),
-          "urea": int.parse(urea.value),
-          "ssp": int.parse(ssp.value),
-          "mop": int.parse(mop.value),
+          "daep": parseInt(daep.value),
+          "complexes": parseInt(complexes.value),
+          "urea": parseInt(urea.value),
+          "ssp": parseInt(ssp.value),
+          "mop": parseInt(mop.value),
         }),
       );
 

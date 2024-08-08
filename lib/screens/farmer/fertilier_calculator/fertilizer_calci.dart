@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/utils/color_constants.dart';
 import 'package:fpo_assist/widgets/custom_elevated_button.dart';
@@ -81,6 +83,7 @@ class FertilizerCalci extends StatelessWidget {
               onPress: () async {
                 try {
                   final fertilizerData = await controller.fetchFertilizerData();
+                  log("fertilizer data ${fertilizerData}");
                   Get.to(FertilizerResultScreen(fertilizerData: fertilizerData));
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(

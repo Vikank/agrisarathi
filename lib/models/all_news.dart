@@ -49,7 +49,7 @@ class Articles {
     newsType = json['news_type'];
     source = json['source'];
     link = json['link'];
-    publishDate = json['publish_date'];
+    publishDate = json['created_at'];
     language = json['language'];
   }
 
@@ -62,7 +62,7 @@ class Articles {
     _data['news_type'] = newsType;
     _data['source'] = source;
     _data['link'] = link;
-    _data['publish_date'] = publishDate;
+    _data['created_at'] = publishDate;
     _data['language'] = language;
     return _data;
   }

@@ -749,7 +749,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                               ), maxLines: 2,
                               ),
                               SizedBox(height: 4,),
-                              Text("${article.publishDate}", style: TextStyle(
+                              Text(article.publishDate ?? "", style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "NotoSans",
                                 fontWeight: FontWeight.w400,
