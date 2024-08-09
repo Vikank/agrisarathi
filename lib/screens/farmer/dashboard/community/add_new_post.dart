@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import '../../../../controllers/community_controller.dart';
+import '../../../../controllers/shared/community/community_controller.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
