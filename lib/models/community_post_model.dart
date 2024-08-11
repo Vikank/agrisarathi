@@ -6,6 +6,7 @@ class CommunityPost {
   final int postId;
   final String profilePic;
   final String postImage;
+  final String postVideo;
   final int likeCount;
   final bool isLikedByUser;
   final List<UserLike> usersLiked;
@@ -25,6 +26,7 @@ class CommunityPost {
     required this.description,
     required this.createdDate,
     required this.comments,
+    required this.postVideo
   });
 
   factory CommunityPost.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class CommunityPost {
       postId: json['post_id'] ?? 0,
       profilePic: json['profile_pic'] ?? '',
       postImage: json['post_image'] ?? '',
+      postVideo: json['post_video'] ?? '',
       likeCount: json['like_count'] ?? 0,
       isLikedByUser: json['is_likedbysameuser'] ?? false,
       usersLiked: (json['users_liked'] as List?)

@@ -1,8 +1,10 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
 import 'dart:convert';
 
 import '../../../models/community_post_model.dart';
@@ -11,10 +13,32 @@ class CommunityController extends GetxController {
   var posts = <CommunityPost>[].obs;
   var isLoading = true.obs;
 
+  Rx<ChewieController?> chewieController = Rx<ChewieController?>(null);
+
+
   @override
   void onInit() {
     super.onInit();
     fetchPosts();
+  }
+
+  Future<void> initializeVideoPlayer(String videoUrl) async {
+    try {
+      final videoPlayerController = VideoPlayerController.network(videoUrl);
+      await videoPlayerController.initialize();
+
+      chewieController.value = ChewieController(
+        videoPlayerController: videoPlayerController,
+        aspectRatio: videoPlayerController.value.aspectRatio,
+        autoPlay: false,
+        looping: false,
+      );
+
+      update();
+    } catch (e) {
+      print('Error initializing video player: $e');
+      chewieController.value = null; // Ensure this is set to null on error
+    }
   }
 
   Future<void> fetchPosts() async {
