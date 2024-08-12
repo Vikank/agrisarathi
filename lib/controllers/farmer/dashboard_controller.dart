@@ -6,7 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/all_news.dart';
+import '../../models/farmer_details_model.dart';
 import '../../utils/helper_functions.dart';
+import 'farmer_home_controller.dart';
 
 
 class FarmerDashboardController extends GetxController{
@@ -14,9 +16,13 @@ class FarmerDashboardController extends GetxController{
   var farmerLands = FarmerLands(data: []).obs;
   RxString cropName = "".obs;
   String? farmerId;
+  RxString districtName = "".obs;
   RxBool farmerLandLoader = true.obs;
   RxBool newsLoader = true.obs;
   int? userLanguage;
+  var temperature = ''.obs;
+  var weatherIcon = ''.obs;
+  final String apiKey = '4675f25ce2863825d057505230a4cca0';
 
   @override
   void onInit() {
@@ -59,6 +65,8 @@ class FarmerDashboardController extends GetxController{
         farmerLands.value = FarmerLands.fromJson(jsonData);
         log("farmer land ${farmerLands.value.data}");
         cropName.value = farmerLands.value.data![0].crop ?? "";
+        districtName.value = farmerLands.value.data![0].district ?? "";
+        await fetchWeather();
         farmerLandLoader.value = false;
       } else {
         farmerLandLoader.value = false;
@@ -70,6 +78,26 @@ class FarmerDashboardController extends GetxController{
     }
   }
 
+  fetchWeather() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://api.openweathermap.org/data/2.5/weather?q=${districtName.value}&appid=$apiKey&units=metric',
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        temperature.value = data['main']['temp'].toString();
+        String iconCode = data['weather'][0]['icon'];
+        weatherIcon.value = 'http://openweathermap.org/img/wn/$iconCode@2x.png';
+      } else {
+        Get.snackbar('Error', 'Unable to fetch weather data');
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
+  }
 
   void fetchNews() async {
     newsLoader.value = true;

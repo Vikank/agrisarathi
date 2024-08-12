@@ -16,10 +16,10 @@ import '../crop_suggstion/crop_suggestion.dart';
 import '../fertilier_calculator/farm_for_fertilizer.dart';
 import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
+import '../weather/weather_detailed_screen.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
-  FarmerDashboardController controller = Get.put(
-      FarmerDashboardController());
+  FarmerDashboardController controller = Get.put(FarmerDashboardController());
   final List<String> imgList = [
     'assets/images/carousel_home.png',
     'assets/images/carousel_home.png',
@@ -60,78 +60,79 @@ class FarmerDashboardWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Obx(() {
-                        return controller.farmerLandLoader.value ? Shimmer
-                            .fromColors(
-                          baseColor: Color(0xffDFF9ED),
-                          highlightColor: Color(0xffF1FBF2),
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                height: 36,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8),
-                                  ),
+                        return controller.farmerLandLoader.value
+                            ? Shimmer.fromColors(
+                                baseColor: Color(0xffDFF9ED),
+                                highlightColor: Color(0xffF1FBF2),
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: 36,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox(
+                                      width: 10,
+                                    );
+                                  },
                                 ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount:
+                                    controller.farmerLands.value.data!.length,
+                                itemBuilder: (context, index) {
+                                  final farmerLands =
+                                      controller.farmerLands.value.data;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.cropName.value =
+                                          farmerLands[index].crop ?? "";
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        '${farmerLands![index].address}',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "NotoSans"),
+                                      )),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: 10,
+                                  );
+                                },
                               );
-                            },
-                            separatorBuilder: (BuildContext context,
-                                int index) {
-                              return SizedBox(
-                                width: 10,
-                              );
-                            },
-                          ),
-                        ) : ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: controller.farmerLands.value
-                              .data!
-                              .length,
-                          itemBuilder: (context, index) {
-                            final farmerLands = controller
-                                .farmerLands.value.data;
-                            return GestureDetector(
-                              onTap: () {
-                                controller.cropName.value =
-                                    farmerLands[index].crop ?? "";
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8),
-                                  ),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                      '${farmerLands![index].address}',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "NotoSans"),
-                                    )),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              width: 10,
-                            );
-                          },
-                        );
                       }),
                     ),
                     Container(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(color: Color(0xffCBD5E1))),
@@ -156,58 +157,71 @@ class FarmerDashboardWidget extends StatelessWidget {
             Obx(() {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: controller.farmerLandLoader.value ? Shimmer.fromColors(
-                  baseColor: Color(0xffDFF9ED),
-                  highlightColor: Color(0xffF1FBF2),
-                  child: Container(
-                    width: double.infinity,
-                    height: 66,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5),),
-                    ),
-                  ),
-                ) : Container(
-                  padding: EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Color(0xffBAEDBD))),
-                  child: Row(
-                    children: [
-                      Text(
-                        "${controller.cropName}",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Bitter"),
-                      ),
-                      Spacer(),
-                      Text(
-                        "32\u2103",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Bitter"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Image.asset(
-                        "assets/icons/weather_icon.png",
-                        width: 40,
-                        height: 40,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 15,
+                child: controller.farmerLandLoader.value
+                    ? Shimmer.fromColors(
+                        baseColor: Color(0xffDFF9ED),
+                        highlightColor: Color(0xffF1FBF2),
+                        child: Container(
+                          width: double.infinity,
+                          height: 66,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                        ),
                       )
-                    ],
-                  ),
-                ),
+                    : Container(
+                        padding: EdgeInsets.all(10),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Color(0xffBAEDBD))),
+                        child: Row(
+                          children: [
+                            Text(
+                              "${controller.cropName}",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Bitter"),
+                            ),
+                            Spacer(),
+                            InkWell(
+                              onTap: (){
+                                Get.to(() => WeatherDetailScreen(districtName: controller.districtName.value));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    controller.temperature.value,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Bitter"),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Image.network(
+                                    controller.weatherIcon.value,
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
               );
             }),
             SizedBox(
@@ -268,7 +282,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(FarmForFertilizer());
                     },
                     child: Column(
@@ -295,8 +309,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                   Column(
                     children: [
                       GestureDetector(
-                        onTap: (){
-                          Get.to(()=>SelectServiceProvider());
+                        onTap: () {
+                          Get.to(() => SelectServiceProvider());
                         },
                         child: Image.asset(
                           "assets/images/detect_disease.png",
@@ -352,7 +366,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future".tr,
+                                "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future"
+                                    .tr,
                                 style: TextStyle(
                                     fontFamily: "NotoSans",
                                     fontWeight: FontWeight.w400,
@@ -497,8 +512,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: (){
-                          Get.to(()=>SchemeListView());
+                        onTap: () {
+                          Get.to(() => SchemeListView());
                         },
                         child: Column(
                           children: [
@@ -522,7 +537,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Get.to(CropSuggestion());
                         },
                         child: Column(
@@ -546,7 +561,11 @@ class FarmerDashboardWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      GestureDetector(child: Container(height: 40, width: 40,))
+                      GestureDetector(
+                          child: Container(
+                        height: 40,
+                        width: 40,
+                      ))
                     ],
                   ),
                 ],
@@ -579,14 +598,13 @@ class FarmerDashboardWidget extends StatelessWidget {
                         ),
                         Text(
                           "Check_number_for_assistance_and_support".tr,
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .displaySmall
                               ?.copyWith(
-                              color: Colors.black,
-                              fontFamily: 'NanoSans',
-                              fontWeight: FontWeight.w400),
+                                  color: Colors.black,
+                                  fontFamily: 'NanoSans',
+                                  fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -605,50 +623,56 @@ class FarmerDashboardWidget extends StatelessWidget {
             Obx(() {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: controller.newsLoader.value ? Shimmer.fromColors(
-                  baseColor: Color(0xffDFF9ED),
-                  highlightColor: Color(0xffF1FBF2),
-                  child: Container(
-                    width: double.infinity,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5),),
-                    ),
-                  ),
-                ) : controller.news.value.articles.isNotEmpty ? Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Color(0xfdfF1FBF2),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "News".tr,
-                        style: TextStyle(
-                            fontFamily: "Bitter",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          Get.to(NewsListView());
-                        },
-                        child: Text(
-                          "View_All".tr,
-                          style: TextStyle(
-                              color: ColorConstants.primaryColor,
-                              fontFamily: "NanoSans",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10),
+                child: controller.newsLoader.value
+                    ? Shimmer.fromColors(
+                        baseColor: Color(0xffDFF9ED),
+                        highlightColor: Color(0xffF1FBF2),
+                        child: Container(
+                          width: double.infinity,
+                          height: 37,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ) : SizedBox.shrink(),
+                      )
+                    : controller.news.value.articles.isNotEmpty
+                        ? Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Color(0xfdfF1FBF2),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "News".tr,
+                                  style: TextStyle(
+                                      fontFamily: "Bitter",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(NewsListView());
+                                  },
+                                  child: Text(
+                                    "View_All".tr,
+                                    style: TextStyle(
+                                        color: ColorConstants.primaryColor,
+                                        fontFamily: "NanoSans",
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : SizedBox.shrink(),
               );
             }),
             SizedBox(
@@ -659,108 +683,133 @@ class FarmerDashboardWidget extends StatelessWidget {
               child: SizedBox(
                 height: 192,
                 child: Obx(() {
-                  return controller.newsLoader.value ? Shimmer.fromColors(
-                    baseColor: Color(0xffDFF9ED),
-                    highlightColor: Color(0xffF1FBF2),
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Container(
-                                height: 96,
-                                width: 155,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              height: 12,
-                              width: 155,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Container(
-                              height: 12,
-                              width: 155,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                          ],
-                        );
-                      }, separatorBuilder: (BuildContext context, int index) { return SizedBox(width: 18); },
-                    ),
-                  ) : controller.news.value.articles.isNotEmpty ? ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.news.value.articles
-                          .length,
-                      itemBuilder: (context, index) {
-                        final article = controller.news.value
-                            .articles[index];
-                        return Container(
-                          width: 155,
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
-                                imageBuilder: (context, imageProvider) => Container(
-                                  height: 96,
-                                  width: 155,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.black,
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.fill,
+                  return controller.newsLoader.value
+                      ? Shimmer.fromColors(
+                          baseColor: Color(0xffDFF9ED),
+                          highlightColor: Color(0xffF1FBF2),
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: 96,
+                                    width: 155,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
                                   ),
-                                ),
-                                placeholder: (context, url) => SizedBox(
-                                    height: 10,
-                                    width: 10,
-                                    child: const CircularProgressIndicator(
-                                      strokeAlign: 2,
-                                      strokeWidth: 2,
-                                    )),
-                                errorWidget: (context, url, error) => SizedBox(
-                                  height: 96,
-                                  width: 155,
-                                  child: Image.asset("assets/images/news_placeholder.png"),
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(article.title ?? "", style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "NotoSans",
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff1C1C1C),
-                              ), maxLines: 2,
-                              ),
-                              SizedBox(height: 4,),
-                              Text(article.publishDate ?? "", style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "NotoSans",
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff1C1C1C),
-                              ),)
-                            ],
+                                  SizedBox(height: 10),
+                                  Container(
+                                    height: 12,
+                                    width: 155,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Container(
+                                    height: 12,
+                                    width: 155,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(width: 18);
+                            },
                           ),
-                        );
-                      }, separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(width: 18);
-                  }) : SizedBox.shrink();
+                        )
+                      : controller.news.value.articles.isNotEmpty
+                          ? ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.news.value.articles.length,
+                              itemBuilder: (context, index) {
+                                final article =
+                                    controller.news.value.articles[index];
+                                return Container(
+                                  width: 155,
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "${ApiEndPoints.baseUrl}${article.image ?? ""}",
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          height: 96,
+                                          width: 155,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Colors.black,
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => SizedBox(
+                                            height: 10,
+                                            width: 10,
+                                            child:
+                                                const CircularProgressIndicator(
+                                              strokeAlign: 2,
+                                              strokeWidth: 2,
+                                            )),
+                                        errorWidget: (context, url, error) =>
+                                            SizedBox(
+                                          height: 96,
+                                          width: 155,
+                                          child: Image.asset(
+                                              "assets/images/news_placeholder.png"),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        article.title ?? "",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: "NotoSans",
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff1C1C1C),
+                                        ),
+                                        maxLines: 2,
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        article.publishDate ?? "",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: "NotoSans",
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff1C1C1C),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return SizedBox(width: 18);
+                              })
+                          : SizedBox.shrink();
                 }),
               ),
             )
