@@ -36,18 +36,14 @@ class FarmerHomeController extends GetxController{
 
   void fetchFarmerDetails() async {
     farmerDetailsLoader.value = true;
-    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerDetails}');
-    final body = jsonEncode({
-      "userid": int.parse(farmerId!)
-    });
+    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerDetails}?user_id=$farmerId');
 
     try {
-      final response = await http.post(
+      final response = await http.get(
         url,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
       );
 
       if (response.statusCode == 200) {

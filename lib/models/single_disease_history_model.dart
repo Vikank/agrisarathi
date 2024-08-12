@@ -90,7 +90,7 @@ class ProductDiseaseResults {
   int? productid;
   String? productimage;
   String? productname;
-  String? price;
+  double? price;
   String? category;
 
   ProductDiseaseResults(

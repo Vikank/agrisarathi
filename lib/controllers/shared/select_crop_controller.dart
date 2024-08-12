@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/select_crop_model.dart';
+import '../../utils/api_constants.dart';
 import '../../utils/helper_functions.dart';
 
 class CropController extends GetxController {
@@ -29,10 +30,7 @@ class CropController extends GetxController {
   }
 
   Future<void> fetchCrops() async {
-    Map body = {
-      "user_language" : 1
-    };
-    final response = await http.post(Uri.parse('https://api.agrisarathi.com/api/Get_Initial_Screen_Crops'), body: jsonEncode(body));
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrl}GetInitialScreenCrops?user_language=1'));
     log(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);

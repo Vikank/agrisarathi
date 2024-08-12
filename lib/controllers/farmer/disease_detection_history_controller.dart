@@ -41,20 +41,14 @@ class DiseaseDetectionHistoryController extends GetxController{
   void fetchDiseaseHistory() async {
     try {
       isLoading(true);
-      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getDiseaseHistory}');
-      var body = json.encode({
-        "user_id": farmerId,
-        "user_language": userLanguage
-      });
-      log("${farmerId} ${userLanguage}");
-      var response = await http.post(
+      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getDiseaseHistory}?user_id=$farmerId&user_language=$userLanguage');
+      log("$url");
+      var response = await http.get(
           url,
           headers: {"Content-Type": "application/json"},
-          body: body
       );
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
-        log("${jsonData}");
         diseaseHistory.value = DiseaseHistoryModel.fromJson(jsonData);
       }
     } finally {
@@ -64,24 +58,16 @@ class DiseaseDetectionHistoryController extends GetxController{
 
   Future<SingleDiseaseHistoryModel?> fetchSingleDiseaseHistory(int diagId) async {
     try {
-      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}');
-      var body = json.encode({
-        "user_id": farmerId,
-        "diag_id": diagId,
-        "user_language": userLanguage
-      });
-
-      var response = await http.post(
+      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}?user_id=$farmerId&diag_id=$diagId&user_language=$userLanguage');
+      var response = await http.get(
           url,
           headers: {"Content-Type": "application/json"},
-          body: body
       );
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
         print('Response: ${jsonData}');
         return SingleDiseaseHistoryModel.fromJson(jsonData);
       } else {
-        print('Failed to load single disease data. Status code: ${response.statusCode}');
         print('Response body: ${response.body}');
         return null;
       }

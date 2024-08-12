@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:fpo_assist/controllers/farmer/disease_detection_video_controller.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';

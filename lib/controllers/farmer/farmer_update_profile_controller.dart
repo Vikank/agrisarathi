@@ -44,9 +44,8 @@ class FarmerUpdateProfileController extends GetxController{
 
   Future<void> fetchFarmerFpoName() async {
     try {
-      var response = await http.post(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getFarmerFpoName),
-        body: jsonEncode({"userid": farmerId}),
+      var response = await http.get(
+        Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerFpoName}?userid=$farmerId'),
         headers: {'Content-Type': 'application/json'},
       );
 

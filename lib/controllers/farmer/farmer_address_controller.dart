@@ -45,9 +45,8 @@ class FarmerAddressController extends GetxController{
 // Fetch all states from API
   Future<void> fetchStates() async {
     try {
-      var response = await http.post(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getAllStatesUrl),
-        body: jsonEncode({"user_language": "1"}),
+      var response = await http.get(
+        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getAllStatesUrl+'?user_language=1'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -72,9 +71,8 @@ class FarmerAddressController extends GetxController{
   Future<void> fetchDistricts(int stateId) async {
     log("aayaaa");
     try {
-      var response = await http.post(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl),
-        body: jsonEncode({"user_language": 1, "state": stateId}),
+      var response = await http.get(
+        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl+'?user_language=1&state=$stateId'),
         headers: {'Content-Type': 'application/json'},
       );
 

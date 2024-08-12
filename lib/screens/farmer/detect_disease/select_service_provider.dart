@@ -111,7 +111,7 @@ class SelectServiceProvider extends StatelessWidget {
                                 ),
                                 image: DecorationImage(
                                   image: NetworkImage('${ApiEndPoints
-                                      .imageBaseUrl}${serviceProvider
+                                      .baseUrl}${serviceProvider
                                       .serviceProviderPic ?? ""}'),
                                 ),
                               ),

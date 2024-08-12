@@ -1,5 +1,5 @@
 class DiseaseHistoryModel {
-  int? status;
+  String? status;
   List<DiseaseDetails>? diseaseDetails;
 
   DiseaseHistoryModel({this.status, this.diseaseDetails});

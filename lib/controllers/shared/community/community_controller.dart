@@ -41,19 +41,39 @@ class CommunityController extends GetxController {
     }
   }
 
+  // Future<void> fetchPosts() async {
+  //   isLoading(true);
+  //   try {
+  //     var url =
+  //         Uri.parse('https://api.agrisarathi.com/api/Get_Community_Posts_List');
+  //     var request = http.MultipartRequest('POST', url);
+  //     request.fields['filter_type'] = 'farmer';
+  //     request.fields['user_id'] = '1'; // Replace with actual user ID
+  //
+  //     var response = await request.send();
+  //     if (response.statusCode == 200) {
+  //       var responseBody = await response.stream.bytesToString();
+  //       var decodedResponse = json.decode(responseBody);
+  //       if (decodedResponse['status'] == 'success') {
+  //         posts.value = (decodedResponse['data'] as List)
+  //             .map((post) => CommunityPost.fromJson(post))
+  //             .toList();
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching posts: $e');
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
   Future<void> fetchPosts() async {
     isLoading(true);
     try {
-      var url =
-          Uri.parse('https://api.agrisarathi.com/api/Get_Community_Posts_List');
-      var request = http.MultipartRequest('POST', url);
-      request.fields['filter_type'] = 'farmer';
-      request.fields['user_id'] = '1'; // Replace with actual user ID
+      var url = Uri.parse('https://api.agrisarathi.com/api/Get_Community_Posts_List?filter_type=farmer&user_id=1');
+      var response = await http.get(url, headers: {'Content-Type': 'application/json'});
 
-      var response = await request.send();
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        var decodedResponse = json.decode(responseBody);
+        var decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == 'success') {
           posts.value = (decodedResponse['data'] as List)
               .map((post) => CommunityPost.fromJson(post))
@@ -66,7 +86,6 @@ class CommunityController extends GetxController {
       isLoading(false);
     }
   }
-
   Future<bool> likePost({required int postId, required String action}) async {
     try {
       var url =

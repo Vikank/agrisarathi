@@ -296,7 +296,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(SelectServiceProvider());
+                          Get.to(()=>SelectServiceProvider());
                         },
                         child: Image.asset(
                           "assets/images/detect_disease.png",
@@ -498,7 +498,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(SchemeListView());
+                          Get.to(()=>SchemeListView());
                         },
                         child: Column(
                           children: [

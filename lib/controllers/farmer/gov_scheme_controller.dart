@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -47,12 +48,10 @@ class SchemeController extends GetxController {
   Future<void> fetchSchemes() async {
     isLoading(true);
     try {
-      var response = await http.post(
-        Uri.parse('https://api.agrisarathi.com/api/GetallGovtSchemes'),
-        body: jsonEncode({"user_language": userLanguage, "filter_type": "all"}),
+      var response = await http.get(
+        Uri.parse('${ApiEndPoints.baseUrl}GetallGovtSchemes?user_language=$userLanguage&filter_type=all'),
         headers: {'Content-Type': 'application/json'},
       );
-
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         var schemesJson = jsonResponse['schemes'] as List;

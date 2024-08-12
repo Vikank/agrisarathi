@@ -7,7 +7,7 @@ class ApiEndPoints {
   static const getSingleShop = 'get_single_shop';
   static const getSingleProduct = 'GetSingleProductinfo';
   static const detectDisease = 'Detect_Disease';
-  static const getServiceProviderList = 'Service_Provider_List';
+  static const getServiceProviderList = 'ServiceProviderList';
   static const getUserCrops = 'Get_Users_Crops';
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 
