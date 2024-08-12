@@ -6,6 +6,7 @@ class CommunityPost {
   final int postId;
   final String profilePic;
   final String postImage;
+  final String postVideo;
   final int likeCount;
   final bool isLikedByUser;
   final List<UserLike> usersLiked;
@@ -25,24 +26,30 @@ class CommunityPost {
     required this.description,
     required this.createdDate,
     required this.comments,
+    required this.postVideo
   });
 
   factory CommunityPost.fromJson(Map<String, dynamic> json) {
     return CommunityPost(
-      userName: json['user_name'],
-      userId: json['user_id'],
-      postId: json['post_id'],
-      profilePic: json['profile_pic'],
-      postImage: json['post_image'],
-      likeCount: json['like_count'],
-      isLikedByUser: json['is_likedbysameuser'],
-      usersLiked: (json['users_liked'] as List)
-          .map((like) => UserLike.fromJson(like))
-          .toList(),
-      description: json['description'],
-      createdDate: json['created_dt'],
+      userName: json['user_name'] ?? '',
+      userId: json['user_id'] ?? 0,
+      postId: json['post_id'] ?? 0,
+      profilePic: json['profile_pic'] ?? '',
+      postImage: json['post_image'] ?? '',
+      postVideo: json['post_video'] ?? '',
+      likeCount: json['like_count'] ?? 0,
+      isLikedByUser: json['is_likedbysameuser'] ?? false,
+      usersLiked: (json['users_liked'] as List?)
+          ?.map((like) => UserLike.fromJson(like))
+          .toList() ??
+          [],
+      description: json['description'] ?? '',
+      createdDate: json['created_dt'] ?? '',
       comments: RxList<Comment>.from(
-        (json['comment_list'] as List).map((comment) => Comment.fromJson(comment)),
+        (json['comment_list'] as List?)
+            ?.map((comment) => Comment.fromJson(comment))
+            .toList() ??
+            [],
       ),
     );
   }
@@ -61,9 +68,9 @@ class UserLike {
 
   factory UserLike.fromJson(Map<String, dynamic> json) {
     return UserLike(
-      userId: json['user_id'],
-      userName: json['user_name'],
-      postId: json['post_id'],
+      userId: json['user_id'] ?? 0,
+      userName: json['user_name'] ?? '',
+      postId: json['post_id'] ?? 0,
     );
   }
 }
@@ -89,15 +96,16 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      userName: json['user_name'],
-      userId: json['user_id'],
-      profilePic: json['profile_pic'],
-      id: json['id'],
-      postComment: json['post_comment'],
-      createdDate: json['created_dt'],
-      replyComments: (json['reply_comments'] as List)
-          .map((reply) => Reply.fromJson(reply))
-          .toList(),
+      userName: json['user_name'] ?? '',
+      userId: json['user_id'] ?? 0,
+      profilePic: json['profile_pic'] ?? '',
+      id: json['id'] ?? 0,
+      postComment: json['post_comment'] ?? '',
+      createdDate: json['created_dt'] ?? '',
+      replyComments: (json['reply_comments'] as List?)
+          ?.map((reply) => Reply.fromJson(reply))
+          .toList() ??
+          [],
     );
   }
 }
@@ -121,12 +129,12 @@ class Reply {
 
   factory Reply.fromJson(Map<String, dynamic> json) {
     return Reply(
-      userName: json['user_name'],
-      userId: json['user_id'],
-      profilePic: json['profile_pic'],
-      id: json['id'],
-      text: json['text'],
-      createdDate: json['created_dt'],
+      userName: json['user_name'] ?? '',
+      userId: json['user_id'] ?? 0,
+      profilePic: json['profile_pic'] ?? '',
+      id: json['id'] ?? 0,
+      text: json['text'] ?? '',
+      createdDate: json['created_dt'] ?? '',
     );
   }
 }

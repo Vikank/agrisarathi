@@ -31,7 +31,7 @@ class CommentController extends GetxController {
         var decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == 'success') {
           // Add the new comment to the list
-          comments.add(Comment.fromJson(decodedResponse['data']));
+          comments.add(Comment.fromJson(decodedResponse['comment']));
         }
       }
     } catch (e) {
@@ -45,7 +45,7 @@ class CommentController extends GetxController {
       var response = await http.post(
         url,
         body: json.encode({
-          "fk_postcoment_id": commentId,
+          "fk_postcomment_id": commentId,
           "user_id": 1, // Replace with actual user ID
           "text": replyText,
           "user_type": "farmer"
@@ -58,7 +58,7 @@ class CommentController extends GetxController {
         if (decodedResponse['status'] == 'success') {
           // Add the new reply to the appropriate comment
           var updatedComment = comments.firstWhere((comment) => comment.id == commentId);
-          updatedComment.replyComments.add(Reply.fromJson(decodedResponse['data']));
+          updatedComment.replyComments.add(Reply.fromJson(decodedResponse['reply']));
           comments.refresh();
         }
       }

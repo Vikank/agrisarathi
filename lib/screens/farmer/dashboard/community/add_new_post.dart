@@ -37,11 +37,19 @@ class _AddPostScreenState extends State<AddPostScreen> {
   }
 
   void _submitPost() async {
-    final controller = Get.find<CommunityForumController>();
-    bool success = await controller.addNewPost(
-        _descriptionController.text,
-        _image,
-        _video
+    final controller = Get.find<CommunityController>();
+
+    // Get the description from the TextEditingController
+    final description = _descriptionController.text.trim();
+
+    // Determine which file (image or video) is selected
+    final filePath = _image?.path ?? _video?.path;
+
+    // Replace with actual user ID
+    final userId = '1'; // or any valid user ID
+
+    bool success = await controller.addPost(description: description, filePath: filePath, userId: userId
+
     );
     if (success) {
       Get.back();
