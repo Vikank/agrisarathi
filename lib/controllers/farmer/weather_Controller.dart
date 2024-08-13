@@ -31,7 +31,7 @@ class WeatherController extends GetxController {
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         log("sdwedew$data");
-        currentTemperature.value = data['main']['temp'].toString();
+        currentTemperature.value = data['main']['temp'].round().toString();
         weatherDescription.value = data['weather'][0]['description'];
         precipitation.value = data['clouds']['all'].toString() + '%';
         humidity.value = data['main']['humidity'].toString() + '%';
@@ -55,19 +55,37 @@ class WeatherController extends GetxController {
     try {
       final response = await http.get(
         Uri.parse(
-          'https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&exclude=minutely&appid=$apiKey&units=metric',
+          'https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric',
         ),
       );
-      log("${response.statusCode}");
+
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
 
-        hourlyForecast.value = data['hourly'].sublist(0, 5);
-        dailyForecast.value = data['daily'].sublist(0, 5);
+        // Parsing hourly data (Next 5 instances)
+        hourlyForecast.value = data['list'].sublist(0, 5);
+
+        // Parsing daily data
+        var groupedDaily = <String, Map<String, dynamic>>{};
+        for (var entry in data['list']) {
+          String date = DateTime.parse(entry['dt_txt']).toIso8601String().split('T')[0];
+          if (!groupedDaily.containsKey(date)) {
+            groupedDaily[date] = {
+              'temp': entry['main']['temp'],
+              'icon': entry['weather'][0]['icon'],
+              'date': date,
+            };
+          }
+        }
+        dailyForecast.value = groupedDaily.values.toList().sublist(0, 5);
+
       } else {
+        print('Error: Status Code ${response.statusCode}');
+        print('Response: ${response.body}');
         Get.snackbar('Error', 'Unable to fetch forecast data');
       }
     } catch (e) {
+      print('Exception: $e');
       Get.snackbar('Error', e.toString());
     }
   }

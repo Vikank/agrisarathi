@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/utils/helper_functions.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../controllers/farmer/weather_Controller.dart';
 
@@ -11,6 +13,7 @@ class WeatherDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Fetch weather details for the passed district name
     weatherController.fetchWeatherDetails(districtName);
 
     return Scaffold(
@@ -30,11 +33,8 @@ class WeatherDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      weatherController
-                          .weatherDescription.value.capitalizeFirst!,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(weatherController.weatherDescription.value.capitalizeFirst!,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,31 +48,29 @@ class WeatherDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                      'Precipitation: ${weatherController.precipitation.value}'),
+                  Text('Precipitation: ${weatherController.precipitation.value}'),
                   Text('Humidity: ${weatherController.humidity.value}'),
                   Text('Wind: ${weatherController.windSpeed.value}'),
                   SizedBox(height: 16),
-                  Text("Today's Weather",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("Today's Weather", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   SizedBox(height: 8),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: weatherController.hourlyForecast.map((hour) {
+                        DateTime dateTime = DateTime.parse(hour['dt_txt']);
+                        String formattedTime = DateFormat.jm().format(dateTime);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              Text(
-                                  '${DateTime.fromMillisecondsSinceEpoch(hour['dt'] * 1000).hour} am'),
+                              Text(formattedTime),
                               Image.network(
                                 'http://openweathermap.org/img/wn/${hour['weather'][0]['icon']}@2x.png',
                                 width: 32,
                                 height: 32,
                               ),
-                              Text('${hour['temp']}°C'),
+                              Text('${hour['main']['temp'].round()}°C'),
                             ],
                           ),
                         );
@@ -80,9 +78,7 @@ class WeatherDetailScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text("Next 5 Day's Weather",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("Next 5 Day's Weather", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   SizedBox(height: 8),
                   GridView.builder(
                     shrinkWrap: true,
@@ -100,14 +96,14 @@ class WeatherDetailScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                '${DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).day} ${DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).month}',
+                                HelperFunctions().formatDate(  day['date']),
                               ),
                               Image.network(
-                                'http://openweathermap.org/img/wn/${day['weather'][0]['icon']}@2x.png',
+                                'http://openweathermap.org/img/wn/${day['icon']}@2x.png',
                                 width: 32,
                                 height: 32,
                               ),
-                              Text('${day['temp']['day']}°C'),
+                              Text('${day['temp'].round()}°C'),
                             ],
                           ),
                         ),

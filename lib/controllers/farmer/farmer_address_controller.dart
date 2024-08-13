@@ -54,7 +54,7 @@ class FarmerAddressController extends GetxController{
         var data = jsonDecode(response.body);
 
         // Check if data contains 'data' key and it is a List<dynamic>
-        if (data['success'] == 'Ok' && data.containsKey('data') && data['data'] is List<dynamic>) {
+        if (data['success'] == 'ok' && data.containsKey('data') && data['data'] is List<dynamic>) {
           states.assignAll(data['data']); // Up// date RxList with the list of states
         } else {
           print('Invalid data format for states');

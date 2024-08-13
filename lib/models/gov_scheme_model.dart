@@ -30,7 +30,7 @@ class SchemeModel {
 
   factory  SchemeModel.fromJson(Map<String, dynamic> json) {
     return SchemeModel(
-        schemeId : json['scheme_id'],
+        schemeId : json['id'],
         schemeName : json['scheme_name'],
         details : json['details'],
         benefits : json['benefits'],

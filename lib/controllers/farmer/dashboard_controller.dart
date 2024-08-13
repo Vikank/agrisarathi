@@ -88,7 +88,7 @@ class FarmerDashboardController extends GetxController{
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        temperature.value = data['main']['temp'].toString();
+        temperature.value = data['main']['temp'].round().toString();
         String iconCode = data['weather'][0]['icon'];
         weatherIcon.value = 'http://openweathermap.org/img/wn/$iconCode@2x.png';
       } else {
