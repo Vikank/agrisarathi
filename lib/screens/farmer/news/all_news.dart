@@ -31,16 +31,21 @@ class NewsListView extends StatelessWidget {
               child: Obx(() => controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : controller.filteredArticles.isNotEmpty
-                      ? _buildNewsList(context)
-                      : Center(
-                          child: Text(
-                          "No data available",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: "Bitter"),
-                        ))),
+                  ? _buildNewsList(context)
+                  : Center(
+                  child: Text(
+                    "No data available",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: "Bitter"),
+                  ))),
             ),
+            if (controller.isLoadingMore.value)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: CircularProgressIndicator(),
+              ),
           ],
         ),
       ),
@@ -64,7 +69,7 @@ class NewsListView extends StatelessWidget {
             },
             child: Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: controller.sources[index] == index
@@ -98,64 +103,85 @@ class NewsListView extends StatelessWidget {
   }
 
   Widget _buildNewsList(BuildContext context) {
-    return Obx(() => ListView.separated(
-          itemCount: controller.filteredArticles.length,
-          separatorBuilder: (context, index) => SizedBox(height: 20,),
-          itemBuilder: (context, index) {
-            var article = controller.filteredArticles[index];
-            return InkWell(
-              onTap: () {
-                Get.to(() => SingleNewsScreen(article: article));
-              },
-              child: Row(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 96,
-                      width: 155,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.black,
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.fill,
-                        ),
+    return Obx(() => NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification scrollInfo) {
+        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+            !controller.isLoadingMore.value &&
+            controller.hasMore) {
+          controller.fetchNews(loadMore: true);
+        }
+        return false;
+      },
+      child: ListView.separated(
+        itemCount: controller.filteredArticles.length,
+        separatorBuilder: (context, index) => SizedBox(height: 20),
+        itemBuilder: (context, index) {
+          var article = controller.filteredArticles[index];
+          return InkWell(
+            onTap: () {
+              Get.to(() => SingleNewsScreen(article: article));
+            },
+            child: Row(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 96,
+                    width: 155,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    placeholder: (context, url) => SizedBox(
-                        height: 10,
-                        width: 10,
-                        child: const CircularProgressIndicator(
-                          strokeAlign: 2,
-                          strokeWidth: 2,
-                        )),
-                    errorWidget: (context, url, error) => SizedBox(
-                      height: 96,
-                      width: 155,
-                      child: Image.asset("assets/images/news_placeholder.png"),
-                    ),
                   ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          article.title ?? "",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "NotoSans", fontSize: 12),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 8),
-                        Text('${HelperFunctions().formatDate(article.publishDate)}', style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "NotoSans", fontSize: 12),),
-                      ],
-                    ),
+                  placeholder: (context, url) => SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: const CircularProgressIndicator(
+                        strokeAlign: 2,
+                        strokeWidth: 2,
+                      )),
+                  errorWidget: (context, url, error) => SizedBox(
+                    height: 96,
+                    width: 155,
+                    child:
+                    Image.asset("assets/images/news_placeholder.png"),
                   ),
-                ],
-              ),
-            );
-          },
-        ));
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.title ?? "",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "NotoSans",
+                            fontSize: 12),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        '${HelperFunctions().formatDate(article.publishDate)}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "NotoSans",
+                            fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    ));
   }
 }
+

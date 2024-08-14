@@ -5,14 +5,12 @@ import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/all_news.dart';
-import '../../models/farmer_details_model.dart';
+import '../../models/news_model.dart';
 import '../../utils/helper_functions.dart';
-import 'farmer_home_controller.dart';
 
 
 class FarmerDashboardController extends GetxController{
-  var news = AllNews(status: "", articles: []).obs;
+  var articles = <NewsArticle>[].obs;
   var farmerLands = FarmerLands(data: []).obs;
   RxString cropName = "".obs;
   String? farmerId;
@@ -101,25 +99,20 @@ class FarmerDashboardController extends GetxController{
 
   void fetchNews() async {
     newsLoader.value = true;
-    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getAllNews}');
-    final body = jsonEncode({
-      "user_language": userLanguage,
-      "filter_type": "all"
-    });
-    log("log of body${body}");
+    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
     try {
-      final response = await http.post(
+      final response = await http.get(
         url,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
       );
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
-        news.value = AllNews.fromJson(jsonData);
-        log("log ${news.value}");
+        var articlesJson = jsonData['results'] as List;
+        articles.value = articlesJson.map((articleJson) => NewsArticle.fromJson(articleJson)).toList();
+        log("log ${articles.value}");
         newsLoader.value = false;
       } else {
         newsLoader.value = false;

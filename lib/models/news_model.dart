@@ -21,11 +21,11 @@ class NewsArticle {
   late final String? language;
 
   NewsArticle.fromJson(Map<String, dynamic> json){
-    newsId = json['news_id'];
+    newsId = json['id'];
     title = json['title'];
     content = json['content'];
     image = json['image'];
-    newsType = json['news_type'];
+    newsType = json['related_post'];
     source = json['source'];
     link = json['link'];
     publishDate = json['created_at'];
@@ -34,11 +34,11 @@ class NewsArticle {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['news_id'] = newsId;
+    _data['id'] = newsId;
     _data['title'] = title;
     _data['content'] = content;
     _data['image'] = image;
-    _data['news_type'] = newsType;
+    _data['related_post'] = newsType;
     _data['source'] = source;
     _data['link'] = link;
     _data['created_at'] = publishDate;

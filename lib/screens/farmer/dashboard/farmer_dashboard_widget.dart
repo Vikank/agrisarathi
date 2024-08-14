@@ -16,6 +16,7 @@ import '../crop_suggstion/crop_suggestion.dart';
 import '../fertilier_calculator/farm_for_fertilizer.dart';
 import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
+import '../news/single_news.dart';
 import '../weather/weather_detailed_screen.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
@@ -638,7 +639,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                           ),
                         ),
                       )
-                    : controller.news.value.articles.isNotEmpty
+                    : controller.articles.isNotEmpty
                         ? Container(
                             width: double.infinity,
                             padding: EdgeInsets.all(10),
@@ -730,78 +731,83 @@ class FarmerDashboardWidget extends StatelessWidget {
                             },
                           ),
                         )
-                      : controller.news.value.articles.isNotEmpty
+                      : controller.articles.isNotEmpty
                           ? ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount: controller.news.value.articles.length,
+                              itemCount: controller.articles.length,
                               itemBuilder: (context, index) {
                                 final article =
-                                    controller.news.value.articles[index];
-                                return Container(
-                                  width: 155,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            "${ApiEndPoints.baseUrl}${article.image ?? ""}",
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          height: 96,
-                                          width: 155,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: Colors.black,
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.fill,
+                                    controller.articles[index];
+                                return InkWell(
+                                  onTap: (){
+                                    Get.to(() => SingleNewsScreen(article: article));
+                                  },
+                                  child: Container(
+                                    width: 155,
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              "${ApiEndPoints.baseUrl}${article.image ?? ""}",
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            height: 96,
+                                            width: 155,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors.black,
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
+                                          placeholder: (context, url) => SizedBox(
+                                              height: 10,
+                                              width: 10,
+                                              child:
+                                                  const CircularProgressIndicator(
+                                                strokeAlign: 2,
+                                                strokeWidth: 2,
+                                              )),
+                                          errorWidget: (context, url, error) =>
+                                              SizedBox(
+                                            height: 96,
+                                            width: 155,
+                                            child: Image.asset(
+                                                "assets/images/news_placeholder.png"),
+                                          ),
                                         ),
-                                        placeholder: (context, url) => SizedBox(
-                                            height: 10,
-                                            width: 10,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              strokeAlign: 2,
-                                              strokeWidth: 2,
-                                            )),
-                                        errorWidget: (context, url, error) =>
-                                            SizedBox(
-                                          height: 96,
-                                          width: 155,
-                                          child: Image.asset(
-                                              "assets/images/news_placeholder.png"),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          article.title ?? "",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: "NotoSans",
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xff1C1C1C),
+                                          ),
+                                          maxLines: 2,
                                         ),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        article.title ?? "",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: "NotoSans",
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff1C1C1C),
+                                        SizedBox(
+                                          height: 4,
                                         ),
-                                        maxLines: 2,
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        article.publishDate ?? "",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: "NotoSans",
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff1C1C1C),
-                                        ),
-                                      )
-                                    ],
+                                        Text(
+                                          article.publishDate ?? "",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: "NotoSans",
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff1C1C1C),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
