@@ -10,8 +10,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../models/news_model.dart';
 import '../../utils/helper_functions.dart';
 
-
-class FarmerDashboardController extends GetxController{
+class FarmerDashboardController extends GetxController {
   var articles = <NewsArticle>[].obs;
   var farmerLands = FarmerLands(data: []).obs;
   RxString cropName = "".obs;
@@ -23,7 +22,7 @@ class FarmerDashboardController extends GetxController{
   var temperature = ''.obs;
   var weatherIcon = ''.obs;
   final String apiKey = '4675f25ce2863825d057505230a4cca0';
-  final RxList<TargetFocus> targets = <TargetFocus>[].obs;
+  final List<TargetFocus> targets = <TargetFocus>[];
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
 
@@ -31,11 +30,11 @@ class FarmerDashboardController extends GetxController{
   void onInit() {
     super.onInit();
     createTargets();
-    getUserLanguage().then((value){
+    getUserLanguage().then((value) {
       fetchNews();
     });
-    getFarmerId().then((value){
-    fetchFarmerLands();
+    getFarmerId().then((value) {
+      fetchFarmerLands();
     });
   }
 
@@ -49,7 +48,7 @@ class FarmerDashboardController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "Community_forum_to_discuss_problems".tr,
-              style: TextStyle(color: Colors.white, fontSize: 18),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
         ],
@@ -60,7 +59,7 @@ class FarmerDashboardController extends GetxController{
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
-            child: Text(
+            child: const Text(
               "You_can_get_information_of_shops_products_mandi_prices",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
@@ -70,39 +69,27 @@ class FarmerDashboardController extends GetxController{
     ]);
   }
 
-  void showTutorial() {
+  void showTutorial(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final context = Get.context;
+      TutorialCoachMark(
+        targets: targets,
+        colorShadow: Colors.green,
+        textSkip: "SKIP",
+        paddingFocus: 10,
+        opacityShadow: 0.8,
+        onFinish: () {
+          print("Finish");
+        },
+        onClickTarget: (target) {
+        },
+        onClickOverlay: (target) {
 
-      if (context != null) {
-        final overlay = Overlay.of(context);
-        if (overlay != null) {
-          TutorialCoachMark(
-            targets: targets,
-            colorShadow: Colors.green,
-            textSkip: "SKIP",
-            paddingFocus: 10,
-            opacityShadow: 0.8,
-            onFinish: () {
-              print("Finish");
-            },
-            onClickTarget: (target) {
-              print('onClickTarget: $target');
-            },
-            onClickOverlay: (target) {
-              print('onClickOverlay: $target');
-            },
-            onSkip: () {
-              print("Skip");
-              return true;
-            },
-          ).show(context: context);
-        } else {
-          print("Overlay not available");
-        }
-      } else {
-        print("Context is null");
-      }
+        },
+        onSkip: () {
+          print("Skip");
+          return true;
+        },
+      ).show(context: context);
     });
   }
 
@@ -112,16 +99,16 @@ class FarmerDashboardController extends GetxController{
     return userLanguage;
   }
 
-  Future<String?>getFarmerId() async{
+  Future<String?> getFarmerId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     farmerId = (prefs.getString('farmerId'));
     return farmerId;
   }
 
-
   void fetchFarmerLands() async {
     farmerLandLoader.value = true;
-    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerLands}?user_id=$farmerId');
+    final url = Uri.parse(
+        '${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerLands}?user_id=$farmerId');
 
     try {
       final response = await http.get(
@@ -172,7 +159,8 @@ class FarmerDashboardController extends GetxController{
 
   void fetchNews() async {
     newsLoader.value = true;
-    final url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
+    final url = Uri.parse(
+        '${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
     try {
       final response = await http.get(
         url,
@@ -184,7 +172,9 @@ class FarmerDashboardController extends GetxController{
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         var articlesJson = jsonData['results'] as List;
-        articles.value = articlesJson.map((articleJson) => NewsArticle.fromJson(articleJson)).toList();
+        articles.value = articlesJson
+            .map((articleJson) => NewsArticle.fromJson(articleJson))
+            .toList();
         log("log ${articles.value}");
         newsLoader.value = false;
       } else {
@@ -196,5 +186,4 @@ class FarmerDashboardController extends GetxController{
       print('Error fetching news: $e');
     }
   }
-
 }

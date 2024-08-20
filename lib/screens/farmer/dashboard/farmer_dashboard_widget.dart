@@ -29,10 +29,10 @@ class FarmerDashboardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.showTutorial();
+      controller.showTutorial(context);
     });
     return Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
+      backgroundColor: const Color(0xffFFFFFF),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -45,10 +45,10 @@ class FarmerDashboardWidget extends StatelessWidget {
               child: Container(
                   key: controller.communityCoachKey,
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     "Farms".tr,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "Bitter",
                         fontWeight: FontWeight.w600,
                         fontSize: 14),
@@ -57,7 +57,7 @@ class FarmerDashboardWidget extends StatelessWidget {
             ),
             Container(
               color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
                 height: 36,
                 child: Row(
@@ -67,8 +67,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                       child: Obx(() {
                         return controller.farmerLandLoader.value
                             ? Shimmer.fromColors(
-                          baseColor: Color(0xffDFF9ED),
-                          highlightColor: Color(0xffF1FBF2),
+                          baseColor: const Color(0xffDFF9ED),
+                          highlightColor: const Color(0xffF1FBF2),
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
@@ -77,7 +77,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                               return Container(
                                 height: 36,
                                 width: 100,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(8),
@@ -87,7 +87,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                             },
                             separatorBuilder:
                                 (BuildContext context, int index) {
-                              return SizedBox(
+                              return const SizedBox(
                                 width: 10,
                               );
                             },
@@ -107,18 +107,18 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     farmerLands[index].crop ?? "";
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(8),
                                   ),
                                 ),
                                 child: Center(
                                     child: Text(
                                       '${farmerLands![index].address}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                           fontFamily: "NotoSans"),
@@ -128,7 +128,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                           },
                           separatorBuilder:
                               (BuildContext context, int index) {
-                            return SizedBox(
+                            return const SizedBox(
                               width: 10,
                             );
                           },
@@ -137,11 +137,11 @@ class FarmerDashboardWidget extends StatelessWidget {
                     ),
                     Container(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: Color(0xffCBD5E1))),
-                        child: Icon(
+                            border: Border.all(color: const Color(0xffCBD5E1))),
+                        child: const Icon(
                           Icons.add,
                           size: 24,
                         ))
@@ -149,27 +149,27 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Container(
               height: 2,
               decoration: BoxDecoration(color: Colors.grey[200]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Obx(() {
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: controller.farmerLandLoader.value
                     ? Shimmer.fromColors(
-                  baseColor: Color(0xffDFF9ED),
-                  highlightColor: Color(0xffF1FBF2),
+                  baseColor: const Color(0xffDFF9ED),
+                  highlightColor: const Color(0xffF1FBF2),
                   child: Container(
                     width: double.infinity,
                     height: 66,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
@@ -178,21 +178,21 @@ class FarmerDashboardWidget extends StatelessWidget {
                   ),
                 )
                     : Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Color(0xffBAEDBD))),
+                      border: Border.all(color: const Color(0xffBAEDBD))),
                   child: Row(
                     children: [
                       Text(
                         "${controller.cropName}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Bitter"),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       InkWell(
                         onTap: () {
                           Get.to(() =>
@@ -203,12 +203,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                           children: [
                             Text(
                               controller.temperature.value,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: "Bitter"),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Image.network(
@@ -216,10 +216,10 @@ class FarmerDashboardWidget extends StatelessWidget {
                               width: 40,
                               height: 40,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward_ios_rounded,
                               size: 15,
                             ),
@@ -231,36 +231,36 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ),
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Image.asset("assets/images/farmer_home_banner.png"),
               // child: controller.userLanguage == 1 ? Image.asset("assets/images/farmer_home_banner.png") : Image.asset("assets/images/farmer_home_banner_hindi.png"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Color(0xfdfF1FBF2),
+                  color: const Color(0xfdfF1FBF2),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
                   "Services".tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: "Bitter",
                       fontWeight: FontWeight.w600,
                       fontSize: 14),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Padding(
@@ -275,12 +275,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                         height: 40,
                         width: 40,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         "Production".tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             fontFamily: "NotoSans"),
@@ -299,12 +299,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                           height: 40,
                           width: 40,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
                           "Fertilizer_Calculator".tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               fontFamily: "NotoSans"),
@@ -325,12 +325,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                           width: 40,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         "Detect_Disease".tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             fontFamily: "NotoSans"),
@@ -341,16 +341,16 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Color(0xfdfF1FBF2),
+                  color: const Color(0xfdfF1FBF2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -358,12 +358,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                   children: [
                     Text(
                       "Soil_Test_Today_Harvest_Tomorrow".tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: "Bitter",
                           fontWeight: FontWeight.w600,
                           fontSize: 14),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Row(
@@ -375,12 +375,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                               Text(
                                 "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future"
                                     .tr,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: "NotoSans",
                                     fontWeight: FontWeight.w400,
                                     fontSize: 10),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Container(
@@ -390,7 +390,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   border: Border.all(
                                       color: ColorConstants.primaryColor,
                                       width: 1),
-                                  borderRadius: BorderRadius.all(
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(4),
                                   ),
                                 ),
@@ -419,28 +419,28 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Color(0xfdfF1FBF2),
+                  color: const Color(0xfdfF1FBF2),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
                   "Other_Services".tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: "Bitter",
                       fontWeight: FontWeight.w600,
                       fontSize: 14),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Padding(
@@ -457,12 +457,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 40,
                             width: 40,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
                             "Farmer_Economics".tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "NotoSans"),
@@ -477,12 +477,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 40,
                             width: 40,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
                             "Irrigation_Alarm".tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "NotoSans"),
@@ -497,12 +497,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                             height: 40,
                             width: 40,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
                             "Soil_Testing".tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "NotoSans"),
@@ -512,7 +512,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -529,12 +529,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                               height: 40,
                               width: 40,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               "gov_scheme".tr,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "NotoSans"),
@@ -554,12 +554,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                               height: 40,
                               width: 40,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               "crop_suggestion".tr,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "NotoSans"),
@@ -578,15 +578,15 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Color(0xfdfF1FBF2),
+                  color: const Color(0xfdfF1FBF2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -598,7 +598,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       children: [
                         Text(
                           "Helpline".tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                               fontFamily: 'Bitter'),
@@ -625,7 +625,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Obx(() {
@@ -633,12 +633,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: controller.newsLoader.value
                     ? Shimmer.fromColors(
-                  baseColor: Color(0xffDFF9ED),
-                  highlightColor: Color(0xffF1FBF2),
+                  baseColor: const Color(0xffDFF9ED),
+                  highlightColor: const Color(0xffF1FBF2),
                   child: Container(
                     width: double.infinity,
                     height: 37,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
@@ -649,9 +649,9 @@ class FarmerDashboardWidget extends StatelessWidget {
                     : controller.articles.isNotEmpty
                     ? Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Color(0xfdfF1FBF2),
+                    color: const Color(0xfdfF1FBF2),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Row(
@@ -659,7 +659,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                     children: [
                       Text(
                         "News".tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: "Bitter",
                             fontWeight: FontWeight.w600,
                             fontSize: 14),
@@ -680,10 +680,10 @@ class FarmerDashboardWidget extends StatelessWidget {
                     ],
                   ),
                 )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Padding(
@@ -693,8 +693,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                 child: Obx(() {
                   return controller.newsLoader.value
                       ? Shimmer.fromColors(
-                    baseColor: Color(0xffDFF9ED),
-                    highlightColor: Color(0xffF1FBF2),
+                    baseColor: const Color(0xffDFF9ED),
+                    highlightColor: const Color(0xffF1FBF2),
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
@@ -709,7 +709,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               height: 12,
                               width: 155,
@@ -718,7 +718,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 4,
                             ),
                             Container(
@@ -734,7 +734,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       },
                       separatorBuilder:
                           (BuildContext context, int index) {
-                        return SizedBox(width: 18);
+                        return const SizedBox(width: 18);
                       },
                     ),
                   )
@@ -751,7 +751,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                           },
                           child: Container(
                             width: 155,
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               crossAxisAlignment:
                               CrossAxisAlignment.start,
@@ -776,11 +776,11 @@ class FarmerDashboardWidget extends StatelessWidget {
                                         ),
                                       ),
                                   placeholder: (context, url) =>
-                                      SizedBox(
+                                      const SizedBox(
                                           height: 10,
                                           width: 10,
                                           child:
-                                          const CircularProgressIndicator(
+                                          CircularProgressIndicator(
                                             strokeAlign: 2,
                                             strokeWidth: 2,
                                           )),
@@ -792,10 +792,10 @@ class FarmerDashboardWidget extends StatelessWidget {
                                             "assets/images/news_placeholder.png"),
                                       ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   article.title ?? "",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                     fontFamily: "NotoSans",
                                     fontWeight: FontWeight.bold,
@@ -803,12 +803,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   ),
                                   maxLines: 2,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 4,
                                 ),
                                 Text(
                                   article.publishDate ?? "",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                     fontFamily: "NotoSans",
                                     fontWeight: FontWeight.w400,
@@ -822,9 +822,9 @@ class FarmerDashboardWidget extends StatelessWidget {
                       },
                       separatorBuilder:
                           (BuildContext context, int index) {
-                        return SizedBox(width: 18);
+                        return const SizedBox(width: 18);
                       })
-                      : SizedBox.shrink();
+                      : const SizedBox.shrink();
                 }),
               ),
             )
