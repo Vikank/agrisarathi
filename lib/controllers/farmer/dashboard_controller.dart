@@ -29,67 +29,11 @@ class FarmerDashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    createTargets();
     getUserLanguage().then((value) {
       fetchNews();
     });
     getFarmerId().then((value) {
       fetchFarmerLands();
-    });
-  }
-
-  void createTargets() {
-    targets.addAll([
-      TargetFocus(
-        identify: "communityCoachKey",
-        keyTarget: communityCoachKey,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              "Community_forum_to_discuss_problems".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "mandiCoachKey",
-        keyTarget: mandiCoachKey,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: const Text(
-              "You_can_get_information_of_shops_products_mandi_prices",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-          ),
-        ],
-      ),
-    ]);
-  }
-
-  void showTutorial(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      TutorialCoachMark(
-        targets: targets,
-        colorShadow: Colors.green,
-        textSkip: "SKIP",
-        paddingFocus: 10,
-        opacityShadow: 0.8,
-        onFinish: () {
-          print("Finish");
-        },
-        onClickTarget: (target) {
-        },
-        onClickOverlay: (target) {
-
-        },
-        onSkip: () {
-          print("Skip");
-          return true;
-        },
-      ).show(context: context);
     });
   }
 

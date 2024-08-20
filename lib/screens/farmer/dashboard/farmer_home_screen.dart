@@ -7,6 +7,7 @@ import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
 import 'package:fpo_assist/screens/farmer/diagnosis/disease_detection_history.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../controllers/farmer/coach_marks_controller.dart';
 import '../../../controllers/profile_controller.dart';
 import 'farmer_community_widget.dart';
 import 'farmer_dashboard_widget.dart';
@@ -16,6 +17,7 @@ import 'my_farms_widget.dart';
 class FarmerHomeScreen extends StatelessWidget {
   FarmerHomeController controller = Get.put(FarmerHomeController());
   ProfileController profileController = Get.put(ProfileController());
+  CoachMarksController coachMarksController = Get.put(CoachMarksController());
 
   static List<Widget> _widgetOptions = <Widget>[
     FarmerDashboardWidget(),
@@ -33,6 +35,9 @@ class FarmerHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      coachMarksController.showTutorial(context);
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -217,6 +222,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
+                key: coachMarksController.communityCoachKey,
                   controller.selectedIndex.value == 2
                       ? "assets/icons/community_sel.png"
                       : "assets/icons/community_unsel.png",
@@ -227,6 +233,7 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
+                key: coachMarksController.mandiCoachKey,
                     controller.selectedIndex.value == 3
                         ? "assets/icons/shop_sel.png"
                         : "assets/icons/shop_unsel.png",
