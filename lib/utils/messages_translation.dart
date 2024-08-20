@@ -289,7 +289,16 @@ class MessagesTranslation extends Translations{
       "Treatments_in_field": "Treatments in field",
       "Sustainable_methods": "Sustainable methods",
       "Treatments": "Treatments",
-      "Recommended Products": "Recommended Products"
+      "Recommended_Products": "Recommended Products",
+      "You_can_select_and_add_more_Farms_here" : "You can select and add more Farms here",
+      "Here_you_can_check_weather_and_get_update" : "Here you can check weather and get update",
+      "Add_your_details_and_get_info" : "Add your details and get info ",
+      "You_can_detect_disease_by_clicking_its_pic" : "You can detect disease by clicking its pic",
+      "You_can_calculate_the_amount_of_fertilizer_to_be_added_in_your_field_according_to_its_stage" : "You can calculate the amount of fertilizer to be added in your field according to its stage",
+      "From_here_you_can_book_for_soil_testing" : "From here you can book for soil testing",
+      "All_Helpline_numbers_available_from_govt_side" : "All Helpline numbers available from govt side",
+      "Community_forum_to_discuss_problems" : "Community forum to discuss problems",
+      "You_can_get_information of_shops_products_mandi_prices" : "You can get information of shops, products, mandi prices",
     },
     'hi_IN': {
       "Recommended_Products": "उपयोग किए गए सुझावात्मक उत्पाद",
@@ -581,6 +590,15 @@ class MessagesTranslation extends Translations{
       "Application_Process": "आवेदन प्रक्रिया",
       "Document_required": "आवश्यक दस्तावेज़",
       "Links":	"लिंक",
+      "You_can_select_and_add_more_Farms_here" : "आप यहां अधिक फ़ार्म चुन सकते हैं और जोड़ सकते हैं",
+      "Here_you_can_check_weather_and_get_update" : "यहां आप मौसम की जांच कर सकते हैं और अपडेट प्राप्त कर सकते हैं",
+      "Add_your_details_and_get_info" : "अपना विवरण जोड़ें और जानकारी प्राप्त करें ",
+      "You_can_detect_disease_by_clicking_its_pic" : "आप बीमारी की तस्वीर क्लिक करके उसका पता लगा सकते हैं",
+      "You_can_calculate_the_amount_of_fertilizer_to_be_added_in_your_field_according_to_its_stage" : "आप अपने खेत में डाले जाने वाले उर्वरक की मात्रा की गणना उसकी अवस्था के अनुसार कर सकते हैं",
+      "From_here_you_can_book_for_soil_testing" : "यहां से आप मृदा परीक्षण के लिए बुकिंग कर सकते हैं",
+      "All_Helpline_numbers_available_from_govt_side" : "सरकार की ओर से सभी हेल्पलाइन नंबर उपलब्ध हैं",
+      "Community_forum_to_discuss_problems" : "समस्याओं पर चर्चा के लिए सामुदायिक मंच",
+      "You_can_get_information_of_shops_products_mandi_prices" : "आप दुकानों, उत्पादों, मंडी कीमतों की जानकारी प्राप्त कर सकते हैं",
     },
   };
 }

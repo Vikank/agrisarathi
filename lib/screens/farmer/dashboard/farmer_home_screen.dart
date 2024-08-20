@@ -25,10 +25,10 @@ class FarmerHomeScreen extends StatelessWidget {
   ];
 
   static List<Widget> _textOptions = <Widget>[
-     Text("agrisarthi".tr),
-     Text("MyFarms".tr),
-     Text("Community".tr),
-     Text("Mandi".tr),
+    Text("agrisarthi".tr),
+    Text("MyFarms".tr),
+    Text("Community".tr),
+    Text("Mandi".tr),
   ];
 
   @override
@@ -50,19 +50,20 @@ class FarmerHomeScreen extends StatelessWidget {
                   controller.farmerDetailsLoader.value ? Shimmer.fromColors(
                     baseColor: const Color(0xffDFF9ED),
                     highlightColor: const Color(0xffF1FBF2),
-                child: Container(
-                  width: 60,
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(100),),
-                  ),
-                ),
-              ) : farmerDetails.isNotEmpty ? Container(
+                    child: Container(
+                      width: 60,
+                      height: 32,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(100),),
+                      ),
+                    ),
+                  ) : farmerDetails.isNotEmpty ? Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: const BorderRadius.all(Radius.circular(100),),
+                      borderRadius: const BorderRadius.all(Radius.circular(
+                          100),),
                     ),
                     child: Row(
                       children: [
@@ -109,28 +110,30 @@ class FarmerHomeScreen extends StatelessWidget {
                     Image.asset("assets/images/logo.png", height: 40,),
                     const Spacer(),
                     InkWell(
-                      onTap: (){
-                        Get.back();
-                      },
+                        onTap: () {
+                          Get.back();
+                        },
                         child: const Icon(Icons.close, size: 24,))
                   ],
                 ),
                 const SizedBox(height: 24,),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.asset("assets/images/diagnosis.png", width: 20, height: 20,),
+                  leading: Image.asset(
+                    "assets/images/diagnosis.png", width: 20, height: 20,),
                   title: Text('Diagnosis'.tr, style: TextStyle(
-                    fontFamily: "Bitter",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700
+                      fontFamily: "Bitter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700
                   ),),
                   onTap: () {
-                    Get.to(()=> DiseaseDetectionHistory());
+                    Get.to(() => DiseaseDetectionHistory());
                   },
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.asset("assets/images/leaderboard.png", width: 20, height: 20,),
+                  leading: Image.asset(
+                    "assets/images/leaderboard.png", width: 20, height: 20,),
                   title: Text('Rewards'.tr, style: TextStyle(
                       fontFamily: "Bitter",
                       fontSize: 16,
@@ -143,7 +146,9 @@ class FarmerHomeScreen extends StatelessWidget {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.asset("assets/images/crop_suggestion.png", width: 20, height: 20,),
+                  leading: Image.asset(
+                    "assets/images/crop_suggestion.png", width: 20,
+                    height: 20,),
                   title: Text('Crop_Suggestion'.tr, style: TextStyle(
                       fontFamily: "Bitter",
                       fontSize: 16,
@@ -156,7 +161,8 @@ class FarmerHomeScreen extends StatelessWidget {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.asset("assets/images/profile.png", width: 20, height: 20,),
+                  leading: Image.asset(
+                    "assets/images/profile.png", width: 20, height: 20,),
                   title: Text('Profile'.tr, style: TextStyle(
                       fontFamily: "Bitter",
                       fontSize: 16,
@@ -170,7 +176,8 @@ class FarmerHomeScreen extends StatelessWidget {
                 Spacer(),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Image.asset("assets/images/logout.png", width: 20, height: 20,),
+                  leading: Image.asset(
+                    "assets/images/logout.png", width: 20, height: 20,),
                   title: Text('Log out'.tr, style: TextStyle(
                       fontFamily: "Bitter",
                       fontSize: 16,
@@ -210,22 +217,22 @@ class FarmerHomeScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                controller.selectedIndex.value == 2
-                    ? "assets/icons/community_sel.png"
-                    : "assets/icons/community_unsel.png",
-                width: 24,
-                height: 24,
-              ),
+                  controller.selectedIndex.value == 2
+                      ? "assets/icons/community_sel.png"
+                      : "assets/icons/community_unsel.png",
+                  width: 24,
+                  height: 24,
+                ),
               label: 'Community'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                controller.selectedIndex.value == 3
-                    ? "assets/icons/shop_sel.png"
-                    : "assets/icons/shop_unsel.png",
-                width: 24,
-                height: 24,
-              ),
+                    controller.selectedIndex.value == 3
+                        ? "assets/icons/shop_sel.png"
+                        : "assets/icons/shop_unsel.png",
+                    width: 24,
+                    height: 24,
+                  ),
               label: 'Mandi'.tr,
             ),
           ],

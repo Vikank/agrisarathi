@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:fpo_assist/models/farmer_lands.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../models/news_model.dart';
 import '../../utils/helper_functions.dart';
 
@@ -21,15 +23,86 @@ class FarmerDashboardController extends GetxController{
   var temperature = ''.obs;
   var weatherIcon = ''.obs;
   final String apiKey = '4675f25ce2863825d057505230a4cca0';
+  final RxList<TargetFocus> targets = <TargetFocus>[].obs;
+  final communityCoachKey = GlobalKey();
+  final mandiCoachKey = GlobalKey();
 
   @override
   void onInit() {
     super.onInit();
+    createTargets();
     getUserLanguage().then((value){
       fetchNews();
     });
     getFarmerId().then((value){
     fetchFarmerLands();
+    });
+  }
+
+  void createTargets() {
+    targets.addAll([
+      TargetFocus(
+        identify: "communityCoachKey",
+        keyTarget: communityCoachKey,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              "Community_forum_to_discuss_problems".tr,
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: "mandiCoachKey",
+        keyTarget: mandiCoachKey,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              "You_can_get_information_of_shops_products_mandi_prices",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ],
+      ),
+    ]);
+  }
+
+  void showTutorial() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final context = Get.context;
+
+      if (context != null) {
+        final overlay = Overlay.of(context);
+        if (overlay != null) {
+          TutorialCoachMark(
+            targets: targets,
+            colorShadow: Colors.green,
+            textSkip: "SKIP",
+            paddingFocus: 10,
+            opacityShadow: 0.8,
+            onFinish: () {
+              print("Finish");
+            },
+            onClickTarget: (target) {
+              print('onClickTarget: $target');
+            },
+            onClickOverlay: (target) {
+              print('onClickOverlay: $target');
+            },
+            onSkip: () {
+              print("Skip");
+              return true;
+            },
+          ).show(context: context);
+        } else {
+          print("Overlay not available");
+        }
+      } else {
+        print("Context is null");
+      }
     });
   }
 
