@@ -241,7 +241,7 @@ class MessagesTranslation extends Translations{
       "How_to_earn_points": "How to earn points",
       "Clear_Notification": "Clear Notification",
       "Another_crop": "Another crop",
-      "Farm_land": "Farm land",
+      "Farm_land": "Farm lands",
       "Tutorial": "Tutorial",
       "Learn_with_video_how_to_do_it": "Learn with video, how to do it",
       "Camera": "Camera",

@@ -28,7 +28,7 @@ class FarmerHomeScreen extends StatelessWidget {
 
   static List<Widget> _textOptions = <Widget>[
     Text("agrisarthi".tr),
-    Text("MyFarms".tr),
+    Text("Farm_land".tr),
     Text("Community".tr),
     Text("Mandi".tr),
   ];
