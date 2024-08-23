@@ -51,7 +51,7 @@ class OtpScreen extends StatefulWidget {
 
   onButtonPressed() async {
     await Future.delayed(const Duration(seconds: 2), () => otpVerify());
-    userExist == true ? Get.offAll(FarmerHomeScreen()) : Get.to(()=>FarmerAddressDetail());
+    userExist == true ? Get.offAll(FarmerHomeScreen()) : Get.to(()=>SelectCropScreen());
     return () {};
   }
 

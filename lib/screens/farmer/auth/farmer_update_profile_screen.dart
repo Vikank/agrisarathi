@@ -9,16 +9,6 @@ import '../../../utils/color_constants.dart';
 
 class FarmerUpdateProfileScreen extends StatelessWidget {
 
-  RxList<Crop> selectedCrops;
-  String? addressLine;
-  int? pinCode;
-  int? state;
-  int? district;
-  String? village;
-  int? landArea;
-
-  FarmerUpdateProfileScreen({required this.selectedCrops, this.pinCode, this.landArea, this.village, this.state, this.addressLine, this.district});
-
   FarmerUpdateProfileController controller = Get.put(
       FarmerUpdateProfileController());
 

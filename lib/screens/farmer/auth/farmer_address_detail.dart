@@ -7,8 +7,13 @@ import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/farmer/farmer_address_controller.dart';
+import '../../../models/select_crop_model.dart';
+import 'farmer_update_profile_screen.dart';
 
 class FarmerAddressDetail extends StatelessWidget {
+  RxList<Crop> selectedCrops;
+  FarmerAddressDetail({super.key, required this.selectedCrops});
+
   final FarmerAddressController farmerAddressController =
       Get.put(FarmerAddressController());
   final _formKey = GlobalKey<FormState>();
@@ -192,10 +197,12 @@ class FarmerAddressDetail extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            int selectedDistrictId = farmerAddressController.districts
+                            int selectedDistrictId = farmerAddressController
+                                .districts
                                 .firstWhere((element) =>
-                            element['district'] == newValue)['id'];
-                            farmerAddressController.district = selectedDistrictId;
+                                    element['district'] == newValue)['id'];
+                            farmerAddressController.district =
+                                selectedDistrictId;
                           },
                         );
                       }),
@@ -275,7 +282,7 @@ class FarmerAddressDetail extends StatelessWidget {
                 // if (_formKey.currentState!.validate()) {
                 //   farmerAddressController.postFarmerAddress();
                 // }
-                Get.to(() => SelectCropScreen(pinCode: int.parse(farmerAddressController.pinCode.text), landArea: int.parse(farmerAddressController.landArea.text), village: farmerAddressController.village.text, state: farmerAddressController.state, addressLine: farmerAddressController.addressLine.text, district: farmerAddressController.district));
+                Get.to(() => FarmerUpdateProfileScreen());
               },
               widget: farmerAddressController.loading.value
                   ? progressIndicator()
