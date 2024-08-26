@@ -27,9 +27,9 @@ class FertilizerResultScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionCard('Soil Structure', _buildSoilStructureTable()),
+              _buildSectionCard('Soil_Structure'.tr, _buildSoilStructureTable()),
               SizedBox(height: 16),
-              _buildSectionCard('No. of Bags', _buildBagsTable()),
+              _buildSectionCard('No_of_Bags'.tr, _buildBagsTable()),
               SizedBox(height: 16),
               _buildAlreadyHaveStockSection(),
             ],
@@ -79,7 +79,7 @@ class FertilizerResultScreen extends StatelessWidget {
         ),
         TableRow(
           children: [
-            'Value',
+            'Value'.tr,
             npkStatus.nitrogenValue.toString(),
             npkStatus.phosphorousValue.toString(),
             npkStatus.potassiumValue.toString()
@@ -87,7 +87,7 @@ class FertilizerResultScreen extends StatelessWidget {
         ),
         TableRow(
           children: [
-            'Status',
+            'Status'.tr,
             npkStatus.n,
             npkStatus.p,
             npkStatus.k

@@ -45,19 +45,19 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
               color: Colors.green[50],
               borderRadius: BorderRadius.circular(5)
             ),
-            child: Text('Fertilizer (in kg)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),),),
+            child: Text('Fertilizer_in_kg'.tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),),),
         SizedBox(height: 10),
-        _buildInputField('DAEP', controller.daep),
-        _buildInputField('Complexes', controller.complexes),
-        _buildInputField('Urea', controller.urea),
-        _buildInputField('SSP', controller.ssp),
-        _buildInputField('MOP', controller.mop),
+        _buildInputField('DAP'.tr, controller.daep),
+        _buildInputField('Complex_17'.tr, controller.complexes),
+        _buildInputField('Urea'.tr, controller.urea),
+        _buildInputField('SSP'.tr, controller.ssp),
+        _buildInputField('MOP'.tr, controller.mop),
         SizedBox(height: 20),
         Obx(() => CustomElevatedButton(
           buttonColor: ColorConstants.primaryColor,
           onPress: controller.isLoading.value ? null : controller.calculateFertilizer,
           widget: Text(
-            "CALCULATE",
+            "Calculate".tr,
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -96,7 +96,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
                 color: Colors.green[50],
                 borderRadius: BorderRadius.circular(5)
             ),
-            child: Text('No. of Bags', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),),),
+            child: Text('No_of_Bags'.tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),),),
         SizedBox(height: 10),
         _buildResultsTable(),
       ],
@@ -118,19 +118,19 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
       children: [
         _buildTableRow(['', 'N', 'P', 'K'], isHeader: true),
         _buildTableRow([
-          'NPK (kg/ha)',
+          'NPK'.tr,
           total['Total Nitrogen'].toString(),
           total['Total Phosphorous'].toString(),
           total['Total Potassium'].toString()
         ]),
         _buildTableRow([
-          'Fertilizer (kg)',
+          'Fertilizer_in_kg'.tr,
           results['Urea']['N'].toString(),
           results['SSP']['P'].toString(),
           results['MOP']['K'].toString()
         ]),
         _buildTableRow([
-          'Price Req. (Rs)',
+          'Price_Req'.tr,
           '0.00',
           '0.00',
           '0.00'

@@ -319,7 +319,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Have you got your soil tested?",
+                          "Have_you_got_your_soil_tested".tr,
                           style: TextStyle(
                               fontFamily: "Bitter",
                               fontSize: 16,
@@ -335,7 +335,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                               height: 30,
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Text("NO", style: TextStyle(
+                                child: Text("No".tr, style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
                                     fontFamily: "NotoSans"
@@ -358,7 +358,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                                   Get.to(()=>FertilizerCalci(
                                       cropId: controller.selectedCrops.first.id));
                                 },
-                                child: Text("YES", style: TextStyle(
+                                child: Text("Yes".tr, style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
                                     fontFamily: "NotoSans"

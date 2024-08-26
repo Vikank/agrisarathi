@@ -92,7 +92,7 @@ class FertilizerCalci extends StatelessWidget {
                 }
               },
               widget: Text(
-                "NEXT",
+                "Next".tr,
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
