@@ -14,6 +14,7 @@ class FarmerUpdateProfileController extends GetxController{
   RxBool loading = false.obs;
   final fpoName = TextEditingController();
   final nameController = TextEditingController();
+  final emailController = TextEditingController();
   String? farmerId;
   RxBool fpoNameExist = false.obs;
   int? userLanguage;
@@ -68,8 +69,7 @@ class FarmerUpdateProfileController extends GetxController{
     }
   }
 
-  Future<void> updateFarmerDetail(RxList<Crop> selectedCrops, int? pinCode, int? landArea, String? village, int? state, String? addressLine, int? district) async {
-    final selectedCropIds = getSelectedCropIds(selectedCrops);
+  Future<void> updateFarmerDetail() async {
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
@@ -79,14 +79,6 @@ class FarmerUpdateProfileController extends GetxController{
       'fpo_name': fpoName.text,
       'userid': farmerId,
       'fk_language_id': userLanguage,
-      'pincode': pinCode,
-      'land_id': null,
-      'land_area': landArea,
-      'address': addressLine,
-      'village': village,
-      'fk_state_id': state,
-      'fk_district_id': district,
-      'fk_crops_id': selectedCropIds.first
     };
     print("data: ${jsonEncode(body)} ${url}");
     http.Response response =

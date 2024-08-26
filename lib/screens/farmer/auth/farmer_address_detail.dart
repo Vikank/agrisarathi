@@ -12,7 +12,8 @@ import 'farmer_update_profile_screen.dart';
 
 class FarmerAddressDetail extends StatelessWidget {
   RxList<Crop> selectedCrops;
-  FarmerAddressDetail({super.key, required this.selectedCrops});
+  int cropVariety;
+  FarmerAddressDetail({super.key, required this.selectedCrops, required this.cropVariety});
 
   final FarmerAddressController farmerAddressController =
       Get.put(FarmerAddressController());
@@ -265,6 +266,40 @@ class FarmerAddressDetail extends StatelessWidget {
                     return null;
                   },
                 ),
+                SizedBox(height: 24,),
+                SizedBox(height: 24,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Obx(() => Radio<String>(
+                            value: 'Owned',
+                            groupValue: farmerAddressController.selectedPropertyType.value,
+                            onChanged: (value) {
+                              farmerAddressController.setSelectedPropertyType(value!);
+                            },
+                          )),
+                          Text('Owned'),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Obx(() => Radio<String>(
+                            value: 'Rented',
+                            groupValue: farmerAddressController.selectedPropertyType.value,
+                            onChanged: (value) {
+                              farmerAddressController.setSelectedPropertyType(value!);
+                            },
+                          )),
+                          Text('Rented'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -278,10 +313,10 @@ class FarmerAddressDetail extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(
               buttonColor: Colors.green,
-              onPress: () {
-                // if (_formKey.currentState!.validate()) {
-                //   farmerAddressController.postFarmerAddress();
-                // }
+              onPress: () async{
+                if (_formKey.currentState!.validate()) {
+                  await farmerAddressController.postFarmerAddress(selectedCropId: selectedCrops.first.id, selectedVarietyId: cropVariety);
+                }
                 Get.to(() => FarmerUpdateProfileScreen());
               },
               widget: farmerAddressController.loading.value

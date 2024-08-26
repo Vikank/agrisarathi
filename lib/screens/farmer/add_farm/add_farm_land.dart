@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/farmer/farmer_address_controller.dart';
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_elevated_button.dart';
+import '../dashboard/farmer_home_screen.dart';
 
 class AddFarmLand extends StatelessWidget {
   final FarmerAddressController farmerAddressController =
   Get.put(FarmerAddressController());
+  FarmerDashboardController farmerDashboardController = Get.put(FarmerDashboardController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -328,12 +331,47 @@ class AddFarmLand extends StatelessWidget {
                     SizedBox(width: 10,),
                     Expanded(
                       child: Obx(() {
+                        // Debug prints
+                        print("Selected Variety ID: ${farmerAddressController.selectedVarietyId}");
+                        print("Varieties: ${farmerAddressController.varieties}");
+
+                        // Ensure the selectedVarietyId is a String, not null
+                        String? currentValue = farmerAddressController.selectedVarietyId?.toString();
+
+                        // Create the list of DropdownMenuItem
+                        List<DropdownMenuItem<String>> dropdownItems = [];
+
+                        if (farmerAddressController.varieties.isNotEmpty) {
+                          dropdownItems = farmerAddressController.varieties
+                              .where((variety) => variety['id'] != null && variety['name'] != null)
+                              .map<DropdownMenuItem<String>>((variety) {
+                            return DropdownMenuItem<String>(
+                              value: variety['id'].toString(),
+                              child: Text(variety['name'].toString()),
+                            );
+                          }).toList();
+                        }
+
+                        // Debug print
+                        print("Dropdown Items: $dropdownItems");
+
+                        // Check if the currentValue exists in the items
+                        bool valueExists = dropdownItems.any((item) => item.value == currentValue);
+
+                        // If the current value doesn't exist in the items, set it to null
+                        if (!valueExists) {
+                          currentValue = null;
+                          farmerAddressController.selectedVarietyId = null;
+                        }
+
+                        // Debug print
+                        print("Current Value: $currentValue");
+
                         return DropdownButtonFormField<String>(
                           isExpanded: true,
                           decoration: InputDecoration(
                             focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ColorConstants.primaryColor),
+                              borderSide: BorderSide(color: ColorConstants.primaryColor),
                             ),
                           ),
                           hint: Text(
@@ -346,21 +384,13 @@ class AddFarmLand extends StatelessWidget {
                             ),
                           ),
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (value == null || value.isEmpty) {
                               return 'Please choose variety';
                             }
                             return null;
                           },
-                          value: farmerAddressController.selectedVarietyId != null
-                              ? farmerAddressController.selectedVarietyId.toString()
-                              : null,
-                          items: farmerAddressController.varieties
-                              .map<DropdownMenuItem<String>>((variety) {
-                            return DropdownMenuItem<String>(
-                              value: variety['id'],
-                              child: Text(variety['name']),
-                            );
-                          }).toList(),
+                          value: currentValue,
+                          items: dropdownItems,
                           onChanged: (String? newValue) {
                             farmerAddressController.selectedVarietyId = newValue;
                           },
@@ -382,9 +412,12 @@ class AddFarmLand extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(
               buttonColor: Colors.green,
-              onPress: () {
+              onPress: () async{
                 if (_formKey.currentState!.validate()) {
-                  farmerAddressController.postFarmerAddress();
+                  await farmerAddressController.addNewLand().then((value){
+                    farmerDashboardController.fetchFarmerLands();
+                  });
+                  Get.offAll(()=>FarmerHomeScreen());
                 }
                 },
               widget: farmerAddressController.loading.value

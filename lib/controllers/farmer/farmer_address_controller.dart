@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:fpo_assist/models/select_crop_model.dart';
+import 'package:fpo_assist/screens/farmer/dashboard/farmer_home_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,14 +132,14 @@ class FarmerAddressController extends GetxController{
       varieties.clear();
       jsonData['data'].forEach((variety) {
         varieties.add({
-          'id': variety['id'].toString(),
+          'id': variety['variety_id'].toString(),
           'name': variety['variety'],
         });
       });
     }
   }
 
-  Future<void> postFarmerAddress() async {
+  Future<void> postFarmerAddress({int? selectedCropId, int? selectedVarietyId}) async {
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
@@ -155,22 +157,54 @@ class FarmerAddressController extends GetxController{
       "pincode": int.parse(pinCode.text)
     };
     log("data: ${jsonEncode(body)}");
-    // http.Response response =
-    // await http.post(url, body: jsonEncode(body), headers: headers);
-    // final json = jsonDecode(response.body);
-    // if (response.statusCode == 200 || response.statusCode == 201) {
-    //   addressLine.clear();
-    //   village.clear();
-    //   landArea.clear();
-    //   addressLine.clear();
-    //   Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
-    //
-    //   Get.back();
-    //   loading.value = false;
-    // } else {
-    //   loading.value = false;
-    //   Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
-    // }
+    http.Response response =
+    await http.post(url, body: jsonEncode(body), headers: headers);
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      addressLine.clear();
+      village.clear();
+      landArea.clear();
+      addressLine.clear();
+      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+      loading.value = false;
+    } else {
+      loading.value = false;
+      Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  Future<void> addNewLand() async {
+    loading.value = true;
+    var headers = {'Content-Type': 'application/json'};
+    var url = Uri.parse(
+        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
+    var body = {
+      "userid" : int.parse(farmerId!),
+      "crop_id": selectedCropId,
+      "is_land": isLand.value,
+      "variety_id": selectedVarietyId,
+      "address":addressLine.text,
+      "state":state,
+      "district":district,
+      "village":village.text,
+      "land_area" : int.parse(landArea.text),
+      "pincode": int.parse(pinCode.text)
+    };
+    log("data: ${jsonEncode(body)}");
+    http.Response response =
+    await http.post(url, body: jsonEncode(body), headers: headers);
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      addressLine.clear();
+      village.clear();
+      landArea.clear();
+      addressLine.clear();
+      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+      loading.value = false;
+    } else {
+      loading.value = false;
+      Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+    }
   }
 
 
