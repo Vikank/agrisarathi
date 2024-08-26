@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:fpo_assist/utils/color_constants.dart';
 import 'package:get/get.dart';
 
@@ -65,7 +66,7 @@ class FarmForFertilizer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Have you got your soil tested?",
+                                "Have_you_got_your_soil_tested".tr,
                                 style: TextStyle(
                                     fontFamily: "Bitter",
                                     fontSize: 16,
@@ -85,7 +86,7 @@ class FarmForFertilizer extends StatelessWidget {
                                         await fertilizerCalciController.fetchRecommendedFertilizerData(); // Fetch data
                                         Get.to(() => FertilizerRecommendedrScreen()); // Navigate to calculator screen
                                       },
-                                      child: Text("NO", style: TextStyle(
+                                      child: Text("No".tr, style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13,
                                         fontFamily: "NotoSans"
@@ -108,7 +109,7 @@ class FarmForFertilizer extends StatelessWidget {
                                         Get.to(FertilizerCalci(
                                             landId: farmLand.id));
                                       },
-                                      child: Text("YES", style: TextStyle(
+                                      child: Text("Yes".tr, style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
                                           fontFamily: "NotoSans"
@@ -143,7 +144,7 @@ class FarmForFertilizer extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                              "https://api.agrisarathi.com/api/${farmLand.cropImages![0] ?? ""}",
+                              "${ApiEndPoints.baseUrl}${farmLand.cropImages![0] ?? ""}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 52,
                             height: 52,
