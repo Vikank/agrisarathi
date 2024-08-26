@@ -1,22 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
-import 'package:fpo_assist/utils/color_constants.dart';
-import 'package:fpo_assist/widgets/custom_elevated_button.dart';
+import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/farmer/farmer_address_controller.dart';
-import '../../../models/select_crop_model.dart';
-import 'farmer_update_profile_screen.dart';
+import '../../../utils/color_constants.dart';
+import '../../../widgets/custom_elevated_button.dart';
+import '../dashboard/farmer_home_screen.dart';
 
-class FarmerAddressDetail extends StatelessWidget {
-  RxList<Crop> selectedCrops;
-  int cropVariety;
-  FarmerAddressDetail({super.key, required this.selectedCrops, required this.cropVariety});
-
+class AddFarmLand extends StatelessWidget {
   final FarmerAddressController farmerAddressController =
-      Get.put(FarmerAddressController());
+  Get.put(FarmerAddressController());
+  FarmerDashboardController farmerDashboardController = Get.put(FarmerDashboardController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,7 +52,7 @@ class FarmerAddressDetail extends StatelessWidget {
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: ColorConstants.primaryColor),
+                      BorderSide(color: ColorConstants.primaryColor),
                     ),
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
@@ -80,35 +74,6 @@ class FarmerAddressDetail extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: farmerAddressController.pinCode,
-                        cursorColor: ColorConstants.primaryColor,
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: ColorConstants.primaryColor),
-                          ),
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontFamily: 'NotoSans',
-                          ),
-                          hintText: "Pin_Code".tr,
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter pin code';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
                     Expanded(
                       child: Obx(() {
                         return DropdownButtonFormField<String>(
@@ -147,7 +112,7 @@ class FarmerAddressDetail extends StatelessWidget {
                           onChanged: (String? newValue) {
                             int selectedStateId = farmerAddressController.states
                                 .firstWhere((element) =>
-                                    element['state'] == newValue)['id'];
+                            element['state'] == newValue)['id'];
                             farmerAddressController.fetchDistricts(
                                 selectedStateId); // Fetch districts on state change
                             farmerAddressController.state = selectedStateId;
@@ -155,13 +120,7 @@ class FarmerAddressDetail extends StatelessWidget {
                         );
                       }),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  children: [
+                    SizedBox(width: 10,),
                     Expanded(
                       child: Obx(() {
                         return DropdownButtonFormField<String>(
@@ -198,12 +157,10 @@ class FarmerAddressDetail extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            int selectedDistrictId = farmerAddressController
-                                .districts
+                            int selectedDistrictId = farmerAddressController.districts
                                 .firstWhere((element) =>
-                                    element['district'] == newValue)['id'];
-                            farmerAddressController.district =
-                                selectedDistrictId;
+                            element['district'] == newValue)['id'];
+                            farmerAddressController.district = selectedDistrictId;
                           },
                         );
                       }),
@@ -214,12 +171,39 @@ class FarmerAddressDetail extends StatelessWidget {
                   height: 24,
                 ),
                 TextFormField(
+                  controller: farmerAddressController.pinCode,
+                  cursorColor: ColorConstants.primaryColor,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide:
+                      BorderSide(color: ColorConstants.primaryColor),
+                    ),
+                    hintStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontFamily: 'NotoSans',
+                    ),
+                    hintText: "Pin_Code".tr,
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter pin code';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
                   controller: farmerAddressController.village,
                   cursorColor: ColorConstants.primaryColor,
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: ColorConstants.primaryColor),
+                      BorderSide(color: ColorConstants.primaryColor),
                     ),
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
@@ -249,7 +233,7 @@ class FarmerAddressDetail extends StatelessWidget {
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: ColorConstants.primaryColor),
+                      BorderSide(color: ColorConstants.primaryColor),
                     ),
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
@@ -266,7 +250,6 @@ class FarmerAddressDetail extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 24,),
                 SizedBox(height: 24,),
                 Row(
                   children: [
@@ -300,6 +283,122 @@ class FarmerAddressDetail extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Obx(() {
+                        return DropdownButtonFormField<String>(
+                          isExpanded: true,
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ColorConstants.primaryColor),
+                            ),
+                          ),
+                          hint: Text(
+                            'Crop'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontFamily: 'NotoSans',
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please choose crop';
+                            }
+                            return null;
+                          },
+                          value: farmerAddressController.selectedCropId != null
+                              ? farmerAddressController.selectedCropId.toString()
+                              : null,
+                          items: farmerAddressController.crops
+                              .map<DropdownMenuItem<String>>((crop) {
+                            return DropdownMenuItem(
+                              value: crop['id'],
+                              child: Text(crop['name']),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            farmerAddressController.selectedCropId = newValue;
+                            farmerAddressController.fetchVarieties(newValue!);
+                          },
+                        );
+                      }),
+                    ),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: Obx(() {
+                        // Debug prints
+                        print("Selected Variety ID: ${farmerAddressController.selectedVarietyId}");
+                        print("Varieties: ${farmerAddressController.varieties}");
+
+                        // Ensure the selectedVarietyId is a String, not null
+                        String? currentValue = farmerAddressController.selectedVarietyId?.toString();
+
+                        // Create the list of DropdownMenuItem
+                        List<DropdownMenuItem<String>> dropdownItems = [];
+
+                        if (farmerAddressController.varieties.isNotEmpty) {
+                          dropdownItems = farmerAddressController.varieties
+                              .where((variety) => variety['id'] != null && variety['name'] != null)
+                              .map<DropdownMenuItem<String>>((variety) {
+                            return DropdownMenuItem<String>(
+                              value: variety['id'].toString(),
+                              child: Text(variety['name'].toString()),
+                            );
+                          }).toList();
+                        }
+
+                        // Debug print
+                        print("Dropdown Items: $dropdownItems");
+
+                        // Check if the currentValue exists in the items
+                        bool valueExists = dropdownItems.any((item) => item.value == currentValue);
+
+                        // If the current value doesn't exist in the items, set it to null
+                        if (!valueExists) {
+                          currentValue = null;
+                          farmerAddressController.selectedVarietyId = null;
+                        }
+
+                        // Debug print
+                        print("Current Value: $currentValue");
+
+                        return DropdownButtonFormField<String>(
+                          isExpanded: true,
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: ColorConstants.primaryColor),
+                            ),
+                          ),
+                          hint: Text(
+                            'Variety'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontFamily: 'NotoSans',
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please choose variety';
+                            }
+                            return null;
+                          },
+                          value: currentValue,
+                          items: dropdownItems,
+                          onChanged: (String? newValue) {
+                            farmerAddressController.selectedVarietyId = newValue;
+                          },
+                        );
+                      }),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -315,19 +414,21 @@ class FarmerAddressDetail extends StatelessWidget {
               buttonColor: Colors.green,
               onPress: () async{
                 if (_formKey.currentState!.validate()) {
-                  await farmerAddressController.postFarmerAddress(selectedCropId: selectedCrops.first.id, selectedVarietyId: cropVariety);
+                  await farmerAddressController.addNewLand().then((value){
+                    farmerDashboardController.fetchFarmerLands();
+                  });
+                  Get.offAll(()=>FarmerHomeScreen());
                 }
-                Get.to(() => FarmerUpdateProfileScreen());
-              },
+                },
               widget: farmerAddressController.loading.value
                   ? progressIndicator()
                   : Text(
-                      "Next".tr,
-                      style: TextStyle(
-                          fontFamily: 'NotoSans',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
+                "Done".tr,
+                style: TextStyle(
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         );

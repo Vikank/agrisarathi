@@ -9,16 +9,6 @@ import '../../../utils/color_constants.dart';
 
 class FarmerUpdateProfileScreen extends StatelessWidget {
 
-  RxList<Crop> selectedCrops;
-  String? addressLine;
-  int? pinCode;
-  int? state;
-  int? district;
-  String? village;
-  int? landArea;
-
-  FarmerUpdateProfileScreen({required this.selectedCrops, this.pinCode, this.landArea, this.village, this.state, this.addressLine, this.district});
-
   FarmerUpdateProfileController controller = Get.put(
       FarmerUpdateProfileController());
 
@@ -58,13 +48,13 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 hintText: "Name".tr,
               ),
             ),
-            SizedBox(height: 24,),
             Obx(() {
               return Visibility(
                 visible: controller.fpoNameExist.value,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 24,),
                     Text("FPO_Name".tr, style: Theme
                         .of(context)
                         .textTheme
@@ -89,6 +79,30 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
               );
             }),
             SizedBox(height: 24,),
+            Text("Enter_your_mail_id".tr, style: Theme
+                .of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(
+                fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
+            SizedBox(height: 8,),
+            TextFormField(
+              controller: controller.emailController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value!.isNotEmpty && !GetUtils.isEmail(value!))
+                  return "Email is not valid";
+                else
+                  return null;
+              },
+              decoration: InputDecoration(
+                hintStyle:
+                const TextStyle(fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                    fontSize: 16),
+                hintText: "Abc@gmail.com".tr,
+              ),
+            ),
           ],
         ),
       ),
@@ -99,7 +113,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
-              controller.updateFarmerDetail(selectedCrops, pinCode, landArea,  village, state, addressLine, district);
+              controller.updateFarmerDetail();
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "Save".tr,
               style: TextStyle(fontFamily: 'NotoSans',

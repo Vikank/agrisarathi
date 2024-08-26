@@ -12,6 +12,7 @@ class CropController extends GetxController {
   var displayedCrops = <Crop>[].obs;
   var selectedCategory = ''.obs;
   var selectedCrops = <Crop>[].obs;
+  var varieties = [].obs;
   var searchQuery = ''.obs;
   int? userLanguage;
 
@@ -76,6 +77,22 @@ class CropController extends GetxController {
 
   void removeSelectedCrop(Crop crop) {
     selectedCrops.remove(crop);
+  }
+
+  void fetchVarieties(String cropId) async {
+    log("aaya variety me ${cropId}");
+    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetCropVariety?crop_id=$cropId'));
+    log("aaya response me ${response.body}");
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      varieties.clear();
+      jsonData['data'].forEach((variety) {
+        varieties.add({
+          'id': variety['id'].toString(),
+          'name': variety['variety'],
+        });
+      });
+    }
   }
 
 }

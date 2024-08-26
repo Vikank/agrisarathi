@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:fpo_assist/models/select_crop_model.dart';
+import 'package:fpo_assist/screens/farmer/dashboard/farmer_home_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,10 +14,15 @@ import '../../utils/helper_functions.dart';
 class FarmerAddressController extends GetxController{
 
   RxBool loading = false.obs;
+  RxBool isLand = true.obs;
   final addressLine = TextEditingController();
   final pinCode = TextEditingController();
   int? state;
   int? district;
+  var crops = [].obs;
+  var selectedCropId;
+  var varieties = [].obs;
+  var selectedVarietyId;
   final village = TextEditingController();
   String? farmerId;
   int? userLanguage;
@@ -23,11 +30,20 @@ class FarmerAddressController extends GetxController{
   RxList<dynamic> districts = <dynamic>[].obs;
   final landArea = TextEditingController();
 
+  var selectedPropertyType = 'Owned'.obs;
+
+  void setSelectedPropertyType(String value) {
+    selectedPropertyType.value = value;
+    isLand.value = (value == 'Owned');
+    log("value of isLand is ${isLand.value}");
+  }
+
   @override
   void onInit(){
     super.onInit();
     getFarmerId();
     fetchStates();
+    fetchCrops();
     getUserLanguage();
   }
 
@@ -39,7 +55,7 @@ class FarmerAddressController extends GetxController{
 
   void getUserLanguage() async{
     userLanguage = await HelperFunctions.getUserLanguage();
-    log("UserRole $userLanguage");
+    log("UserLanguage $userLanguage");
   }
 
 // Fetch all states from API
@@ -92,16 +108,47 @@ class FarmerAddressController extends GetxController{
     }
   }
 
+  void fetchCrops() async {
+    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetInitialScreenCrops?user_language=1'));
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      jsonData.forEach((key, value) {
+        value.forEach((crop) {
+          crops.add({
+            'id': crop['id'].toString(),
+            'name': crop['crop_name'],
+          });
+        });
+      });
+    }
+  }
 
+  void fetchVarieties(String cropId) async {
+    log("aaya variety me ${cropId}");
+    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetCropVariety?crop_id=$cropId'));
+    log("aaya response me ${response.body}");
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      varieties.clear();
+      jsonData['data'].forEach((variety) {
+        varieties.add({
+          'id': variety['variety_id'].toString(),
+          'name': variety['variety'],
+        });
+      });
+    }
+  }
 
-  Future<void> postFarmerAddress() async {
+  Future<void> postFarmerAddress({int? selectedCropId, int? selectedVarietyId}) async {
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
         ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
     var body = {
       "userid" : int.parse(farmerId!),
-      "user_language": 1,
+      "crop_id": selectedCropId,
+      "is_land": isLand.value,
+      "variety_id": selectedVarietyId,
       "address":addressLine.text,
       "state":state,
       "district":district,
@@ -118,7 +165,40 @@ class FarmerAddressController extends GetxController{
       village.clear();
       landArea.clear();
       addressLine.clear();
-      Get.to(() => SelectCropScreen());
+      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+      loading.value = false;
+    } else {
+      loading.value = false;
+      Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  Future<void> addNewLand() async {
+    loading.value = true;
+    var headers = {'Content-Type': 'application/json'};
+    var url = Uri.parse(
+        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
+    var body = {
+      "userid" : int.parse(farmerId!),
+      "crop_id": selectedCropId,
+      "is_land": isLand.value,
+      "variety_id": selectedVarietyId,
+      "address":addressLine.text,
+      "state":state,
+      "district":district,
+      "village":village.text,
+      "land_area" : int.parse(landArea.text),
+      "pincode": int.parse(pinCode.text)
+    };
+    log("data: ${jsonEncode(body)}");
+    http.Response response =
+    await http.post(url, body: jsonEncode(body), headers: headers);
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      addressLine.clear();
+      village.clear();
+      landArea.clear();
+      addressLine.clear();
       Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
     } else {

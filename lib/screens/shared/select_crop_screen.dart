@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fpo_assist/controllers/shared/select_crop_controller.dart';
+import 'package:fpo_assist/screens/farmer/auth/crop_variety_screen.dart';
 import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
 import 'package:get/get.dart';
 import '../../utils/api_constants.dart';
@@ -11,14 +12,6 @@ import '../farmer/auth/farmer_update_profile_screen.dart';
 
 class SelectCropScreen extends StatelessWidget {
 
-  String? addressLine;
-  int? pinCode;
-  int? state;
-  int? district;
-  String? village;
-  int? landArea;
-
-  SelectCropScreen({this.pinCode, this.landArea, this.village, this.state, this.addressLine, this.district});
   CropController controller = Get.put(CropController());
 
   @override
@@ -318,8 +311,9 @@ class SelectCropScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
           child: CustomElevatedButton(
             buttonColor: Colors.green,
-            onPress: () {
-              Get.to(()=>FarmerUpdateProfileScreen(selectedCrops: controller.selectedCrops, pinCode: pinCode, landArea: landArea, village: village, state: state, addressLine: addressLine, district: district));
+            onPress: () async{
+              await
+              Get.to(()=>CropVarietyScreen(selectedCrops: controller.selectedCrops));
             },
             widget: Text(
               "Next".tr,
