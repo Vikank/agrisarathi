@@ -2,56 +2,132 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../screens/farmer/dashboard/farmer_home_screen.dart';
+import '../../screens/fpo/auth/login_screen.dart';
 import '../../utils/api_constants.dart';
 
 
-class LoginController extends GetxController{
-  RxBool passwordVisible = true.obs;
-  RxBool loading = false.obs;
-  final phoneController = TextEditingController();
-  final passwordController = TextEditingController();
+class AuthController extends GetxController{
+  final storage = FlutterSecureStorage();
+  final RxBool isLoggedIn = false.obs;
+  final RxBool isLoading = false.obs;
+  final RxInt resendDelay = 60.obs;
+  final RxBool userExist = false.obs;
 
-  @override
-  void onInit(){
-    super.onInit();
-    passwordVisible.value = true;
+  void startResendTimer() {
+    resendDelay.value = 60;
+    ever(resendDelay, (_) {
+      if (resendDelay.value <= 0) {
+        resendDelay.value = 0;
+      } else {
+        Future.delayed(const Duration(seconds: 1), () => resendDelay.value--);
+      }
+    });
   }
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  void resetResendTimer() {
+    resendDelay.value = 60;
+    startResendTimer();
+  }
 
-  Future<void> loginWithEmail() async {
-    loading.value = true;
-    var headers = {'Content-Type': 'application/json'};
-    var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.loginEmail);
-    Map body = {
-      'mobile_no': phoneController.text,
-      'password': passwordController.text,
-    };
-    log("${body.toString()}");
-    http.Response response =
-    await http.post(url, body: jsonEncode(body), headers: headers);
-    final json = jsonDecode(response.body);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var fpoId = json['fpo_id'];
-      var coins = json['coins'];
-      final SharedPreferences prefs = await _prefs;
-      await prefs.setString('fpoId', fpoId.toString());
-      await prefs.setString('mobile_no', phoneController.text);
-      await prefs.setString('coins', coins.toString());
-      phoneController.clear();
-      passwordController.clear();
-      Get.to(SelectCropScreen());
-      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
-      loading.value = false;
-    } else {
-      loading.value = false;
-      Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
+  Future<Map<String, dynamic>> sendLoginOTP({required String phone}) async {
+    isLoading.value = true;
+    try {
+      final Map<String, dynamic> body = {
+        "user_type": "farmer",
+        "login_type": "mobile",
+        "mobile": phone,
+      };
+      log("log aaya ${body}");
+      final response = await http.post(
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.farmerLogin),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(body),
+      );
+      log("log aaya ${response.statusCode}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        return {
+          'success': true,
+          'message': responseData['message'],
+          'otp': responseData['otp'],
+          'isExistingUser': responseData['is_existing_user'],
+        };
+      } else {
+        throw Exception('Failed to send OTP');
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'Error occurred: ${e.toString()}',
+      };
+    } finally {
+      isLoading.value = false;
     }
   }
 
+  Future<void> verifyOTP({required String phone, required String otp}) async {
+    isLoading.value = true;
+    try {
+      final Map<String, dynamic> body = {
+        "user_type": "farmer",
+        "login_type": "mobile",
+        "mobile": phone,
+        "otp": otp
+      };
+
+      final response = await http.post(
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.verifyOTP),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(body),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+
+        if (responseData['is_authenticated']) {
+          await _saveTokens(
+              responseData['tokens']['access'],
+              responseData['tokens']['refresh']
+          );
+          isLoggedIn.value = true;
+
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('farmerId', responseData['obj_id'].toString());
+          await prefs.setString('mobile_no', phone);
+
+          if (userExist.value) {
+            Get.offAll(() => FarmerHomeScreen());
+          } else {
+            Get.to(() => SelectCropScreen());
+          }
+        } else {
+          Get.snackbar("Error", "OTP verification failed");
+        }
+      } else {
+        throw Exception('Failed to verify OTP');
+      }
+    } catch (e) {
+      Get.snackbar("Error", "An error occurred: ${e.toString()}");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> _saveTokens(String accessToken, String refreshToken) async {
+    await storage.write(key: 'access_token', value: accessToken);
+    await storage.write(key: 'refresh_token', value: refreshToken);
+  }
+
+  Future<void> logout() async {
+    await storage.delete(key: 'access_token');
+    await storage.delete(key: 'refresh_token');
+    isLoggedIn.value = false;
+    Get.offAll(() => LoginScreen());
+  }
 }

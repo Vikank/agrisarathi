@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/controllers/fpo/fpo_login_controller.dart';
 import 'package:fpo_assist/screens/farmer/auth/farmer_otp_screen.dart';
 import 'package:fpo_assist/screens/shared/privacy_policy.dart';
 import 'package:fpo_assist/utils/color_constants.dart';
 import 'package:get/get.dart';
+import '../../../controllers/farmer/login_controller.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
 import '../../../widgets/textfield_heading_text.dart';
@@ -11,7 +13,8 @@ import '../../shared/privacy_policy_hindi.dart';
 
 class FarmerLoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  FpoLoginController controller = Get.put(FpoLoginController());
+  final AuthController authController = Get.put(AuthController());
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +22,19 @@ class FarmerLoginScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              alignment: Alignment.bottomCenter,
-              image: AssetImage(
-                "assets/images/farm_land.png",
-              ),
-              fit: BoxFit.contain,
-              filterQuality: FilterQuality.high,
-            )),
+          alignment: Alignment.bottomCenter,
+          image: AssetImage(
+            "assets/images/farm_land.png",
+          ),
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.high,
+        )),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 42.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 75,
               ),
               Center(
@@ -43,22 +46,25 @@ class FarmerLoginScreen extends StatelessWidget {
                       .copyWith(fontFamily: 'Bitter'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Center(
                 child: Text("We_wil_send_you_an_OTP_on_this_number".tr,
                     style: Theme.of(context)
                         .textTheme
-                        .headlineMedium!.copyWith(fontFamily: 'NotoSans')),
+                        .headlineMedium!
+                        .copyWith(fontFamily: 'NotoSans')),
               ),
-              SizedBox(height: 52,),
+              const SizedBox(
+                height: 52,
+              ),
               Column(
                 children: [
                   Text("Enter_your_Mobile_Number".tr,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall!.copyWith(fontFamily: 'NotoSans', color: ColorConstants.fieldNameColor)),
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontFamily: 'NotoSans',
+                          color: ColorConstants.fieldNameColor)),
                 ],
               ),
               Form(
@@ -76,37 +82,62 @@ class FarmerLoginScreen extends StatelessWidget {
                         }
                       },
                       hint: '1234567890',
-                      controller: controller.phoneController,
+                      controller: phoneController,
                     ),
                     const SizedBox(
                       height: 24,
                     ),
                     CustomElevatedButton(
-                      widget: controller.loading.value
+                      widget: authController.isLoading.value
                           ? progressIndicator()
                           : Text(
                               "Send_otp".tr,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: 'NotoSans',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500),
                             ),
-                      buttonColor: Color(0xff00B251),
-                      onPress: () {
+                      buttonColor: const Color(0xff00B251),
+                      onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          Get.to(()=> OtpScreen(phone: controller.phoneController.text));
+                          final result = await authController.sendLoginOTP(
+                            phone: phoneController.text,
+                          );
+                          if (result['success']) {
+                            Fluttertoast.showToast(
+                                msg: "${result['otp']}",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                            Get.to(
+                                () => OtpScreen(phone: phoneController.text, otp : result['otp']));
+                          } else {
+                            Get.snackbar('Error', result['message']);
+                          }
                         }
                       },
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 1,),
+              const SizedBox(
+                height: 1,
+              ),
               TextButton(
-                onPressed: (){
-                  Get.to(()=>PrivacyPolicyHindi());
-                }, child: Text("Privacy policy and terms & conditions.", style: TextStyle(color: Colors.green, fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Bitter"),),
-
+                onPressed: () {
+                  Get.to(() => PrivacyPolicyHindi());
+                },
+                child: const Text(
+                  "Privacy policy and terms & conditions.",
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Bitter"),
+                ),
               )
             ],
           ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/select_crop_model.dart';
@@ -8,6 +9,7 @@ import '../../utils/api_constants.dart';
 import '../../utils/helper_functions.dart';
 
 class CropController extends GetxController {
+  final storage = FlutterSecureStorage();
   var allCrops = <Crop>[].obs;
   var displayedCrops = <Crop>[].obs;
   var selectedCategory = ''.obs;
@@ -31,7 +33,16 @@ class CropController extends GetxController {
   }
 
   Future<void> fetchCrops() async {
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrl}GetInitialScreenCrops?user_language=1'));
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers: headers);
     log(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);

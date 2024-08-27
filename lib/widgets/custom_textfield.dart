@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       controller: controller,
       keyboardType: inputType,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         isDense: true,
         enabledBorder: UnderlineInputBorder(

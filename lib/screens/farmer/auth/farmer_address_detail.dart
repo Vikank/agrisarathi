@@ -12,8 +12,8 @@ import 'farmer_update_profile_screen.dart';
 
 class FarmerAddressDetail extends StatelessWidget {
   RxList<Crop> selectedCrops;
-  int cropVariety;
-  FarmerAddressDetail({super.key, required this.selectedCrops, required this.cropVariety});
+  int? cropVariety;
+  FarmerAddressDetail({super.key, required this.selectedCrops, this.cropVariety});
 
   final FarmerAddressController farmerAddressController =
       Get.put(FarmerAddressController());
@@ -181,12 +181,12 @@ class FarmerAddressDetail extends StatelessWidget {
                               fontFamily: 'NotoSans',
                             ),
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please choose district';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return 'Please choose district';
+                          //   }
+                          //   return null;
+                          // },
                           value: farmerAddressController.district != null
                               ? farmerAddressController.district.toString()
                               : null,
@@ -317,7 +317,6 @@ class FarmerAddressDetail extends StatelessWidget {
                 if (_formKey.currentState!.validate()) {
                   await farmerAddressController.postFarmerAddress(selectedCropId: selectedCrops.first.id, selectedVarietyId: cropVariety);
                 }
-                Get.to(() => FarmerUpdateProfileScreen());
               },
               widget: farmerAddressController.loading.value
                   ? progressIndicator()
