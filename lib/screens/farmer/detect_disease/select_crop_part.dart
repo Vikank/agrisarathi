@@ -57,7 +57,7 @@ class SelectCropPart extends StatelessWidget {
                   children: [
                     CachedNetworkImage(
                       imageUrl:
-                      "https://api.agrisarathi.com/api/${cropImage ?? ""}",
+                      "${ApiEndPoints.imageBaseUrl}/${cropImage ?? ""}",
                       imageBuilder: (context, imageProvider) =>
                           Container(
                             width: 52,

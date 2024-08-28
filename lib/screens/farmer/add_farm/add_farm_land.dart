@@ -331,40 +331,52 @@ class AddFarmLand extends StatelessWidget {
                     SizedBox(width: 10,),
                     Expanded(
                       child: Obx(() {
-                        // Debug prints
                         print("Selected Variety ID: ${farmerAddressController.selectedVarietyId}");
                         print("Varieties: ${farmerAddressController.varieties}");
 
-                        // Ensure the selectedVarietyId is a String, not null
-                        String? currentValue = farmerAddressController.selectedVarietyId?.toString();
-
-                        // Create the list of DropdownMenuItem
+                        Set<String> usedValues = Set<String>();
                         List<DropdownMenuItem<String>> dropdownItems = [];
 
                         if (farmerAddressController.varieties.isNotEmpty) {
+                          // Filter and create dropdown items
                           dropdownItems = farmerAddressController.varieties
                               .where((variety) => variety['id'] != null && variety['name'] != null)
                               .map<DropdownMenuItem<String>>((variety) {
-                            return DropdownMenuItem<String>(
-                              value: variety['id'].toString(),
-                              child: Text(variety['name'].toString()),
-                            );
+                            String id = variety['id'].toString();
+                            if (!usedValues.contains(id)) {
+                              usedValues.add(id);
+                              return DropdownMenuItem<String>(
+                                value: id,
+                                child: Text(variety['name'].toString()),
+                              );
+                            } else {
+                              // Return a default item with a unique value
+                              return DropdownMenuItem<String>(
+                                value: '',  // Use a placeholder value
+                                child: Text('Unknown'),
+                              );
+                            }
                           }).toList();
+
+                          // Add a "None" option at the start
+                          dropdownItems.insert(0, DropdownMenuItem<String>(
+                            value: '',
+                            child: Text('None'),
+                          ));
                         }
 
-                        // Debug print
-                        print("Dropdown Items: $dropdownItems");
+                        print("Dropdown Items:");
+                        dropdownItems.forEach((item) {
+                          print("Item value: ${item.value}");
+                        });
 
-                        // Check if the currentValue exists in the items
-                        bool valueExists = dropdownItems.any((item) => item.value == currentValue);
+                        String? currentValue = farmerAddressController.selectedVarietyId?.toString() ?? '';
 
-                        // If the current value doesn't exist in the items, set it to null
-                        if (!valueExists) {
-                          currentValue = null;
-                          farmerAddressController.selectedVarietyId = null;
+                        // Ensure that the currentValue exists in dropdownItems
+                        if (!dropdownItems.any((item) => item.value == currentValue)) {
+                          currentValue = '';  // Or set it to null if you want the hint to show
                         }
 
-                        // Debug print
                         print("Current Value: $currentValue");
 
                         return DropdownButtonFormField<String>(
@@ -389,14 +401,17 @@ class AddFarmLand extends StatelessWidget {
                             }
                             return null;
                           },
-                          value: currentValue,
+                          value: currentValue.isEmpty ? null : currentValue,
                           items: dropdownItems,
                           onChanged: (String? newValue) {
-                            farmerAddressController.selectedVarietyId = newValue;
+                            print("Dropdown onChanged: $newValue");
+                            farmerAddressController.selectedVarietyId = newValue?.isEmpty ?? true ? null : newValue;
                           },
                         );
                       }),
-                    ),
+                    )
+
+
                   ],
                 ),
               ],

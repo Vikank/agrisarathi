@@ -56,7 +56,6 @@ class AuthController extends GetxController{
           'success': true,
           'message': responseData['message'],
           'otp': responseData['otp'],
-          'isExistingUser': responseData['is_existing_user'],
         };
       } else {
         throw Exception('Failed to send OTP');
@@ -96,11 +95,8 @@ class AuthController extends GetxController{
               responseData['tokens']['refresh']
           );
           isLoggedIn.value = true;
-
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('farmerId', responseData['obj_id'].toString());
-          await prefs.setString('mobile_no', phone);
-
+          userExist.value = responseData['is_existing_user'];
+          log("user exist ki value ${userExist.value}");
           if (userExist.value) {
             Get.offAll(() => FarmerHomeScreen());
           } else {

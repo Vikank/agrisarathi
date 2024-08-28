@@ -43,7 +43,6 @@ class CropController extends GetxController {
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
     final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers: headers);
-    log(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       var loadedCrops = <Crop>[];
@@ -91,9 +90,7 @@ class CropController extends GetxController {
   }
 
   void fetchVarieties(String cropId) async {
-    log("aaya variety me ${cropId}");
     final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetCropVariety?crop_id=$cropId'));
-    log("aaya response me ${response.body}");
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       varieties.clear();

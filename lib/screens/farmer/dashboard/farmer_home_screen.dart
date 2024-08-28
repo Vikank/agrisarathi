@@ -45,66 +45,71 @@ class FarmerHomeScreen extends StatelessWidget {
           return _textOptions.elementAt(controller.selectedIndex.value);
         }),
         actions: [
-          Obx(() {
-            final farmerDetails = controller.farmerDetails.value.data;
-            return Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: Row(
-                children: [
-                  controller.farmerDetailsLoader.value
-                      ? Shimmer.fromColors(
-                          baseColor: const Color(0xffDFF9ED),
-                          highlightColor: const Color(0xffF1FBF2),
-                          child: Container(
-                            width: 60,
-                            height: 32,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Row(
+              children: [
+                Obx(() {
+                  if (controller.farmerDetailsLoader.value) {
+                    // Show loader while data is loading
+                    return Shimmer.fromColors(
+                      baseColor: const Color(0xffDFF9ED),
+                      highlightColor: const Color(0xffF1FBF2),
+                      child: Container(
+                        width: 60,
+                        height: 32,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(100),
                           ),
-                        )
-                      : farmerDetails.isNotEmpty
-                          ? Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(100),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/coin.png",
-                                    height: 24,
-                                    width: 24,
-                                  ),
-                                  Text(
-                                    "${farmerDetails[0].coins}",
-                                    style: const TextStyle(
-                                        fontFamily: 'NotoSans',
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : const SizedBox.shrink(),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Image.asset(
-                    "assets/icons/announcements.png",
-                    height: 24,
-                    width: 24,
-                  ),
-                ],
-              ),
-            );
-          })
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (controller.farmerDetails.value == null) {
+                    // Show an error message or empty state if there's no data
+                    return Center(child: Text('No data available'));
+                  }
+                  final farmerDetails = controller.farmerDetails.value!.data;
+                  return Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/coin.png",
+                          height: 24,
+                          width: 24,
+                        ),
+                        Text(
+                          "${farmerDetails?.coins ?? ""}",
+                          style: const TextStyle(
+                              fontFamily: 'NotoSans',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+                const SizedBox(
+                  width: 15,
+                ),
+                Image.asset(
+                  "assets/icons/announcements.png",
+                  height: 24,
+                  width: 24,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       body: Obx(() {

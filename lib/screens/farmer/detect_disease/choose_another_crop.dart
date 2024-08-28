@@ -82,7 +82,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            'https://api.agrisarathi.com/api/' +
+                            '${ApiEndPoints.imageBaseUrl}/' +
                                 crop.cropImages[0],
                             fit: BoxFit.fill,
                           ),
@@ -247,7 +247,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                                   ),
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                    crop.cropImages.isNotEmpty  ? "${ApiEndPoints.baseUrl}${crop.cropImages[0]}" : "",
+                                    crop.cropImages.isNotEmpty  ? "${ApiEndPoints.imageBaseUrl}/${crop.cropImages[0]}" : "",
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                           decoration: BoxDecoration(

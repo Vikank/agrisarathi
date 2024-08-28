@@ -1,13 +1,13 @@
 class ApiEndPoints {
   static final String baseUrl = 'https://api.agrisarathi.com/api/';
   static final String baseUrlTest = 'http://64.227.166.238:8090/farmer/';
-  static final String imageBaseUrl = 'https://api.agrisarathi.com/api/media/';
+  static final String imageBaseUrl = 'http://64.227.166.238:8090';
   static final String getCommunityPost = 'Get_Community_Posts_List';
   static const dukanAll = 'Dukan_all';
   static const getOnlyShop = 'Get_CategoryShops';
   static const getSingleShop = 'get_single_shop';
   static const getSingleProduct = 'GetSingleProductinfo';
-  static const detectDisease = 'Detect_Disease';
+  static const detectDisease = 'DetectDiseaseAPIView';
   static const getServiceProviderList = 'ServiceProviderList';
   static const getUserCrops = 'Get_Users_Crops';
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
@@ -28,8 +28,8 @@ class _AuthEndPoints {
   final String updateFpoDetails = 'FPO_profile_update';
   final String updateFarmerDetails = 'FarmerDetailsGetUpdate';
   final String getAllNews = 'GetCurrentNews';
-  final String getFarmerLands = 'GetFarmbyFarmer';
-  final String getFarmerDetails = 'FarmerDetailsGetUpdate';
+  final String getFarmerLands = 'FarmerAddGetallLandInfo';
+  final String getFarmerDetails = 'GetFarmProfileDetails';
   final String getDiseaseHistory = 'GetDiagnosisReport';
   final String getSingleDiseaseHistory = 'GetSingleDiagnosisReport';
   final String getCropSuggestion = 'Get_Suggested_Crops';

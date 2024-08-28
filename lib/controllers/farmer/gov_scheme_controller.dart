@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,7 @@ import '../../models/gov_scheme_model.dart';
 import '../../utils/helper_functions.dart';
 
 class SchemeController extends GetxController {
+  final storage = FlutterSecureStorage();
   var allSchemes = <SchemeModel>[].obs;
   var filteredSchemes = <SchemeModel>[].obs;
   var isLoading = true.obs;
@@ -48,9 +50,18 @@ class SchemeController extends GetxController {
   Future<void> fetchSchemes() async {
     isLoading(true);
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       var response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrl}GetallGovtSchemes?user_language=$userLanguage&filter_type=all'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse('${ApiEndPoints.baseUrlTest}GetallGovtSchemes?user_language=$userLanguage&filter_type=all'),
+        headers: headers,
       );
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);

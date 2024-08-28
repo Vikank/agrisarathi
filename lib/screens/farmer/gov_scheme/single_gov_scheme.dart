@@ -12,6 +12,7 @@ class SingleSchemeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -67,9 +68,9 @@ class SingleSchemeScreen extends StatelessWidget {
                     strokeWidth: 2,
                   )),
               errorWidget: (context, url, error) => SizedBox(
-                height: 96,
-                width: 155,
-                child: Image.asset("assets/images/news_placeholder.png"),
+                height: 190,
+                width: double.infinity,
+                child: Image.asset("assets/images/gov_scheme_placeholder.png"),
               ),
             ),
             SizedBox(
@@ -78,6 +79,7 @@ class SingleSchemeScreen extends StatelessWidget {
             Expanded(child: DefaultTabController(
               length: 6,
               child: Scaffold(
+                backgroundColor: Colors.white,
                 body: Column(
                   children: [
                     TabBar(

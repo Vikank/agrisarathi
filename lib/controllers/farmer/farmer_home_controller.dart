@@ -1,21 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../models/farmer_details_model.dart';
 import '../../utils/api_constants.dart';
 
 
 class FarmerHomeController extends GetxController{
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   var selectedIndex = 0.obs;
   String userRole = '';
   RxInt currentCarousel = 0.obs;
-  var farmerDetails = FarmerDetailsModel(data: []).obs;
+  var farmerDetails = Rxn<FarmerDetailsModel>();
   RxBool farmerDetailsLoader = true.obs;
   String? accessToken;
 
@@ -39,7 +36,7 @@ class FarmerHomeController extends GetxController{
     return accessToken;
   }
 
-  void fetchFarmerDetails() async {
+  Future<void> fetchFarmerDetails() async {
     farmerDetailsLoader.value = true;
     final url = Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getFarmerDetails}');
     var headers = {
@@ -47,22 +44,21 @@ class FarmerHomeController extends GetxController{
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
     try {
-      final response = await http.get(
-        url,
-        headers: headers,
-      );
+      final response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        farmerDetails.value = FarmerDetailsModel.fromJson(jsonData);
-        farmerDetailsLoader.value = false;
+        final Map<String, dynamic> jsonResponse = json.decode(response.body);
+        log("coin data is ${jsonResponse}");
+        farmerDetails.value = FarmerDetailsModel.fromJson(jsonResponse);
       } else {
-        farmerDetailsLoader.value = false;
-        throw Exception('Failed to load farmer details');
+        print('Error: ${response.statusCode}');
+        farmerDetails.value = null; // Set to null if response is not OK
       }
     } catch (e) {
-      farmerDetailsLoader.value = false;
       print('Error fetching farmer details: $e');
+      farmerDetails.value = null;
+    } finally {
+      farmerDetailsLoader.value = false;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/models/farmer_lands.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,7 @@ import '../../models/news_model.dart';
 import '../../utils/helper_functions.dart';
 
 class FarmerDashboardController extends GetxController {
+  final storage = FlutterSecureStorage();
   var articles = <NewsArticle>[].obs;
   var farmerLands = FarmerLands(data: []).obs;
   RxString cropName = "".obs;
@@ -32,34 +34,33 @@ class FarmerDashboardController extends GetxController {
     getUserLanguage().then((value) {
       fetchNews();
     });
-    getFarmerId().then((value) {
       fetchFarmerLands();
-    });
   }
 
   Future<int?> getUserLanguage() async {
     userLanguage = await HelperFunctions.getUserLanguage();
-    log("UserRole $userLanguage");
+    log("User language $userLanguage");
     return userLanguage;
-  }
-
-  Future<String?> getFarmerId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    farmerId = (prefs.getString('farmerId'));
-    return farmerId;
   }
 
   void fetchFarmerLands() async {
     farmerLandLoader.value = true;
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     final url = Uri.parse(
-        '${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerLands}?user_id=$farmerId');
+        '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getFarmerLands}');
 
     try {
       final response = await http.get(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -103,14 +104,21 @@ class FarmerDashboardController extends GetxController {
 
   void fetchNews() async {
     newsLoader.value = true;
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     final url = Uri.parse(
-        '${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
+        '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
     try {
       final response = await http.get(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
       );
 
       if (response.statusCode == 200) {

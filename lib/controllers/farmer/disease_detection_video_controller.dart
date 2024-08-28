@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ import '../../screens/farmer/detect_disease/disease_result_screen.dart';
 import '../../utils/helper_functions.dart';
 
 class DiseaseDetectionVideoController extends GetxController {
+  final storage = FlutterSecureStorage();
   final Rx<DiseaseDetectionVideoModel?> videoModel =
       Rx<DiseaseDetectionVideoModel?>(null);
   Rx<VideoPlayerController?> videoPlayerController =
@@ -54,17 +56,25 @@ class DiseaseDetectionVideoController extends GetxController {
 
   Future<void> fetchVideo() async {
     try {
-      final response = await http.post(
-        Uri.parse('${ApiEndPoints.baseUrl}GetDiseaseVideo'),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({"user_language": 1}),
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
+      final response = await http.get(
+        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo?user_language=1'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         if (jsonData['message'] == 'success' && jsonData['data'].isNotEmpty) {
           videoModel.value =
-              DiseaseDetectionVideoModel.fromJson(jsonData['data'][0]);
+              DiseaseDetectionVideoModel.fromJson(jsonData['data']);
           log("${videoModel.value!.videoUrl}");
           await initializeVideoPlayer();
         } else {
@@ -138,6 +148,10 @@ class DiseaseDetectionVideoController extends GetxController {
 
   Future<void> uploadImage(File imageFile, int serviceProviderId, int cropId,
       String landId, String filterType) async {
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
     Get.dialog(
         barrierColor: Colors.white,
         useSafeArea: false,
@@ -155,17 +169,16 @@ class DiseaseDetectionVideoController extends GetxController {
         ));
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.detectDisease),
+      Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.detectDisease),
     );
 
     var image = await http.MultipartFile.fromPath('image', imageFile.path);
+    request.headers["Authorization"]= accessToken;
     request.files.add(image);
     request.fields['service_provider_id'] = serviceProviderId.toString();
     request.fields['crop_id'] = cropId.toString();
-    request.fields['fk_userid'] = farmerId!;
     request.fields['filter_type'] = filterType;
     request.fields['user_language'] = userLanguage.toString();
-    // request.fields['user_language'] = "1";
     request.fields['farmer_land_id'] = landId.toString();
     print('request is: ${request.fields}');
     try {

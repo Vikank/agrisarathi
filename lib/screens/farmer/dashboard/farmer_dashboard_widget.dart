@@ -769,7 +769,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     children: [
                                       CachedNetworkImage(
                                         imageUrl:
-                                        "${ApiEndPoints.baseUrl}${article.image ??
+                                        "${ApiEndPoints.imageBaseUrl}${article.image ??
                                             ""}",
                                         imageBuilder:
                                             (context, imageProvider) =>

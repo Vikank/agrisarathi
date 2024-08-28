@@ -162,14 +162,14 @@ class FarmerAddressController extends GetxController{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId'), headers : headers);
-    log("aaya response me ${response.body}");
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId&user_language=1'), headers : headers);
+    log("aaya response me ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       varieties.clear();
       jsonData['data'].forEach((variety) {
         varieties.add({
-          'id': variety['variety_id'].toString(),
+          'id': variety['id'].toString(),
           'name': variety['variety'],
         });
       });
@@ -230,9 +230,8 @@ class FarmerAddressController extends GetxController{
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.createFarmerAddress);
     var body = {
-      "userid" : int.parse(farmerId!),
       "crop_id": selectedCropId,
       "is_land": isLand.value,
       "variety_id": selectedVarietyId,

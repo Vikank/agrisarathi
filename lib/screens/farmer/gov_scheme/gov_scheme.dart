@@ -122,7 +122,7 @@ class SchemeListView extends StatelessWidget {
                 errorWidget: (context, url, error) => SizedBox(
                   height: 96,
                   width: 155,
-                  child: Image.asset("assets/images/news_placeholder.png"),
+                  child: Image.asset("assets/images/gov_scheme_placeholder.png"),
                 ),
               ),
               SizedBox(width: 16),
