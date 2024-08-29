@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 
 class CommunityPost {
-  final String userName;
+  final String? userName;
   final int userId;
   final int postId;
-  final String profilePic;
+  final String? profilePic;
   final String postImage;
   final String postVideo;
-  final int likeCount;
+  final int? likeCount;
   final bool isLikedByUser;
   final List<UserLike> usersLiked;
-  final String description;
+  final String? description;
   final String createdDate;
   final RxList<Comment> comments;
 
@@ -31,7 +31,7 @@ class CommunityPost {
 
   factory CommunityPost.fromJson(Map<String, dynamic> json) {
     return CommunityPost(
-      userName: json['user_name'] ?? '',
+      userName: json['user_name'] ?? "Random User",
       userId: json['user_id'] ?? 0,
       postId: json['post_id'] ?? 0,
       profilePic: json['profile_pic'] ?? '',
@@ -44,7 +44,7 @@ class CommunityPost {
           .toList() ??
           [],
       description: json['description'] ?? '',
-      createdDate: json['created_dt'] ?? '',
+      createdDate: json['created_at'] ?? '',
       comments: RxList<Comment>.from(
         (json['comment_list'] as List?)
             ?.map((comment) => Comment.fromJson(comment))
@@ -101,7 +101,7 @@ class Comment {
       profilePic: json['profile_pic'] ?? '',
       id: json['id'] ?? 0,
       postComment: json['post_comment'] ?? '',
-      createdDate: json['created_dt'] ?? '',
+      createdDate: json['created_at'] ?? '',
       replyComments: (json['reply_comments'] as List?)
           ?.map((reply) => Reply.fromJson(reply))
           .toList() ??
@@ -134,7 +134,7 @@ class Reply {
       profilePic: json['profile_pic'] ?? '',
       id: json['id'] ?? 0,
       text: json['text'] ?? '',
-      createdDate: json['created_dt'] ?? '',
+      createdDate: json['created_at'] ?? '',
     );
   }
 }

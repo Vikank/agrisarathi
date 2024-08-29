@@ -47,9 +47,10 @@ class ChooseFarmLand extends StatelessWidget {
               itemCount: controller.farmerLands.value.data!.length,
               itemBuilder: (context, index) {
                 var farmLand = controller.farmerLands.value.data![index];
-                log("image ${farmLand.cropId}");
+                log("crop id ${farmLand.cropId}");
                 return GestureDetector(
                   onTap: () {
+                    log("${farmLand.cropId!}");
                     log("${farmLand.id!}");
                     Get.to(SelectCropPart(
                         serviceProviderId: serviceProviderId,

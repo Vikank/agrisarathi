@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,10 +40,11 @@ class SelectCropPart extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: (){
+                log("land id ${landId}");
                 Get.to(()=> HowToClick(
                     serviceProviderId: serviceProviderId,
                     cropId: cropId,
-                    landId: "",
+                    landId: landId!,
                   filterType: "crop",
                 ));
               },
@@ -57,7 +60,7 @@ class SelectCropPart extends StatelessWidget {
                   children: [
                     CachedNetworkImage(
                       imageUrl:
-                      "${ApiEndPoints.imageBaseUrl}/${cropImage ?? ""}",
+                      "${ApiEndPoints.imageBaseUrl}${cropImage ?? ""}",
                       imageBuilder: (context, imageProvider) =>
                           Container(
                             width: 52,

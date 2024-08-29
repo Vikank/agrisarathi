@@ -149,6 +149,7 @@ class DiseaseDetectionVideoController extends GetxController {
   Future<void> uploadImage(File imageFile, int serviceProviderId, int cropId,
       String landId, String filterType) async {
     String? accessToken = await storage.read(key: 'access_token');
+    log("access token is ${accessToken}");
     if (accessToken == null) {
       throw Exception('Access token not found');
     }
@@ -173,18 +174,18 @@ class DiseaseDetectionVideoController extends GetxController {
     );
 
     var image = await http.MultipartFile.fromPath('image', imageFile.path);
-    request.headers["Authorization"]= accessToken;
+    request.headers["Authorization"]= "Bearer $accessToken";
     request.files.add(image);
     request.fields['service_provider_id'] = serviceProviderId.toString();
     request.fields['crop_id'] = cropId.toString();
     request.fields['filter_type'] = filterType;
     request.fields['user_language'] = userLanguage.toString();
     request.fields['farmer_land_id'] = landId.toString();
-    print('request is: ${request.fields}');
+    print('request is: ${request.fields} ${request.files} ${request.headers}');
     try {
-      var streamedResponse = await request.send();
+      var streamedResponse = await request.send().timeout(const Duration(minutes: 2));
       var response = await http.Response.fromStream(streamedResponse);
-      log("${response.statusCode} ${response.body}");
+      log("dhgfsjfgsjdfgs${response.statusCode} ${response.body}");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         print('Response: ${data}');
