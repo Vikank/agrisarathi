@@ -12,6 +12,13 @@ class SingleCropSuggestion extends StatelessWidget {
     controller.fetchSingleCropSuggestion(cropId!);
   }
 
+  String formatDescription(String description) {
+    return description
+        .replaceAll("\r\n\r\n", "\n• ")
+        .replaceAll("\r\n", "\n")
+        .replaceAll("\n", "\n• ");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +74,7 @@ class SingleCropSuggestion extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16),
-                Text(crop.description ?? '', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans")),
+                Text(formatDescription(crop.description ?? ''), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans")),
                 SizedBox(height: 16),
                 _buildInfoSection('Requirement', [
                   'Weather: ${crop.weatherTemperature ?? ''}',

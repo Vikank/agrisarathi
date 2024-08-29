@@ -33,7 +33,7 @@ class _AuthEndPoints {
   final String getDiseaseHistory = 'GetDiagnosisReport';
   final String getSingleDiseaseHistory = 'GetSingleDiagnosisReport';
   final String getCropSuggestion = 'Get_Suggested_Crops';
-  final String getSingleCropSuggestion = 'GetSuggested_Crop_Details';
+  final String getSingleCropSuggestion = 'CropSuggestion';
   final String fertilizersWithTest = 'Fertilizerswithtest';
   final String advanceFertilizerCalculator = 'AdvanceFertilizercalculator';
   final String fertilizersRecommendedDose = 'FertilizersRecommendedDose';
