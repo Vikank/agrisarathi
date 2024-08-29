@@ -5,7 +5,11 @@ import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_elevated_button.dart';
 
 class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
+  int? cropId;
+  int? landId;
   final controller = Get.put(AdvancedFertilizerCalculatorController());
+
+  AdvancedFertilizerCalculatorScreen({required this.cropId, this.landId});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
         SizedBox(height: 20),
         Obx(() => CustomElevatedButton(
           buttonColor: ColorConstants.primaryColor,
-          onPress: controller.isLoading.value ? null : controller.calculateFertilizer,
+          onPress: controller.isLoading.value ? null : ()=> controller.calculateFertilizer(cropId, landId),
           widget: Text(
             "Calculate".tr,
             style: TextStyle(

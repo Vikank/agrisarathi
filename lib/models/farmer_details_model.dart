@@ -34,7 +34,7 @@ class Data {
   bool? isDeleted;
   String? badgecolor; // Changed Null to String
   int? user;
-  String? fkLanguage; // Changed Null to String
+  int? fkLanguage; // Changed Null to String
   String? fpoName; // Changed Null to String
   List<String>? fkCrops; // Changed List<Null> to List<String>
 
@@ -79,7 +79,7 @@ class Data {
     isDeleted = json['is_deleted'] as bool?;
     badgecolor = json['badgecolor'] as String?;
     user = json['user'] as int?;
-    fkLanguage = json['fk_language'] as String?;
+    fkLanguage = json['fk_language'] as int?;
     fpoName = json['fpo_name'] as String?;
     if (json['fk_crops'] != null) {
       fkCrops = List<String>.from(json['fk_crops']);

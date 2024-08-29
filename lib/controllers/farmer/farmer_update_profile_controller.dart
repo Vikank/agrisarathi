@@ -25,20 +25,13 @@ class FarmerUpdateProfileController extends GetxController{
   void onInit(){
     super.onInit();
     getUserLanguage();
-    getFarmerId().then((value)=>fetchFarmerFpoName());
+    fetchFarmerFpoName();
   }
 
   Future<int?> getUserLanguage() async {
     userLanguage = await HelperFunctions.getUserLanguage();
     log("UserRole $userLanguage");
     return userLanguage;
-  }
-
-  Future<String?>getFarmerId() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    log("farmer id is ${prefs.getString('farmerId')}");
-    farmerId = (prefs.getString('farmerId'));
-    return farmerId;
   }
 
   List<int> getSelectedCropIds(RxList<Crop> selectedCrops) {
