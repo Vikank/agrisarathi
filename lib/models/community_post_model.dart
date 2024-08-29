@@ -31,7 +31,7 @@ class CommunityPost {
 
   factory CommunityPost.fromJson(Map<String, dynamic> json) {
     return CommunityPost(
-      userName: json['user_name'] ?? "Random User",
+      userName: json['user_name'] ?? "Anonymous User",
       userId: json['user_id'] ?? 0,
       postId: json['post_id'] ?? 0,
       profilePic: json['profile_pic'] ?? '',
@@ -96,7 +96,7 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      userName: json['user_name'] ?? '',
+      userName: json['user_name'] ?? "Anonymous User",
       userId: json['user_id'] ?? 0,
       profilePic: json['profile_pic'] ?? '',
       id: json['id'] ?? 0,
@@ -129,7 +129,7 @@ class Reply {
 
   factory Reply.fromJson(Map<String, dynamic> json) {
     return Reply(
-      userName: json['user_name'] ?? '',
+      userName: json['user_name'] ?? 'Anonymous User',
       userId: json['user_id'] ?? 0,
       profilePic: json['profile_pic'] ?? '',
       id: json['id'] ?? 0,

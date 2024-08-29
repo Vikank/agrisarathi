@@ -51,30 +51,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
     }
   }
 
-  // Future<void> _generateThumbnail() async {
-  //   if (_video == null) return;
-  //
-  //   try {
-  //     final thumbnailPath = await VideoThumbnail.thumbnailFile(
-  //       video: _video!.path,
-  //       imageFormat: ImageFormat.JPEG,
-  //       maxWidth: 128,
-  //       quality: 25,
-  //     );
-  //
-  //     setState(() {
-  //       _thumbnailPath = thumbnailPath;
-  //     });
-  //   } catch (e) {
-  //     print('Error generating thumbnail: $e');
-  //     // Show an error message to the user
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error generating thumbnail: $e')),
-  //     );
-  //   }
-  // }
-
-
   void _submitPost() async {
     final controller = Get.find<CommunityController>();
 
