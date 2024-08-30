@@ -1,18 +1,20 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/models/select_crop_model.dart';
 import 'package:fpo_assist/screens/farmer/dashboard/farmer_home_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../screens/farmer/auth/farmer_update_profile_screen.dart';
 import '../../screens/shared/select_crop_screen.dart';
 import '../../utils/api_constants.dart';
 import '../../utils/helper_functions.dart';
 
 
 class FarmerAddressController extends GetxController{
-
+  final storage = FlutterSecureStorage();
   RxBool loading = false.obs;
   RxBool isLand = true.obs;
   final addressLine = TextEditingController();
@@ -61,9 +63,18 @@ class FarmerAddressController extends GetxController{
 // Fetch all states from API
   Future<void> fetchStates() async {
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       var response = await http.get(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getAllStatesUrl+'?user_language=1'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getAllStatesUrl+'?user_language=1'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -87,9 +98,18 @@ class FarmerAddressController extends GetxController{
   Future<void> fetchDistricts(int stateId) async {
     log("aayaaa");
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       var response = await http.get(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl+'?user_language=1&state=$stateId'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl+'?user_language=1&state=$stateId'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -109,7 +129,16 @@ class FarmerAddressController extends GetxController{
   }
 
   void fetchCrops() async {
-    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetInitialScreenCrops?user_language=1'));
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers : headers);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       jsonData.forEach((key, value) {
@@ -124,15 +153,23 @@ class FarmerAddressController extends GetxController{
   }
 
   void fetchVarieties(String cropId) async {
-    log("aaya variety me ${cropId}");
-    final response = await http.get(Uri.parse('https://api.agrisarathi.com/api/GetCropVariety?crop_id=$cropId'));
-    log("aaya response me ${response.body}");
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId&user_language=1'), headers : headers);
+    log("aaya response me ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       varieties.clear();
       jsonData['data'].forEach((variety) {
         varieties.add({
-          'id': variety['variety_id'].toString(),
+          'id': variety['id'].toString(),
           'name': variety['variety'],
         });
       });
@@ -141,11 +178,18 @@ class FarmerAddressController extends GetxController{
 
   Future<void> postFarmerAddress({int? selectedCropId, int? selectedVarietyId}) async {
     loading.value = true;
-    var headers = {'Content-Type': 'application/json'};
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.createFarmerAddress);
     var body = {
-      "userid" : int.parse(farmerId!),
       "crop_id": selectedCropId,
       "is_land": isLand.value,
       "variety_id": selectedVarietyId,
@@ -167,6 +211,7 @@ class FarmerAddressController extends GetxController{
       addressLine.clear();
       Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
+      Get.to(() => FarmerUpdateProfileScreen());
     } else {
       loading.value = false;
       Get.snackbar("Error", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
@@ -175,11 +220,18 @@ class FarmerAddressController extends GetxController{
 
   Future<void> addNewLand() async {
     loading.value = true;
-    var headers = {'Content-Type': 'application/json'};
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createFarmerAddress);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.createFarmerAddress);
     var body = {
-      "userid" : int.parse(farmerId!),
       "crop_id": selectedCropId,
       "is_land": isLand.value,
       "variety_id": selectedVarietyId,

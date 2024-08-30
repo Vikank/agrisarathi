@@ -6,8 +6,9 @@ import 'advanced_fertilizer_calci.dart';
 
 class FertilizerResultScreen extends StatelessWidget {
   final FertilizerResponse fertilizerData;
-
-  const FertilizerResultScreen({Key? key, required this.fertilizerData}) : super(key: key);
+  int? cropId;
+  int? landId;
+  FertilizerResultScreen({Key? key, required this.fertilizerData, required this.cropId, this.landId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +183,7 @@ class FertilizerResultScreen extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    Get.to(()=>AdvancedFertilizerCalculatorScreen());
+                    Get.to(()=>AdvancedFertilizerCalculatorScreen(cropId : cropId, landId: landId,));
                   },
                   child: Text('CALCULATE',
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),

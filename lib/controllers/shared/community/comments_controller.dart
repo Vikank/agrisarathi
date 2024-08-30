@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
+
 import '../../../models/community_post_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 
 class CommentController extends GetxController {
+  final storage = FlutterSecureStorage();
   var comments = <Comment>[].obs;
   var replyingTo = Rxn<Comment>();
 
@@ -15,16 +19,24 @@ class CommentController extends GetxController {
 
   Future<void> postComment(int postId, String commentText) async {
     try {
-      var url = Uri.parse('https://api.agrisarathi.com/api/Comment_On_Post');
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
+      var url = Uri.parse('${ApiEndPoints.baseUrlTest}CommentOnPost');
       var response = await http.post(
         url,
-        body: json.encode({
-          "user_id": 1, // Replace with actual user ID
+        body: json.encode({// Replace with actual user ID
           "post_id": postId,
           "comment_text": commentText,
           "user_type": "farmer"
         }),
-        headers: {"Content-Type": "application/json"},
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -32,6 +44,7 @@ class CommentController extends GetxController {
         if (decodedResponse['status'] == 'success') {
           // Add the new comment to the list
           comments.add(Comment.fromJson(decodedResponse['comment']));
+          comments.refresh();
         }
       }
     } catch (e) {
@@ -41,16 +54,24 @@ class CommentController extends GetxController {
 
   Future<void> postReply(int commentId, String replyText) async {
     try {
-      var url = Uri.parse('https://api.agrisarathi.com/api/Reply_ON_Post_Comment');
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
+      var url = Uri.parse('${ApiEndPoints.baseUrlTest}ReplyOnPostComment');
       var response = await http.post(
         url,
         body: json.encode({
           "fk_postcomment_id": commentId,
-          "user_id": 1, // Replace with actual user ID
           "text": replyText,
           "user_type": "farmer"
         }),
-        headers: {"Content-Type": "application/json"},
+        headers: headers,
       );
 
       if (response.statusCode == 200) {

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_compress/video_compress.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
-
+import 'package:path_provider/path_provider.dart';
 import '../../../../controllers/shared/community/community_controller.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -15,6 +18,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final ImagePicker _picker = ImagePicker();
   File? _image;
   File? _video;
+  File? _thumbnail;
 
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -29,10 +33,21 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Future<void> _pickVideo() async {
     final XFile? pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
         _video = File(pickedFile.path);
         _image = null; // Reset image if video is selected
-      });
+        try {
+          // Generate thumbnail
+          final thumbnailFile = await VideoCompress.getFileThumbnail(_video!.path);
+
+          setState(() {
+            _thumbnail = thumbnailFile;
+          });
+        } catch (e) {
+          print('Error generating thumbnail: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to generate thumbnail')),
+          );
+        }
     }
   }
 
@@ -74,48 +89,100 @@ class _AddPostScreenState extends State<AddPostScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFormField(
-              controller: _descriptionController,
-              decoration: InputDecoration(
-                hintText: 'Write your post description...',
+            SizedBox(
+              width: double.infinity,
+              child: TextFormField(
+                maxLines: 2,
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  hintText: 'Write your post description...',
+                ),
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 40,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.image, size: 30),
-                  onPressed: _pickImage,
-                ),
-                IconButton(
-                  icon: Icon(Icons.videocam, size: 30),
-                  onPressed: _pickVideo,
-                ),
-              ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffCBD5E1), width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(8),),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.image_outlined, size: 22, color: Colors.black,),
+                    onPressed: _pickImage,
+                  ),
+                  Spacer(),
+                  Text("Add Image", style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "NotoSans"
+                  ),),
+                ],
+              ),
             ),
-            SizedBox(height: 16),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffCBD5E1), width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(8),),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.ondemand_video_outlined, size: 22, color: Colors.black,),
+                    onPressed: _pickVideo,
+                  ),
+                  Spacer(),
+                  Text("Add Video", style: TextStyle(
+                      color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "NotoSans"
+                  ),),
+                ],
+              ),
+            ),
+            SizedBox(height: 30),
             if (_image != null)
               Image.file(_image!, height: 200, fit: BoxFit.cover)
-            else if (_video != null)
-              Container(
-                height: 200,
-                color: Colors.grey[300],
-                child: Center(child: Text('Video selected')),
-              ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              child: Text('Post'),
-              onPressed: _submitPost,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-            ),
+            else if (_thumbnail  != null)
+              Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Image.file(_thumbnail!, height: 200, fit: BoxFit.cover),
+                  Text("Video Selected", style: TextStyle(color: Colors.white, fontFamily: "Bitter", fontSize: 15, fontWeight: FontWeight.bold),),
+                ],
+              )
+            // SizedBox(height: 16),
+            // ElevatedButton(
+            //   child: Text('Post'),
+            //   onPressed: _submitPost,
+            //   style: ElevatedButton.styleFrom(
+            //     padding: EdgeInsets.symmetric(vertical: 16),
+            //   ),
+            // ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          elevation: 10,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
+            child: CustomElevatedButton(
+              buttonColor: Colors.green,
+              onPress: _submitPost,
+              widget: Text(
+                "POST".tr,
+                style: TextStyle(
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+        ),
     );
   }
 

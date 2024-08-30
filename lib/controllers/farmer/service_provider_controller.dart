@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import '../../utils/helper_functions.dart';
 
 
 class ServiceProviderController extends GetxController{
-
+  final storage = FlutterSecureStorage();
   RxBool loading = true.obs;
   var serviceProviderModel = ServiceProviderModel().obs;
   int? userLanguage;
@@ -23,7 +24,6 @@ class ServiceProviderController extends GetxController{
     getUserLanguage().then((value){
       getService();
     });
-    // getService();
     super.onInit();
   }
 
@@ -35,9 +35,18 @@ class ServiceProviderController extends GetxController{
 
   void getService() async {
     loading.value = true;
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     var response = await http.get(
-      Uri.parse(ApiEndPoints.baseUrl+ApiEndPoints.getServiceProviderList+'?user_language=1'),
-      headers: {'Content-Type': 'application/json'},
+      Uri.parse(ApiEndPoints.baseUrlTest+ApiEndPoints.getServiceProviderList+'?user_language=1'),
+      headers: headers,
     );
     if (response.statusCode == 200) {
       log("heyyyyyy${response.body}");

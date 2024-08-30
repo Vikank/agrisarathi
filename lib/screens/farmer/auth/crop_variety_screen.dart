@@ -7,13 +7,13 @@ import 'package:get/get.dart';
 
 import '../../../controllers/farmer/crop_variety_controller.dart';
 import '../../../models/select_crop_model.dart';
+import '../../../widgets/custom_elevated_button.dart';
 
 class CropVarietyScreen extends StatelessWidget {
   RxList<Crop> selectedCrops;
   CropVarietyScreen({super.key, required this.selectedCrops});
 
   final CropVarietyController controller = Get.put(CropVarietyController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,8 @@ class CropVarietyScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Crop_variety'.tr,
-          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -34,62 +35,56 @@ class CropVarietyScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Column(
           children: [
-            Expanded(child: Obx(() {
-              if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                return ListView.separated(
-                  itemCount: controller.cropVarieties.length,
-                  itemBuilder: (context, index) {
-                    var variety = controller.cropVarieties[index];
-                    return ListTile(
-                      onTap: (){
-                        Get.to(FarmerAddressDetail(selectedCrops: selectedCrops, cropVariety: variety.varietyId));
-                      },
-                      leading: SizedBox(
-                        height: 65,
-                        width: 65,
-                        child: CachedNetworkImage(
-                          imageUrl:
-                          '${ApiEndPoints.baseUrl}${variety.varietyImage}',
-                          imageBuilder: (context, imageProvider) =>
-                              Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
-                                    filterQuality: FilterQuality.low,
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(10),),
-                                ),
-                              ),
-                          placeholder: (context, url) =>
-                          const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),),
-                          errorWidget: (context, url, error) =>
-                              Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xff002833d)
-                                        .withOpacity(0.06),
-                                    borderRadius: BorderRadius.all(Radius.circular(10),),
-                                  ),
-                                  child: const Icon(Icons.error)),
+            Expanded(
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return ListView.separated(
+                    itemCount: controller.cropVarieties.length,
+                    itemBuilder: (context, index) {
+                      var variety = controller.cropVarieties[index];
+                      return
+                        ListTile(
+                        onTap: () {
+                          Get.to(FarmerAddressDetail(
+                              selectedCrops: selectedCrops,
+                              cropVariety: variety.varietyId));
+                        },
+                        title: Text(
+                          variety.variety,
+                          style: TextStyle(
+                              fontFamily: "Bitter",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
                         ),
-                      ),
-                      title: Text(variety.variety, style: TextStyle(
-                        fontFamily: "Bitter",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600
-                      ),),
-                    );
-                  }, separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 20,);
-                },
-                );
-              }
-            }),)
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        height: 20,
+                      );
+                    },
+                  );
+                }
+              }),
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            CustomElevatedButton(
+              buttonColor: Color(0xff00B251),
+              onPress: () {
+                Get.to(FarmerAddressDetail(selectedCrops: selectedCrops));
+              },
+              widget: Text(
+                "Skip".tr,
+                style: TextStyle(
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/models/select_crop_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,7 @@ import '../../utils/helper_functions.dart';
 
 
 class FarmerUpdateProfileController extends GetxController{
+  final storage = FlutterSecureStorage();
   RxBool loading = false.obs;
   final fpoName = TextEditingController();
   final nameController = TextEditingController();
@@ -23,7 +25,7 @@ class FarmerUpdateProfileController extends GetxController{
   void onInit(){
     super.onInit();
     getUserLanguage();
-    getFarmerId().then((value)=>fetchFarmerFpoName());
+    fetchFarmerFpoName();
   }
 
   Future<int?> getUserLanguage() async {
@@ -32,22 +34,24 @@ class FarmerUpdateProfileController extends GetxController{
     return userLanguage;
   }
 
-  Future<String?>getFarmerId() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    log("farmer id is ${prefs.getString('farmerId')}");
-    farmerId = (prefs.getString('farmerId'));
-    return farmerId;
-  }
-
   List<int> getSelectedCropIds(RxList<Crop> selectedCrops) {
     return selectedCrops.map((crop) => crop.id).toList();
   }
 
   Future<void> fetchFarmerFpoName() async {
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       var response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getFarmerFpoName}?userid=$farmerId'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getFarmerFpoName}'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -71,19 +75,27 @@ class FarmerUpdateProfileController extends GetxController{
 
   Future<void> updateFarmerDetail() async {
     loading.value = true;
-    var headers = {'Content-Type': 'application/json'};
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.updateFarmerDetails);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.updateFarmerDetails);
     Map body = {
       'name': nameController.text,
-      'fpo_name': fpoName.text,
-      'userid': farmerId,
+      'email': emailController.text,
       'fk_language_id': userLanguage,
     };
     print("data: ${jsonEncode(body)} ${url}");
     http.Response response =
-    await http.post(url, body: jsonEncode(body), headers: headers);
+    await http.put(url, body: jsonEncode(body), headers: headers);
     final json = jsonDecode(response.body);
+    log("status ${response.statusCode}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       Get.offAll(()=>FarmerHomeScreen());
       Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);

@@ -83,8 +83,8 @@ class FarmForFertilizer extends StatelessWidget {
                                     child: ElevatedButton(
                                       onPressed: () async{
                                         Get.back(); // Close the dialog
-                                        await fertilizerCalciController.fetchRecommendedFertilizerData(); // Fetch data
-                                        Get.to(() => FertilizerRecommendedrScreen()); // Navigate to calculator screen
+                                        await fertilizerCalciController.fetchRecommendedFertilizerData(farmLand.cropId); // Fetch data
+                                        Get.to(() => FertilizerRecommendedrScreen(cropId : farmLand.cropId, landId : farmLand.id)); // Navigate to calculator screen
                                       },
                                       child: Text("No".tr, style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -107,6 +107,7 @@ class FarmForFertilizer extends StatelessWidget {
                                     child: ElevatedButton(
                                       onPressed: () {
                                         Get.to(FertilizerCalci(
+                                          cropId: farmLand.cropId,
                                             landId: farmLand.id));
                                       },
                                       child: Text("Yes".tr, style: TextStyle(

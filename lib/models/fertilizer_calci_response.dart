@@ -21,7 +21,7 @@ class NPKStatus {
       n: json['N'],
       nitrogenValue: json['Nitrogen_Value'],
       p: json['P'],
-      phosphorousValue: json['Phosphrous_Value'],
+      phosphorousValue: json['Phosphorous_Value'],
       k: json['K'],
       potassiumValue: json['Potassium_Value'],
     );

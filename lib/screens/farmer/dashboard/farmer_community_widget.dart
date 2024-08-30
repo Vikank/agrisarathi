@@ -66,10 +66,10 @@ class CommunityPostCard extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundImage:
-                  NetworkImage(ApiEndPoints.baseUrl + post.profilePic),
+                  NetworkImage(ApiEndPoints.baseUrl + post.profilePic! ?? ""),
             ),
             title: Text(
-              post.userName,
+              post.userName!,
               style: const TextStyle(
                 fontFamily: "NotoSans",
                 fontWeight: FontWeight.w500,
@@ -88,7 +88,7 @@ class CommunityPostCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              post.description,
+              post.description ?? "",
               style: const TextStyle(
                 fontFamily: "NotoSans",
                 fontWeight: FontWeight.w400,
@@ -98,13 +98,14 @@ class CommunityPostCard extends StatelessWidget {
           ),
           if (post.postImage.isNotEmpty)
             Image.network(
-              ApiEndPoints.baseUrl + post.postImage,
+              ApiEndPoints.imageBaseUrl + post.postImage,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
           if (post.postVideo.isNotEmpty)
             FutureBuilder<void>(
-              future: controller.initializeVideoPlayer(ApiEndPoints.baseUrl + post.postVideo),
+              future: controller.initializeVideoPlayer(
+                  ApiEndPoints.imageBaseUrl + post.postVideo),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   // Check if chewieController is not null
@@ -122,11 +123,11 @@ class CommunityPostCard extends StatelessWidget {
                       },
                       child: post.postVideo.isNotEmpty
                           ? SizedBox(
-                        height: 180,
-                        child: Chewie(controller: controller.chewieController.value!,
-
-                        ),
-                      )
+                              height: 180,
+                              child: Chewie(
+                                controller: controller.chewieController.value!,
+                              ),
+                            )
                           : Container(), // Display other content if there's no video
                     );
                   } else {

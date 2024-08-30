@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:fpo_assist/screens/farmer/detect_disease/select_crop_part.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'choose_another_crop.dart';
 
@@ -46,16 +47,17 @@ class ChooseFarmLand extends StatelessWidget {
               itemCount: controller.farmerLands.value.data!.length,
               itemBuilder: (context, index) {
                 var farmLand = controller.farmerLands.value.data![index];
-                log("image ${farmLand.cropImages![0]}");
+                log("crop id ${farmLand.cropId}");
                 return GestureDetector(
                   onTap: () {
+                    log("${farmLand.cropId!}");
                     log("${farmLand.id!}");
                     Get.to(SelectCropPart(
                         serviceProviderId: serviceProviderId,
                         cropId: farmLand.cropId!,
                         cropName: farmLand.crop!,
                         cropImage: farmLand.cropImages![0],
-                        landId: "$farmLand.id!"));
+                        landId: "${farmLand.id!}"));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -69,7 +71,7 @@ class ChooseFarmLand extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                          "https://api.agrisarathi.com/api/${farmLand.cropImages![0] ?? ""}",
+                          "${ApiEndPoints.imageBaseUrl}${farmLand.cropImages![0] ?? ""}",
                           imageBuilder: (context, imageProvider) =>
                               Container(
                                 width: 52,

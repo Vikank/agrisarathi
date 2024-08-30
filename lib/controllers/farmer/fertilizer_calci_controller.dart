@@ -2,29 +2,51 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/fertilizer_calci_response.dart';
+import '../../utils/helper_functions.dart';
 
 
 class FertilizerCalciController extends GetxController{
+  final storage = FlutterSecureStorage();
   var isLoading = false.obs;
   var fertilizerData = Rxn<Map<String, dynamic>>();
   final nitrogenValue = TextEditingController();
   final phosphorousValue = TextEditingController();
   final potassiumValue = TextEditingController();
+  int? userLanguage;
+  @override
+  void onInit(){
+    super.onInit();
+    getUserLanguage();
+  }
 
-  Future<FertilizerResponse> fetchFertilizerData() async {
-    final url = Uri.parse('https://api.agrisarathi.com/api/Fertilizerswithtest');
+  void getUserLanguage() async{
+    userLanguage = await HelperFunctions.getUserLanguage();
+  }
+
+  Future<FertilizerResponse> fetchFertilizerData(int? cropId, int? landId) async {
+    final url = Uri.parse('${ApiEndPoints.baseUrlTest}Fertilizerswithtest');
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: headers,
       body: jsonEncode({
-        "user_id": 1,
-        "crop_id": 4,
-        "user_language": 1,
-        "farm_id": 1,
+        "crop_id": cropId,
+        "user_language": userLanguage,
+        "farm_id": landId,
         "nitrogen": int.parse(nitrogenValue.text),
         "phosphorous": int.parse(phosphorousValue.text),
         "potassium": int.parse(potassiumValue.text)
@@ -39,17 +61,21 @@ class FertilizerCalciController extends GetxController{
     }
   }
 
-  Future<void> fetchRecommendedFertilizerData() async {
+  Future<void> fetchRecommendedFertilizerData(int? cropId) async {
     isLoading.value = true;
     try {
-      final response = await http.post(
-        Uri.parse('https://api.agrisarathi.com/api/FertilizersRecommendedDose'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          "user_id": 1,
-          "crop_id": 4,
-          "user_language": 1
-        }),
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
+      final response = await http.get(
+        Uri.parse('${ApiEndPoints.baseUrlTest}Fertilizerswithtest?crop_id=$cropId&user_language=$userLanguage'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {

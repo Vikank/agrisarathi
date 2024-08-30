@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -152,6 +154,7 @@ class HowToClick extends StatelessWidget {
                   child: CustomElevatedButton(
                     buttonColor: Colors.green,
                     onPress: () {
+                      log("land is ${landId}");
                       controller.openGallery(serviceProviderId: serviceProviderId, cropId: cropId, landId : landId, filterType: filterType);
                     },
                     widget: Text(
@@ -168,6 +171,7 @@ class HowToClick extends StatelessWidget {
                   child: CustomElevatedButton(
                     buttonColor: Colors.green,
                     onPress: () {
+                      log("land is ${landId}");
                       controller.openCamera(serviceProviderId: serviceProviderId, cropId: cropId, landId : landId, filterType: filterType);
                     },
                     widget: Text(

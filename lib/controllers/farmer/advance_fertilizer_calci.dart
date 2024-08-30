@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AdvancedFertilizerCalculatorController extends GetxController {
+  final storage = FlutterSecureStorage();
   var daep = ''.obs;
   var complexes = ''.obs;
   var urea = ''.obs;
@@ -12,9 +17,18 @@ class AdvancedFertilizerCalculatorController extends GetxController {
   var apiResponse = Rxn<Map<String, dynamic>>();
   var isLoading = false.obs;
 
-  Future<void> calculateFertilizer() async {
+  Future<void> calculateFertilizer(int? cropId, int? landId) async {
     isLoading.value = true;
-    final url = Uri.parse('https://api.agrisarathi.com/api/AdvanceFertilizercalculator');
+    final url = Uri.parse('${ApiEndPoints.baseUrlTest}AdvanceFertilizercalculator');
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
     int parseInt(String value) {
       try {
         return int.parse(value);
@@ -25,11 +39,11 @@ class AdvancedFertilizerCalculatorController extends GetxController {
     try {
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json'},
+        headers: headers,
         body: jsonEncode({
-          "user_id": 1,
           "user_language": 1,
-          "crop_id": 4,
+          "crop_id": cropId,
+          "farm_id": landId,
           "daep": parseInt(daep.value),
           "complexes": parseInt(complexes.value),
           "urea": parseInt(urea.value),
@@ -37,7 +51,7 @@ class AdvancedFertilizerCalculatorController extends GetxController {
           "mop": parseInt(mop.value),
         }),
       );
-
+      log("data ${jsonDecode(response.body)}");
       if (response.statusCode == 200) {
         apiResponse.value = jsonDecode(response.body);
       } else {

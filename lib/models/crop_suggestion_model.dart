@@ -4,9 +4,9 @@ class CropSuggestionModel {
   CropSuggestionModel({this.suggestedCrops});
 
   CropSuggestionModel.fromJson(Map<String, dynamic> json) {
-    if (json['suggested_crops'] != null) {
+    if (json['crops'] != null) {
       suggestedCrops = <SuggestedCrops>[];
-      json['suggested_crops'].forEach((v) {
+      json['crops'].forEach((v) {
         suggestedCrops!.add(SuggestedCrops.fromJson(v));
       });
     }
@@ -15,7 +15,7 @@ class CropSuggestionModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (suggestedCrops != null) {
-      data['suggested_crops'] =
+      data['crops'] =
           suggestedCrops!.map((v) => v.toJson()).toList();
     }
     return data;

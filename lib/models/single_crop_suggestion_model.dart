@@ -27,7 +27,7 @@ class CropDetails {
   String? costOfCultivation;
   String? marketPrice;
   String? production;
-  String? language;
+  int? language;
   String? cropImage;
   String? cropAudio;
 
@@ -45,7 +45,7 @@ class CropDetails {
         this.cropAudio});
 
   CropDetails.fromJson(Map<String, dynamic> json) {
-    cropId = json['crop_id'];
+    cropId = json['fk_crop'];
     cropName = json['crop_name'];
     description = json['description'];
     season = json['season'];
@@ -53,7 +53,7 @@ class CropDetails {
     costOfCultivation = json['cost_of_cultivation'];
     marketPrice = json['market_price'];
     production = json['production'];
-    language = json['language'];
+    language = json['fk_language'];
     cropImage = json['crop_image'];
     cropAudio = json['crop_audio'];
   }

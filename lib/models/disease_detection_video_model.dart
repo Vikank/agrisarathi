@@ -13,7 +13,7 @@ class DiseaseDetectionVideoModel {
   factory DiseaseDetectionVideoModel.fromJson(Map<String, dynamic> json) {
     return DiseaseDetectionVideoModel(
       id: json['id'],
-      fkLanguageId: json['fk_language_id'],
+      fkLanguageId: json['fk_language'],
       videoUrl: json['video'],
     );
   }

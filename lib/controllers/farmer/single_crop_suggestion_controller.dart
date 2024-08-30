@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -5,20 +8,29 @@ import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 
 import '../../models/single_crop_suggestion_model.dart';
+import '../../utils/helper_functions.dart';
 
 class SingleCropSuggestionController extends GetxController {
+  final storage = FlutterSecureStorage();
   var isLoading = true.obs;
   var cropDetails = Rx<CropDetails?>(null);
   var errorMessage = ''.obs;
   final audioPlayer = AudioPlayer();
   var isPlaying = false.obs;
+  int? userLanguage;
 
   @override
   void onInit() {
     super.onInit();
+    getUserLanguage();
     audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
       isPlaying.value = state == PlayerState.playing;
     });
+  }
+
+  void getUserLanguage() async {
+    userLanguage = await HelperFunctions.getUserLanguage();
+    log("userLanguage $userLanguage");
   }
 
 
@@ -26,15 +38,18 @@ class SingleCropSuggestionController extends GetxController {
     try {
       isLoading(true);
       errorMessage('');
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
 
-      var response = await http.post(
-        Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleCropSuggestion}'),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "user_id": 1,
-          "user_language": 1,
-          "crop_id": cropId
-        }),
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
+      var response = await http.get(
+        Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getSingleCropSuggestion}?user_language=$userLanguage&crop_id=$cropId'),
+        headers: headers,
       );
 
       if (response.statusCode == 200) {

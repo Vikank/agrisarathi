@@ -4,7 +4,10 @@ import '../../../controllers/farmer/fertilizer_calci_controller.dart';
 import 'advanced_fertilizer_calci.dart';
 
 class FertilizerRecommendedrScreen extends StatelessWidget {
-  final controller = Get.find<FertilizerCalciController>();
+  int? cropId;
+  int? landId;
+  FertilizerRecommendedrScreen({required this.cropId, this.landId});
+  final FertilizerCalciController controller = Get.put(FertilizerCalciController());
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +125,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                  Get.to(()=>AdvancedFertilizerCalculatorScreen());
+                  Get.to(()=>AdvancedFertilizerCalculatorScreen(cropId: cropId, landId: landId,));
                 },
                   child: Text('CALCULATE', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),
                   style: ElevatedButton.styleFrom(

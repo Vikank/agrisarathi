@@ -278,34 +278,34 @@ class OtpScreen extends StatefulWidget {
     );
   }
 
-  Future<void> otpVerify() async {
-    setState(() {
-      loading = true;
-    });
-    log("OTP is ${int.parse(pinController.text)}");
-    var headers = {'Content-Type': 'application/json'};
-    Map body = {
-      "email": widget.phone,
-      "entered_otp": int.parse(pinController.text),
-    };
-    log("map is ${body}");
-      var response = await http.post(
-        Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.verifyOtp),
-        body: jsonEncode(body),
-        headers: headers
-      );
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          Get.snackbar("Success", "Otp verified");
-          setState(() {
-            loading = false;
-          });
-        } else {
-          setState(() {
-            loading = false;
-          });
-          Get.snackbar("Error", "Otp invalid");
-        }
-
-
-  }
+  // Future<void> otpVerify() async {
+  //   setState(() {
+  //     loading = true;
+  //   });
+  //   log("OTP is ${int.parse(pinController.text)}");
+  //   var headers = {'Content-Type': 'application/json'};
+  //   Map body = {
+  //     "email": widget.phone,
+  //     "entered_otp": int.parse(pinController.text),
+  //   };
+  //   log("map is ${body}");
+  //     var response = await http.post(
+  //       Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.verifyOtp),
+  //       body: jsonEncode(body),
+  //       headers: headers
+  //     );
+  //       if (response.statusCode == 200 || response.statusCode == 201) {
+  //         Get.snackbar("Success", "Otp verified");
+  //         setState(() {
+  //           loading = false;
+  //         });
+  //       } else {
+  //         setState(() {
+  //           loading = false;
+  //         });
+  //         Get.snackbar("Error", "Otp invalid");
+  //       }
+  //
+  //
+  // }
 }

@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +13,7 @@ import '../../utils/helper_functions.dart';
 
 
 class CropSuggestionController extends GetxController{
+  final storage = FlutterSecureStorage();
   var isLoading = true.obs;
   var cropSuggestions = <SuggestedCrops>[].obs;
   var errorMessage = ''.obs;
@@ -19,18 +22,9 @@ class CropSuggestionController extends GetxController{
 
   @override
   void onInit() {
-    getFarmerId().then((value){
-      fetchCropSuggestions();
-    });
-    super.onInit();
-  }
-
-  Future<String?> getFarmerId() async {
     getUserLanguage();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    farmerId = (prefs.getString('farmerId'));
-    log("farmerId $farmerId");
-    return farmerId;
+    fetchCropSuggestions();
+    super.onInit();
   }
 
   void getUserLanguage() async {
@@ -42,17 +36,24 @@ class CropSuggestionController extends GetxController{
     try {
       isLoading(true);
       errorMessage('');
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
 
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       // Prepare the request body
       Map<String, dynamic> body = {
-        "user_id": farmerId,
         "user_language": userLanguage
       };
 
       // Make the POST request
       var response = await http.post(
-        Uri.parse('https://api.agrisarathi.com/api/Get_Suggested_Crops'),
-        headers: {"Content-Type": "application/json"},
+        Uri.parse('${ApiEndPoints.baseUrlTest}CropSuggestion'),
+        headers: headers,
         body: json.encode(body),
       );
 

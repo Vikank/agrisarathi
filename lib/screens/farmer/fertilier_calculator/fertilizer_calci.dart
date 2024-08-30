@@ -82,9 +82,9 @@ class FertilizerCalci extends StatelessWidget {
               buttonColor: ColorConstants.primaryColor,
               onPress: () async {
                 try {
-                  final fertilizerData = await controller.fetchFertilizerData();
+                  final fertilizerData = await controller.fetchFertilizerData(cropId, landId);
                   log("fertilizer data ${fertilizerData}");
-                  Get.to(FertilizerResultScreen(fertilizerData: fertilizerData));
+                  Get.to(FertilizerResultScreen(fertilizerData: fertilizerData, cropId: cropId, landId : landId));
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Error: ${e.toString()}')),
