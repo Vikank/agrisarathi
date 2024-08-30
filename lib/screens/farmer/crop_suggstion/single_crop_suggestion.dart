@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
@@ -13,10 +15,18 @@ class SingleCropSuggestion extends StatelessWidget {
   }
 
   String formatDescription(String description) {
-    return description
-        .replaceAll("\r\n\r\n", "\n• ")
-        .replaceAll("\r\n", "\n")
-        .replaceAll("\n", "\n• ");
+    // Split the description into lines
+    List<String> lines = description.split('\n');
+
+    // Process each line
+    List<String> formattedLines = lines.map((line) {
+      // Trim the line and add a bullet point if it's not empty
+      line = line.trim();
+      return line.isNotEmpty ? '• $line' : line;
+    }).toList();
+
+    // Join the lines back together
+    return formattedLines.join('\n');
   }
 
   @override
@@ -40,6 +50,7 @@ class SingleCropSuggestion extends StatelessWidget {
           return Center(child: Text('No crop details available'));
         } else {
           CropDetails crop = controller.cropDetails.value!;
+          log("crop details ${crop.cropName}");
           return SingleChildScrollView(
             padding: EdgeInsets.all(16),
             child: Column(
