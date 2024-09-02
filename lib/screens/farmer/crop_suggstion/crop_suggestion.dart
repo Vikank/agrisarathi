@@ -53,64 +53,62 @@ class CropSuggestion extends StatelessWidget {
             ),
           );
         } else {
-          return Expanded(
-            child: ListView.separated(
-              itemCount: controller.cropSuggestions.length,
-              itemBuilder: (context, index) {
-                var crop = controller.cropSuggestions[index];
-                return GestureDetector(
-                  onTap: (){
-                    Get.to(()=>SingleCropSuggestion(cropId: crop.cropId));
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: CachedNetworkImage(
-                            imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}',
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                  filterQuality: FilterQuality.low,
-                                ),
+          return ListView.separated(
+            itemCount: controller.cropSuggestions.length,
+            itemBuilder: (context, index) {
+              var crop = controller.cropSuggestions[index];
+              return GestureDetector(
+                onTap: (){
+                  Get.to(()=>SingleCropSuggestion(cropId: crop.cropId));
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 60,
+                        width: 60,
+                        child: CachedNetworkImage(
+                          imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                                filterQuality: FilterQuality.low,
                               ),
                             ),
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => Container(
-                                width: double.infinity,
-                                height: 52,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff002833d).withOpacity(0.06),
-                                  borderRadius: BorderRadius.circular(3),
-                                ),
-                                child: const Icon(Icons.error)),
                           ),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                              width: double.infinity,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff002833d).withOpacity(0.06),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                              child: const Icon(Icons.error)),
                         ),
-                        SizedBox(width: 24,),
-                        Text(crop.cropName ?? '', style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            fontFamily: "NotoSans"
-                        ),),
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 24,),
+                      Text(crop.cropName ?? '', style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          fontFamily: "NotoSans"
+                      ),),
+                    ],
                   ),
-                );
-              }, separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  height: 10,
-                );
-            },
-            ),
+                ),
+              );
+            }, separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                height: 10,
+              );
+          },
           );
         }
       }),
