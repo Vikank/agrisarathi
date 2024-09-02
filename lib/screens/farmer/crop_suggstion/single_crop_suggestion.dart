@@ -67,7 +67,7 @@ class SingleCropSuggestion extends StatelessWidget {
                       ),
                       Spacer(),
                       Obx(() => IconButton(
-                        icon: Icon(controller.isPlaying.value ? Icons.stop : Icons.play_arrow),
+                        icon: Icon(controller.isPlaying.value ? Icons.stop : Icons.volume_up_outlined, color: Colors.green       ,),
                         onPressed: controller.toggleAudio,
                       )),
                     ],

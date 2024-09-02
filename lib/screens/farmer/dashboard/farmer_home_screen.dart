@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../controllers/farmer/coach_marks_controller.dart';
 import '../../../controllers/profile_controller.dart';
+import '../profile/profile_screen.dart';
 import 'farmer_community_widget.dart';
 import 'farmer_dashboard_widget.dart';
 import 'farmer_mandi_widget.dart';
@@ -212,8 +213,7 @@ class FarmerHomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                   onTap: () {
-                    controller.updateSelectedIndex(3);
-                    Navigator.pop(context); // Close the drawer
+                    Get.to(() => ProfileScreen());
                   },
                 ),
                 Spacer(),
