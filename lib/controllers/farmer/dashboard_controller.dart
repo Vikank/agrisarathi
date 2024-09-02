@@ -27,6 +27,7 @@ class FarmerDashboardController extends GetxController {
   final List<TargetFocus> targets = <TargetFocus>[];
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
+  RxInt currentCarousel = 0.obs;
 
   @override
   void onInit() {

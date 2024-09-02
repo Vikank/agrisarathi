@@ -22,11 +22,11 @@ dependencies:
   fluttertoast: ^8.2.5
   google_fonts: ^6.2.1
   sizer: ^2.0.15
-#  carousel_slider: ^4.2.1
   carousel_slider:
-    git:
-      url: https://github.com/sampaio96/flutter_carousel_slider.git
-      ref: master
+#  carousel_slider:
+#    git:
+#      url: https://github.com/sampaio96/flutter_carousel_slider.git
+#      ref: master
   intl: ^0.19.0
   cached_network_image: ^3.3.1
   image_picker: ^1.1.2

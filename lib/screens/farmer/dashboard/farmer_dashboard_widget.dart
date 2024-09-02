@@ -24,6 +24,7 @@ import '../weather/weather_detailed_screen.dart';
 class FarmerDashboardWidget extends StatelessWidget {
   FarmerDashboardController controller = Get.put(FarmerDashboardController());
   CoachMarksController coachMarksController = Get.put(CoachMarksController());
+  final CarouselSliderController _controller = CarouselSliderController();
 
   final List<String> imgList = [
     'assets/images/carousel_home.png',
@@ -46,117 +47,84 @@ class FarmerDashboardWidget extends StatelessWidget {
                     height: 2,
                     decoration: BoxDecoration(color: Colors.grey[200]),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Container(
-                      key: coachMarksController.farmCoachKey,
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        "Farms".tr,
-                        style: const TextStyle(
-                            fontFamily: "Bitter",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14),
-                      ),
-                    ),
+                  SizedBox(
+                    height: 16,
                   ),
-                  Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      height: 36,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Obx(() {
-                              return controller.farmerLandLoader.value
-                                  ? Shimmer.fromColors(
-                                      baseColor: const Color(0xffDFF9ED),
-                                      highlightColor: const Color(0xffF1FBF2),
-                                      child: ListView.separated(
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            height: 36,
-                                            width: 100,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        separatorBuilder:
-                                            (BuildContext context, int index) {
-                                          return const SizedBox(
-                                            width: 10,
-                                          );
-                                        },
+                  Obx(() {
+                    return controller.farmerLandLoader.value
+                        ? Container(
+                            height: 56,
+                            child: Shimmer.fromColors(
+                              baseColor: const Color(0xffDFF9ED),
+                              highlightColor: const Color(0xffF1FBF2),
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    height: 56,
+                                    width: 100,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8),
                                       ),
-                                    )
-                                  : ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      itemCount: controller
-                                          .farmerLands.value.data!.length,
-                                      itemBuilder: (context, index) {
-                                        final farmerLands =
-                                            controller.farmerLands.value.data;
-                                        return GestureDetector(
-                                          onTap: () {
-                                            controller.cropName.value =
-                                                farmerLands[index].crop ?? "";
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 12, vertical: 8),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              '${farmerLands![index].address}',
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: "NotoSans"),
-                                            )),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return const SizedBox(
+                                    width: 10,
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            height: 56,
+                            width: double.infinity,
+                            child: CarouselSlider(
+                              items: controller.farmerLands.value.data!
+                                  .map(
+                                    (item) => GestureDetector(
+                                      onTap: () {
+                                        controller.cropName.value =
+                                            item.crop ?? "";
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(8),
                                           ),
-                                        );
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) {
-                                        return const SizedBox(
-                                          width: 10,
-                                        );
-                                      },
-                                    );
-                            }),
-                          ),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      color: const Color(0xffCBD5E1))),
-                              child: const Icon(
-                                Icons.add,
-                                size: 24,
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                          '${item.address}',
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "NotoSans"),
+                                        )),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              carouselController: _controller,
+                              options: CarouselOptions(
+                                  // viewportFraction: 1,
+                                  enlargeCenterPage: true,
+                                  onPageChanged: (index, reason) {
+                                    controller.currentCarousel.value = index;
+                                  }),
+                            ),
+                          );
+                  }),
                   const SizedBox(
                     height: 16,
                   ),
