@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +15,13 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal : 16.0, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
         child: Column(
           children: [
             _buildProfileHeader(),
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 16,
+            ),
             _buildLanguageSelection(),
             _buildSettingsOptions(),
           ],
@@ -47,7 +48,8 @@ class ProfileScreen extends StatelessWidget {
                 color: Colors.green,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.photo_camera_rounded, color: Colors.white, size: 16),
+              child: Icon(Icons.photo_camera_rounded,
+                  color: Colors.white, size: 16),
             ),
           ],
         ),
@@ -56,14 +58,26 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Ramesh', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('8800228800'),
+                Text(
+                  'Ramesh',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Bitter"),
+                ),
+                Text(
+                  '8800228800',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "NotoSans"),
+                ),
               ],
             ),
             IconButton(
-              icon: Icon(Icons.edit_outlined, size: 20),
+              icon: Icon(Icons.edit_outlined, size: 23),
               onPressed: () {},
             ),
           ],
@@ -75,32 +89,47 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildLanguageSelection() {
     return SizedBox(
       width: double.infinity,
-      child: ListView(
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        children: [
-          _languageButton('English', 'अंग्रेजी'),
-          SizedBox(width: 8),
-          _languageButton('Hindi', 'हिंदी'),
-          SizedBox(width: 8),
-          _languageButton('Marathi', 'मराठी'),
-          IconButton(
-            icon: Icon(Icons.arrow_forward_ios, size: 16),
-            onPressed: () {},
-          ),
-        ],
+        child: Row(
+          children: [
+            _languageButton('English', 'अंग्रेजी'),
+            SizedBox(width: 8),
+            _languageButton('Hindi', 'हिंदी'),
+            SizedBox(width: 8),
+            _languageButton('Marathi', 'मराठी'),
+            IconButton(
+              icon: Icon(Icons.arrow_forward_ios, size: 16),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _languageButton(String language, String nativeText) {
-    return SizedBox(
-      width: 100,
+    return Container(
+      width: 92,
+      height: 64,
       child: OutlinedButton(
-        child: Column(
-          children: [
-            Text(language, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-            Text(nativeText, style: TextStyle(fontSize: 12)),
-          ],
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            children: [
+              Text(
+                language,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "NotoSans"),
+              ),
+              Text(nativeText, style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "NotoSans"),),
+            ],
+          ),
         ),
         onPressed: () {},
         style: OutlinedButton.styleFrom(
@@ -113,8 +142,30 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildSettingsOptions() {
     return Column(
       children: [
-        _settingsItem('Notification', Icons.notifications_none, isSwitch: true),
-        _settingsItem('Turn off SMS', Icons.sms_outlined, isSwitch: true),
+        ListTile(
+          leading: Icon(Icons.notifications_none),
+          title: Text("Notification", style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              fontFamily: "NotoSans"),),
+          trailing: Switch.adaptive(
+              activeColor: Colors.green,
+              value: true,
+              onChanged: (bool value) {}),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.sms_outlined),
+          title: Text("Turn off SMS", style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              fontFamily: "NotoSans"),),
+          trailing: Switch.adaptive(
+              activeColor: Colors.green,
+              value: true,
+              onChanged: (bool value) {}),
+          onTap: () {},
+        ),
         _settingsItem('Privacy Policy', Icons.lock_outline),
         _settingsItem('Terms and Conditions', Icons.description_outlined),
         _settingsItem('Help', Icons.help_outline),
@@ -126,11 +177,12 @@ class ProfileScreen extends StatelessWidget {
   Widget _settingsItem(String title, IconData icon, {bool isSwitch = false}) {
     return ListTile(
       leading: Icon(icon),
-      title: Text(title),
-      trailing: isSwitch
-          ? Switch(value: true, onChanged: (bool value) {})
-          : Icon(Icons.arrow_forward_ios, size: 16),
-      onTap: isSwitch ? null : () {},
+      title: Text(title, style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          fontFamily: "NotoSans"),),
+      trailing: Icon(Icons.arrow_forward_ios_outlined, size: 16),
+      onTap: null,
     );
   }
 }
