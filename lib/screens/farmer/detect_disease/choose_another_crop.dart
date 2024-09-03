@@ -82,8 +82,8 @@ class ChooseAnotherCrop extends StatelessWidget {
                             ),
                           ),
                           child: Image.network(
-                            '${ApiEndPoints.imageBaseUrl}/' +
-                                crop.cropImages[0],
+                            '${ApiEndPoints.imageBaseUrl}' +
+                                crop.cropImages!,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -246,8 +246,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                                     ),
                                   ),
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                    crop.cropImages.isNotEmpty  ? "${ApiEndPoints.imageBaseUrl}/${crop.cropImages[0]}" : "",
+                                    imageUrl: "${ApiEndPoints.imageBaseUrl}${crop.cropImages}",
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                           decoration: BoxDecoration(
@@ -312,7 +311,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                   serviceProviderId: serviceProviderId!,
                   cropId: controller.selectedCrops.first.id,
                   cropName: controller.selectedCrops.first.cropName,
-                  cropImage: controller.selectedCrops.first.cropImages.first));
+                  cropImage: controller.selectedCrops.first.cropImages!));
             },
             widget: Text(
               "Next".tr,

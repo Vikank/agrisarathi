@@ -3,7 +3,7 @@ class Crop {
   final int id;
   final String cropName;
   bool? status;
-  List<String> cropImages;
+  String? cropImages;
   final String seasonName;
   final int seasonId;
   final String category;
@@ -23,7 +23,7 @@ class Crop {
       id: json['id'],
       cropName: json['crop_name'],
       status: json['status'],
-      cropImages: json["crop_images"] == null ? [] : List<String>.from(json["crop_images"]!.map((x) => x)),
+      cropImages: json['crop_image'] ?? "",
       seasonName: json['season_name'],
       seasonId: json['season_id'],
       category: category,
