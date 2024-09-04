@@ -52,279 +52,189 @@ class FarmerDashboardWidget extends StatelessWidget {
                   ),
                   Obx(() {
                     return controller.farmerLandLoader.value
-                        ? Column(
-                            children: [
-                              Container(
-                                height: 56,
-                                child: Shimmer.fromColors(
-                                  baseColor: const Color(0xffDFF9ED),
-                                  highlightColor: const Color(0xffF1FBF2),
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        height: 56,
-                                        width: 100,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(8),
+                        ? SizedBox(
+                            height: 150,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 56,
+                                  child: Shimmer.fromColors(
+                                    baseColor: const Color(0xffDFF9ED),
+                                    highlightColor: const Color(0xffF1FBF2),
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: 5,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          height: 56,
+                                          width: 100,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder:
-                                        (BuildContext context, int index) {
-                                      return const SizedBox(
-                                        width: 10,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                height: 56,
-                                child: Shimmer.fromColors(
-                                  baseColor: const Color(0xffDFF9ED),
-                                  highlightColor: const Color(0xffF1FBF2),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 66,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        : SizedBox(
-                            height: 56,
-                            width: double.infinity,
-                            child: CarouselSlider(
-                              items: controller.farmerLands.value.data!
-                                  .map(
-                                    (item) => GestureDetector(
-                                      onTap: () {
-                                        controller.cropName.value =
-                                            item.crop ?? "";
+                                        );
                                       },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 12, vertical: 8),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              '${item.address}',
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: "NotoSans"),
-                                            )),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(10),
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: const Color(
-                                                        0xffBAEDBD))),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${controller.cropName}",
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontFamily: "Bitter"),
-                                                ),
-                                                const Spacer(),
-                                                InkWell(
-                                                  onTap: () {
-                                                    Get.to(() =>
-                                                        WeatherDetailScreen(
-                                                            districtName:
-                                                                controller
-                                                                    .districtName
-                                                                    .value));
-                                                  },
-                                                  child: Row(
-                                                    key: coachMarksController
-                                                        .weatherCoachKey,
-                                                    children: [
-                                                      Text(
-                                                        controller
-                                                            .temperature.value,
-                                                        style: const TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontFamily:
-                                                                "Bitter"),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Image.network(
-                                                        controller
-                                                            .weatherIcon.value,
-                                                        width: 40,
-                                                        height: 40,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      const Icon(
-                                                        Icons
-                                                            .arrow_forward_ios_rounded,
-                                                        size: 15,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
+                                      separatorBuilder:
+                                          (BuildContext context, int index) {
+                                        return const SizedBox(
+                                          width: 10,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  height: 56,
+                                  child: Shimmer.fromColors(
+                                    baseColor: const Color(0xffDFF9ED),
+                                    highlightColor: const Color(0xffF1FBF2),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 66,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(5),
+                                        ),
                                       ),
                                     ),
-                                  )
-                                  .toList(),
-                              carouselController: _controller,
-                              options: CarouselOptions(
-                                  // viewportFraction: 1,
-                                  enlargeCenterPage: true,
-                                  onPageChanged: (index, reason) {
-                                    controller.currentCarousel.value = index;
-                                  }),
+                                  ),
+                                )
+                              ],
                             ),
-                          );
+                          ) : controller.farmerLands.value.data!.isEmpty ? SizedBox.shrink()
+                        : Column(
+                          children: [
+                            SizedBox(
+                                height: 130,
+                                width: double.infinity,
+                                child: CarouselSlider(
+                                  items: controller.farmerLands.value.data!
+                                      .map(
+                                        (item) => Column(
+                                          children: [
+                                            Container(
+                                              height:56,
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 12, vertical: 8),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(8),
+                                                ),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                '${item.address}',
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: "NotoSans"),
+                                              )),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              height: 56,
+                                              width: double.infinity,
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  border: Border.all(
+                                                      color: const Color(
+                                                          0xffBAEDBD))),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Text(
+                                                    "${controller.cropName}",
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontFamily: "Bitter"),
+                                                  ),
+                                                  Spacer(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          WeatherDetailScreen(
+                                                              districtName:
+                                                                  controller
+                                                                      .districtName
+                                                                      .value));
+                                                    },
+                                                    child: Row(
+                                                      // key: coachMarksController
+                                                      //     .weatherCoachKey,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .temperature.value,
+                                                          style: const TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                              fontFamily:
+                                                                  "Bitter"),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Image.network(
+                                                          controller
+                                                              .weatherIcon.value,
+                                                          width: 40,
+                                                          height: 40,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        const Icon(
+                                                          Icons
+                                                              .arrow_forward_ios_rounded,
+                                                          size: 15,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                      .toList(),
+                                  carouselController: _controller,
+                                  options: CarouselOptions(
+                                      height: 150,
+                                      enlargeCenterPage: true,
+                                      onPageChanged: (index, reason) {
+                                        controller.currentCarousel.value = index;
+                                      }),
+                                ),
+                              ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              height: 2,
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              decoration: BoxDecoration(color: Colors.grey[200]),
+                            ),
+                          ],
+                        );
                   }),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    height: 2,
-                    decoration: BoxDecoration(color: Colors.grey[200]),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  // Obx(() {
-                  //   return Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 16),
-                  //     child: controller.farmerLandLoader.value
-                  //         ? Shimmer.fromColors(
-                  //             baseColor: const Color(0xffDFF9ED),
-                  //             highlightColor: const Color(0xffF1FBF2),
-                  //             child: Container(
-                  //               width: double.infinity,
-                  //               height: 66,
-                  //               decoration: const BoxDecoration(
-                  //                 color: Colors.white,
-                  //                 borderRadius: BorderRadius.all(
-                  //                   Radius.circular(5),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           )
-                  //         : Container(
-                  //             padding: const EdgeInsets.all(10),
-                  //             width: double.infinity,
-                  //             decoration: BoxDecoration(
-                  //                 borderRadius: BorderRadius.circular(5),
-                  //                 border: Border.all(
-                  //                     color: const Color(0xffBAEDBD))),
-                  //             child: Row(
-                  //               children: [
-                  //                 Text(
-                  //                   "${controller.cropName}",
-                  //                   style: const TextStyle(
-                  //                       fontSize: 14,
-                  //                       fontWeight: FontWeight.w600,
-                  //                       fontFamily: "Bitter"),
-                  //                 ),
-                  //                 const Spacer(),
-                  //                 InkWell(
-                  //                   onTap: () {
-                  //                     Get.to(() => WeatherDetailScreen(
-                  //                         districtName:
-                  //                             controller.districtName.value));
-                  //                   },
-                  //                   child: Row(
-                  //                     key: coachMarksController.weatherCoachKey,
-                  //                     children: [
-                  //                       Text(
-                  //                         controller.temperature.value,
-                  //                         style: const TextStyle(
-                  //                             fontSize: 20,
-                  //                             fontWeight: FontWeight.w600,
-                  //                             fontFamily: "Bitter"),
-                  //                       ),
-                  //                       const SizedBox(
-                  //                         width: 5,
-                  //                       ),
-                  //                       Image.network(
-                  //                         controller.weatherIcon.value,
-                  //                         width: 40,
-                  //                         height: 40,
-                  //                       ),
-                  //                       const SizedBox(
-                  //                         width: 10,
-                  //                       ),
-                  //                       const Icon(
-                  //                         Icons.arrow_forward_ios_rounded,
-                  //                         size: 15,
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                 )
-                  //               ],
-                  //             ),
-                  //           ),
-                  //   );
-                  // }),
-                  // const SizedBox(
-                  //   height: 16,
-                  // ),
-                  SizedBox(
-                    height: 100,
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: Row(
-                              children: [],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(width: 10);
-                        },
-                        itemCount: 5),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Image.asset("assets/images/farmer_home_banner.png"),

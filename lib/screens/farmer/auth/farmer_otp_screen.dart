@@ -80,14 +80,14 @@ class OtpScreen extends StatelessWidget {
               Form(
                 key: _formKey,
                 child: Pinput(
-                  length: 4,
+                  length: 6,
                   controller: pinController,
                   keyboardType: TextInputType.phone,
                   defaultPinTheme: defaultPinTheme,
                   validator: (pinValue) {
                     if (pinValue == null ||
                         pinValue.isEmpty ||
-                        pinValue.length < 4) {
+                        pinValue.length < 6) {
                       return "enter valid otp";
                     }
                     return null;

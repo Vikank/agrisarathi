@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CoachMarksController extends GetxController{
@@ -14,6 +15,7 @@ class CoachMarksController extends GetxController{
   final soilCoachKey = GlobalKey();
   final helplineCoachKey = GlobalKey();
   final scrollController = ScrollController();
+  RxBool tutorialShown = false.obs;
 
   void onInit(){
     super.onInit();
@@ -142,35 +144,38 @@ class CoachMarksController extends GetxController{
     ]);
   }
 
-  void showTutorial(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      TutorialCoachMark(
-        targets: targets,
-        colorShadow: Colors.green,
-        textSkip: "SKIP",
-        paddingFocus: 10,
-        opacityShadow: 0.8,
-        onFinish: () {
-        },
-        onClickTarget: (target) {
-          final renderBox = target.keyTarget?.currentContext!.findRenderObject() as RenderBox;
-          final offset = renderBox.localToGlobal(Offset.zero).dy;
-          if (offset > scrollController.position.maxScrollExtent || offset < (scrollController.position.minScrollExtent)) {
-            scrollController.animateTo(
-              offset,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-            );
-          }
-        },
-        onClickOverlay: (target) {
-        },
-        onSkip: () {
-          print("Skip");
-          return true;
-        },
-      ).show(context: context);
-    });
+  void showTutorial(BuildContext context) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool tutorialShownBefore = prefs.getBool('tutorialShown') ?? false;
+    if(!tutorialShownBefore && !tutorialShown.value) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        TutorialCoachMark(
+          targets: targets,
+          colorShadow: Colors.green,
+          textSkip: "SKIP",
+          paddingFocus: 10,
+          opacityShadow: 0.8,
+          onFinish: () {
+          },
+          onClickTarget: (target) {
+            final renderBox = target.keyTarget?.currentContext!.findRenderObject() as RenderBox;
+            final offset = renderBox.localToGlobal(Offset.zero).dy;
+            if (offset > scrollController.position.maxScrollExtent || offset < (scrollController.position.minScrollExtent)) {
+              scrollController.animateTo(
+                offset,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            }
+          },
+          onClickOverlay: (target) {
+          },
+          onSkip: () {
+            print("Skip");
+            return true;
+          },
+        ).show(context: context);
+      });
+    }
   }
-
 }
