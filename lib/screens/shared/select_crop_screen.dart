@@ -31,27 +31,27 @@ class SelectCropScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) => controller.updateSearchQuery(value),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: ColorConstants.textFieldBgClr,
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: "Search_crop_name_here".tr,
-                        hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.all(16),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         child: TextFormField(
+            //           textAlignVertical: TextAlignVertical.center,
+            //           onChanged: (value) => controller.updateSearchQuery(value),
+            //           decoration: InputDecoration(
+            //             border: InputBorder.none,
+            //             filled: true,
+            //             fillColor: ColorConstants.textFieldBgClr,
+            //             prefixIcon: const Icon(Icons.search),
+            //             hintText: "Search_crop_name_here".tr,
+            //             hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
