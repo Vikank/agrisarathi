@@ -53,7 +53,7 @@ class SelectCropScreen extends StatelessWidget {
             //   ),
             // ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'You_can_select_upto_1_crops_you_are_interested_in'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
