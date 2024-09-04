@@ -41,7 +41,6 @@ class AdvancedFertilizerCalculatorController extends GetxController {
         url,
         headers: headers,
         body: jsonEncode({
-          "user_language": 1,
           "crop_id": cropId,
           "farm_id": landId,
           "daep": parseInt(daep.value),

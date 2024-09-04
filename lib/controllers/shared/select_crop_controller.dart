@@ -16,6 +16,7 @@ class CropController extends GetxController {
   var selectedCrops = <Crop>[].obs;
   var varieties = [].obs;
   var searchQuery = ''.obs;
+  var categories = <String>[].obs;
   int? userLanguage;
 
   @override
@@ -42,16 +43,19 @@ class CropController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers: headers);
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'), headers: headers);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       var loadedCrops = <Crop>[];
+      var categorySet = Set<String>();  // Use a set to store unique categories
       data.forEach((category, crops) {
+        categorySet.add(category);
         loadedCrops.addAll((crops as List).map((json) => Crop.fromJson(json, category)).toList());
       });
 
       allCrops.value = loadedCrops;
       displayedCrops.value = loadedCrops;
+      categories.value = categorySet.toList();
     } else {
       throw Exception('Failed to load crops');
     }

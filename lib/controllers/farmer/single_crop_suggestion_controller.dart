@@ -48,7 +48,7 @@ class SingleCropSuggestionController extends GetxController {
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       var response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getSingleCropSuggestion}?user_language=$userLanguage&crop_id=$cropId'),
+        Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getSingleCropSuggestion}?crop_id=$cropId'),
         headers: headers,
       );
 

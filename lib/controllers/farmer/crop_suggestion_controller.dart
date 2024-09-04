@@ -45,16 +45,11 @@ class CropSuggestionController extends GetxController{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
-      // Prepare the request body
-      Map<String, dynamic> body = {
-        "user_language": userLanguage
-      };
 
       // Make the POST request
       var response = await http.post(
         Uri.parse('${ApiEndPoints.baseUrlTest}CropSuggestion'),
         headers: headers,
-        body: json.encode(body),
       );
 
       if (response.statusCode == 200) {

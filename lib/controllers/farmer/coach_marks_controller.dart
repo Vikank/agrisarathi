@@ -155,7 +155,9 @@ class CoachMarksController extends GetxController{
           textSkip: "SKIP",
           paddingFocus: 10,
           opacityShadow: 0.8,
-          onFinish: () {
+          onFinish: () async{
+            await prefs.setBool('tutorialShown', true);
+            tutorialShown.value = true;
           },
           onClickTarget: (target) {
             final renderBox = target.keyTarget?.currentContext!.findRenderObject() as RenderBox;
@@ -171,7 +173,10 @@ class CoachMarksController extends GetxController{
           onClickOverlay: (target) {
           },
           onSkip: () {
-            print("Skip");
+            prefs.setBool('tutorialShown', true).then((_) {
+              tutorialShown.value = true;
+              print("Skip");
+            });
             return true;
           },
         ).show(context: context);

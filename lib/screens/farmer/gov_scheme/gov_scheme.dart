@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/screens/farmer/gov_scheme/single_gov_scheme.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import '../../../controllers/farmer/gov_scheme_controller.dart';
 
@@ -99,7 +100,7 @@ class SchemeListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl: "https://api.agrisarathi.com/api/${scheme.schemeImage}",
+                imageUrl: "${ApiEndPoints.imageBaseUrl}${scheme.schemeImage}",
                 imageBuilder: (context, imageProvider) => Container(
                   height: 96,
                   width: 155,

@@ -105,17 +105,18 @@ class AddFarmLand extends StatelessWidget {
                           items: farmerAddressController.states
                               .map<DropdownMenuItem<String>>((state) {
                             return DropdownMenuItem(
-                              value: state['state'],
-                              child: Text(state['state']),
+                              value: state['state_name'],
+                              child: Text(state['state_name']),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             int selectedStateId = farmerAddressController.states
                                 .firstWhere((element) =>
-                            element['state'] == newValue)['id'];
+                            element['state_name'] == newValue)['id'];
                             farmerAddressController.fetchDistricts(
                                 selectedStateId); // Fetch districts on state change
                             farmerAddressController.state = selectedStateId;
+                            farmerAddressController.district = null;
                           },
                         );
                       }),
@@ -152,14 +153,14 @@ class AddFarmLand extends StatelessWidget {
                           items: farmerAddressController.districts
                               .map<DropdownMenuItem<String>>((district) {
                             return DropdownMenuItem<String>(
-                              value: district['district'],
-                              child: Text(district['district']),
+                              value: district['district_name'],
+                              child: Text(district['district_name']),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             int selectedDistrictId = farmerAddressController.districts
                                 .firstWhere((element) =>
-                            element['district'] == newValue)['id'];
+                            element['district_name'] == newValue)['id'];
                             farmerAddressController.district = selectedDistrictId;
                           },
                         );
@@ -395,12 +396,12 @@ class AddFarmLand extends StatelessWidget {
                               fontFamily: 'NotoSans',
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please choose variety';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please choose variety';
+                          //   }
+                          //   return null;
+                          // },
                           value: currentValue.isEmpty ? null : currentValue,
                           items: dropdownItems,
                           onChanged: (String? newValue) {

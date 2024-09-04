@@ -60,7 +60,7 @@ class SchemeController extends GetxController {
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       var response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}GetallGovtSchemes?user_language=$userLanguage&filter_type=all'),
+        Uri.parse('${ApiEndPoints.baseUrlTest}GetallGovtSchemes?filter_type=all'),
         headers: headers,
       );
       if (response.statusCode == 200) {

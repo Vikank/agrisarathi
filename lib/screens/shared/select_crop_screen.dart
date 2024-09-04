@@ -52,6 +52,7 @@ class SelectCropScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
+            SizedBox(height: 16,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -132,82 +133,107 @@ class SelectCropScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Wrap(
+              child: Obx(() => Wrap(
                 spacing: 8.0,
-                children: [
-                  FilterChip(
+                children: controller.categories.map((category) {
+                  return FilterChip(
                     showCheckmark: false,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     label: Text(
-                      'Cereals'.tr,
+                      category.tr,  // Assuming categories are in localized strings
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Colors.black,
                           fontFamily: 'NotoSans'),
                     ),
-                    selected:
-                        controller.selectedCategory.value == 'CerealField',
+                    selected: controller.selectedCategory.value == category,
                     selectedColor: Colors.green,
-                    onSelected: (isSelected) =>
-                        controller.filterCrops(isSelected ? 'CerealField' : ''),
-                  ),
-                  FilterChip(
-                    showCheckmark: false,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    label: Text(
-                      'Pulses'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
-                    ),
-                    selected: controller.selectedCategory.value == 'Pulse',
-                    selectedColor: Colors.green,
-                    onSelected: (isSelected) =>
-                        controller.filterCrops(isSelected ? 'Pulse' : ''),
-                  ),
-                  FilterChip(
-                    showCheckmark: false,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    label: Text(
-                      'Fruits'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
-                    ),
-                    selected: controller.selectedCategory.value == 'Fruit',
-                    selectedColor: Colors.green,
-                    onSelected: (isSelected) =>
-                        controller.filterCrops(isSelected ? 'Fruit' : ''),
-                  ),
-                  FilterChip(
-                    showCheckmark: false,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    label: Text(
-                      'Vegetables'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
-                    ),
-                    selected: controller.selectedCategory.value == 'Vegetable',
-                    selectedColor: Colors.green,
-                    onSelected: (isSelected) =>
-                        controller.filterCrops(isSelected ? 'Vegetable' : ''),
-                  ),
-                ],
-              ),
+                    onSelected: (isSelected) => controller.filterCrops(isSelected ? category : ''),
+                  );
+                }).toList(),
+              )),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //   child: Wrap(
+            //     spacing: 8.0,
+            //     children: [
+            //       FilterChip(
+            //         showCheckmark: false,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100.0),
+            //         ),
+            //         label: Text(
+            //           'Cereals'.tr,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.w400,
+            //               fontSize: 13,
+            //               color: Colors.black,
+            //               fontFamily: 'NotoSans'),
+            //         ),
+            //         selected:
+            //             controller.selectedCategory.value == 'CerealField',
+            //         selectedColor: Colors.green,
+            //         onSelected: (isSelected) =>
+            //             controller.filterCrops(isSelected ? 'CerealField' : ''),
+            //       ),
+            //       FilterChip(
+            //         showCheckmark: false,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100.0),
+            //         ),
+            //         label: Text(
+            //           'Pulses'.tr,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.w400,
+            //               fontSize: 13,
+            //               color: Colors.black, fontFamily: 'NotoSans'),
+            //         ),
+            //         selected: controller.selectedCategory.value == 'Pulse',
+            //         selectedColor: Colors.green,
+            //         onSelected: (isSelected) =>
+            //             controller.filterCrops(isSelected ? 'Pulse' : ''),
+            //       ),
+            //       FilterChip(
+            //         showCheckmark: false,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100.0),
+            //         ),
+            //         label: Text(
+            //           'Fruits'.tr,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.w400,
+            //               fontSize: 13,
+            //               color: Colors.black, fontFamily: 'NotoSans'),
+            //         ),
+            //         selected: controller.selectedCategory.value == 'Fruit',
+            //         selectedColor: Colors.green,
+            //         onSelected: (isSelected) =>
+            //             controller.filterCrops(isSelected ? 'Fruit' : ''),
+            //       ),
+            //       FilterChip(
+            //         showCheckmark: false,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100.0),
+            //         ),
+            //         label: Text(
+            //           'Vegetables'.tr,
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.w400,
+            //               fontSize: 13,
+            //               color: Colors.black, fontFamily: 'NotoSans'),
+            //         ),
+            //         selected: controller.selectedCategory.value == 'Vegetable',
+            //         selectedColor: Colors.green,
+            //         onSelected: (isSelected) =>
+            //             controller.filterCrops(isSelected ? 'Vegetable' : ''),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 12,
             ),

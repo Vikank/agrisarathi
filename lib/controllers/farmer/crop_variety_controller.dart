@@ -27,7 +27,7 @@ class CropVarietyController extends GetxController {
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       isLoading(true);
-      var response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId&user_language=1'), headers: headers);
+      var response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId'), headers: headers);
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         if (jsonResponse['message'] == 'success') {

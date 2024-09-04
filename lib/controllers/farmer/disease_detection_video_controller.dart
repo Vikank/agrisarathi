@@ -66,7 +66,7 @@ class DiseaseDetectionVideoController extends GetxController {
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       final response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo?user_language=1'),
+        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo'),
         headers: headers,
       );
 
@@ -179,7 +179,6 @@ class DiseaseDetectionVideoController extends GetxController {
     request.fields['service_provider_id'] = serviceProviderId.toString();
     request.fields['crop_id'] = cropId.toString();
     request.fields['filter_type'] = filterType;
-    request.fields['user_language'] = userLanguage.toString();
     request.fields['farmer_land_id'] = landId.toString();
     print('request is: ${request.fields} ${request.files} ${request.headers}');
     try {

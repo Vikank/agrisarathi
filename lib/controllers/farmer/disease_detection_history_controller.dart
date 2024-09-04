@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,7 @@ import '../../models/single_disease_history_model.dart';
 import '../../utils/helper_functions.dart';
 
 class DiseaseDetectionHistoryController extends GetxController{
+  final storage = FlutterSecureStorage();
   var diseaseHistory = Rx<DiseaseHistoryModel?>(null);
   var isLoading = true.obs;
   String? farmerId;
@@ -20,17 +22,8 @@ class DiseaseDetectionHistoryController extends GetxController{
   @override
   void onInit() {
     getUserLanguage();
-    getFarmerId().then((value){
-      fetchDiseaseHistory();
-    });
+    fetchDiseaseHistory();
     super.onInit();
-  }
-
-  Future<String?> getFarmerId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    farmerId = (prefs.getString('farmerId'));
-    log("user id $farmerId");
-    return farmerId;
   }
 
   void getUserLanguage() async {
@@ -40,13 +33,19 @@ class DiseaseDetectionHistoryController extends GetxController{
 
   void fetchDiseaseHistory() async {
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
       isLoading(true);
-      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getDiseaseHistory}?user_id=$farmerId&user_language=$userLanguage');
+      var url = Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getDiseaseHistory}');
       log("$url");
       var response = await http.get(
           url,
-          headers: {"Content-Type": "application/json"},
+          headers: {"Content-Type": "application/json",
+            'Authorization': 'Bearer $accessToken' },
       );
+      log("message ${response.body}");
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
         diseaseHistory.value = DiseaseHistoryModel.fromJson(jsonData);
@@ -58,7 +57,7 @@ class DiseaseDetectionHistoryController extends GetxController{
 
   Future<SingleDiseaseHistoryModel?> fetchSingleDiseaseHistory(int diagId) async {
     try {
-      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}?user_id=$farmerId&diag_id=$diagId&user_language=$userLanguage');
+      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}?user_id=$farmerId&diag_id=$diagId');
       var response = await http.get(
           url,
           headers: {"Content-Type": "application/json"},

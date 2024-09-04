@@ -67,7 +67,7 @@ class FarmerDashboardController extends GetxController {
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         farmerLands.value = FarmerLands.fromJson(jsonData);
-        log("farmer land ${farmerLands.value.data}");
+        log("farmer land ${farmerLands.value.data!.first.district}");
         cropName.value = farmerLands.value.data![0].crop ?? "";
         districtName.value = farmerLands.value.data![0].district ?? "";
         await fetchWeather();
@@ -115,7 +115,7 @@ class FarmerDashboardController extends GetxController {
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
     final url = Uri.parse(
-        '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getAllNews}?user_language=1&filter_type=all&limit=5&offset=0');
+        '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getAllNews}?filter_type=all&limit=5&offset=0');
     try {
       final response = await http.get(
         url,

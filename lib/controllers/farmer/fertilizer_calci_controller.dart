@@ -45,7 +45,6 @@ class FertilizerCalciController extends GetxController{
       headers: headers,
       body: jsonEncode({
         "crop_id": cropId,
-        "user_language": userLanguage,
         "farm_id": landId,
         "nitrogen": int.parse(nitrogenValue.text),
         "phosphorous": int.parse(phosphorousValue.text),
@@ -74,7 +73,7 @@ class FertilizerCalciController extends GetxController{
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       final response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}Fertilizerswithtest?crop_id=$cropId&user_language=$userLanguage'),
+        Uri.parse('${ApiEndPoints.baseUrlTest}Fertilizerswithtest?crop_id=$cropId'),
         headers: headers,
       );
 

@@ -31,7 +31,7 @@ class ChooseAnotherCropController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers : headers);
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'), headers : headers);
     log(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);

@@ -124,7 +124,7 @@ class NewsListView extends StatelessWidget {
             child: Row(
               children: [
                 CachedNetworkImage(
-                  imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
+                  imageUrl: "${ApiEndPoints.imageBaseUrl}${article.image ?? ""}",
                   imageBuilder: (context, imageProvider) => Container(
                     height: 96,
                     width: 155,

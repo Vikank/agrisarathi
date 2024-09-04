@@ -37,8 +37,8 @@ class FarmerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if(!controller.userExist){
-        log("truee hua user exist${controller.userExist}");
+      if (!controller.userExist && !coachMarksController.tutorialShown.value) {
+        log("First-time user detected. Showing tutorial.");
         coachMarksController.showTutorial(context);
       }
     });

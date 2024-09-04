@@ -73,7 +73,7 @@ class FarmerAddressController extends GetxController{
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       var response = await http.get(
-        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getAllStatesUrl+'?user_language=1'),
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getAllStatesUrl),
         headers: headers,
       );
 
@@ -108,7 +108,7 @@ class FarmerAddressController extends GetxController{
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       var response = await http.get(
-        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl+'?user_language=1&state=$stateId'),
+        Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.getStateWiseDistrictUrl+'?state=$stateId'),
         headers: headers,
       );
 
@@ -138,7 +138,7 @@ class FarmerAddressController extends GetxController{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops?user_language=1'), headers : headers);
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'), headers : headers);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       jsonData.forEach((key, value) {
@@ -162,7 +162,7 @@ class FarmerAddressController extends GetxController{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
-    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId&user_language=1'), headers : headers);
+    final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId'), headers : headers);
     log("aaya response me ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
