@@ -323,8 +323,19 @@ class AddFarmLand extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            farmerAddressController.selectedCropId = newValue;
-                            farmerAddressController.fetchVarieties(newValue!);
+                            if (newValue != null) {
+                              // Find the selected crop using the 'id'
+                              var selectedCrop = farmerAddressController.crops.firstWhere(
+                                    (crop) => crop['id'] == newValue,
+                                orElse: () => null,
+                              );
+
+                              if (selectedCrop != null) {
+                                farmerAddressController.selectedCropId = newValue;
+                                farmerAddressController.selectedCropfilterId = selectedCrop['filterId'];
+                                farmerAddressController.fetchVarieties(newValue);
+                              }
+                            }
                           },
                         );
                       }),

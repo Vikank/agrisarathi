@@ -7,8 +7,8 @@ class CoachMarksController extends GetxController{
   final List<TargetFocus> targets = <TargetFocus>[];
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
-  final farmCoachKey = GlobalKey();
-  final weatherCoachKey = GlobalKey();
+  // var farmCoachKey = GlobalKey();
+  // var weatherCoachKey = GlobalKey();
   final productionCoachKey = GlobalKey();
   final fertilizerCoachKey = GlobalKey();
   final detectCoachKey = GlobalKey();
@@ -24,32 +24,32 @@ class CoachMarksController extends GetxController{
 
   void createTargets() {
     targets.addAll([
-      TargetFocus(
-        identify: "farmCoachKey",
-        keyTarget: farmCoachKey,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              "You_can_select_and_add_more_Farms_here".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "weatherCoachKey",
-        keyTarget: weatherCoachKey,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              "Here_you_can_check_weather_and_get_update".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
-            ),
-          ),
-        ],
-      ),
+      // TargetFocus(
+      //   identify: "farmCoachKey",
+      //   keyTarget: farmCoachKey,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.bottom,
+      //       child: Text(
+      //         "You_can_select_and_add_more_Farms_here".tr,
+      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      // TargetFocus(
+      //   identify: "weatherCoachKey",
+      //   keyTarget: weatherCoachKey,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.bottom,
+      //       child: Text(
+      //         "Here_you_can_check_weather_and_get_update".tr,
+      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       TargetFocus(
         identify: "productionCoachKey",
         keyTarget: productionCoachKey,
@@ -145,6 +145,35 @@ class CoachMarksController extends GetxController{
   }
 
   void showTutorial(BuildContext context) async{
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   TutorialCoachMark(
+    //     targets: targets,
+    //     colorShadow: Colors.green,
+    //     textSkip: "SKIP",
+    //     paddingFocus: 10,
+    //     opacityShadow: 0.8,
+    //     onFinish: () async{
+    //       // await prefs.setBool('tutorialShown', true);
+    //       // tutorialShown.value = true;
+    //     },
+    //     onClickTarget: (target) {
+    //       final renderBox = target.keyTarget?.currentContext!.findRenderObject() as RenderBox;
+    //       final offset = renderBox.localToGlobal(Offset.zero).dy;
+    //       if (offset > scrollController.position.maxScrollExtent || offset < (scrollController.position.minScrollExtent)) {
+    //         scrollController.animateTo(
+    //           offset,
+    //           duration: const Duration(milliseconds: 500),
+    //           curve: Curves.easeInOut,
+    //         );
+    //       }
+    //     },
+    //     onClickOverlay: (target) {
+    //     },
+    //     onSkip: () {
+    //       return true;
+    //     },
+    //   ).show(context: context);
+    // });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool tutorialShownBefore = prefs.getBool('tutorialShown') ?? false;
     if(!tutorialShownBefore && !tutorialShown.value) {

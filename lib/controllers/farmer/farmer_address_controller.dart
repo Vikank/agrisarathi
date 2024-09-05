@@ -23,6 +23,7 @@ class FarmerAddressController extends GetxController{
   int? district;
   var crops = [].obs;
   var selectedCropId;
+  var selectedCropfilterId;
   var varieties = [].obs;
   var selectedVarietyId;
   final village = TextEditingController();
@@ -146,6 +147,7 @@ class FarmerAddressController extends GetxController{
           crops.add({
             'id': crop['id'].toString(),
             'name': crop['crop_name'],
+            'filterId': crop['filter_id'],
           });
         });
       });
@@ -170,7 +172,7 @@ class FarmerAddressController extends GetxController{
       jsonData['data'].forEach((variety) {
         varieties.add({
           'id': variety['id'].toString(),
-          'name': variety['variety'],
+          'name': variety['name'],
         });
       });
     }
@@ -234,6 +236,7 @@ class FarmerAddressController extends GetxController{
     var body = {
       "crop_id": selectedCropId,
       "is_land": isLand.value,
+      "filter_id": selectedCropfilterId,
       "variety_id": selectedVarietyId,
       "address":addressLine.text,
       "state":state,

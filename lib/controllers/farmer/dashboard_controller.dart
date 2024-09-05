@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../models/news_model.dart';
+import '../../models/weatherNotificationModel.dart';
 import '../../utils/helper_functions.dart';
 
 class FarmerDashboardController extends GetxController {
@@ -28,6 +29,8 @@ class FarmerDashboardController extends GetxController {
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
   RxInt currentCarousel = 0.obs;
+  var landWeatherData = <String, Map<String, String>>{}.obs;
+  var notificationsData = <Results>[].obs;
 
   @override
   void onInit() {
@@ -67,10 +70,16 @@ class FarmerDashboardController extends GetxController {
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         farmerLands.value = FarmerLands.fromJson(jsonData);
-        log("farmer land ${farmerLands.value.data!.first.district}");
-        cropName.value = farmerLands.value.data![0].crop ?? "";
-        districtName.value = farmerLands.value.data![0].district ?? "";
-        await fetchWeather();
+        // Clear previously fetched weather data
+        landWeatherData.clear();
+
+        // Loop through all lands and fetch weather for each
+        for (var land in farmerLands.value.data!) {
+          String? district = land.district;
+          if (district != null && district.isNotEmpty) {
+            await fetchWeatherForLand(district);
+          }
+        }
         farmerLandLoader.value = false;
       } else {
         farmerLandLoader.value = false;
@@ -82,24 +91,71 @@ class FarmerDashboardController extends GetxController {
     }
   }
 
-  fetchWeather() async {
+  Future<void> fetchWeatherForLand(String district) async {
     try {
       final response = await http.get(
         Uri.parse(
-          'https://api.openweathermap.org/data/2.5/weather?q=${districtName.value}&appid=$apiKey&units=metric',
+          'https://api.openweathermap.org/data/2.5/weather?q=$district&appid=$apiKey&units=metric',
         ),
       );
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        temperature.value = data['main']['temp'].round().toString();
+        String temp = data['main']['temp'].round().toString();
         String iconCode = data['weather'][0]['icon'];
-        weatherIcon.value = 'http://openweathermap.org/img/wn/$iconCode@2x.png';
+        String weatherIconUrl = 'http://openweathermap.org/img/wn/$iconCode@2x.png';
+        String weatherCondition = data['weather'][0]['description'];
+
+        // Map the weather data with district
+        landWeatherData[district] = {
+          'temperature': temp,
+          'weatherIcon': weatherIconUrl,
+          'weatherCondition': weatherCondition,
+        };
+
+        await fetchNotifications(); // Fetch notifications after weather data is loaded
+
       } else {
         Get.snackbar('Error', 'Unable to fetch weather data');
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
+    }
+  }
+
+  // Fetch weather notifications based on conditions
+  Future<void> fetchNotifications() async {
+    String? accessToken = await storage.read(key: 'access_token');
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+    };
+    var requestBody = {
+      "crops": farmerLands.value.data!.map((land) {
+        return {
+          "crop_id": land.cropId,
+          "filter_type": land.filterId,
+          // "weather_conditions": [landWeatherData[land.district]!['weatherCondition']]
+          "weather_conditions": ["clear sky"]
+        };
+      }).toList(),
+    };
+    log("body sent ${requestBody}");
+    final response = await http.post(
+      Uri.parse('${ApiEndPoints.baseUrlTest}GetVegetablePopNotification'),
+      headers: headers,
+      body: jsonEncode(requestBody),
+    );
+    log("notification data aaya ${response.body}");
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results!;
+    } else {
+      throw Exception('Failed to load notifications');
     }
   }
 
