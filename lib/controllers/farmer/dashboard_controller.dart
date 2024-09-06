@@ -75,7 +75,8 @@ class FarmerDashboardController extends GetxController {
 
         // Loop through all lands and fetch weather for each
         for (var land in farmerLands.value.data!) {
-          String? district = land.district;
+          String? district = land.engDistrict;
+          log("eng district ${land.crop}");
           if (district != null && district.isNotEmpty) {
             await fetchWeatherForLand(district);
           }
@@ -98,7 +99,7 @@ class FarmerDashboardController extends GetxController {
           'https://api.openweathermap.org/data/2.5/weather?q=$district&appid=$apiKey&units=metric',
         ),
       );
-
+      log("body sent ${response.body}");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         String temp = data['main']['temp'].round().toString();
@@ -112,7 +113,7 @@ class FarmerDashboardController extends GetxController {
           'weatherIcon': weatherIconUrl,
           'weatherCondition': weatherCondition,
         };
-
+        log("response data ${response.body}");
         await fetchNotifications(); // Fetch notifications after weather data is loaded
 
       } else {
@@ -144,7 +145,7 @@ class FarmerDashboardController extends GetxController {
         };
       }).toList(),
     };
-    log("body sent ${requestBody}");
+    log("body sent notifi ${requestBody}");
     final response = await http.post(
       Uri.parse('${ApiEndPoints.baseUrlTest}GetVegetablePopNotification'),
       headers: headers,

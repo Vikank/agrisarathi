@@ -39,7 +39,7 @@ class MyFarmsWidget extends StatelessWidget {
                           CachedNetworkImage(
                             imageUrl:
                             farmerLands![index].cropImages!.isNotEmpty
-                                ? "${ApiEndPoints.baseUrl}${farmerLands[index]
+                                ? "${ApiEndPoints.imageBaseUrl}${farmerLands[index]
                                 .cropImages?.first ?? ""}"
                                 : "",
                             imageBuilder:
@@ -58,12 +58,12 @@ class MyFarmsWidget extends StatelessWidget {
                                 ),
                             placeholder: (context, url) =>
                             const SizedBox(
-                                height: 92,
-                                width: 89,
+                                height: 46,
+                                width: 46,
                                 child:
                                 CircularProgressIndicator(
-                                  strokeAlign: 2,
-                                  strokeWidth: 2,
+                                  strokeAlign: 1,
+                                  strokeWidth: 1,
                                 )),
                             errorWidget: (context, url, error) =>
                                 SizedBox(

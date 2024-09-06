@@ -113,7 +113,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                             ? SizedBox.shrink()
                             : Column(
                                 children: [
-                                  SizedBox(
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 16),
                                     height: 244,
                                     width: double.infinity,
                                     child: CarouselSlider(
@@ -122,7 +123,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           .entries
                                           .map(
                                         (entry) {
-                                          // final index = entry.key;
+                                          // final index = e try.key;
                                           final item = entry.value;
                                           final weatherData = controller
                                               .landWeatherData[item.district];
@@ -150,17 +151,16 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                         horizontal: 12,
                                                         vertical: 8),
                                                 decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
+                                                  color: Color(0xffDFF1E6),
+                                                  // borderRadius:
+                                                  //     const BorderRadius.all(
+                                                  //   Radius.circular(20),
+                                                  // ),
                                                 ),
                                                 child: Center(
                                                     child: Text(
                                                   // key: index == 0 ? coachMarksController.farmCoachKey : key,
-                                                  '${item.address}',
+                                                  'land '.tr + '${controller.currentCarousel.value + 1 }' ' : ' '${item.district}, ${item.state ?? "State"}',
                                                   style: const TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -179,9 +179,9 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                           const EdgeInsets.all(
                                                               10),
                                                       decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
+                                                          // borderRadius:
+                                                          //     BorderRadius
+                                                          //         .circular(20),
                                                           border: Border.all(
                                                               color: const Color(
                                                                   0xffBAEDBD))),
@@ -253,7 +253,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                               notifications != null &&
                                                   notifications.notifications!.isNotEmpty
                                                   ? Image.network(
-                                                      'http://64.227.166.238:8090${notifications
+                                                      '${ApiEndPoints.imageBaseUrl}${notifications
                                                           .notifications!.first.gif}',
                                                       width: double.infinity,
                                                       height: 106,
@@ -266,7 +266,10 @@ class FarmerDashboardWidget extends StatelessWidget {
                                       carouselController: _controller,
                                       options: CarouselOptions(
                                           height: 300,
-                                          enlargeCenterPage: true,
+                                          enlargeCenterPage: false,
+                                          viewportFraction: 1,
+                                          autoPlay: true,
+                                          enableInfiniteScroll: false,
                                           onPageChanged: (index, reason) {
                                             controller.currentCarousel.value =
                                                 index;

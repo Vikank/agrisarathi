@@ -28,6 +28,7 @@ class Data {
   String? pincode;
   String? state;
   String? district;
+  String? engDistrict;
   String? village;
   double? lat1;
   double? lat2;
@@ -43,6 +44,7 @@ class Data {
         this.pincode,
         this.state,
         this.district,
+        this.engDistrict,
         this.village,
         this.lat1,
         this.lat2,
@@ -58,6 +60,7 @@ class Data {
     pincode = json['pincode'];
     state = json['state'];
     district = json['district'];
+    engDistrict = json['eng_district'];
     village = json['village'];
     lat1 = json['lat1'];
     lat2 = json['lat2'];
@@ -75,6 +78,7 @@ class Data {
     data['pincode'] = this.pincode;
     data['state'] = this.state;
     data['district'] = this.district;
+    data['eng_district'] = this.engDistrict;
     data['village'] = this.village;
     data['lat1'] = this.lat1;
     data['lat2'] = this.lat2;
