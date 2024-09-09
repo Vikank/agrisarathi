@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/screens/shared/select_crop_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../screens/farmer/auth/farmer_otp_screen.dart';
 import '../../screens/farmer/dashboard/farmer_home_screen.dart';
 import '../../screens/fpo/auth/login_screen.dart';
 import '../../utils/api_constants.dart';
@@ -20,6 +23,8 @@ class AuthController extends GetxController {
   final RxBool userExist = false.obs;
   final RxBool isLand = false.obs;
   int? userLanguage;
+  Timer? _resendTimer;
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   void onInit(){
@@ -28,14 +33,34 @@ class AuthController extends GetxController {
   }
 
   void startResendTimer() {
-    resendDelay.value = 60;
-    ever(resendDelay, (_) {
-      if (resendDelay.value <= 0) {
-        resendDelay.value = 0;
+    resendDelay.value = 60; // Set the initial value to 60 seconds
+
+    DateTime startTime = DateTime.now(); // Capture the start time
+
+    // Cancel any existing timer
+    _resendTimer?.cancel();
+
+    // Start a new Timer.periodic that updates based on elapsed time
+    _resendTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      // Calculate how much time has passed
+      int elapsedSeconds = DateTime.now().difference(startTime).inSeconds;
+
+      // Calculate remaining time
+      int remainingTime = 60 - elapsedSeconds;
+
+      if (remainingTime > 0) {
+        resendDelay.value = remainingTime;
       } else {
-        Future.delayed(const Duration(seconds: 1), () => resendDelay.value--);
+        resendDelay.value = 0;
+        timer.cancel(); // Stop the timer once it hits 0
       }
     });
+  }
+
+  @override
+  void onClose() {
+    _resendTimer?.cancel(); // Clean up the timer when the controller is destroyed
+    super.onClose();
   }
 
   void getUserLanguage() async {
@@ -43,12 +68,13 @@ class AuthController extends GetxController {
     log("userLanguage $userLanguage");
   }
 
-  void resetResendTimer() {
+  void resetResendTimer() async{
     resendDelay.value = 60;
+    await sendLoginOTP(phone: phoneController.text); // Restart the timer
     startResendTimer();
   }
 
-  Future<Map<String, dynamic>> sendLoginOTP({required String phone}) async {
+  Future<void> sendLoginOTP({required String phone}) async {
     isLoading.value = true;
     try {
       final Map<String, dynamic> body = {
@@ -66,19 +92,30 @@ class AuthController extends GetxController {
       log("log aaya ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        return {
-          'success': true,
-          'message': responseData['message'],
-          'otp': responseData['otp'],
-        };
+          Fluttertoast.showToast(
+              msg: "${responseData['otp']}",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 5,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Get.to(
+                  () => OtpScreen(phone: phoneController.text, otp : responseData['otp']));
       } else {
-        throw Exception('Failed to send OTP');
+        throw Exception('Failed to send OTP. Status Code: ${response.statusCode}');
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Error occurred: ${e.toString()}',
-      };
+      // Display error message using FlutterToast
+      Fluttertoast.showToast(
+        msg: "Error occurred: ${e.toString()}",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      log("Error: ${e.toString()}");
     } finally {
       isLoading.value = false;
     }

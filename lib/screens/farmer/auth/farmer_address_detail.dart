@@ -140,14 +140,14 @@ class FarmerAddressDetail extends StatelessWidget {
                           items: farmerAddressController.states
                               .map<DropdownMenuItem<String>>((state) {
                             return DropdownMenuItem(
-                              value: state['state'],
-                              child: Text(state['state']),
+                              value: state['state_name'],
+                              child: Text(state['state_name']),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             int selectedStateId = farmerAddressController.states
                                 .firstWhere((element) =>
-                                    element['state'] == newValue)['id'];
+                                    element['state_name'] == newValue)['id'];
                             farmerAddressController.fetchDistricts(
                                 selectedStateId); // Fetch districts on state change
                             farmerAddressController.state = selectedStateId;
@@ -193,15 +193,15 @@ class FarmerAddressDetail extends StatelessWidget {
                           items: farmerAddressController.districts
                               .map<DropdownMenuItem<String>>((district) {
                             return DropdownMenuItem<String>(
-                              value: district['district'],
-                              child: Text(district['district']),
+                              value: district['district_name'],
+                              child: Text(district['district_name']),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             int selectedDistrictId = farmerAddressController
                                 .districts
                                 .firstWhere((element) =>
-                                    element['district'] == newValue)['id'];
+                                    element['district_name'] == newValue)['id'];
                             farmerAddressController.district =
                                 selectedDistrictId;
                           },

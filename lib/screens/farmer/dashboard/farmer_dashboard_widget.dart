@@ -20,6 +20,7 @@ import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
 import '../news/single_news.dart';
 import '../weather/weather_detailed_screen.dart';
+import 'dashboard_widgets/vegetable_progress_carousel.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
   FarmerDashboardController controller = Get.put(FarmerDashboardController());
@@ -115,7 +116,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 children: [
                                   Container(
                                     padding: EdgeInsets.symmetric(horizontal: 16),
-                                    height: 244,
+                                    height: 344,
                                     width: double.infinity,
                                     child: CarouselSlider(
                                       items: controller.farmerLands.value.data!
@@ -259,13 +260,17 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                       height: 106,
                                                     )
                                                   : const SizedBox.shrink(),
+                                              controller.vegetableProgress.value?.cropsProgress == null ? SizedBox.shrink() : SizedBox(
+                                                height: 100,
+                                                child: CropProgressCarousel(),
+                                              )
                                             ],
                                           );
                                         },
                                       ).toList(),
                                       carouselController: _controller,
                                       options: CarouselOptions(
-                                          height: 300,
+                                          height: 400,
                                           enlargeCenterPage: false,
                                           viewportFraction: 1,
                                           autoPlay: true,

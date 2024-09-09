@@ -14,7 +14,6 @@ import '../../shared/privacy_policy_hindi.dart';
 class FarmerLoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final AuthController authController = Get.put(AuthController());
-  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,7 @@ class FarmerLoginScreen extends StatelessWidget {
                         }
                       },
                       hint: '1234567890',
-                      controller: phoneController,
+                      controller: authController.phoneController,
                     ),
                     const SizedBox(
                       height: 24,
@@ -100,23 +99,9 @@ class FarmerLoginScreen extends StatelessWidget {
                       buttonColor: const Color(0xff00B251),
                       onPress: () async {
                         if (_formKey.currentState!.validate()) {
-                          final result = await authController.sendLoginOTP(
-                            phone: phoneController.text,
+                          await authController.sendLoginOTP(
+                            phone: authController.phoneController.text,
                           );
-                          if (result['success']) {
-                            Fluttertoast.showToast(
-                                msg: "${result['otp']}",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            Get.to(
-                                () => OtpScreen(phone: phoneController.text, otp : result['otp']));
-                          } else {
-                            Get.snackbar('Error', result['message']);
-                          }
                         }
                       },
                     ),

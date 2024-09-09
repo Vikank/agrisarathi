@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpo_assist/models/farmer_lands.dart';
+import 'package:fpo_assist/models/vegetable_progress_model.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class FarmerDashboardController extends GetxController {
   final storage = FlutterSecureStorage();
   var articles = <NewsArticle>[].obs;
   var farmerLands = FarmerLands(data: []).obs;
+  var vegetableProgress = Rx<VegetableProgressModel?>(null);
   RxString cropName = "".obs;
   String? farmerId;
   RxString districtName = "".obs;
@@ -73,6 +75,9 @@ class FarmerDashboardController extends GetxController {
         // Clear previously fetched weather data
         landWeatherData.clear();
 
+        List<Map<String, dynamic>> cropsList = [];
+
+
         // Loop through all lands and fetch weather for each
         for (var land in farmerLands.value.data!) {
           String? district = land.engDistrict;
@@ -80,7 +85,16 @@ class FarmerDashboardController extends GetxController {
           if (district != null && district.isNotEmpty) {
             await fetchWeatherForLand(district);
           }
+
+          if (land.cropId != null && land.filterId != null) {
+            cropsList.add({
+              "crop_id": land.cropId,
+              "filter_type": land.filterId
+            });
+          }
+
         }
+        await fetchCropProgress(cropsList);
         farmerLandLoader.value = false;
       } else {
         farmerLandLoader.value = false;
@@ -157,6 +171,24 @@ class FarmerDashboardController extends GetxController {
       notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results!;
     } else {
       throw Exception('Failed to load notifications');
+    }
+  }
+
+  Future<void> fetchCropProgress(List<Map<String, dynamic>> crops) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiEndPoints.baseUrlTest}VegetableProgressAPIView'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'crops': crops}),
+      );
+
+      if (response.statusCode == 200) {
+        vegetableProgress.value = VegetableProgressModel.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to load crop progress');
+      }
+    } catch (e) {
+      print('Error fetching crop progress: $e');
     }
   }
 

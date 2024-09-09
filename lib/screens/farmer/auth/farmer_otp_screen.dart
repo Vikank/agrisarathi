@@ -20,7 +20,6 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 50,
@@ -61,21 +60,24 @@ class OtpScreen extends StatelessWidget {
                     .copyWith(fontFamily: 'NotoSans'),
               ),
               SizedBox(height: 4),
-              Obx(() => authController.resendDelay.value == 0
-                  ? InkWell(
-                      onTap: authController.resetResendTimer,
-                      child: Text(
-                        'Resend',
+              Obx(
+                () => authController.resendDelay.value == 0
+                    ? InkWell(
+                        onTap: authController
+                            .resetResendTimer, // Reset timer on tap
+                        child: Text(
+                          'Resend',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.green, fontFamily: 'NotoSans'),
+                        ),
+                      )
+                    : Text(
+                        'Resend OTP in ${authController.resendDelay.value} sec',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.green, fontFamily: 'NotoSans'),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                    )
-                  : Text(
-                      'Resend OTP in ${authController.resendDelay.value} sec',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
+              ),
               SizedBox(height: 52),
               Form(
                 key: _formKey,
