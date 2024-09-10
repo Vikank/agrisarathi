@@ -22,15 +22,19 @@ class VegetableProgressModel {
 
 class CropsProgress {
   int? cropId;
+  String? cropImage;
+  String? cropName;
   int? userLanguage;
   int? filterType;
-  int? overallProgress;
+  double? overallProgress;
   int? totalPreferences;
   int? completedPreferences;
   List<dynamic>? preferenceDetails; // Adjust this to a specific type if known
 
   CropsProgress({
     this.cropId,
+    this.cropImage,
+    this.cropName,
     this.userLanguage,
     this.filterType,
     this.overallProgress,
@@ -42,6 +46,8 @@ class CropsProgress {
   factory CropsProgress.fromJson(Map<String, dynamic> json) {
     return CropsProgress(
       cropId: json['crop_id'],
+      cropImage: json['crop_image'],
+      cropName: json['crop_name'],
       userLanguage: json['user_language'],
       filterType: json['filter_type'],
       overallProgress: json['overall_progress'],
@@ -56,6 +62,8 @@ class CropsProgress {
   Map<String, dynamic> toJson() {
     return {
       'crop_id': cropId,
+      'crop_image': cropImage,
+      'crop_name': cropName,
       'user_language': userLanguage,
       'filter_type': filterType,
       'overall_progress': overallProgress,

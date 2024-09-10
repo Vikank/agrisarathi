@@ -1,6 +1,7 @@
 // crop_model.dart
 class Crop {
   final int id;
+  final int filterId;
   final String cropName;
   bool? status;
   String? cropImages;
@@ -10,6 +11,7 @@ class Crop {
 
   Crop({
     required this.id,
+    required this.filterId,
     required this.cropName,
     required this.status,
     required this.cropImages,
@@ -21,6 +23,7 @@ class Crop {
   factory Crop.fromJson(Map<String, dynamic> json, String category) {
     return Crop(
       id: json['id'],
+      filterId: json['filter_id'],
       cropName: json['crop_name'],
       status: json['status'],
       cropImages: json['crop_image'] ?? "",

@@ -315,7 +315,7 @@ class FarmerAddressDetail extends StatelessWidget {
               buttonColor: Colors.green,
               onPress: () async{
                 if (_formKey.currentState!.validate()) {
-                  await farmerAddressController.postFarmerAddress(selectedCropId: selectedCrops.first.id, selectedVarietyId: cropVariety);
+                  await farmerAddressController.postFarmerAddress(selectedCropId: selectedCrops.first.id, selectedCropFilterId: selectedCrops.first.filterId, selectedVarietyId: cropVariety);
                 }
               },
               widget: farmerAddressController.loading.value

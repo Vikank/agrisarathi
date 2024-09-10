@@ -88,7 +88,7 @@ class FarmerDashboardController extends GetxController {
 
           if (land.cropId != null && land.filterId != null) {
             cropsList.add({
-              "crop_id": land.cropId,
+              "land_id": land.id,
               "filter_type": land.filterId
             });
           }
@@ -165,20 +165,30 @@ class FarmerDashboardController extends GetxController {
       headers: headers,
       body: jsonEncode(requestBody),
     );
-    log("notification data aaya ${response.body}");
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
-      notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results!;
+      log("notificatioon data aya, ${response.body}");
+      notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results ?? [];
     } else {
+      log("notificatin data aya, ${response.body}");
       throw Exception('Failed to load notifications');
     }
   }
 
   Future<void> fetchCropProgress(List<Map<String, dynamic>> crops) async {
     try {
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      };
       final response = await http.post(
         Uri.parse('${ApiEndPoints.baseUrlTest}VegetableProgressAPIView'),
-        headers: {'Content-Type': 'application/json'},
+        headers: headers,
         body: jsonEncode({'crops': crops}),
       );
 

@@ -12,6 +12,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../controllers/farmer/coach_marks_controller.dart';
 import '../../../controllers/profile_controller.dart';
+import '../../../models/weatherNotificationModel.dart';
 import '../../../utils/color_constants.dart';
 import '../../../widgets/custom_home_card.dart';
 import '../crop_suggstion/crop_suggestion.dart';
@@ -114,163 +115,50 @@ class FarmerDashboardWidget extends StatelessWidget {
                             ? SizedBox.shrink()
                             : Column(
                                 children: [
+                                  // Farmland Carousel
                                   Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 16),
-                                    height: 344,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16),
                                     width: double.infinity,
-                                    child: CarouselSlider(
-                                      items: controller.farmerLands.value.data!
-                                          .asMap()
-                                          .entries
-                                          .map(
-                                        (entry) {
-                                          // final index = e try.key;
-                                          final item = entry.value;
-                                          final weatherData = controller
-                                              .landWeatherData[item.district];
-                                          final notifications = controller
-                                              .notificationsData
-                                              .firstWhere(
-                                            (notif) =>
-                                                notif.cropId == item.cropId,
-                                          );
-                                          //
-                                          // // Create a new GlobalKey for each item
-                                          // final key = GlobalKey();
-                                          //
-                                          // // Assign the first item a specific key from the controller
-                                          // if (index == 0) {
-                                          //   coachMarksController.farmCoachKey = key;
-                                          //   coachMarksController.weatherCoachKey = key;
-                                          // }
-                                          return Column(
-                                            children: [
-                                              Container(
-                                                height: 56,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xffDFF1E6),
-                                                  // borderRadius:
-                                                  //     const BorderRadius.all(
-                                                  //   Radius.circular(20),
-                                                  // ),
-                                                ),
-                                                child: Center(
-                                                    child: Text(
-                                                  // key: index == 0 ? coachMarksController.farmCoachKey : key,
-                                                  'land '.tr + '${controller.currentCarousel.value + 1 }' ' : ' '${item.district}, ${item.state ?? "State"}',
+                                    child: SizedBox(
+                                      height:
+                                          56, // Adjust the height according to your needs
+                                      child: CarouselSlider(
+                                        items: controller
+                                            .farmerLands.value.data!
+                                            .asMap()
+                                            .entries
+                                            .map(
+                                          (entry) {
+                                            final item = entry.value;
+                                            return Container(
+                                              height: 56,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 8),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffDFF1E6),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Land '.tr +
+                                                      '${controller.currentCarousel.value + 1}' +
+                                                      ' : ' +
+                                                      '${item.district}, ${item.state ?? "State"}',
                                                   style: const TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontFamily: "NotoSans"),
-                                                )),
+                                                ),
                                               ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              weatherData != null
-                                                  ? Container(
-                                                      height: 56,
-                                                      width: double.infinity,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      decoration: BoxDecoration(
-                                                          // borderRadius:
-                                                          //     BorderRadius
-                                                          //         .circular(20),
-                                                          border: Border.all(
-                                                              color: const Color(
-                                                                  0xffBAEDBD))),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Text(
-                                                            item.crop ?? "",
-                                                            style: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontFamily:
-                                                                    "Bitter"),
-                                                          ),
-                                                          Spacer(),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(() => WeatherDetailScreen(
-                                                                  districtName:
-                                                                      item.district ??
-                                                                          ""));
-                                                            },
-                                                            child: Row(
-                                                              // key: index == 0 ? coachMarksController.farmCoachKey : key,
-                                                              children: [
-                                                                Text(
-                                                                  weatherData[
-                                                                          'temperature'] ??
-                                                                      '',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontFamily:
-                                                                          "Bitter"),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 5,
-                                                                ),
-                                                                Image.network(
-                                                                  weatherData[
-                                                                          'weatherIcon'] ??
-                                                                      '',
-                                                                  width: 40,
-                                                                  height: 40,
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                const Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_rounded,
-                                                                  size: 15,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : SizedBox.shrink(),
-                                              // Weather Notifications Section
-                                              notifications != null &&
-                                                  notifications.notifications!.isNotEmpty
-                                                  ? Image.network(
-                                                      '${ApiEndPoints.imageBaseUrl}${notifications
-                                                          .notifications!.first.gif}',
-                                                      width: double.infinity,
-                                                      height: 106,
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                              controller.vegetableProgress.value?.cropsProgress == null ? SizedBox.shrink() : SizedBox(
-                                                height: 100,
-                                                child: CropProgressCarousel(),
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      ).toList(),
-                                      carouselController: _controller,
-                                      options: CarouselOptions(
-                                          height: 400,
+                                            );
+                                          },
+                                        ).toList(),
+                                        carouselController: _controller,
+                                        options: CarouselOptions(
+                                          height: double.infinity,
                                           enlargeCenterPage: false,
                                           viewportFraction: 1,
                                           autoPlay: true,
@@ -278,15 +166,191 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           onPageChanged: (index, reason) {
                                             controller.currentCarousel.value =
                                                 index;
-                                          }),
+                                          },
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 16,
+                                  SizedBox(height: 16),
+
+                                  // Weather Data Carousel
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16),
+                                    width: double.infinity,
+                                    child: SizedBox(
+                                      height:
+                                          56, // Adjust the height according to your needs
+                                      child: CarouselSlider(
+                                        items: controller
+                                            .farmerLands.value.data!
+                                            .asMap()
+                                            .entries
+                                            .map(
+                                          (entry) {
+                                            final item = entry.value;
+                                            final weatherData = controller
+                                                .landWeatherData[item.district];
+
+                                            return weatherData != null
+                                                ? Container(
+                                                    height: 56,
+                                                    width: double.infinity,
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xffBAEDBD)),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Text(
+                                                          item.crop ?? "",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontFamily:
+                                                                      "Bitter"),
+                                                        ),
+                                                        Spacer(),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Get.to(() =>
+                                                                WeatherDetailScreen(
+                                                                    districtName:
+                                                                        item.district ??
+                                                                            ""));
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                weatherData[
+                                                                        'temperature'] ??
+                                                                    '',
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        "Bitter"),
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 5),
+                                                              Image.network(
+                                                                weatherData[
+                                                                        'weatherIcon'] ??
+                                                                    '',
+                                                                width: 40,
+                                                                height: 40,
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 10),
+                                                              const Icon(
+                                                                Icons
+                                                                    .arrow_forward_ios_rounded,
+                                                                size: 15,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : SizedBox.shrink();
+                                          },
+                                        ).toList(),
+                                        carouselController: _controller,
+                                        options: CarouselOptions(
+                                          height: double.infinity,
+                                          enlargeCenterPage: false,
+                                          viewportFraction: 1,
+                                          autoPlay: true,
+                                          enableInfiniteScroll: false,
+                                        ),
+                                      ),
+                                    ),
                                   ),
+                                  SizedBox(height: 16),
+
+                                  // Notification Carousel
+                                  controller.notificationsData.isNotEmpty ? Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16),
+                                    width: double.infinity,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height:
+                                              56, // Adjust the height according to your needs
+                                          child: CarouselSlider(
+                                            items: controller
+                                                .farmerLands.value.data!
+                                                .asMap()
+                                                .entries
+                                                .map(
+                                              (entry) {
+                                                final item = entry.value;
+                                                final relevantResults = controller
+                                                    .notificationsData
+                                                    .firstWhere(
+                                                  (result) =>
+                                                      result.cropId == item.cropId,
+                                                  orElse: () => Results(),
+                                                );
+                                                final notification = relevantResults
+                                                    .notifications
+                                                    ?.firstWhere(
+                                                  (notif) =>
+                                                      notif.cropId == item.cropId,
+                                                  orElse: () => Notifications(),
+                                                );
+
+                                                return notification?.gif != null
+                                                    ? Image.network(
+                                                        '${ApiEndPoints.imageBaseUrl}${notification!.gif}',
+                                                        width: double.infinity,
+                                                        height: 106,
+                                                      )
+                                                    : const SizedBox.shrink();
+                                              },
+                                            ).toList(),
+                                            carouselController: _controller,
+                                            options: CarouselOptions(
+                                              height: double.infinity,
+                                              enlargeCenterPage: false,
+                                              viewportFraction: 1,
+                                              autoPlay: true,
+                                              enableInfiniteScroll: false,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 16),
+                                      ],
+                                    ),
+                                  ) : SizedBox.shrink(),
+                                  // Progress Carousel
+                                  controller.vegetableProgress.value
+                                              ?.cropsProgress ==
+                                          null
+                                      ? SizedBox.shrink()
+                                      : SizedBox(
+                                          height: 56 ,
+                                          child: CropProgressCarousel(),
+                                        ),
                                 ],
                               );
                   }),
+                  SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Container(

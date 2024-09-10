@@ -178,7 +178,7 @@ class FarmerAddressController extends GetxController{
     }
   }
 
-  Future<void> postFarmerAddress({int? selectedCropId, int? selectedVarietyId}) async {
+  Future<void> postFarmerAddress({int? selectedCropId, int? selectedCropFilterId, int? selectedVarietyId}) async {
     loading.value = true;
     String? accessToken = await storage.read(key: 'access_token');
     if (accessToken == null) {
@@ -193,6 +193,7 @@ class FarmerAddressController extends GetxController{
         ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.createFarmerAddress);
     var body = {
       "crop_id": selectedCropId,
+      "filter_id": selectedCropFilterId,
       "is_land": isLand.value,
       "variety_id": selectedVarietyId,
       "address":addressLine.text,
