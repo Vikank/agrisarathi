@@ -145,7 +145,7 @@ class FarmForFertilizer extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                              "${ApiEndPoints.baseUrl}${farmLand.cropImages![0] ?? ""}",
+                              "${ApiEndPoints.imageBaseUrl}${farmLand.cropImages![0] ?? ""}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 52,
                             height: 52,
@@ -209,29 +209,29 @@ class FarmForFertilizer extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            GestureDetector(
-              onTap: () {
-                Get.to(AnotherCropFetrilizer());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Another_crop".tr,
-                    style: TextStyle(
-                        fontFamily: "NotoSans",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Get.to(AnotherCropFetrilizer());
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
+            //     decoration: BoxDecoration(
+            //       border: Border.all(width: 1, color: Colors.grey),
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(10),
+            //       ),
+            //     ),
+            //     child: Center(
+            //       child: Text(
+            //         "Another_crop".tr,
+            //         style: TextStyle(
+            //             fontFamily: "NotoSans",
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w500),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

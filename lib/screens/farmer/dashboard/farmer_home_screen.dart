@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
+import 'package:fpo_assist/screens/farmer/crop_suggstion/crop_suggestion.dart';
 import 'package:fpo_assist/screens/farmer/diagnosis/disease_detection_history.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -198,8 +199,7 @@ class FarmerHomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                   onTap: () {
-                    controller.updateSelectedIndex(2);
-                    Navigator.pop(context); // Close the drawer
+                    Get.to(() => CropSuggestion());
                   },
                 ),
                 ListTile(

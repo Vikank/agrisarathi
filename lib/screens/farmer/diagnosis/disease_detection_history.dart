@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:fpo_assist/utils/helper_functions.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +54,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: Image.network(
-                            'https://api.agrisarathi.com/api/${details.image}',
+                            '${ApiEndPoints.imageBaseUrl}${details.image}',
                             width: 155,
                             height: 95,
                             fit: BoxFit.cover,

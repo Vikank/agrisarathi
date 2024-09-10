@@ -79,7 +79,7 @@ class SingleCropSuggestion extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.contain,
-                    imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}' ?? '',
+                    imageUrl: '${ApiEndPoints.imageBaseUrl}${crop.cropImage}' ?? '',
                     placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),

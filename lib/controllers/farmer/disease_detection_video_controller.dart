@@ -66,7 +66,7 @@ class DiseaseDetectionVideoController extends GetxController {
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       final response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo'),
+        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo?user_language=$userLanguage'),
         headers: headers,
       );
 

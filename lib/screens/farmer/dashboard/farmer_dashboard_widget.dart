@@ -291,7 +291,8 @@ class FarmerDashboardWidget extends StatelessWidget {
                                       children: [
                                         SizedBox(
                                           height:
-                                              56, // Adjust the height according to your needs
+                                              94, // Adjust the height according to your needs
+                                          width: double.infinity,
                                           child: CarouselSlider(
                                             items: controller
                                                 .farmerLands.value.data!
@@ -319,7 +320,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                     ? Image.network(
                                                         '${ApiEndPoints.imageBaseUrl}${notification!.gif}',
                                                         width: double.infinity,
-                                                        height: 106,
+                                                  fit: BoxFit.fill,
                                                       )
                                                     : const SizedBox.shrink();
                                               },

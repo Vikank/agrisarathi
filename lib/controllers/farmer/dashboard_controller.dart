@@ -152,7 +152,7 @@ class FarmerDashboardController extends GetxController {
     var requestBody = {
       "crops": farmerLands.value.data!.map((land) {
         return {
-          "crop_id": land.cropId,
+          "land_id": land.id,
           "filter_type": land.filterId,
           // "weather_conditions": [landWeatherData[land.district]!['weatherCondition']]
           "weather_conditions": ["clear sky"]

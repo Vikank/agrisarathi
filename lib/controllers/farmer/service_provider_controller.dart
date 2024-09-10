@@ -45,7 +45,7 @@ class ServiceProviderController extends GetxController{
       'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
     };
     var response = await http.get(
-      Uri.parse(ApiEndPoints.baseUrlTest+ApiEndPoints.getServiceProviderList),
+      Uri.parse("${ApiEndPoints.baseUrlTest}${ApiEndPoints.getServiceProviderList}?user_language=$userLanguage"),
       headers: headers,
     );
     if (response.statusCode == 200) {

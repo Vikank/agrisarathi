@@ -42,7 +42,7 @@ class SingleCropSuggestionController extends GetxController {
       if (accessToken == null) {
         throw Exception('Access token not found');
       }
-
+      log("crop id$cropId");
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
@@ -73,7 +73,7 @@ class SingleCropSuggestionController extends GetxController {
 
   void toggleAudio() async {
     if (cropDetails.value?.cropName != null) {
-      String audioUrl = "${ApiEndPoints.baseUrl}/media/cropsuggest_audio/%E0%A4%AA%E0%A4%AF%E0%A4%9C.mp3";
+      String audioUrl = "${ApiEndPoints.baseUrlTest}/media/cropsuggest_audio/%E0%A4%AA%E0%A4%AF%E0%A4%9C.mp3";
       if (isPlaying.value) {
         await audioPlayer.pause();
       } else {

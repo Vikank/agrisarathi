@@ -14,6 +14,11 @@ class CropProgressCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if vegetableProgress or cropsProgress is null or empty
+    if (controller.vegetableProgress.value?.cropsProgress == null ||
+        controller.vegetableProgress.value!.cropsProgress!.isEmpty) {
+      return const SizedBox.shrink(); // Or display a message like "No progress available"
+    }
     return CarouselSlider(
       options: CarouselOptions(
         height: double.infinity,
@@ -55,12 +60,15 @@ class CropProgressCarousel extends StatelessWidget {
                             strokeAlign: 2,
                             strokeWidth: 2,
                           )),
-                      errorWidget: (context, url, error) => SizedBox(
-                        height: 48,
-                        width: 48,
-                        child: Image.asset(
-                            "assets/images/gov_scheme_placeholder.png"),
-                      ),
+                      errorWidget: (context, url, error) => Container(
+                          width: 52,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color:
+                            const Color(0xff002833d).withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: const Icon(Icons.error)),
                     ),
                     SizedBox(width: 10,),
                     Expanded(

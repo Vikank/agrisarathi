@@ -69,7 +69,7 @@ class CropSuggestion extends StatelessWidget {
                         height: 60,
                         width: 60,
                         child: CachedNetworkImage(
-                          imageUrl: '${ApiEndPoints.baseUrl}${crop.cropImage}',
+                          imageUrl: '${ApiEndPoints.imageBaseUrl}${crop.cropImage}',
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
