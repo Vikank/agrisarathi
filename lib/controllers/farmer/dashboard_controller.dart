@@ -37,6 +37,7 @@ class FarmerDashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("FarmerDashboardController initialized");
     getUserLanguage().then((value) {
       fetchNews();
     });
@@ -74,7 +75,7 @@ class FarmerDashboardController extends GetxController {
         farmerLands.value = FarmerLands.fromJson(jsonData);
         // Clear previously fetched weather data
         landWeatherData.clear();
-
+        log("farmer lands ${farmerLands.value}");
         List<Map<String, dynamic>> cropsList = [];
 
 
@@ -237,5 +238,18 @@ class FarmerDashboardController extends GetxController {
       newsLoader.value = false;
       print('Error fetching news: $e');
     }
+  }
+
+  void clearData() {
+    farmerLands.value = FarmerLands(data: []);
+    vegetableProgress.value = null;
+    articles.clear();
+    landWeatherData.clear();
+    notificationsData.clear();
+    cropName.value = '';
+    districtName.value = '';
+    temperature.value = '';
+    weatherIcon.value = '';
+    currentCarousel.value = 0;
   }
 }

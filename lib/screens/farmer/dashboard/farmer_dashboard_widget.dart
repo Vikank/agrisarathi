@@ -24,7 +24,7 @@ import '../weather/weather_detailed_screen.dart';
 import 'dashboard_widgets/vegetable_progress_carousel.dart';
 
 class FarmerDashboardWidget extends StatelessWidget {
-  FarmerDashboardController controller = Get.put(FarmerDashboardController());
+  // FarmerDashboardController controller = Get.put(FarmerDashboardController());
   CoachMarksController coachMarksController = Get.put(CoachMarksController());
   final CarouselSliderController _controller = CarouselSliderController();
 
@@ -35,6 +35,7 @@ class FarmerDashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FarmerDashboardController controller = Get.put(FarmerDashboardController());
     return Scaffold(
       backgroundColor: const Color(0xffFFFFFF),
       body: PrimaryScrollController(
