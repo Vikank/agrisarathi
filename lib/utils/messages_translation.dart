@@ -326,6 +326,10 @@ class MessagesTranslation extends Translations{
       "MOP" : "MOP",
       "NPK" : "NPK (kg/ha)",
       "Price_Req" : "Price Req. (Rs)",
+      "Choose_category" : "Choose Category",
+      "sowing" : "Sowing",
+      "sowing_date" : "Select Sowing Date",
+      "sowing_date_des" : "Please select your crop’s sowing date"
     },
     'hi_IN': {
       "Recommended_Products": "उपयोग किए गए सुझावात्मक उत्पाद",
@@ -653,6 +657,10 @@ class MessagesTranslation extends Translations{
       "MOP" : "एमओपी",
       "NPK" : "एनपीके (किलो/हेक्टेयर)",
       "Price_Req" : "मूल्य अनुरोध. (रु.)",
+      "Choose_category" : "श्रेणी चुनें",
+      "sowing" : "बुआई",
+      "sowing_date" : "बुआई की तारीख चुनें",
+      "sowing_date_des" : "कृपया अपनी फसल की बुआई की तारीख चुनें"
     },
   };
 }

@@ -20,6 +20,7 @@ import '../fertilier_calculator/farm_for_fertilizer.dart';
 import '../gov_scheme/gov_scheme.dart';
 import '../news/all_news.dart';
 import '../news/single_news.dart';
+import '../production/choose_farm_production.dart';
 import '../weather/weather_detailed_screen.dart';
 import 'dashboard_widgets/vegetable_progress_carousel.dart';
 
@@ -379,30 +380,35 @@ class FarmerDashboardWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          key: coachMarksController.productionCoachKey,
-                          children: [
-                            Image.asset(
-                              "assets/images/production.png",
-                              height: 40,
-                              width: 40,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Production".tr,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "NotoSans"),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(()=> ChooseFarmProduction());
+                          },
+                          child: Column(
+                            key: coachMarksController.productionCoachKey,
+                            children: [
+                              Image.asset(
+                                "assets/images/production.png",
+                                height: 40,
+                                width: 40,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Production".tr,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "NotoSans"),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(FarmForFertilizer());
+                            Get.to(()=> FarmForFertilizer());
                           },
                           child: Column(
                             key: coachMarksController.fertilizerCoachKey,
