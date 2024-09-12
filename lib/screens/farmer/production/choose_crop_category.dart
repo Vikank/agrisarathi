@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/screens/farmer/production/vegetable_production/select_sowing.dart';
@@ -12,6 +14,7 @@ class ChooseCropCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("land id is $landId");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -32,7 +35,7 @@ class ChooseCropCategory extends StatelessWidget {
               isSelected: controller.selectedCategory == 'Vegetable',
               onTap: () {
                 controller.selectCategory('Vegetable');
-                Get.to(()=> SelectSowing());
+                Get.to(()=> SelectSowing(landId: landId));
               },
             ),
             SizedBox(height: 10,),

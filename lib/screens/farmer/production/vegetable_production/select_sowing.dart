@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../controllers/farmer/vegetable_sowing_controller.dart';
+import '../../../../widgets/custom_elevated_button.dart';
 
 class SelectSowing extends StatelessWidget {
+  int landId;
+  SelectSowing({required this.landId});
   VegetableSowingController controller = Get.put(VegetableSowingController());
 
   @override
@@ -18,10 +21,10 @@ class SelectSowing extends StatelessWidget {
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Container(
-          width: 190,
-          padding: const EdgeInsets.all(16.0),
+          width: double.infinity,
+          padding: const EdgeInsets.all(32.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,11 +54,15 @@ class SelectSowing extends StatelessWidget {
                 height: 32,
               ),
               Center(
+                child: Container(
+                  height: 250,
+                  width: 280,
                   child: Image.asset(
-                "assets/images/sowing_image.png",
-                height: 130,
-                width: 130,
-              )),
+                                  "assets/images/sowing_image.png",
+                    fit: BoxFit.cover,
+                                ),
+                ),
+              ),
               SizedBox(
                 height: 32,
               ),
@@ -77,9 +84,9 @@ class SelectSowing extends StatelessWidget {
                   () => TextFormField(
                     enabled: false, // Disable input to make it tappable only
                     decoration: InputDecoration(
-                      hintText: controller.selectedDate.value.isEmpty
+                      hintText: controller.selectedDateForUI.value.isEmpty
                           ? 'DD/MM/YYYY'
-                          : controller.selectedDate.value,
+                          : controller.selectedDateForUI.value,
                       hintStyle: TextStyle(
                           fontFamily: "NotoSans",
                           fontSize: 12,
@@ -99,6 +106,23 @@ class SelectSowing extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: Obx(() {
+        return BottomAppBar(
+          color: Colors.white,
+          elevation: 10,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
+            child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
+              controller.submitSowingDate(landId);
+            }, widget: controller.loading.value ? progressIndicator() : Text(
+              "NEXT",
+              style: TextStyle(fontFamily: 'Roboto',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
+            ),),
+          ),
+        );
+      }),
     );
   }
 }
