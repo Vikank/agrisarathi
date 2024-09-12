@@ -154,7 +154,7 @@ class AuthController extends GetxController {
             await prefs.setBool('userExist', true);
             Get.offAll(() => FarmerHomeScreen());
           } else {
-            Get.to(() => SelectCropScreen());
+            Get.offAll(() => SelectCropScreen());
           }
         } else {
           Get.snackbar("Error", "OTP verification failed");
