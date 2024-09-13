@@ -50,7 +50,7 @@ class AdvancedFertilizerCalculatorController extends GetxController {
           "mop": parseInt(mop.value),
         }),
       );
-      log("data ${jsonDecode(response.body)}");
+      log("data ${cropId}${landId}");
       if (response.statusCode == 200) {
         apiResponse.value = jsonDecode(response.body);
       } else {

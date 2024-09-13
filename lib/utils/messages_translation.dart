@@ -254,7 +254,7 @@ class MessagesTranslation extends Translations{
       "gov_scheme": "Govt. Schemes",
       "central": "Central",
       "state": "State",
-      "agrisarthi": "Agri Sarathi",
+      "agrisarthi": "Agrisarathi",
       "Soil_Test_Today_Harvest_Tomorrow": "Soil Test Today, Harvest Tomorrow!",
       "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future": "Don't leave your farming success to chance – know your soil, grow your future!",
       "Book_Now": "BOOK NOW",
