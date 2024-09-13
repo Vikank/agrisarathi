@@ -15,7 +15,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Fertilizer_calculator".tr,
+          "Fertilizer_Calculator".tr,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
         ),

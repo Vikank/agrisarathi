@@ -195,43 +195,43 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                 .landWeatherData[item.district];
 
                                             return weatherData != null
-                                                ? Container(
-                                                    height: 56,
-                                                    width: double.infinity,
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: const Color(
-                                                              0xffBAEDBD)),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Text(
-                                                          item.crop ?? "",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontFamily:
-                                                                      "Bitter"),
-                                                        ),
-                                                        Spacer(),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Get.to(() =>
-                                                                WeatherDetailScreen(
-                                                                    districtName:
-                                                                        item.district ??
-                                                                            ""));
-                                                          },
-                                                          child: Row(
+                                                ? GestureDetector(
+                                              onTap: () {
+                                                Get.to(() =>
+                                                    WeatherDetailScreen(
+                                                        districtName:
+                                                        item.district ??
+                                                            ""));
+                                              },
+                                                  child: Container(
+                                                      height: 56,
+                                                      width: double.infinity,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xffBAEDBD)),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Text(
+                                                            item.crop ?? "",
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize: 14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        "Bitter"),
+                                                          ),
+                                                          Spacer(),
+                                                          Row(
                                                             children: [
                                                               Text(
                                                                 weatherData[
@@ -264,10 +264,10 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                               ),
                                                             ],
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  )
+                                                )
                                                 : SizedBox.shrink();
                                           },
                                         ).toList(),
@@ -422,7 +422,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                "Fertilizer_Calculator".tr,
+                                "Fertilizer_Calculator_home".tr,
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -448,7 +448,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                "Detect_Disease".tr,
+                                "Detect_Disease_home".tr,
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -583,7 +583,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Text(
-                                  "Farmer_Economics".tr,
+                                  "Farmer_Economics_home".tr,
                                   style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -603,7 +603,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Text(
-                                  "Irrigation_Alarm".tr,
+                                  "Irrigation_Alarm_home".tr,
                                   style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -623,7 +623,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Text(
-                                  "Soil_Testing".tr,
+                                  "Soil_Testing_home".tr,
                                   style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -655,7 +655,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Text(
-                                    "gov_scheme".tr,
+                                    "gov_scheme_home".tr,
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
@@ -680,7 +680,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Text(
-                                    "crop_suggestion".tr,
+                                    "Crop_Suggestion_home".tr,
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,

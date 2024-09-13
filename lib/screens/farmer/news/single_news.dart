@@ -53,7 +53,7 @@ class SingleNewsScreen extends StatelessWidget {
               ),
               SizedBox(height: 4),
               CachedNetworkImage(
-                imageUrl: "${ApiEndPoints.baseUrl}${article.image ?? ""}",
+                imageUrl: "${ApiEndPoints.imageBaseUrl}${article.image ?? ""}",
                 imageBuilder: (context, imageProvider) => Container(
                   height: 190,
                   width: double.infinity,
