@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/screens/farmer/production/vegetable_production/vegetable_production_screen.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class VegetableSowingController extends GetxController {
   }
 
   // Function to call the API and send the selected sowing date
-  Future<void> submitSowingDate(int landId) async {
+  Future<void> submitSowingDate(int landId, int cropId) async {
     if (selectedDateForAPI.isEmpty) {
       Fluttertoast.showToast(msg: "Please select a sowing date.");
       return;
@@ -65,6 +66,7 @@ class VegetableSowingController extends GetxController {
       final jsonResponse = jsonDecode(response.body);
       log("repsonse body me aaya ${jsonResponse}");
       if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
+        Get.to(()=> VegetableStagesScreen(landId: landId, cropId: cropId,));
         Fluttertoast.showToast(msg: jsonResponse['message']);
       } else {
         Fluttertoast.showToast(msg: "Error: ${jsonResponse['message']}");

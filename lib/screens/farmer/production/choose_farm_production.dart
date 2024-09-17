@@ -48,7 +48,7 @@ class ChooseFarmProduction extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     log("${farmLand.id!}");
-                    Get.to(()=> ChooseCropCategory(landId: farmLand.id!));
+                    Get.to(()=> ChooseCropCategory(landId: farmLand.id!, cropId: farmLand.cropId!,));
                   },
                   child: Container(
                     decoration: BoxDecoration(

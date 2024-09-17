@@ -679,7 +679,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  Text(    
                                     "Crop_Suggestion_home".tr,
                                     style: const TextStyle(
                                         fontSize: 12,

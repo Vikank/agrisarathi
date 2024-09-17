@@ -9,7 +9,8 @@ import '../../../controllers/farmer/crop_category_controller.dart';
 
 class ChooseCropCategory extends StatelessWidget {
   int landId;
-  ChooseCropCategory({required this.landId});
+  int cropId;
+  ChooseCropCategory({required this.landId, required this.cropId});
   final CropCategoryController controller = Get.put(CropCategoryController());
 
   @override
@@ -35,7 +36,7 @@ class ChooseCropCategory extends StatelessWidget {
               isSelected: controller.selectedCategory == 'Vegetable',
               onTap: () {
                 controller.selectCategory('Vegetable');
-                Get.to(()=> SelectSowing(landId: landId));
+                Get.to(()=> SelectSowing(landId: landId, cropId: cropId,));
               },
             ),
             SizedBox(height: 10,),
