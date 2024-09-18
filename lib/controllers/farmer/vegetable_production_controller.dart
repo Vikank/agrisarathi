@@ -9,15 +9,15 @@ import '../../models/vegetable_production_model.dart';
 
 class VegetableStagesController extends GetxController {
   final storage = FlutterSecureStorage();
-  var vegetableProduction = VegetableProductionModel().obs;
+  var vegetableProduction = VegetableProductionModel(stages: [], preferences: []).obs;
   var isLoading = true.obs;
   var currentStageIndex = 0.obs;
   var progressValue = 0.0.obs;
 
   final int landId;
-  final int cropId; // This is the filter_type passed from the previous screen
+  final int filterId; // This is the filter_type passed from the previous screen
 
-  VegetableStagesController(this.landId, this.cropId);
+  VegetableStagesController(this.landId, this.filterId);
 
   @override
   void onInit() {
@@ -33,24 +33,34 @@ class VegetableStagesController extends GetxController {
       }
 
       var headers = {
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
       };
       isLoading(true);
       var url = Uri.parse('http://64.227.166.238:8090/farmer/VegetableStagesAPIView');
       var response = await http.post(url, body: {
         'land_id': landId.toString(),
-        'filter_type': cropId.toString(),
+        'filter_type': filterId.toString(),
       }, headers: headers);
-      log("ids send ${landId} ${cropId}");
+
+      log("ids sent ${landId} ${filterId}");
+
       if (response.statusCode == 200) {
+        log("Response body: ${response.body}"); // Log the response body
+
         var jsonResponse = json.decode(response.body);
         vegetableProduction.value = VegetableProductionModel.fromJson(jsonResponse);
+
+        // Check if stages are populated
+        if (vegetableProduction.value.stages != null && vegetableProduction.value.stages!.isNotEmpty) {
+          log("Stages loaded: ${vegetableProduction.value.stages}");
+        } else {
+          log("No stages found in the response.");
+        }
       } else {
         Get.snackbar('Error', 'Failed to load data');
       }
     } catch (e) {
-      log("error is $e");
+      log("Error is $e");
       Get.snackbar('Error', 'Something went wrong: $e');
     } finally {
       isLoading(false);

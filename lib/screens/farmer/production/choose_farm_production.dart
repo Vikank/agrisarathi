@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/screens/farmer/production/vegetable_production/select_sowing.dart';
+import 'package:fpo_assist/screens/farmer/production/vegetable_production/vegetable_production_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/farmer/dashboard_controller.dart';
@@ -47,8 +49,17 @@ class ChooseFarmProduction extends StatelessWidget {
                 log("image ${farmLand.cropImages![0]}");
                 return GestureDetector(
                   onTap: () {
-                    log("${farmLand.id!}");
-                    Get.to(()=> ChooseCropCategory(landId: farmLand.id!, cropId: farmLand.cropId!,));
+                    if (farmLand.preference == true) {
+                      Get.to(() => VegetableStagesScreen(
+                        landId: farmLand.id!,
+                        filterId: farmLand.filterId!,
+                      ));
+                    } else {
+                      Get.to(() => SelectSowing(
+                            landId: farmLand.id!,
+                            filterId: farmLand.filterId!,
+                          ));
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -62,7 +73,7 @@ class ChooseFarmProduction extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                          "${ApiEndPoints.imageBaseUrl}${farmLand.cropImages![0] ?? ""}",
+                              "${ApiEndPoints.imageBaseUrl}${farmLand.cropImages![0] ?? ""}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 52,
                             height: 52,
@@ -84,7 +95,7 @@ class ChooseFarmProduction extends StatelessWidget {
                               height: 52,
                               decoration: BoxDecoration(
                                 color:
-                                const Color(0xff002833d).withOpacity(0.06),
+                                    const Color(0xff002833d).withOpacity(0.06),
                                 borderRadius: BorderRadius.circular(3),
                               ),
                               child: const Icon(Icons.error)),

@@ -33,6 +33,7 @@ class Data {
   double? lat1;
   double? lat2;
   String? crop;
+  bool? preference;
   int? filterId;
   int? cropId;
   List<String>? cropImages;
@@ -49,6 +50,7 @@ class Data {
         this.lat1,
         this.lat2,
         this.crop,
+        this.preference,
         this.filterId,
         this.cropId,
         this.cropImages});
@@ -65,6 +67,7 @@ class Data {
     lat1 = json['lat1'];
     lat2 = json['lat2'];
     crop = json['crop'];
+    preference = json['preference'];
     filterId = json['filter_id'];
     cropId = json['crop_id'];
     cropImages = json['crop_images'].cast<String>();
@@ -83,6 +86,7 @@ class Data {
     data['lat1'] = this.lat1;
     data['lat2'] = this.lat2;
     data['crop'] = this.crop;
+    data['preference'] = this.preference;
     data['filter_id'] = this.filterId;
     data['crop_id'] = this.cropId;
     data['crop_images'] = this.cropImages;

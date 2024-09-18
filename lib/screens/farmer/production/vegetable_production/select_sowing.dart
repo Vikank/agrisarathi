@@ -6,8 +6,8 @@ import '../../../../widgets/custom_elevated_button.dart';
 
 class SelectSowing extends StatelessWidget {
   int landId;
-  int cropId;
-  SelectSowing({required this.landId, required this.cropId});
+  int filterId;
+  SelectSowing({required this.landId, required this.filterId});
   VegetableSowingController controller = Get.put(VegetableSowingController());
 
   @override
@@ -114,7 +114,7 @@ class SelectSowing extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
-              controller.submitSowingDate(landId, cropId);
+              controller.submitSowingDate(landId, filterId);
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "NEXT",
               style: TextStyle(fontFamily: 'Roboto',

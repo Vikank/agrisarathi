@@ -36,7 +36,7 @@ class ChooseCropCategory extends StatelessWidget {
               isSelected: controller.selectedCategory == 'Vegetable',
               onTap: () {
                 controller.selectCategory('Vegetable');
-                Get.to(()=> SelectSowing(landId: landId, cropId: cropId,));
+                Get.to(()=> SelectSowing(landId: landId, filterId: cropId,));
               },
             ),
             SizedBox(height: 10,),

@@ -4,30 +4,19 @@ class VegetableProductionModel {
 
   VegetableProductionModel({this.stages, this.preferences});
 
-  VegetableProductionModel.fromJson(Map<String, dynamic> json) {
-    if (json['stages'] != null) {
-      stages = <Stages>[];
-      json['stages'].forEach((v) {
-        stages!.add(new Stages.fromJson(v));
-      });
-    }
-    if (json['preferences'] != null) {
-      preferences = <Preferences>[];
-      json['preferences'].forEach((v) {
-        preferences!.add(new Preferences.fromJson(v));
-      });
-    }
-  }
+  VegetableProductionModel.fromJson(Map<String, dynamic> json)
+      : stages = (json['stages'] as List?)
+      ?.map((v) => Stages.fromJson(v))
+      .toList(),
+        preferences = (json['preferences'] as List?)
+            ?.map((v) => Preferences.fromJson(v))
+            .toList();
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.stages != null) {
-      data['stages'] = this.stages!.map((v) => v.toJson()).toList();
-    }
-    if (this.preferences != null) {
-      data['preferences'] = this.preferences!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'stages': stages?.map((v) => v.toJson()).toList(),
+      'preferences': preferences?.map((v) => v.toJson()).toList(),
+    };
   }
 }
 
@@ -35,8 +24,8 @@ class Stages {
   int? stageId;
   String? stages;
   String? stageName;
-  Null? stageAudio;
-  Null? sowPeriod;
+  String? stageAudio;
+  String? sowPeriod;
   String? description;
   int? stageNumber;
   int? preference;
@@ -46,60 +35,55 @@ class Stages {
   int? userLanguage;
   List<Products>? products;
 
-  Stages(
-      {this.stageId,
-        this.stages,
-        this.stageName,
-        this.stageAudio,
-        this.sowPeriod,
-        this.description,
-        this.stageNumber,
-        this.preference,
-        this.isCompleted,
-        this.daysSpent,
-        this.startDate,
-        this.userLanguage,
-        this.products});
+  Stages({
+    this.stageId,
+    this.stages,
+    this.stageName,
+    this.stageAudio,
+    this.sowPeriod,
+    this.description,
+    this.stageNumber,
+    this.preference,
+    this.isCompleted,
+    this.daysSpent,
+    this.startDate,
+    this.userLanguage,
+    this.products,
+  });
 
-  Stages.fromJson(Map<String, dynamic> json) {
-    stageId = json['stage_id'];
-    stages = json['stages'];
-    stageName = json['stage_name'];
-    stageAudio = json['stage_audio'];
-    sowPeriod = json['sow_period'];
-    description = json['description'];
-    stageNumber = json['stage_number'];
-    preference = json['preference'];
-    isCompleted = json['is_completed'];
-    daysSpent = json['days_spent'];
-    startDate = json['start_date'];
-    userLanguage = json['user_language'];
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
-      });
-    }
-  }
+  Stages.fromJson(Map<String, dynamic> json)
+      : stageId = json['stage_id'] as int?,
+        stages = json['stages'] as String?,
+        stageName = json['stage_name'] as String?,
+        stageAudio = json['stage_audio'] as String?,
+        sowPeriod = json['sow_period'] as String?,
+        description = json['description'] as String?,
+        stageNumber = json['stage_number'] as int?,
+        preference = json['preference'] as int?,
+        isCompleted = json['is_completed'] as bool? ?? false,
+        daysSpent = json['days_spent'] as int?,
+        startDate = json['start_date'] as String?,
+        userLanguage = json['user_language'] as int?,
+        products = (json['products'] as List?)
+            ?.map((v) => Products.fromJson(v))
+            .toList();
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['stage_id'] = this.stageId;
-    data['stages'] = this.stages;
-    data['stage_name'] = this.stageName;
-    data['stage_audio'] = this.stageAudio;
-    data['sow_period'] = this.sowPeriod;
-    data['description'] = this.description;
-    data['stage_number'] = this.stageNumber;
-    data['preference'] = this.preference;
-    data['is_completed'] = this.isCompleted;
-    data['days_spent'] = this.daysSpent;
-    data['start_date'] = this.startDate;
-    data['user_language'] = this.userLanguage;
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'stage_id': stageId,
+      'stages': stages,
+      'stage_name': stageName,
+      'stage_audio': stageAudio,
+      'sow_period': sowPeriod,
+      'description': description,
+      'stage_number': stageNumber,
+      'preference': preference,
+      'is_completed': isCompleted,
+      'days_spent': daysSpent,
+      'start_date': startDate,
+      'user_language': userLanguage,
+      'products': products?.map((v) => v.toJson()).toList(),
+    };
   }
 }
 
@@ -110,37 +94,39 @@ class Products {
   String? productDescription;
   String? category;
   List<int>? supplierIds;
-  Null? price;
+  double? price; // Price should be nullable
 
-  Products(
-      {this.productId,
-        this.productName,
-        this.productImage,
-        this.productDescription,
-        this.category,
-        this.supplierIds,
-        this.price});
+  Products({
+    this.productId,
+    this.productName,
+    this.productImage,
+    this.productDescription,
+    this.category,
+    this.supplierIds,
+    this.price,
+  });
 
-  Products.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
-    productName = json['product_name'];
-    productImage = json['product_image'];
-    productDescription = json['product_description'];
-    category = json['Category'];
-    supplierIds = json['supplier_ids'].cast<int>();
-    price = json['price'];
-  }
+  Products.fromJson(Map<String, dynamic> json)
+      : productId = json['product_id'] as int?,
+        productName = json['product_name'] as String?,
+        productImage = json['product_image'] as String?,
+        productDescription = json['product_description'] as String?,
+        category = json['Category'] as String?,
+        supplierIds = (json['supplier_ids'] as List?)
+            ?.map((id) => id as int)
+            .toList(),
+        price = (json['price'] as num?)?.toDouble();
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['product_image'] = this.productImage;
-    data['product_description'] = this.productDescription;
-    data['Category'] = this.category;
-    data['supplier_ids'] = this.supplierIds;
-    data['price'] = this.price;
-    return data;
+    return {
+      'product_id': productId,
+      'product_name': productName,
+      'product_image': productImage,
+      'product_description': productDescription,
+      'Category': category,
+      'supplier_ids': supplierIds,
+      'price': price,
+    };
   }
 }
 
@@ -150,25 +136,25 @@ class Preferences {
   bool? isCompleted;
   int? preferenceNumber;
 
-  Preferences(
-      {this.preferenceId,
-        this.stages,
-        this.isCompleted,
-        this.preferenceNumber});
+  Preferences({
+    this.preferenceId,
+    this.stages,
+    this.isCompleted,
+    this.preferenceNumber,
+  });
 
-  Preferences.fromJson(Map<String, dynamic> json) {
-    preferenceId = json['preference_id'];
-    stages = json['stages'];
-    isCompleted = json['is_completed'];
-    preferenceNumber = json['preference_number'];
-  }
+  Preferences.fromJson(Map<String, dynamic> json)
+      : preferenceId = json['preference_id'] as int?,
+        stages = json['stages'] as String?,
+        isCompleted = json['is_completed'] as bool? ?? false,
+        preferenceNumber = json['preference_number'] as int?;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['preference_id'] = this.preferenceId;
-    data['stages'] = this.stages;
-    data['is_completed'] = this.isCompleted;
-    data['preference_number'] = this.preferenceNumber;
-    return data;
+    return {
+      'preference_id': preferenceId,
+      'stages': stages,
+      'is_completed': isCompleted,
+      'preference_number': preferenceNumber,
+    };
   }
 }

@@ -4,13 +4,13 @@ import '../../../../controllers/farmer/vegetable_production_controller.dart';
 
 class VegetableStagesScreen extends StatelessWidget {
   final int landId;
-  final int cropId;
+  final int filterId;
 
-  VegetableStagesScreen({required this.landId, required this.cropId});
+  VegetableStagesScreen({required this.landId, required this.filterId});
 
   @override
   Widget build(BuildContext context) {
-    final VegetableStagesController controller = Get.put(VegetableStagesController(landId, cropId));
+    final VegetableStagesController controller = Get.put(VegetableStagesController(landId, filterId));
 
     return Scaffold(
       appBar: AppBar(
@@ -21,14 +21,20 @@ class VegetableStagesScreen extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
 
+        // Ensure stages is not null before accessing it
+        final stages = controller.vegetableProduction.value.stages;
+        if (stages == null || stages.isEmpty) {
+          return Center(child: Text('No stages available'));
+        }
+
         return Column(
           children: [
             LinearProgressIndicator(value: controller.progressValue.value),
             Expanded(
               child: ListView.builder(
-                itemCount: controller.vegetableProduction.value.stages?.length ?? 0,
+                itemCount: stages.length,
                 itemBuilder: (context, index) {
-                  var stage = controller.vegetableProduction.value.stages![index];
+                  var stage = stages[index];
                   return ListTile(
                     title: Text(stage.stageName ?? 'No Name'),
                     subtitle: Column(
@@ -51,7 +57,7 @@ class VegetableStagesScreen extends StatelessWidget {
                 onPressed: controller.nextStage,
                 child: Obx(() {
                   return Text(controller.currentStageIndex.value ==
-                      (controller.vegetableProduction.value.stages?.length ?? 0) - 1
+                      (stages.length - 1)
                       ? 'Submit'
                       : 'Next');
                 }),

@@ -35,7 +35,7 @@ class VegetableSowingController extends GetxController {
   }
 
   // Function to call the API and send the selected sowing date
-  Future<void> submitSowingDate(int landId, int cropId) async {
+  Future<void> submitSowingDate(int landId, int filterId) async {
     if (selectedDateForAPI.isEmpty) {
       Fluttertoast.showToast(msg: "Please select a sowing date.");
       return;
@@ -66,7 +66,7 @@ class VegetableSowingController extends GetxController {
       final jsonResponse = jsonDecode(response.body);
       log("repsonse body me aaya ${jsonResponse}");
       if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
-        Get.to(()=> VegetableStagesScreen(landId: landId, cropId: cropId,));
+        Get.to(()=> VegetableStagesScreen(landId: landId, filterId: filterId,));
         Fluttertoast.showToast(msg: jsonResponse['message']);
       } else {
         Fluttertoast.showToast(msg: "Error: ${jsonResponse['message']}");
