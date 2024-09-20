@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
@@ -50,7 +51,7 @@ class VegetableStagesController extends GetxController {
         'Authorization': 'Bearer $accessToken'
       };
       isLoading(true);
-      var url = Uri.parse('http://64.227.166.238:8090/farmer/VegetableStagesAPIView');
+      var url = Uri.parse('${ApiEndPoints.baseUrlTest}VegetableStagesAPIView');
       var response = await http.post(url, body: {
         'land_id': landId.toString(),
         'filter_type': filterId.toString(),

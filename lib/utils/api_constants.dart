@@ -1,7 +1,7 @@
 class ApiEndPoints {
   static final String baseUrl = 'https://api.agrisarathi.com/api/';
-  static final String baseUrlTest = 'http://64.227.166.238:8090/farmer/';
-  static final String imageBaseUrl = 'http://64.227.166.238:8090';
+  static final String baseUrlTest = 'https://apis.agrisarathi.com/farmer/';
+  static final String imageBaseUrl = 'https://apis.agrisarathi.com';
   static final String getCommunityPost = 'Get_Community_Posts_List';
   static const dukanAll = 'Dukan_all';
   static const getOnlyShop = 'Get_CategoryShops';
