@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 import '../../../../controllers/farmer/vegetable_production_controller.dart';
 
 class VegetableStagesScreen extends StatelessWidget {
@@ -11,16 +12,10 @@ class VegetableStagesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(VegetableStagesController(landId, filterId));
+    final controller = Get.put(VegetableStagesController(landId, filterId ));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Production'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
-        ),
-      ),
+      appBar: AppBar(title: Text('Vegetable Production')),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -28,131 +23,132 @@ class VegetableStagesScreen extends StatelessWidget {
         if (controller.vegetableProduction.value.stages == null ||
             controller.vegetableProduction.value.stages!.isEmpty) {
           return Center(child: Text('No stages available'));
+        } else {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildStageProgress(controller),
+                _buildSubStages(controller),
+                _buildVideoPlayer(controller),
+                _buildDescription(controller),
+                _buildProducts(controller),
+                _buildNextButton(controller),
+              ],
+            ),
+          );
         }
-        return _buildContent(controller);
       }),
     );
   }
 
-  Widget _buildContent(VegetableStagesController controller) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomStageProgressIndicator(
-              substageNames: controller.substageNames,
-              currentSubstage: controller.currentSubStageIndex.value,
-            ),
-            SizedBox(height: 20),
-            Text(
-              controller.currentStage.stageName ?? 'Unknown Stage',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            _buildVideoPlayer(controller),
-            SizedBox(height: 10),
-            Text(controller.currentStage.description ?? 'No description available'),
-            SizedBox(height: 10),
-            _buildAudioPlayer(controller),
-            SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: controller.onNextPressed,
-                child: Text(controller.isLastSubStage.value ? 'Submit' : 'Next'),
-              ),
-            ),
-            SizedBox(height: 20),
-            Text('Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            _buildProductsList(controller),
-          ],
-        ),
+
+  Widget _buildStageProgress(VegetableStagesController controller) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            controller.filteredStages[controller.currentStageIndex.value].stages,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8),
+          Text(
+            '1 Jun to 10 Jun (Mark as completed in 10 days)',
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          SizedBox(height: 8),
+          LinearProgressIndicator(
+            value: (controller.currentStageIndex.value + 1) / controller.filteredStages.length,
+            backgroundColor: Colors.green.shade100,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSubStages(VegetableStagesController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: controller.filteredStages.map((stage) {
+          return Text(stage.stageName, style: TextStyle(fontSize: 12));
+        }).toList(),
       ),
     );
   }
 
   Widget _buildVideoPlayer(VegetableStagesController controller) {
-    return Obx(() {
-      if (controller.chewieController.value != null) {
-        return AspectRatio(
-          aspectRatio: 16 / 9,
-          child: Chewie(controller: controller.chewieController.value!),
-        );
-      } else {
-        return Container(
-          height: 200,
-          color: Colors.grey[300],
-          child: Center(child: Text('Video not available')),
-        );
-      }
-    });
+    return AspectRatio(
+      aspectRatio: controller.videoController.value.aspectRatio,
+      child: VideoPlayer(controller.videoController),
+    );
   }
 
-  Widget _buildAudioPlayer(VegetableStagesController controller) {
-    return Obx(() {
-      if (controller.audioPlayer.value != null) {
-        return Container(
-          height: 50,
-          color: Colors.grey[200],
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(controller.isPlaying.value ? Icons.pause : Icons.play_arrow),
-                onPressed: () {
-                  if (controller.isPlaying.value) {
-                    controller.audioPlayer.value!.pause();
-                  } else {
-                    controller.audioPlayer.value!.resume();
-                  }
-                  controller.isPlaying.toggle();
-                },
-              ),
-              Text('Audio Player'),
-            ],
+  Widget _buildDescription(VegetableStagesController controller) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            controller.filteredStages[controller.currentStageIndex.value].stageName,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-        );
-      } else {
-        return Container(
-          height: 50,
-          color: Colors.grey[200],
-          child: Center(child: Text('Audio not available')),
-        );
-      }
-    });
+          SizedBox(height: 8),
+          Text(controller.filteredStages[controller.currentStageIndex.value].description),
+        ],
+      ),
+    );
   }
 
-  Widget _buildProductsList(VegetableStagesController controller) {
-    return SizedBox(
-      height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: controller.currentStage.products?.length ?? 0,
-        itemBuilder: (context, index) {
-          final product = controller.currentStage.products![index];
-          return Card(
-            child: Container(
-              width: 120,
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Image.network(
-                    product.productImage ?? '',
-                    height: 80,
-                    width: 80,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Icon(Icons.error, size: 80),
-                  ),
-                  Text(product.productName ?? 'Unknown Product'),
-                  Text('${product.price ?? 0} INR'),
-                ],
-              ),
+  Widget _buildProducts(VegetableStagesController controller) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.75,
             ),
-          );
-        },
+            itemCount: controller.filteredStages[controller.currentStageIndex.value].products.length,
+            itemBuilder: (context, index) {
+              final product = controller.filteredStages[controller.currentStageIndex.value].products[index];
+              return Card(
+                child: Column(
+                  children: [
+                    Image.network(product.productImage, height: 100, fit: BoxFit.cover),
+                    Text(product.productName),
+                    Text('${product.price ?? "1000-10000"} INR'),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNextButton(VegetableStagesController controller) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ElevatedButton(
+        onPressed: controller.nextStage,
+        child: Text('Next'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          minimumSize: Size(double.infinity, 50),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/screens/farmer/production/vegetable_production/select_sowing.dart';
 import 'package:fpo_assist/screens/farmer/production/vegetable_production/vegetable_production_screen.dart';
 import 'package:get/get.dart';
@@ -49,16 +50,21 @@ class ChooseFarmProduction extends StatelessWidget {
                 log("image ${farmLand.cropImages![0]}");
                 return GestureDetector(
                   onTap: () {
-                    if (farmLand.preference == true) {
-                      Get.to(() => VegetableStagesScreen(
-                        landId: farmLand.id!,
-                        filterId: farmLand.filterId!,
-                      ));
-                    } else {
-                      Get.to(() => SelectSowing(
-                            landId: farmLand.id!,
-                            filterId: farmLand.filterId!,
-                          ));
+                    if(farmLand.isCompleted == true){
+                      Fluttertoast.showToast(msg: "Already completed");
+                    }
+                    else{
+                      if (farmLand.preference == true) {
+                        Get.to(() => VegetableStagesScreen(
+                          landId: farmLand.id!,
+                          filterId: farmLand.filterId!,
+                        ));
+                      } else {
+                        Get.to(() => SelectSowing(
+                          landId: farmLand.id!,
+                          filterId: farmLand.filterId!,
+                        ));
+                      }
                     }
                   },
                   child: Container(

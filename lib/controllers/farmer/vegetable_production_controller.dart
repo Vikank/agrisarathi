@@ -10,34 +10,92 @@ import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 import 'dart:convert';
 import '../../models/vegetable_production_model.dart';
+import '../../screens/farmer/production/vegetable_production/SubmitTaskController.dart';
 
 class VegetableStagesController extends GetxController {
   final storage = FlutterSecureStorage();
-  var vegetableProduction = VegetableProductionModel(stages: [], preferences: []).obs;
+  var vegetableProduction =
+      VegetableProductionModel(stages: [], preferences: []).obs;
   var isLoading = true.obs;
-  var currentStageIndex = 0.obs;
-  var currentSubStageIndex = 0.obs;
-  var isLastSubStage = false.obs;
-  var chewieController = Rx<ChewieController?>(null);
-  var audioPlayer = Rx<AudioPlayer?>(null);
-  var isPlaying = false.obs;
-
+  var errorMessage = ''.obs; // For handling error messages
+  final RxInt currentPreferenceIndex = 0.obs;
+  final RxInt currentStageIndex = 0.obs;
+  List<Stage> filteredStages =
+      []; // Initialize it as an empty list to avoid null issues
+  late VideoPlayerController videoController;
+  late AudioPlayer audioPlayer;
   final int landId;
   final int filterId;
 
   VegetableStagesController(this.landId, this.filterId);
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchVegetableStages();
+  void initVideoPlayer() {
+    if (filteredStages.isNotEmpty) {
+      videoController = VideoPlayerController.network(
+          filteredStages[currentStageIndex.value].stageVideo)
+        ..initialize().then((_) {
+          update();
+        });
+    }
+  }
+
+  void initAudioPlayer() {
+    if (filteredStages.isNotEmpty) {
+      audioPlayer = AudioPlayer();
+      audioPlayer
+          .setSourceUrl(filteredStages[currentStageIndex.value].stageAudio);
+    }
+  }
+
+  void nextStage() {
+    if (currentStageIndex.value < filteredStages.length - 1) {
+      currentStageIndex.value++;
+      updateMediaPlayers();
+    }
+      else if(currentStageIndex.value == filteredStages.length-1){
+      Get.dialog(SubmitTaskPopup(
+        landId: landId,
+        filterId: filterId,
+        preferenceNumber: filteredStages.first.preference.toString(),
+        isLast: (vegetableProduction.value.preferences.last.preferenceNumber ==
+            filteredStages.last.preference
+            // && currentStageIndex.value == filteredStages.length - 1
+        )
+      ));
+    }
+
+      /*else if (currentPreferenceIndex.value <
+        vegetableProduction.value.preferences.length - 1) {
+      currentPreferenceIndex.value++;
+      currentStageIndex.value = 0;
+      filteredStages = filterStagesByPreference(vegetableProduction.value,
+          vegetableProduction.value.preferences[currentPreferenceIndex.value]
+              .preferenceNumber);
+      updateMediaPlayers();
+    }*/
+      update();
+  }
+
+  void updateMediaPlayers() {
+    if (filteredStages.isNotEmpty) {
+      videoController.dispose();
+      audioPlayer.dispose();
+      initVideoPlayer();
+      initAudioPlayer();
+    }
   }
 
   @override
   void onClose() {
-    chewieController.value?.dispose();
-    audioPlayer.value?.dispose();
+    videoController.dispose();
+    audioPlayer.dispose();
     super.onClose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchVegetableStages();
   }
 
   void fetchVegetableStages() async {
@@ -47,85 +105,53 @@ class VegetableStagesController extends GetxController {
         throw Exception('Access token not found');
       }
 
-      var headers = {
-        'Authorization': 'Bearer $accessToken'
-      };
+      var headers = {'Authorization': 'Bearer $accessToken'};
       isLoading(true);
+      errorMessage(''); // Reset error message
       var url = Uri.parse('${ApiEndPoints.baseUrlTest}VegetableStagesAPIView');
-      var response = await http.post(url, body: {
-        'land_id': landId.toString(),
-        'filter_type': filterId.toString(),
-      }, headers: headers);
+      var response = await http.post(url,
+          body: {
+            'land_id': landId.toString(),
+            'filter_type': filterId.toString(),
+          },
+          headers: headers);
 
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
-        vegetableProduction.value = VegetableProductionModel.fromJson(jsonResponse);
-        updateCurrentStageAndSubStage();
+        vegetableProduction.value =
+            VegetableProductionModel.fromJson(jsonResponse);
+
+        // Initialize filteredStages here after fetching data
+        if (vegetableProduction.value.preferences.isNotEmpty) {
+          //-------
+
+          for (int i = 0;
+              i < vegetableProduction.value.preferences.length;
+              i++) {
+            if (!vegetableProduction.value.preferences[i].isCompleted) {
+              // currentPreferenceIndex.value = vegetableProduction.value.preferences[i].preferenceNumber;
+              currentPreferenceIndex.value = i;
+              break;
+            }
+          }
+          //-------
+          filteredStages = filterStagesByPreference(
+              vegetableProduction.value,
+              vegetableProduction.value
+                  .preferences[currentPreferenceIndex.value].preferenceNumber);
+          initVideoPlayer(); // Initialize players after fetching stages
+          initAudioPlayer();
+        } else {
+          errorMessage('No stages or preferences available');
+        }
       } else {
-        Get.snackbar('Error', 'Failed to load data');
+        errorMessage('Failed to load data');
       }
     } catch (e) {
       log("error msg $e");
-      Get.snackbar('Error', 'Something went wrong: $e');
+      errorMessage('Something went wrong: $e');
     } finally {
       isLoading(false);
     }
   }
-
-  void updateCurrentStageAndSubStage() {
-    if (vegetableProduction.value.stages != null && vegetableProduction.value.stages!.isNotEmpty) {
-      loadVideoPlayer();
-      loadAudioPlayer();
-      updateSubStageProgress();
-    }
-  }
-
-  void loadVideoPlayer() {
-    final videoUrl = currentStage.stageAudio; // Assuming stageAudio is the video URL
-    if (videoUrl != null && videoUrl.isNotEmpty) {
-      final videoPlayerController = VideoPlayerController.network(videoUrl);
-      chewieController.value = ChewieController(
-        videoPlayerController: videoPlayerController,
-        autoPlay: false,
-        looping: false,
-      );
-    } else {
-      chewieController.value = null;
-    }
-  }
-
-  void loadAudioPlayer() {
-    final audioUrl = currentStage.stageAudio;
-    if (audioUrl != null && audioUrl.isNotEmpty) {
-      audioPlayer.value = AudioPlayer();
-      audioPlayer.value!.setSourceUrl(audioUrl);
-    } else {
-      audioPlayer.value = null;
-    }
-    isPlaying.value = false;
-  }
-
-  void updateSubStageProgress() {
-    isLastSubStage.value = currentSubStageIndex.value == currentStage.products!.length - 1;
-  }
-
-  void onNextPressed() {
-    if (!isLastSubStage.value) {
-      currentSubStageIndex++;
-    } else if (currentStageIndex.value < vegetableProduction.value.stages!.length - 1) {
-      currentStageIndex++;
-      currentSubStageIndex.value = 0;
-    } else {
-      // Handle completion of all stages
-      Get.snackbar('Completed', 'All stages are completed!');
-      return;
-    }
-    updateCurrentStageAndSubStage();
-  }
-
-  Stages get currentStage => vegetableProduction.value.stages![currentStageIndex.value];
-  Products get currentSubStage => currentStage.products![currentSubStageIndex.value];
-
-  List<String> get substageNames =>
-      currentStage.products?.map((p) => p.productName ?? '').toList() ?? [];
 }
