@@ -75,7 +75,6 @@ class FarmerDashboardController extends GetxController {
         farmerLands.value = FarmerLands.fromJson(jsonData);
         // Clear previously fetched weather data
         landWeatherData.clear();
-        log("farmer lands ${farmerLands.value}");
         List<Map<String, dynamic>> cropsList = [];
 
 
@@ -128,7 +127,6 @@ class FarmerDashboardController extends GetxController {
           'weatherIcon': weatherIconUrl,
           'weatherCondition': weatherCondition,
         };
-        log("response data ${response.body}");
         await fetchNotifications(); // Fetch notifications after weather data is loaded
 
       } else {
@@ -160,7 +158,6 @@ class FarmerDashboardController extends GetxController {
         };
       }).toList(),
     };
-    log("body sent notifi ${requestBody}");
     final response = await http.post(
       Uri.parse('${ApiEndPoints.baseUrlTest}GetVegetablePopNotification'),
       headers: headers,
@@ -168,7 +165,6 @@ class FarmerDashboardController extends GetxController {
     );
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
-      log("notificatioon data aya, ${response.body}");
       notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results ?? [];
     } else {
       log("notificatin data aya, ${response.body}");

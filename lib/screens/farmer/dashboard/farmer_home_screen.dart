@@ -7,6 +7,7 @@ import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
 import 'package:fpo_assist/screens/farmer/crop_suggstion/crop_suggestion.dart';
 import 'package:fpo_assist/screens/farmer/diagnosis/disease_detection_history.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../controllers/farmer/coach_marks_controller.dart';
 import '../../../controllers/profile_controller.dart';

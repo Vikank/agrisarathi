@@ -7,6 +7,7 @@ import 'package:fpo_assist/screens/farmer/production/vegetable_production/reward
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 import '../../../../utils/api_constants.dart';
@@ -68,9 +69,10 @@ class SubmitTaskController extends GetxController {
       var response = await request.send();
       log(response.toString());
       if (response.statusCode == 200) {
-
+        SharedPreferences prefs = await SharedPreferences.getInstance();
         var responseBody = await response.stream.bytesToString();
         var decodedResponse = json.decode(responseBody);
+        await prefs.setString('coins', decodedResponse['total_coins']);
         success.value = true;
         // for popup
         Get.back();
