@@ -22,28 +22,57 @@ class VegetableStagesController extends GetxController {
   final RxInt currentStageIndex = 0.obs;
   List<Stage> filteredStages =
       []; // Initialize it as an empty list to avoid null issues
-  late VideoPlayerController videoController;
-  late AudioPlayer audioPlayer;
+  Rx<ChewieController?> chewieController = Rx<ChewieController?>(null);
+  AudioPlayer? audioPlayer;
+  var isPlaying = false.obs;
   final int landId;
   final int filterId;
 
   VegetableStagesController(this.landId, this.filterId);
 
-  void initVideoPlayer() {
-    if (filteredStages.isNotEmpty) {
-      videoController = VideoPlayerController.network(
-          filteredStages[currentStageIndex.value].stageVideo)
-        ..initialize().then((_) {
-          update();
-        });
-    }
-  }
-
   void initAudioPlayer() {
     if (filteredStages.isNotEmpty) {
       audioPlayer = AudioPlayer();
-      audioPlayer
-          .setSourceUrl(filteredStages[currentStageIndex.value].stageAudio);
+      audioPlayer?.setSourceUrl(filteredStages[currentStageIndex.value].stageAudio);
+    } else {
+      print("No audio URL available for initialization.");
+    }
+  }
+
+  void initVideoPlayer() {
+    if (filteredStages.isNotEmpty) {
+      final videoUrl = filteredStages[currentStageIndex.value].stageVideo;
+      final videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(ApiEndPoints.imageBaseUrl+videoUrl));
+
+      chewieController.value = ChewieController(
+        videoPlayerController: videoPlayerController,
+        autoPlay: true,
+        looping: false,
+      );
+
+      update();
+
+      // videoPlayerController.initialize().then((_) {
+      //    // Refresh UI when video is ready
+      //   WidgetsBinding.instance.addPostFrameCallback((_) {
+      //     update();
+      //   });
+      // });
+
+    }
+  }
+
+  void toggleAudio(String stageAudio) async {
+    if (stageAudio != null) {
+      String audioUrl = "${ApiEndPoints.imageBaseUrl}$stageAudio";
+      if (isPlaying.value) {
+        await audioPlayer?.pause();
+      } else {
+        await audioPlayer?.play(UrlSource(audioUrl));
+      }
+      isPlaying.value = !isPlaying.value;
+    } else {
+      print("No audio available to play.");
     }
   }
 
@@ -78,8 +107,10 @@ class VegetableStagesController extends GetxController {
 
   void updateMediaPlayers() {
     if (filteredStages.isNotEmpty) {
-      videoController.dispose();
-      audioPlayer.dispose();
+      chewieController.value?.dispose();
+      audioPlayer?.dispose();
+
+      // Initialize new video and audio players
       initVideoPlayer();
       initAudioPlayer();
     }
@@ -87,8 +118,8 @@ class VegetableStagesController extends GetxController {
 
   @override
   void onClose() {
-    videoController.dispose();
-    audioPlayer.dispose();
+    chewieController.value?.dispose();
+    audioPlayer?.dispose();
     super.onClose();
   }
 
@@ -139,7 +170,7 @@ class VegetableStagesController extends GetxController {
               vegetableProduction.value,
               vegetableProduction.value
                   .preferences[currentPreferenceIndex.value].preferenceNumber);
-          initVideoPlayer(); // Initialize players after fetching stages
+          initVideoPlayer();
           initAudioPlayer();
         } else {
           errorMessage('No stages or preferences available');

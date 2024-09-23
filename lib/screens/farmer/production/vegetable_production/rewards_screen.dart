@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/screens/farmer/production/vegetable_production/vegetable_production_screen.dart';
+import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
 import '../../dashboard/farmer_home_screen.dart';
@@ -36,11 +37,9 @@ class RewardsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF4CAF50),
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Get.back(),
-        ),
-        title: Text('Rewards', style: TextStyle(color: Colors.white)),
+        automaticallyImplyLeading: false,
+        title: Text('Rewards', style: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter', color: Colors.white),),
       ),
       body: SafeArea(
         child: Column(
@@ -57,26 +56,29 @@ class RewardsScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset('assets/coins.png', height: 100),
+                      Image.asset('assets/images/coins.png', height: 100),
                       // Make sure to add this image to your assets
                       SizedBox(height: 20),
                       Text(
                         'Congratulations!',
                         style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Bitter"
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
+                      Divider(),
+                      SizedBox(height: 10),
                       Text(
                         'Bravo! You were awarded ${controller.coins} Coins.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 12, fontFamily: "NotoSans", fontWeight: FontWeight.w400),
                       ),
                       Text(
                         'Get additional coins by finishing the next Stages!',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 12, fontFamily: "NotoSans", fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
@@ -87,16 +89,8 @@ class RewardsScreen extends StatelessWidget {
               padding: EdgeInsets.all(20),
               child: SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    controller.onContinuePressed();
-                  },
-                  child: Text('CONTINUE'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    // backgroundColor: Color(0xFF4CAF50),
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                  ),
+                child: CustomElevatedButton(
+                  buttonColor: Colors.white, onPress: () { controller.onContinuePressed(); }, widget: Text('CONTINUE', style: TextStyle(fontSize: 15, fontFamily: "NotoSans", fontWeight: FontWeight.w500, color: Colors.green),),
                 ),
               ),
             ),

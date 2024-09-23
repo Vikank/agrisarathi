@@ -46,7 +46,6 @@ class FarmerDashboardController extends GetxController {
 
   Future<int?> getUserLanguage() async {
     userLanguage = await HelperFunctions.getUserLanguage();
-    log("User language $userLanguage");
     return userLanguage;
   }
 
@@ -81,7 +80,6 @@ class FarmerDashboardController extends GetxController {
         // Loop through all lands and fetch weather for each
         for (var land in farmerLands.value.data!) {
           String? district = land.engDistrict;
-          log("eng district ${land.crop}");
           if (district != null && district.isNotEmpty) {
             await fetchWeatherForLand(district);
           }
@@ -113,7 +111,6 @@ class FarmerDashboardController extends GetxController {
           'https://api.openweathermap.org/data/2.5/weather?q=$district&appid=$apiKey&units=metric',
         ),
       );
-      log("body sent ${response.body}");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         String temp = data['main']['temp'].round().toString();
@@ -167,7 +164,6 @@ class FarmerDashboardController extends GetxController {
       final jsonData = jsonDecode(response.body);
       notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results ?? [];
     } else {
-      log("notificatin data aya, ${response.body}");
       throw Exception('Failed to load notifications');
     }
   }
@@ -224,7 +220,6 @@ class FarmerDashboardController extends GetxController {
         articles.value = articlesJson
             .map((articleJson) => NewsArticle.fromJson(articleJson))
             .toList();
-        log("log ${articles.value}");
         newsLoader.value = false;
       } else {
         newsLoader.value = false;

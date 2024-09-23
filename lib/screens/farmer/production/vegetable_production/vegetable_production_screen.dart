@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../../../../controllers/farmer/vegetable_production_controller.dart';
@@ -12,36 +13,47 @@ class VegetableStagesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(VegetableStagesController(landId, filterId ));
-
+    final controller = Get.put(VegetableStagesController(landId, filterId));
     return Scaffold(
-      appBar: AppBar(title: Text('Vegetable Production')),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Vegetable_Production'.tr,
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+        ),
+        elevation: 3,
+        shadowColor: Colors.black.withOpacity(0.3),
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (controller.vegetableProduction.value.stages == null ||
             controller.vegetableProduction.value.stages!.isEmpty) {
-          return Center(child: Text('No stages available'));
+          return const Center(child: Text('No stages available'));
         } else {
           return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStageProgress(controller),
-                _buildSubStages(controller),
-                _buildVideoPlayer(controller),
-                _buildDescription(controller),
-                _buildProducts(controller),
-                _buildNextButton(controller),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildStageProgress(controller),
+                  // _buildSubStages(controller),
+                  _buildVideoPlayer(controller),
+                  _buildDescription(controller),
+                  _buildProducts(controller),
+                  // _buildNextButton(controller),
+                ],
+              ),
             ),
           );
         }
       }),
     );
   }
-
 
   Widget _buildStageProgress(VegetableStagesController controller) {
     return Padding(
@@ -50,41 +62,65 @@ class VegetableStagesScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            controller.filteredStages[controller.currentStageIndex.value].stages,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            controller
+                .filteredStages[controller.currentStageIndex.value].stages,
+            style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Bitter"),
           ),
-          SizedBox(height: 8),
-          Text(
-            '1 Jun to 10 Jun (Mark as completed in 10 days)',
-            style: TextStyle(fontSize: 14, color: Colors.grey),
-          ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           LinearProgressIndicator(
-            value: (controller.currentStageIndex.value + 1) / controller.filteredStages.length,
+            minHeight: 7,
+            borderRadius: const BorderRadius.all(Radius.circular(32)),
+            value: (controller.currentStageIndex.value + 1) /
+                controller.filteredStages.length,
             backgroundColor: Colors.green.shade100,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSubStages(VegetableStagesController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: controller.filteredStages.map((stage) {
-          return Text(stage.stageName, style: TextStyle(fontSize: 12));
-        }).toList(),
-      ),
-    );
-  }
+  // Widget _buildSubStages(VegetableStagesController controller) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: controller.filteredStages.map((stage) {
+  //         return Text(stage.stageName, style: TextStyle(fontSize: 12));
+  //       }).toList(),
+  //     ),
+  //   );
+  // }
 
   Widget _buildVideoPlayer(VegetableStagesController controller) {
-    return AspectRatio(
-      aspectRatio: controller.videoController.value.aspectRatio,
-      child: VideoPlayer(controller.videoController),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            controller
+                .filteredStages[controller.currentStageIndex.value].stageName,
+            style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                fontFamily: "Bitter"),
+          ),
+          Obx(() {
+            if (controller.chewieController.value == null) {
+              return Center(child: Text('Failed_to_load_video'.tr));
+            } else {
+              return Container(
+                height: 180,
+                child: Chewie(controller: controller.chewieController.value!) // Show loading until video initializes
+              );
+            }
+          }),
+        ],
+      ),
     );
   }
 
@@ -94,12 +130,40 @@ class VegetableStagesScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            controller.filteredStages[controller.currentStageIndex.value].stageName,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  controller.filteredStages[controller.currentStageIndex.value]
+                      .description,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "NotoSans"),
+                ),
+              ),
+              Column(
+                children: [
+                  Obx(() =>
+                      IconButton(
+                          icon: Icon(
+                            controller.isPlaying.value
+                                ? Icons.stop
+                                : Icons.volume_up_outlined,
+                            color: Colors.green,
+                          ),
+                          onPressed: () {
+                            controller.toggleAudio(controller
+                                .filteredStages[controller.currentStageIndex
+                                .value]
+                                .stageAudio);
+                          })),
+                  _buildNextButton(controller)
+                ],
+              ),
+            ],
           ),
-          SizedBox(height: 8),
-          Text(controller.filteredStages[controller.currentStageIndex.value].description),
         ],
       ),
     );
@@ -111,138 +175,105 @@ class VegetableStagesScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xfdfF1FBF2),
+              borderRadius: BorderRadius.circular(5),
             ),
-            itemCount: controller.filteredStages[controller.currentStageIndex.value].products.length,
-            itemBuilder: (context, index) {
-              final product = controller.filteredStages[controller.currentStageIndex.value].products[index];
-              return Card(
-                child: Column(
-                  children: [
-                    Image.network(product.productImage, height: 100, fit: BoxFit.cover),
-                    Text(product.productName),
-                    Text('${product.price ?? "1000-10000"} INR'),
-                  ],
-                ),
-              );
-            },
+            child: const Text('Products',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "Bitter")),
           ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 257,
+            width: double.infinity,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: controller
+                  .filteredStages[controller.currentStageIndex.value]
+                  .products
+                  .length,
+              itemBuilder: (context, index) {
+                final product = controller
+                    .filteredStages[controller.currentStageIndex.value]
+                    .products[index];
+                return Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey
+                            .withOpacity(0.1), // Shadow color with opacity
+                        spreadRadius: 1, // How much the shadow should spread
+                        blurRadius: 1, // Softness of the shadow
+                        offset: const Offset(
+                            2, 1), // Position of the shadow (x, y)
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(
+                          ApiEndPoints.imageBaseUrl + product.productImage,
+                          height: 123,
+                          width: 130,
+                          fit: BoxFit.cover),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(product.productName,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Bitter")),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(product.category,
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "NotoSans")),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text('${product.price ?? "Nil"} INR',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "NotoSans",
+                              color: Colors.green)),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(width: 20),
+            ),
+          )
         ],
       ),
     );
   }
 
   Widget _buildNextButton(VegetableStagesController controller) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ElevatedButton(
-        onPressed: controller.nextStage,
-        child: Text('Next'),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green,
-          minimumSize: Size(double.infinity, 50),
-        ),
-      ),
+    return TextButton(
+      onPressed: controller.nextStage,
+      child: const Text('Next',
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              fontFamily: "NotoSans",
+              color: Colors.green)),
     );
   }
-}
-
-class CustomStageProgressIndicator extends StatelessWidget {
-  final List<String> substageNames;
-  final int currentSubstage;
-
-  const CustomStageProgressIndicator({
-    Key? key,
-    required this.substageNames,
-    required this.currentSubstage,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 30,
-          child: CustomPaint(
-            painter: StageProgressPainter(
-              stageCount: substageNames.length,
-              currentStage: currentSubstage,
-            ),
-            child: Container(),
-          ),
-        ),
-        SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-            substageNames.length,
-                (index) => Text(
-              '${index + 1}',
-              style: TextStyle(
-                color: index <= currentSubstage ? Colors.green : Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: substageNames
-              .map((name) => Text(
-            name,
-            style: TextStyle(fontSize: 12),
-          ))
-              .toList(),
-        ),
-      ],
-    );
-  }
-}
-
-class StageProgressPainter extends CustomPainter {
-  final int stageCount;
-  final int currentStage;
-
-  StageProgressPainter({required this.stageCount, required this.currentStage});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-
-    final activePaint = Paint()
-      ..color = Colors.green
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-
-    final double segmentWidth = size.width / (stageCount - 1);
-
-    for (int i = 0; i < stageCount - 1; i++) {
-      final start = Offset(i * segmentWidth, size.height / 2);
-      final end = Offset((i + 1) * segmentWidth, size.height / 2);
-      canvas.drawLine(start, end, i < currentStage ? activePaint : paint);
-    }
-
-    for (int i = 0; i < stageCount; i++) {
-      final center = Offset(i * segmentWidth, size.height / 2);
-      canvas.drawCircle(
-        center,
-        5,
-        i <= currentStage ? activePaint : paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

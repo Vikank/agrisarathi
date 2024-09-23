@@ -66,7 +66,7 @@ class VegetableSowingController extends GetxController {
       final jsonResponse = jsonDecode(response.body);
       log("repsonse body me aaya ${jsonResponse}");
       if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
-        Get.to(()=> VegetableStagesScreen(landId: landId, filterId: filterId,));
+        Get.off(()=> VegetableStagesScreen(landId: landId, filterId: filterId,));
         Fluttertoast.showToast(msg: jsonResponse['message']);
       } else {
         Fluttertoast.showToast(msg: "Error: ${jsonResponse['message']}");

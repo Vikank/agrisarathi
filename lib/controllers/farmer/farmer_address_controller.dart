@@ -27,7 +27,6 @@ class FarmerAddressController extends GetxController{
   var varieties = [].obs;
   var selectedVarietyId;
   final village = TextEditingController();
-  String? farmerId;
   int? userLanguage;
   RxList<dynamic> states = <dynamic>[].obs;
   RxList<dynamic> districts = <dynamic>[].obs;
@@ -44,17 +43,11 @@ class FarmerAddressController extends GetxController{
   @override
   void onInit(){
     super.onInit();
-    getFarmerId();
     fetchStates();
     fetchCrops();
     getUserLanguage();
   }
 
-  getFarmerId() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    log("farmer id is ${prefs.getString('farmerId')}");
-    farmerId = (prefs.getString('farmerId'));
-  }
 
   void getUserLanguage() async{
     userLanguage = await HelperFunctions.getUserLanguage();
@@ -171,7 +164,7 @@ class FarmerAddressController extends GetxController{
       varieties.clear();
       jsonData['data'].forEach((variety) {
         varieties.add({
-          'id': variety['id'].toString(),
+          'id': variety['variety_id'].toString(),
           'name': variety['name'],
         });
       });
