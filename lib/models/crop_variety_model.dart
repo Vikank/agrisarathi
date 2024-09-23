@@ -9,7 +9,7 @@ class CropVariety {
 
   factory CropVariety.fromJson(Map<String, dynamic> json) {
     return CropVariety(
-      varietyId: json['id'],
+      varietyId: json['variety_id'],
       variety: json['name'],
     );
   }

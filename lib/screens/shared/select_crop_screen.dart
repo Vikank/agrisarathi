@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/controllers/shared/select_crop_controller.dart';
 import 'package:fpo_assist/screens/farmer/auth/crop_variety_screen.dart';
 import 'package:fpo_assist/screens/fpo/dashboard/fpo_home_screen.dart';
@@ -156,84 +157,6 @@ class SelectCropScreen extends StatelessWidget {
                 }).toList(),
               )),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            //   child: Wrap(
-            //     spacing: 8.0,
-            //     children: [
-            //       FilterChip(
-            //         showCheckmark: false,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(100.0),
-            //         ),
-            //         label: Text(
-            //           'Cereals'.tr,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.w400,
-            //               fontSize: 13,
-            //               color: Colors.black,
-            //               fontFamily: 'NotoSans'),
-            //         ),
-            //         selected:
-            //             controller.selectedCategory.value == 'CerealField',
-            //         selectedColor: Colors.green,
-            //         onSelected: (isSelected) =>
-            //             controller.filterCrops(isSelected ? 'CerealField' : ''),
-            //       ),
-            //       FilterChip(
-            //         showCheckmark: false,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(100.0),
-            //         ),
-            //         label: Text(
-            //           'Pulses'.tr,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.w400,
-            //               fontSize: 13,
-            //               color: Colors.black, fontFamily: 'NotoSans'),
-            //         ),
-            //         selected: controller.selectedCategory.value == 'Pulse',
-            //         selectedColor: Colors.green,
-            //         onSelected: (isSelected) =>
-            //             controller.filterCrops(isSelected ? 'Pulse' : ''),
-            //       ),
-            //       FilterChip(
-            //         showCheckmark: false,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(100.0),
-            //         ),
-            //         label: Text(
-            //           'Fruits'.tr,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.w400,
-            //               fontSize: 13,
-            //               color: Colors.black, fontFamily: 'NotoSans'),
-            //         ),
-            //         selected: controller.selectedCategory.value == 'Fruit',
-            //         selectedColor: Colors.green,
-            //         onSelected: (isSelected) =>
-            //             controller.filterCrops(isSelected ? 'Fruit' : ''),
-            //       ),
-            //       FilterChip(
-            //         showCheckmark: false,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(100.0),
-            //         ),
-            //         label: Text(
-            //           'Vegetables'.tr,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.w400,
-            //               fontSize: 13,
-            //               color: Colors.black, fontFamily: 'NotoSans'),
-            //         ),
-            //         selected: controller.selectedCategory.value == 'Vegetable',
-            //         selectedColor: Colors.green,
-            //         onSelected: (isSelected) =>
-            //             controller.filterCrops(isSelected ? 'Vegetable' : ''),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             SizedBox(
               height: 12,
             ),
@@ -336,9 +259,20 @@ class SelectCropScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
           child: CustomElevatedButton(
             buttonColor: Colors.green,
-            onPress: () async{
-              await
-              Get.to(()=>CropVarietyScreen(selectedCrops: controller.selectedCrops));
+            onPress: () {
+              if(controller.selectedCrops.isNotEmpty) {
+                Get.to(() =>
+                    CropVarietyScreen(selectedCrops: controller.selectedCrops));
+              } else{
+                Fluttertoast.showToast(
+                    msg: "Please select a crop",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
             },
             widget: Text(
               "Next".tr,

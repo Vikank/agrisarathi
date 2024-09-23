@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/controllers/farmer/dashboard_controller.dart';
 import 'package:fpo_assist/controllers/fpo/fpo_home_controller.dart';
 import 'package:fpo_assist/screens/farmer/detect_disease/select_service_provider.dart';
@@ -196,14 +197,14 @@ class FarmerDashboardWidget extends StatelessWidget {
 
                                             return weatherData != null
                                                 ? GestureDetector(
-                                              onTap: () {
-                                                Get.to(() =>
-                                                    WeatherDetailScreen(
-                                                        districtName:
-                                                        item.district ??
-                                                            ""));
-                                              },
-                                                  child: Container(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          WeatherDetailScreen(
+                                                              districtName:
+                                                                  item.district ??
+                                                                      ""));
+                                                    },
+                                                    child: Container(
                                                       height: 56,
                                                       width: double.infinity,
                                                       padding:
@@ -221,14 +222,13 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                         children: [
                                                           Text(
                                                             item.crop ?? "",
-                                                            style:
-                                                                const TextStyle(
-                                                                    fontSize: 14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontFamily:
-                                                                        "Bitter"),
+                                                            style: const TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontFamily:
+                                                                    "Bitter"),
                                                           ),
                                                           Spacer(),
                                                           Row(
@@ -267,7 +267,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                )
+                                                  )
                                                 : SizedBox.shrink();
                                           },
                                         ).toList(),
@@ -285,69 +285,81 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   SizedBox(height: 16),
 
                                   // Notification Carousel
-                                  controller.notificationsData.isNotEmpty ? Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    width: double.infinity,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height:
-                                              94, // Adjust the height according to your needs
+                                  controller.notificationsData.isNotEmpty
+                                      ? Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 16),
                                           width: double.infinity,
-                                          child: CarouselSlider(
-                                            items: controller
-                                                .farmerLands.value.data!
-                                                .asMap()
-                                                .entries
-                                                .map(
-                                              (entry) {
-                                                final item = entry.value;
-                                                final relevantResults = controller
-                                                    .notificationsData
-                                                    .firstWhere(
-                                                  (result) =>
-                                                      result.cropId == item.cropId,
-                                                  orElse: () => Results(),
-                                                );
-                                                final notification = relevantResults
-                                                    .notifications
-                                                    ?.firstWhere(
-                                                  (notif) =>
-                                                      notif.cropId == item.cropId,
-                                                  orElse: () => Notifications(),
-                                                );
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height:
+                                                    94, // Adjust the height according to your needs
+                                                width: double.infinity,
+                                                child: CarouselSlider(
+                                                  items: controller
+                                                      .farmerLands.value.data!
+                                                      .asMap()
+                                                      .entries
+                                                      .map(
+                                                    (entry) {
+                                                      final item = entry.value;
+                                                      final relevantResults =
+                                                          controller
+                                                              .notificationsData
+                                                              .firstWhere(
+                                                        (result) =>
+                                                            result.cropId ==
+                                                            item.cropId,
+                                                        orElse: () => Results(),
+                                                      );
+                                                      final notification =
+                                                          relevantResults
+                                                              .notifications
+                                                              ?.firstWhere(
+                                                        (notif) =>
+                                                            notif.cropId ==
+                                                            item.cropId,
+                                                        orElse: () =>
+                                                            Notifications(),
+                                                      );
 
-                                                return notification?.gif != null
-                                                    ? Image.network(
-                                                        '${ApiEndPoints.imageBaseUrl}${notification!.gif}',
-                                                        width: double.infinity,
-                                                  fit: BoxFit.fill,
-                                                      )
-                                                    : const SizedBox.shrink();
-                                              },
-                                            ).toList(),
-                                            carouselController: _controller,
-                                            options: CarouselOptions(
-                                              height: double.infinity,
-                                              enlargeCenterPage: false,
-                                              viewportFraction: 1,
-                                              autoPlay: true,
-                                              enableInfiniteScroll: false,
-                                            ),
+                                                      return notification
+                                                                  ?.gif !=
+                                                              null
+                                                          ? Image.network(
+                                                              '${ApiEndPoints.imageBaseUrl}${notification!.gif}',
+                                                              width: double
+                                                                  .infinity,
+                                                              fit: BoxFit.fill,
+                                                            )
+                                                          : const SizedBox
+                                                              .shrink();
+                                                    },
+                                                  ).toList(),
+                                                  carouselController:
+                                                      _controller,
+                                                  options: CarouselOptions(
+                                                    height: double.infinity,
+                                                    enlargeCenterPage: false,
+                                                    viewportFraction: 1,
+                                                    autoPlay: true,
+                                                    enableInfiniteScroll: false,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(height: 16),
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(height: 16),
-                                      ],
-                                    ),
-                                  ) : SizedBox.shrink(),
+                                        )
+                                      : SizedBox.shrink(),
                                   // Progress Carousel
                                   controller.vegetableProgress.value
                                               ?.cropsProgress ==
                                           null
                                       ? SizedBox.shrink()
                                       : SizedBox(
-                                          height: 56 ,
+                                          height: 56,
                                           child: CropProgressCarousel(),
                                         ),
                                 ],
@@ -382,7 +394,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.to(()=> ChooseFarmProduction());
+                            Get.to(() => ChooseFarmProduction());
                           },
                           child: Column(
                             key: coachMarksController.productionCoachKey,
@@ -408,7 +420,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(()=> FarmForFertilizer());
+                            Get.to(() => FarmForFertilizer());
                           },
                           child: Column(
                             key: coachMarksController.fertilizerCoachKey,
@@ -503,27 +515,38 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    Container(
-                                      key: coachMarksController.soilCoachKey,
-                                      height: 42,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorConstants.primaryColor,
-                                            width: 1),
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(4),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Book_Now".tr,
-                                          style: TextStyle(
+                                    GestureDetector(
+                                      onTap: () {
+                                        Fluttertoast.showToast(
+                                          msg: "Coming Soon",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                        );
+                                      },
+                                      child: Container(
+                                        key: coachMarksController.soilCoachKey,
+                                        height: 42,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
                                               color:
                                                   ColorConstants.primaryColor,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: 'NotoSans'),
+                                              width: 1),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(4),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Book_Now".tr,
+                                            style: TextStyle(
+                                                color:
+                                                    ColorConstants.primaryColor,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'NotoSans'),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -572,65 +595,95 @@ class FarmerDashboardWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/farmer_economics.png",
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Farmer_Economics_home".tr,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSans"),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: "Coming Soon",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/farmer_economics.png",
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Farmer_Economics_home".tr,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSans"),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/irrigation_alarm.png",
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Irrigation_Alarm_home".tr,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSans"),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: "Coming Soon",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/irrigation_alarm.png",
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Irrigation_Alarm_home".tr,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSans"),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  "assets/images/soil_testing.png",
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Soil_Testing_home".tr,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSans"),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: "Coming Soon",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/soil_testing.png",
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Soil_Testing_home".tr,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSans"),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -679,7 +732,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(    
+                                  Text(
                                     "Crop_Suggestion_home".tr,
                                     style: const TextStyle(
                                         fontSize: 12,
@@ -705,45 +758,55 @@ class FarmerDashboardWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: const Color(0xfdfF1FBF2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Helpline".tr,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    fontFamily: 'Bitter'),
-                              ),
-                              Text(
-                                "Check_number_for_assistance_and_support".tr,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(
-                                        color: Colors.black,
-                                        fontFamily: 'NanoSans',
-                                        fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                          Image.asset(
-                            key: coachMarksController.helplineCoachKey,
-                            "assets/images/helpline_farmer.png",
-                            width: 40,
-                            height: 40,
-                          )
-                        ],
+                    child: GestureDetector(
+                      onTap: () {
+                        Fluttertoast.showToast(
+                          msg: "Coming Soon",
+                          toastLength: Toast.LENGTH_SHORT,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: const Color(0xfdfF1FBF2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Helpline".tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      fontFamily: 'Bitter'),
+                                ),
+                                Text(
+                                  "Check_number_for_assistance_and_support".tr,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                          color: Colors.black,
+                                          fontFamily: 'NanoSans',
+                                          fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              key: coachMarksController.helplineCoachKey,
+                              "assets/images/helpline_farmer.png",
+                              width: 40,
+                              height: 40,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
