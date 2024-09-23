@@ -46,7 +46,7 @@ class VegetableStagesController extends GetxController {
 
       chewieController.value = ChewieController(
         videoPlayerController: videoPlayerController,
-        autoPlay: true,
+        autoPlay: false,
         looping: false,
       );
 
