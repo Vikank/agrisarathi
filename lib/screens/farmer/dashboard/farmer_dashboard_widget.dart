@@ -284,7 +284,6 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   ),
                                   SizedBox(height: 16),
 
-                                  // Notification Carousel
                                   controller.notificationsData.isNotEmpty
                                       ? Container(
                                           padding: EdgeInsets.symmetric(
@@ -301,42 +300,53 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                       .farmerLands.value.data!
                                                       .asMap()
                                                       .entries
-                                                      .map(
-                                                    (entry) {
-                                                      final item = entry.value;
-                                                      final relevantResults =
-                                                          controller
-                                                              .notificationsData
-                                                              .firstWhere(
-                                                        (result) =>
-                                                            result.cropId ==
-                                                            item.cropId,
-                                                        orElse: () => Results(),
-                                                      );
+                                                      .map((entry) {
+                                                    final item = entry.value;
+
+                                                    // Find the relevant result based on cropId
+                                                    final relevantResults =
+                                                        controller
+                                                            .notificationsData
+                                                            .firstWhere(
+                                                      (result) =>
+                                                          result.cropId ==
+                                                          item.cropId,
+                                                      orElse: () {
+                                                        return Results(
+                                                            notifications: []); // Return empty notifications list if no match
+                                                      },
+                                                    );
+
+                                                    // Check if notifications list has data
+                                                    if (relevantResults
+                                                                .notifications !=
+                                                            null &&
+                                                        relevantResults
+                                                            .notifications!
+                                                            .isNotEmpty) {
                                                       final notification =
                                                           relevantResults
-                                                              .notifications
-                                                              ?.firstWhere(
-                                                        (notif) =>
-                                                            notif.cropId ==
-                                                            item.cropId,
-                                                        orElse: () =>
-                                                            Notifications(),
-                                                      );
+                                                              .notifications!
+                                                              .first;
 
-                                                      return notification
-                                                                  ?.gif !=
-                                                              null
-                                                          ? Image.network(
-                                                              '${ApiEndPoints.imageBaseUrl}${notification!.gif}',
-                                                              width: double
-                                                                  .infinity,
-                                                              fit: BoxFit.fill,
-                                                            )
-                                                          : const SizedBox
-                                                              .shrink();
-                                                    },
-                                                  ).toList(),
+                                                      // Display the GIF if it exists
+                                                      if (notification.gif !=
+                                                              null &&
+                                                          notification.gif!
+                                                              .isNotEmpty) {
+                                                        return Image.network(
+                                                          '${ApiEndPoints.imageBaseUrl}${notification.gif}',
+                                                          width:
+                                                              double.infinity,
+                                                          fit: BoxFit.fill,
+                                                        );
+                                                      }
+                                                    }
+
+                                                    // If no notifications or no gif, return SizedBox.shrink()
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }).toList(),
                                                   carouselController:
                                                       _controller,
                                                   options: CarouselOptions(
@@ -353,6 +363,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           ),
                                         )
                                       : SizedBox.shrink(),
+
                                   // Progress Carousel
                                   controller.vegetableProgress.value
                                               ?.cropsProgress ==

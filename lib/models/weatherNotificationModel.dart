@@ -14,8 +14,8 @@ class WeatherNotificationModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.results != null) {
-      data['results'] = this.results!.map((v) => v.toJson()).toList();
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -29,20 +29,24 @@ class Results {
 
   Results.fromJson(Map<String, dynamic> json) {
     cropId = json['crop_id'];
+
+    // Handle both "notifications" and "notfications"
     if (json['notifications'] != null) {
       notifications = <Notifications>[];
       json['notifications'].forEach((v) {
-        notifications!.add(new Notifications.fromJson(v));
+        notifications!.add(Notifications.fromJson(v));
       });
+    } else {
+      notifications = [];
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['crop_id'] = this.cropId;
-    if (this.notifications != null) {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['crop_id'] = cropId;
+    if (notifications != null) {
       data['notifications'] =
-          this.notifications!.map((v) => v.toJson()).toList();
+          notifications!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -75,12 +79,12 @@ class Notifications {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['weather_id'] = this.weatherId;
-    data['crop_id'] = this.cropId;
-    data['stages'] = this.stages;
-    data['gif'] = this.gif;
-    data['preference_number'] = this.preferenceNumber;
-    data['notification_text'] = this.notificationText;
+    data['weather_id'] = weatherId;
+    data['crop_id'] = cropId;
+    data['stages'] = stages;
+    data['gif'] = gif;
+    data['preference_number'] = preferenceNumber;
+    data['notification_text'] = notificationText;
     return data;
   }
 }

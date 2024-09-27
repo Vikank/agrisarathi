@@ -113,7 +113,7 @@ class DiseaseDetectionVideoController extends GetxController {
         required String filterType}) async {
     try {
       XFile? pickedImage =
-      await ImagePicker().pickImage(source: ImageSource.gallery);
+      await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 25,);
       if (pickedImage != null) {
         image.value = File(pickedImage.path);
         uploadImage(File(image.value?.path ?? ""), serviceProviderId, cropId,
@@ -133,7 +133,7 @@ class DiseaseDetectionVideoController extends GetxController {
       required String filterType}) async {
     try {
       XFile? pickedImage =
-          await ImagePicker().pickImage(source: ImageSource.camera);
+          await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 25,);
       if (pickedImage != null) {
         image.value = File(pickedImage.path);
         uploadImage(File(image.value?.path ?? ""), serviceProviderId, cropId,

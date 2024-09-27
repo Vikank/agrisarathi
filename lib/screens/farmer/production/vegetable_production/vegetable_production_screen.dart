@@ -224,14 +224,14 @@ class VegetableStagesScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
-                          ApiEndPoints.imageBaseUrl + product.productImage,
+                          "${ApiEndPoints.imageBaseUrl}${product.productImage}",
                           height: 123,
                           width: 130,
                           fit: BoxFit.cover),
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(product.productName,
+                      Text(product.productName ?? "Unknown",
                           style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -239,7 +239,7 @@ class VegetableStagesScreen extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(product.category,
+                      Text(product.category ?? "Category",
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

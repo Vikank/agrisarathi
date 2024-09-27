@@ -143,30 +143,40 @@ class FarmerDashboardController extends GetxController {
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+      'Authorization': 'Bearer $accessToken' // Add the access token to the headers
     };
+
     var requestBody = {
       "crops": farmerLands.value.data!.map((land) {
         return {
           "land_id": land.id,
           "filter_type": land.filterId,
-          // "weather_conditions": [landWeatherData[land.district]!['weatherCondition']]
-          "weather_conditions": ["clear sky"]
+          "weather_conditions": [landWeatherData[land.district]!['weatherCondition']]
         };
       }).toList(),
     };
+
     final response = await http.post(
       Uri.parse('${ApiEndPoints.baseUrlTest}GetVegetablePopNotification'),
       headers: headers,
       body: jsonEncode(requestBody),
     );
+
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
-      notificationsData.value = WeatherNotificationModel.fromJson(jsonData).results ?? [];
+      var fetchedData = WeatherNotificationModel.fromJson(jsonData).results ?? [];
+
+      // Debugging - checking the notification count per crop
+      fetchedData.forEach((result) {
+        print("Result cropId: ${result.cropId}, Notifications count: ${result.notifications?.length ?? 0}");
+      });
+
+      notificationsData.value = fetchedData; // Assign the fetched data to notificationsData
     } else {
       throw Exception('Failed to load notifications');
     }
   }
+
 
   Future<void> fetchCropProgress(List<Map<String, dynamic>> crops) async {
     try {
