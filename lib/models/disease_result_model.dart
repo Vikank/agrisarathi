@@ -8,9 +8,9 @@ class DiseaseResultModel {
     diseaseResults = json['disease_results'] != null
         ? DiseaseResults.fromJson(json['disease_results'])
         : null;
-    if (json['product_disease'] != null) {
+    if (json['products'] != null) {
       productDisease = <ProductDisease>[];
-      json['product_disease'].forEach((v) {
+      json['products'].forEach((v) {
         productDisease!.add(ProductDisease.fromJson(v));
       });
     }
@@ -22,7 +22,7 @@ class DiseaseResultModel {
       data['disease_results'] = diseaseResults!.toJson();
     }
     if (productDisease != null) {
-      data['product_disease'] =
+      data['products'] =
           productDisease!.map((v) => v.toJson()).toList();
     }
     return data;
@@ -111,6 +111,7 @@ class ProductDisease {
   int? productid;
   String? productimage;
   String? productname;
+  String? productdescription;
   String? price;
   String? category;
 
@@ -118,24 +119,27 @@ class ProductDisease {
       {this.productid,
         this.productimage,
         this.productname,
+        this.productdescription,
         this.price,
         this.category});
 
   ProductDisease.fromJson(Map<String, dynamic> json) {
-    productid = json['productid'];
-    productimage = json['productimage'];
-    productname = json['productname'];
+    productid = json['product_id'];
+    productimage = json['product_image'];
+    productname = json['product_name'];
+    productdescription = json['product_description'];
     price = json['price'];
-    category = json['category'];
+    category = json['Category'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['productid'] = productid;
-    data['productimage'] = productimage;
-    data['productname'] = productname;
+    data['product_id'] = productid;
+    data['product_image'] = productimage;
+    data['product_name'] = productname;
+    data['product_description'] = productdescription;
     data['price'] = price;
-    data['category'] = category;
+    data['Category'] = category;
     return data;
   }
 }

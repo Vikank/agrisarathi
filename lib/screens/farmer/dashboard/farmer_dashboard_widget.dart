@@ -378,7 +378,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       child: Text(
                         "Services".tr,
                         style: const TextStyle(
-                            fontFamily: "Bitter",
+                            fontFamily: "GoogleSans",
                             fontWeight: FontWeight.w600,
                             fontSize: 14),
                       ),
@@ -412,7 +412,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
-                                    fontFamily: "NotoSans"),
+                                    fontFamily: "GoogleSans"),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -438,7 +438,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
-                                    fontFamily: "NotoSans"),
+                                    fontFamily: "GoogleSans"),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -464,7 +464,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
-                                    fontFamily: "NotoSans"),
+                                    fontFamily: "GoogleSans"),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -491,7 +491,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                           Text(
                             "Soil_Test_Today_Harvest_Tomorrow".tr,
                             style: const TextStyle(
-                                fontFamily: "Bitter",
+                                fontFamily: "OpenSans",
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14),
                           ),

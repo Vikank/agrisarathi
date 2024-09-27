@@ -36,7 +36,7 @@ class FormattedTreatmentText extends StatelessWidget {
                   children: [
                     Text('• ', style: TextStyle(fontSize: 16)),
                     Expanded(
-                      child: Text(parts[j].trim(), style: TextStyle(fontSize: 12, fontFamily: "NotoSans")),
+                      child: Text(parts[j].trim(), style: TextStyle(fontFamily: "GoogleSans", fontSize: 16, fontWeight: FontWeight.w400),),
                     ),
                   ],
                 ),
