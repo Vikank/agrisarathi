@@ -48,7 +48,7 @@ class DashboardWidget extends StatelessWidget {
                       carouselController: _controller,
                       options: CarouselOptions(
                           viewportFraction: 1,
-                          autoPlay: true,
+                          autoPlay: false,
                           enlargeCenterPage: true,
                           onPageChanged: (index, reason) {
                             homeController.currentCarousel.value = index;

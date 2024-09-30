@@ -52,7 +52,6 @@ class FarmerHomeController extends GetxController{
     };
     try {
       final response = await http.get(url, headers: headers);
-      log("coins response is ${json.decode(response.body)}");
       if (response.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final Map<String, dynamic> jsonResponse = json.decode(response.body);

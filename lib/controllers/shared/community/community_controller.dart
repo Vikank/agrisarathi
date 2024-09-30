@@ -63,7 +63,6 @@ class CommunityController extends GetxController {
           posts.value = (decodedResponse['data'] as List)
               .map((post) => CommunityPost.fromJson(post))
               .toList();
-          log("Post data ${posts.value.first}");
         }
       }
     } catch (e) {

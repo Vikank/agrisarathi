@@ -164,11 +164,13 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           height: double.infinity,
                                           enlargeCenterPage: false,
                                           viewportFraction: 1,
-                                          autoPlay: true,
+                                          autoPlay: false,
                                           enableInfiniteScroll: false,
                                           onPageChanged: (index, reason) {
                                             controller.currentCarousel.value =
                                                 index;
+                                            controller.updateSelectedLand(index);  // Sync the land and notifications
+
                                           },
                                         ),
                                       ),
@@ -276,7 +278,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           height: double.infinity,
                                           enlargeCenterPage: false,
                                           viewportFraction: 1,
-                                          autoPlay: true,
+                                          autoPlay: false,
                                           enableInfiniteScroll: false,
                                         ),
                                       ),
@@ -284,85 +286,47 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   ),
                                   SizedBox(height: 16),
 
-                                  controller.notificationsData.isNotEmpty
-                                      ? Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          width: double.infinity,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height:
-                                                    94, // Adjust the height according to your needs
-                                                width: double.infinity,
-                                                child: CarouselSlider(
-                                                  items: controller
-                                                      .farmerLands.value.data!
-                                                      .asMap()
-                                                      .entries
-                                                      .map((entry) {
-                                                    final item = entry.value;
-
-                                                    // Find the relevant result based on cropId
-                                                    final relevantResults =
-                                                        controller
-                                                            .notificationsData
-                                                            .firstWhere(
-                                                      (result) =>
-                                                          result.cropId ==
-                                                          item.cropId,
-                                                      orElse: () {
-                                                        return Results(
-                                                            notifications: []); // Return empty notifications list if no match
-                                                      },
+                                  //notificationGif Carousel
+                                  Obx(() {
+                                    if (controller.filteredNotifications.isEmpty) {
+                                      return SizedBox.shrink();
+                                    } else {
+                                      return Column(
+                                        children: [
+                                          Container(
+                                            padding:
+                                            EdgeInsets.symmetric(horizontal: 16),
+                                            width: double.infinity,
+                                            height: 56,
+                                            child: CarouselSlider(
+                                              items: controller.filteredNotifications.map((notification) {
+                                                return Builder(
+                                                  builder: (BuildContext context) {
+                                                    return Image.network(
+                                                      '${ApiEndPoints.imageBaseUrl}${notification.gif}',
+                                                      width:
+                                                      double.infinity,
+                                                      fit: BoxFit.fill,
                                                     );
-
-                                                    // Check if notifications list has data
-                                                    if (relevantResults
-                                                                .notifications !=
-                                                            null &&
-                                                        relevantResults
-                                                            .notifications!
-                                                            .isNotEmpty) {
-                                                      final notification =
-                                                          relevantResults
-                                                              .notifications!
-                                                              .first;
-
-                                                      // Display the GIF if it exists
-                                                      if (notification.gif !=
-                                                              null &&
-                                                          notification.gif!
-                                                              .isNotEmpty) {
-                                                        return Image.network(
-                                                          '${ApiEndPoints.imageBaseUrl}${notification.gif}',
-                                                          width:
-                                                              double.infinity,
-                                                          fit: BoxFit.fill,
-                                                        );
-                                                      }
-                                                    }
-
-                                                    // If no notifications or no gif, return SizedBox.shrink()
-                                                    return const SizedBox
-                                                        .shrink();
-                                                  }).toList(),
-                                                  carouselController:
-                                                      _controller,
-                                                  options: CarouselOptions(
-                                                    height: double.infinity,
-                                                    enlargeCenterPage: false,
-                                                    viewportFraction: 1,
-                                                    autoPlay: true,
-                                                    enableInfiniteScroll: false,
-                                                  ),
-                                                ),
+                                                  },
+                                                );
+                                              }).toList(),
+                                              carouselController:
+                                              _controller,
+                                              options: CarouselOptions(
+                                                height: double.infinity,
+                                                enlargeCenterPage: false,
+                                                viewportFraction: 1,
+                                                autoPlay: false,
+                                                enableInfiniteScroll: false,
                                               ),
-                                              SizedBox(height: 16),
-                                            ],
+                                            ),
                                           ),
-                                        )
-                                      : SizedBox.shrink(),
+                                          SizedBox(height: 20,)
+                                        ],
+                                      );
+                                    }
+                                  }),
 
                                   // Progress Carousel
                                   controller.vegetableProgress.value

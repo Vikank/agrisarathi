@@ -24,7 +24,7 @@ class CropProgressCarousel extends StatelessWidget {
         height: double.infinity,
         enlargeCenterPage: false,
         viewportFraction: 1,
-        autoPlay: true,
+        autoPlay: false,
         enableInfiniteScroll: false,
       ),
       items: controller.vegetableProgress.value!.cropsProgress!.map((crop) {
