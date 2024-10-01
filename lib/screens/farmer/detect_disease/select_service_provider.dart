@@ -27,7 +27,7 @@ class SelectServiceProvider extends StatelessWidget {
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
-              fontFamily: "Bitter"),
+              fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -48,7 +48,7 @@ class SelectServiceProvider extends StatelessWidget {
             //         hintText: "Search_Service_Provider".tr,
             //         hintStyle: TextStyle(fontSize: 12,
             //             fontWeight: FontWeight.w400,
-            //             fontFamily: 'NotoSans')
+            //             fontFamily: 'GoogleSans')
             //     ),
             //   ),
             // ),
@@ -62,7 +62,7 @@ class SelectServiceProvider extends StatelessWidget {
                     .tr,
                 style: TextStyle(fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'NotoSans',
+                    fontFamily: 'GoogleSans',
                 color: Color(0xff262626)),
               ),
             ),
@@ -124,7 +124,7 @@ class SelectServiceProvider extends StatelessWidget {
                                     color: ColorConstants.textColor,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
-                                  fontFamily: "NotoSans"
+                                  fontFamily: "GoogleSans"
                                 ),
                               ),
                             ),

@@ -26,7 +26,7 @@ class CropVarietyScreen extends StatelessWidget {
         title: Text(
           'Crop_variety'.tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -54,7 +54,7 @@ class CropVarietyScreen extends StatelessWidget {
                         title: Text(
                           variety.variety,
                           style: TextStyle(
-                              fontFamily: "Bitter",
+                              fontFamily: "GoogleSans",
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
                         ),
@@ -80,7 +80,7 @@ class CropVarietyScreen extends StatelessWidget {
               widget: Text(
                 "Skip".tr,
                 style: TextStyle(
-                    fontFamily: 'NotoSans',
+                    fontFamily: 'GoogleSans',
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
               ),

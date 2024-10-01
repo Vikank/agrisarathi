@@ -23,7 +23,7 @@
 //         title: Text(
 //           "Choose_category".tr,
 //           style: TextStyle(
-//               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+//               fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
 //         ),
 //       ),
 //       body: Padding(
@@ -154,7 +154,7 @@
 //               style: TextStyle(
 //                 fontSize: 12.0,
 //                 fontWeight: FontWeight.w400,
-//                 fontFamily: "NotoSans",
+//                 fontFamily: "GoogleSans",
 //                 color: Colors.black
 //               ),
 //             ),

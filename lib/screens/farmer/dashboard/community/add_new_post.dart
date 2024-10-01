@@ -116,7 +116,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   ),
                   Spacer(),
                   Text("Add Image", style: TextStyle(
-                    color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "NotoSans"
+                    color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "GoogleSans"
                   ),),
                 ],
               ),
@@ -138,7 +138,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   ),
                   Spacer(),
                   Text("Add Video", style: TextStyle(
-                      color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "NotoSans"
+                      color: Colors.green, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: "GoogleSans"
                   ),),
                 ],
               ),
@@ -151,7 +151,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 alignment: AlignmentDirectional.center,
                 children: [
                   Image.file(_thumbnail!, height: 200, fit: BoxFit.cover),
-                  Text("Video Selected", style: TextStyle(color: Colors.white, fontFamily: "Bitter", fontSize: 15, fontWeight: FontWeight.bold),),
+                  Text("Video Selected", style: TextStyle(color: Colors.white, fontFamily: "GoogleSans", fontSize: 15, fontWeight: FontWeight.bold),),
                 ],
               )
             // SizedBox(height: 16),
@@ -176,7 +176,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               widget: Text(
                 "POST".tr,
                 style: TextStyle(
-                    fontFamily: 'NotoSans',
+                    fontFamily: 'GoogleSans',
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
               ),

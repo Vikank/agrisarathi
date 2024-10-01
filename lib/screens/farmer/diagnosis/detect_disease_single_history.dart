@@ -21,7 +21,7 @@ class SingleDiseaseHistory extends StatelessWidget {
         title: Text(
           "Diagnosis".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -46,7 +46,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
-                      fontFamily: "Bitter"),
+                      fontFamily: "GoogleSans"),
                 ),
               ),
               SizedBox(height: 16,),
@@ -69,7 +69,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
-                          fontFamily: "Bitter"),
+                          fontFamily: "GoogleSans"),
                     )
                   : SizedBox.shrink(),
               diseaseData.diseaseResults!.first.symptom != ""
@@ -84,7 +84,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
-                              fontFamily: "Bitter"),
+                              fontFamily: "GoogleSans"),
                         ),
                         SizedBox(
                           height: 8,
@@ -111,7 +111,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
-                                    fontFamily: "Bitter"),
+                                    fontFamily: "GoogleSans"),
                               ),
                               SizedBox(
                                 height: 8,
@@ -133,7 +133,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
-                                    fontFamily: "Bitter"),
+                                    fontFamily: "GoogleSans"),
                               ),
                               SizedBox(
                                 height: 8,
@@ -161,7 +161,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
-                                fontFamily: "Bitter"),
+                                fontFamily: "GoogleSans"),
                           ),
                           SizedBox(
                             height: 8,
@@ -184,7 +184,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
-                              fontFamily: "Bitter"),
+                              fontFamily: "GoogleSans"),
                         ),
                         SizedBox(
                           height: 8,
@@ -213,7 +213,7 @@ class SingleDiseaseHistory extends StatelessWidget {
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                fontFamily: "Bitter")),
+                fontFamily: "GoogleSans")),
         SizedBox(height: 10),
         ListView.builder(
           shrinkWrap: true,
@@ -237,7 +237,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Bitter")),
+                      fontFamily: "GoogleSans")),
               subtitle: Text(
                   '${product.category ?? 'N/A'} - ${product.price ?? 'N/A'}',
                   style: TextStyle(

@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
         title: Text(
           "Profile".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -65,14 +65,14 @@ class ProfileScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      fontFamily: "Bitter"),
+                      fontFamily: "GoogleSans"),
                 ),
                 Text(
                   '8800228800',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      fontFamily: "NotoSans"),
+                      fontFamily: "GoogleSans"),
                 ),
               ],
             ),
@@ -122,12 +122,12 @@ class ProfileScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    fontFamily: "NotoSans"),
+                    fontFamily: "GoogleSans"),
               ),
               Text(nativeText, style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  fontFamily: "NotoSans"),),
+                  fontFamily: "GoogleSans"),),
             ],
           ),
         ),
@@ -147,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
           title: Text("Notification", style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: "NotoSans"),),
+              fontFamily: "GoogleSans"),),
           trailing: Switch.adaptive(
               activeColor: Colors.green,
               value: true,
@@ -159,7 +159,7 @@ class ProfileScreen extends StatelessWidget {
           title: Text("Turn off SMS", style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: "NotoSans"),),
+              fontFamily: "GoogleSans"),),
           trailing: Switch.adaptive(
               activeColor: Colors.green,
               value: true,
@@ -180,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
       title: Text(title, style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          fontFamily: "NotoSans"),),
+          fontFamily: "GoogleSans"),),
       trailing: Icon(Icons.arrow_forward_ios_outlined, size: 16),
       onTap: null,
     );

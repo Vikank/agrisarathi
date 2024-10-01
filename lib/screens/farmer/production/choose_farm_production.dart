@@ -23,7 +23,7 @@ class ChooseFarmProduction extends StatelessWidget {
         title: Text(
           "Farm_land".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -33,7 +33,7 @@ class ChooseFarmProduction extends StatelessWidget {
             Text(
               "farms".tr,
               style: TextStyle(
-                fontFamily: "Bitter",
+                fontFamily: "GoogleSans",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -117,7 +117,7 @@ class ChooseFarmProduction extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "NotoSans",
+                                  fontFamily: "GoogleSans",
                                   color: Colors.black),
                             ),
                             Text(
@@ -125,7 +125,7 @@ class ChooseFarmProduction extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: "NotoSans"),
+                                  fontFamily: "GoogleSans"),
                             ),
                           ],
                         ),
@@ -159,7 +159,7 @@ class ChooseFarmProduction extends StatelessWidget {
             //       child: Text(
             //         "Another_crop".tr,
             //         style: TextStyle(
-            //             fontFamily: "NotoSans",
+            //             fontFamily: "GoogleSans",
             //             fontSize: 12,
             //             fontWeight: FontWeight.w500),
             //       ),

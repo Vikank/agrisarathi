@@ -20,7 +20,7 @@ class FormattedTreatmentText extends StatelessWidget {
             padding: EdgeInsets.only(top: 16),
             child: Text(
               parts[0],
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, fontFamily: "Bitter"),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, fontFamily: "GoogleSans"),
             ),
           ),
         );

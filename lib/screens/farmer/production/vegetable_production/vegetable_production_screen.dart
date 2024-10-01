@@ -21,7 +21,7 @@ class VegetableStagesScreen extends StatelessWidget {
         title: Text(
           'Vegetable_Production'.tr,
           style: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -67,7 +67,7 @@ class VegetableStagesScreen extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                fontFamily: "Bitter"),
+                fontFamily: "GoogleSans"),
           ),
           const SizedBox(height: 8),
           LinearProgressIndicator(
@@ -107,7 +107,7 @@ class VegetableStagesScreen extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                fontFamily: "Bitter"),
+                fontFamily: "GoogleSans"),
           ),
           Obx(() {
             if (controller.chewieController.value == null) {
@@ -140,7 +140,7 @@ class VegetableStagesScreen extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      fontFamily: "NotoSans"),
+                      fontFamily: "GoogleSans"),
                 ),
               ),
               Column(
@@ -186,7 +186,7 @@ class VegetableStagesScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    fontFamily: "Bitter")),
+                    fontFamily: "GoogleSans")),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -235,7 +235,7 @@ class VegetableStagesScreen extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              fontFamily: "Bitter")),
+                              fontFamily: "GoogleSans")),
                       const SizedBox(
                         height: 5,
                       ),
@@ -243,7 +243,7 @@ class VegetableStagesScreen extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
-                              fontFamily: "NotoSans")),
+                              fontFamily: "GoogleSans")),
                       const SizedBox(
                         height: 5,
                       ),
@@ -251,7 +251,7 @@ class VegetableStagesScreen extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              fontFamily: "NotoSans",
+                              fontFamily: "GoogleSans",
                               color: Colors.green)),
                     ],
                   ),
@@ -272,7 +272,7 @@ class VegetableStagesScreen extends StatelessWidget {
           style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
-              fontFamily: "NotoSans",
+              fontFamily: "GoogleSans",
               color: Colors.green)),
     );
   }

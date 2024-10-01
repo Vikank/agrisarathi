@@ -24,7 +24,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Select_Crop'.tr,
-          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -47,7 +47,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                           fillColor: ColorConstants.textFieldBgClr,
                           prefixIcon: const Icon(Icons.search),
                           hintText: "Search_crop_name_here".tr,
-                          hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
+                          hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans')
                       ),
                     ),
                   ),
@@ -141,7 +141,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Colors.black,
-                          fontFamily: 'NotoSans'),
+                          fontFamily: 'GoogleSans'),
                     ),
                     selected:
                     controller.selectedCategory.value == 'CerealField',
@@ -159,7 +159,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Pulse',
                     selectedColor: Colors.green,
@@ -176,7 +176,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Fruit',
                     selectedColor: Colors.green,
@@ -193,7 +193,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Vegetable',
                     selectedColor: Colors.green,
@@ -288,7 +288,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                           Text(
                             crop.cropName,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans'),
                           )
                         ],
                       );
@@ -320,7 +320,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                         Text(
                           "Have_you_got_your_soil_tested".tr,
                           style: TextStyle(
-                              fontFamily: "Bitter",
+                              fontFamily: "GoogleSans",
                               fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),
@@ -337,7 +337,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                                 child: Text("No".tr, style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
-                                    fontFamily: "NotoSans"
+                                    fontFamily: "GoogleSans"
                                 ),),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0XFFE0E0E0),
@@ -360,7 +360,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                                 child: Text("Yes".tr, style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
-                                    fontFamily: "NotoSans"
+                                    fontFamily: "GoogleSans"
                                 ),),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: ColorConstants.primaryColor,
@@ -383,7 +383,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
             widget: Text(
               "Next".tr,
               style: TextStyle(
-                  fontFamily: 'NotoSans',
+                  fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),

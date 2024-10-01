@@ -17,7 +17,7 @@ class SchemeListView extends StatelessWidget {
         title: Text(
           "gov_scheme".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -73,7 +73,7 @@ class SchemeListView extends StatelessWidget {
                   Text(
                     sourceName,
                     style: TextStyle(
-                        fontFamily: "NotoSans",
+                        fontFamily: "GoogleSans",
                         fontSize: 12,
                         fontWeight: FontWeight.bold),
                   )
@@ -133,12 +133,12 @@ class SchemeListView extends StatelessWidget {
                   children: [
                     Text(
                       scheme.schemeName ?? "",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "NotoSans", fontSize: 12),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "GoogleSans", fontSize: 12),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 8),
-                    Text(scheme.ministryName ?? "", style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "NotoSans", fontSize: 12),),
+                    Text(scheme.ministryName ?? "", style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "GoogleSans", fontSize: 12),),
                   ],
                 ),
               ),

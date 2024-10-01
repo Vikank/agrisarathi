@@ -25,7 +25,7 @@ class ChooseAnotherCrop extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Select_Crop'.tr,
-          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -48,7 +48,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                           fillColor: ColorConstants.textFieldBgClr,
                           prefixIcon: const Icon(Icons.search),
                           hintText: "Search_crop_name_here".tr,
-                          hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
+                          hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans')
                       ),
                     ),
                   ),
@@ -142,7 +142,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Colors.black,
-                          fontFamily: 'NotoSans'),
+                          fontFamily: 'GoogleSans'),
                     ),
                     selected:
                     controller.selectedCategory.value == 'CerealField',
@@ -160,7 +160,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Pulse',
                     selectedColor: Colors.green,
@@ -177,7 +177,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Fruit',
                     selectedColor: Colors.green,
@@ -194,7 +194,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
-                          color: Colors.black, fontFamily: 'NotoSans'),
+                          color: Colors.black, fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == 'Vegetable',
                     selectedColor: Colors.green,
@@ -289,7 +289,7 @@ class ChooseAnotherCrop extends StatelessWidget {
                           Text(
                             crop.cropName,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans'),
                           )
                         ],
                       );
@@ -316,7 +316,7 @@ class ChooseAnotherCrop extends StatelessWidget {
             widget: Text(
               "Next".tr,
               style: TextStyle(
-                  fontFamily: 'NotoSans',
+                  fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),

@@ -49,7 +49,7 @@ class OtpScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
-                      .copyWith(fontFamily: 'Bitter')),
+                      .copyWith(fontFamily: 'GoogleSans')),
               SizedBox(height: 4),
               Text(
                 '${'OTP_has_been_sent_to'.tr} $phone',
@@ -57,7 +57,7 @@ class OtpScreen extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium!
-                    .copyWith(fontFamily: 'NotoSans'),
+                    .copyWith(fontFamily: 'GoogleSans'),
               ),
               SizedBox(height: 4),
               Obx(
@@ -69,7 +69,7 @@ class OtpScreen extends StatelessWidget {
                           'Resend',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.green, fontFamily: 'NotoSans'),
+                              color: Colors.green, fontFamily: 'GoogleSans'),
                         ),
                       )
                     : Text(
@@ -133,7 +133,7 @@ class OtpScreen extends StatelessWidget {
                         : Text(
                             "verify_otp".tr,
                             style: TextStyle(
-                                fontFamily: 'NotoSans',
+                                fontFamily: 'GoogleSans',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500),
                           ),

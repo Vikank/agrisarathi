@@ -38,7 +38,7 @@ class SingleCropSuggestion extends StatelessWidget {
         title: Text(
           "Crop Suggestion".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Obx(() {
@@ -63,7 +63,7 @@ class SingleCropSuggestion extends StatelessWidget {
                     children: [
                       Text(
                         crop.cropName ?? '',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),
                       ),
                       Spacer(),
                       Obx(() => IconButton(
@@ -85,7 +85,7 @@ class SingleCropSuggestion extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16),
-                Text(formatDescription(crop.description ?? ''), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans")),
+                Text(formatDescription(crop.description ?? ''), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "GoogleSans")),
                 SizedBox(height: 16),
                 _buildInfoSection('Requirement', [
                   'Weather: ${crop.weatherTemperature ?? ''}',
@@ -108,11 +108,11 @@ class SingleCropSuggestion extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter")),
+        Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans")),
         SizedBox(height: 8),
         ...items.map((item) => Padding(
           padding: EdgeInsets.only(bottom: 4),
-          child: Text(item, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "NotoSans"),),
+          child: Text(item, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "GoogleSans"),),
         )).toList(),
       ],
     );

@@ -23,7 +23,7 @@ class SelectCropScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Select_Crop'.tr,
-          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'Bitter'),
+          style: TextStyle(fontSize:16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans'),
         ),
         elevation: 3,
         shadowColor: Colors.black.withOpacity(0.3),
@@ -46,7 +46,7 @@ class SelectCropScreen extends StatelessWidget {
             //             fillColor: ColorConstants.textFieldBgClr,
             //             prefixIcon: const Icon(Icons.search),
             //             hintText: "Search_crop_name_here".tr,
-            //             hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans')
+            //             hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans')
             //           ),
             //         ),
             //       ),
@@ -58,7 +58,7 @@ class SelectCropScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'You_can_select_upto_1_crops_you_are_interested_in'.tr,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans'),
               ),
             ),
             SizedBox(
@@ -148,7 +148,7 @@ class SelectCropScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Colors.black,
-                          fontFamily: 'NotoSans'),
+                          fontFamily: 'GoogleSans'),
                     ),
                     selected: controller.selectedCategory.value == category,
                     selectedColor: Colors.green,
@@ -242,7 +242,7 @@ class SelectCropScreen extends StatelessWidget {
                                 Text(
                                   crop.cropName,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'NotoSans'),
+                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'GoogleSans'),
                                 )
                               ],
                             );
@@ -277,7 +277,7 @@ class SelectCropScreen extends StatelessWidget {
             widget: Text(
               "Next".tr,
               style: TextStyle(
-                  fontFamily: 'NotoSans',
+                  fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),

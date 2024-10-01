@@ -19,7 +19,7 @@ class NewsListView extends StatelessWidget {
         title: Text(
           "News".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -38,7 +38,7 @@ class NewsListView extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        fontFamily: "Bitter"),
+                        fontFamily: "GoogleSans"),
                   ))),
             ),
             if (controller.isLoadingMore.value)
@@ -89,7 +89,7 @@ class NewsListView extends StatelessWidget {
                   Text(
                     sourceName,
                     style: TextStyle(
-                        fontFamily: "NotoSans",
+                        fontFamily: "GoogleSans",
                         fontSize: 12,
                         fontWeight: FontWeight.bold),
                   )
@@ -160,7 +160,7 @@ class NewsListView extends StatelessWidget {
                         article.title ?? "",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: "NotoSans",
+                            fontFamily: "GoogleSans",
                             fontSize: 12),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -170,7 +170,7 @@ class NewsListView extends StatelessWidget {
                         '${HelperFunctions().formatDate(article.publishDate)}',
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: "NotoSans",
+                            fontFamily: "GoogleSans",
                             fontSize: 12),
                       ),
                     ],

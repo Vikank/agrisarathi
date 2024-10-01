@@ -52,7 +52,7 @@ class CommentBottomSheet extends StatelessWidget {
               child: const Text(
                 "Comments",
                 style: TextStyle(
-                    fontFamily: "Bitter",
+                    fontFamily: "GoogleSans",
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
                     color: Colors.black),
@@ -153,7 +153,7 @@ class CommentTile extends StatelessWidget {
                           Text(
                             comment.userName,
                             style: const TextStyle(
-                              fontFamily: "NotoSans",
+                              fontFamily: "GoogleSans",
                               fontWeight: FontWeight.w500,
                               fontSize: 12,
                               color: Colors.black,
@@ -162,7 +162,7 @@ class CommentTile extends StatelessWidget {
                           Text(
                             HelperFunctions().formatDate(comment.createdDate),
                             style: const TextStyle(
-                              fontFamily: "NotoSans",
+                              fontFamily: "GoogleSans",
                               fontWeight: FontWeight.w400,
                               fontSize: 10,
                               color: Colors.black,
@@ -173,7 +173,7 @@ class CommentTile extends StatelessWidget {
                       Divider(),
                       Text(comment.postComment,
                           style: const TextStyle(
-                            fontFamily: "NotoSans",
+                            fontFamily: "GoogleSans",
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                             color: Color(0xff262626),
@@ -184,7 +184,7 @@ class CommentTile extends StatelessWidget {
                 TextButton(
                   child: const Text('Reply',
                     style: const TextStyle(
-                      fontFamily: "NotoSans",
+                      fontFamily: "GoogleSans",
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                       color: Colors.black,

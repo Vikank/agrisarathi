@@ -17,7 +17,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
         title: Text(
           "Fertilizer_Calculator".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: SingleChildScrollView(
@@ -45,7 +45,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
             width: double.infinity,
             color: Colors.green[50],
             child: Text('No. of Bags',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),),),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),),),
         SizedBox(height: 10),
         Obx(() {
           if (controller.isLoading.value) {
@@ -97,7 +97,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             cell,
-            style: TextStyle(fontWeight: isHeader ? FontWeight.w500 : FontWeight.w400, fontFamily: "NotoSans", fontSize: isHeader ? 14 : 12),
+            style: TextStyle(fontWeight: isHeader ? FontWeight.w500 : FontWeight.w400, fontFamily: "GoogleSans", fontSize: isHeader ? 14 : 12),
             textAlign: TextAlign.center,
           ),
         ),
@@ -115,11 +115,11 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
           children: [
             Text(
               'Already have some stock',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "Bitter"),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),
             ),
             SizedBox(height: 8),
             Text('Do you have any stock already with you, then calculate how much you need now',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: "NotoSans"),),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: "GoogleSans"),),
             SizedBox(height: 16),
             Row(
               children: [
@@ -127,7 +127,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
                   onPressed: () {
                   Get.to(()=>AdvancedFertilizerCalculatorScreen(cropId: cropId, landId: landId,));
                 },
-                  child: Text('CALCULATE', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "NotoSans"),),
+                  child: Text('CALCULATE', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "GoogleSans"),),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),

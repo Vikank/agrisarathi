@@ -30,7 +30,7 @@ class SelectCropPart extends StatelessWidget {
         title: Text(
           "Crop_part".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -98,7 +98,7 @@ class SelectCropPart extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "NotoSans",
+                          fontFamily: "GoogleSans",
                           color: Colors.black),
                     ),
                   ],
@@ -140,7 +140,7 @@ class SelectCropPart extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "NotoSans",
+                          fontFamily: "GoogleSans",
                           color: Colors.black),
                     ),
                   ],

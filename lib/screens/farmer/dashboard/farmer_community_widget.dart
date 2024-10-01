@@ -71,7 +71,7 @@ class CommunityPostCard extends StatelessWidget {
             title: Text(
               post.userName!,
               style: const TextStyle(
-                fontFamily: "NotoSans",
+                fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
               ),
@@ -79,7 +79,7 @@ class CommunityPostCard extends StatelessWidget {
             subtitle: Text(
               HelperFunctions().formatDate(post.createdDate),
               style: const TextStyle(
-                fontFamily: "NotoSans",
+                fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w400,
                 fontSize: 10,
               ),
@@ -90,7 +90,7 @@ class CommunityPostCard extends StatelessWidget {
             child: Text(
               post.description ?? "",
               style: const TextStyle(
-                fontFamily: "NotoSans",
+                fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
               ),
@@ -144,7 +144,7 @@ class CommunityPostCard extends StatelessWidget {
               Text(
                 "${post.likeCount} Likes",
                 style: const TextStyle(
-                  fontFamily: "NotoSans",
+                  fontFamily: "GoogleSans",
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                   color: Color(0xff262626),
@@ -153,7 +153,7 @@ class CommunityPostCard extends StatelessWidget {
               Text(
                 "${post.comments.length} Comments",
                 style: const TextStyle(
-                  fontFamily: "NotoSans",
+                  fontFamily: "GoogleSans",
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                   color: Color(0xff262626),
@@ -178,7 +178,7 @@ class CommunityPostCard extends StatelessWidget {
                     label: Text(
                       isLiked.value ? "Unlike" : "Like",
                       style: const TextStyle(
-                        fontFamily: "NotoSans",
+                        fontFamily: "GoogleSans",
                         fontWeight: FontWeight.w400,
                         fontSize: 10,
                         color: Colors.black,
@@ -203,7 +203,7 @@ class CommunityPostCard extends StatelessWidget {
                 label: const Text(
                   'Comment',
                   style: TextStyle(
-                    fontFamily: "NotoSans",
+                    fontFamily: "GoogleSans",
                     fontWeight: FontWeight.w400,
                     fontSize: 10,
                     color: Colors.black,

@@ -17,7 +17,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("farmer_detail".tr, style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter')),
+            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans')),
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
@@ -36,7 +36,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 .textTheme
                 .labelMedium!
                 .copyWith(
-                fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
+                fontFamily: 'GoogleSans', color: ColorConstants.primaryColor),),
             SizedBox(height: 8,),
             TextFormField(
               controller: controller.nameController,
@@ -59,7 +59,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                         .of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(fontFamily: 'Bitter',
+                        .copyWith(fontFamily: 'GoogleSans',
                         color: ColorConstants.primaryColor),),
                     SizedBox(height: 8,),
                     TextFormField(
@@ -69,7 +69,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                         const TextStyle(fontWeight: FontWeight.w400,
                             color: Colors.grey,
                             fontSize: 16,
-                            fontFamily: 'NotoSans'
+                            fontFamily: 'GoogleSans'
                         ),
                         hintText: "Company Name",
                       ),
@@ -84,7 +84,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
                 .textTheme
                 .labelMedium!
                 .copyWith(
-                fontFamily: 'Bitter', color: ColorConstants.primaryColor),),
+                fontFamily: 'GoogleSans', color: ColorConstants.primaryColor),),
             SizedBox(height: 8,),
             TextFormField(
               controller: controller.emailController,
@@ -116,7 +116,7 @@ class FarmerUpdateProfileScreen extends StatelessWidget {
               controller.updateFarmerDetail();
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "Save".tr,
-              style: TextStyle(fontFamily: 'NotoSans',
+              style: TextStyle(fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),),

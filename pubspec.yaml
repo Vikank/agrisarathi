@@ -70,17 +70,17 @@ flutter:
 
 
   fonts:
-    - family: Roboto
+    - family: GoogleSans
       fonts:
-        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/GoogleSans-Regular.ttf
 
-    - family: Bitter
+    - family: GoogleSans
       fonts:
-        - asset: fonts/Bitter-Regular.ttf
+        - asset: fonts/GoogleSans-Regular.ttf
 
-    - family: NotoSans
+    - family: GoogleSans
       fonts:
-        - asset: fonts/NotoSans-Regular.ttf
+        - asset: fonts/GoogleSans-Regular.ttf
 
     - family: OpenSans
       fonts:

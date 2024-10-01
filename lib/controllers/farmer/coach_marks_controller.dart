@@ -7,7 +7,7 @@ class CoachMarksController extends GetxController{
   final List<TargetFocus> targets = <TargetFocus>[];
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
-  // var farmCoachKey = GlobalKey();
+  final farmCoachKey = GlobalKey();
   // var weatherCoachKey = GlobalKey();
   final productionCoachKey = GlobalKey();
   final fertilizerCoachKey = GlobalKey();
@@ -24,19 +24,19 @@ class CoachMarksController extends GetxController{
 
   void createTargets() {
     targets.addAll([
-      // TargetFocus(
-      //   identify: "farmCoachKey",
-      //   keyTarget: farmCoachKey,
-      //   contents: [
-      //     TargetContent(
-      //       align: ContentAlign.bottom,
-      //       child: Text(
-      //         "You_can_select_and_add_more_Farms_here".tr,
-      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
-      //       ),
-      //     ),
-      //   ],
-      // ),
+      TargetFocus(
+        identify: "farmCoachKey",
+        keyTarget: farmCoachKey,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              "You_can_select_and_add_more_Farms_here".tr,
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
+            ),
+          ),
+        ],
+      ),
       // TargetFocus(
       //   identify: "weatherCoachKey",
       //   keyTarget: weatherCoachKey,
@@ -45,7 +45,7 @@ class CoachMarksController extends GetxController{
       //       align: ContentAlign.bottom,
       //       child: Text(
       //         "Here_you_can_check_weather_and_get_update".tr,
-      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
       //       ),
       //     ),
       //   ],
@@ -58,7 +58,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "Add_your_details_and_get_info".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -71,7 +71,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "You_can_calculate_the_amount_of_fertilizer_to_be_added_in_your_field_according_to_its_stage".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -84,7 +84,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "You_can_detect_disease_by_clicking_its_pic".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -97,7 +97,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "From_here_you_can_book_for_soil_testing".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -110,7 +110,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "All_Helpline_numbers_available_from_govt_side".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -123,7 +123,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: Text(
               "Community_forum_to_discuss_problems".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],
@@ -136,7 +136,7 @@ class CoachMarksController extends GetxController{
             align: ContentAlign.bottom,
             child: const Text(
               "You_can_get_information_of_shops_products_mandi_prices",
-              style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "NotoSans"),
+              style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
             ),
           ),
         ],

@@ -42,7 +42,7 @@ class FarmerLoginScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
-                      .copyWith(fontFamily: 'Bitter'),
+                      .copyWith(fontFamily: 'GoogleSans'),
                 ),
               ),
               const SizedBox(
@@ -53,7 +53,7 @@ class FarmerLoginScreen extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium!
-                        .copyWith(fontFamily: 'NotoSans')),
+                        .copyWith(fontFamily: 'GoogleSans')),
               ),
               const SizedBox(
                 height: 52,
@@ -62,7 +62,7 @@ class FarmerLoginScreen extends StatelessWidget {
                 children: [
                   Text("Enter_your_Mobile_Number".tr,
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontFamily: 'NotoSans',
+                          fontFamily: 'GoogleSans',
                           color: ColorConstants.fieldNameColor)),
                 ],
               ),
@@ -92,7 +92,7 @@ class FarmerLoginScreen extends StatelessWidget {
                           : Text(
                               "Send_otp".tr,
                               style: const TextStyle(
-                                  fontFamily: 'NotoSans',
+                                  fontFamily: 'GoogleSans',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -121,7 +121,7 @@ class FarmerLoginScreen extends StatelessWidget {
                       color: Colors.green,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      fontFamily: "Bitter"),
+                      fontFamily: "GoogleSans"),
                 ),
               )
             ],

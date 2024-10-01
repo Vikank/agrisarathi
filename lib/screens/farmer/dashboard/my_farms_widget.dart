@@ -83,7 +83,7 @@ class MyFarmsWidget extends StatelessWidget {
                                   style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
-                                      fontFamily: "Bitter"),
+                                      fontFamily: "GoogleSans"),
                                 ),
                                 SizedBox(height: 5,),
                                 Text(
@@ -94,7 +94,7 @@ class MyFarmsWidget extends StatelessWidget {
                                   style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily: "NotoSans"),
+                                      fontFamily: "GoogleSans"),
                                 ),
                               ],
                             ),

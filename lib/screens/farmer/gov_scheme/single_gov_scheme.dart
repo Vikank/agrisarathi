@@ -18,7 +18,7 @@ class SingleSchemeScreen extends StatelessWidget {
         title: Text(
           "gov_scheme".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -31,7 +31,7 @@ class SingleSchemeScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                fontFamily: "Bitter"
+                fontFamily: "GoogleSans"
               ),
             ),
             SizedBox(height: 8),
@@ -40,7 +40,7 @@ class SingleSchemeScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  fontFamily: "NotoSans"
+                  fontFamily: "GoogleSans"
               ),
             ),
             SizedBox(
@@ -123,42 +123,42 @@ class SingleSchemeScreen extends StatelessWidget {
   Widget detailsTab(String details){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(details, style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(details, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 
   Widget benefitsTab(String benefits){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(benefits, style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(benefits, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 
   Widget eligibilityTab(String eligibility){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(eligibility, style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(eligibility, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 
   Widget applicationProcessTab(String applicationProcess){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(applicationProcess, style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(applicationProcess, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 
   Widget documentRequiredTab(String documentRequire){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(documentRequire, style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(documentRequire, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 
   Widget schemeLinksTab(String links){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(links ?? "No data available", style: TextStyle(fontFamily: "NotoSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(links ?? "No data available", style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 }

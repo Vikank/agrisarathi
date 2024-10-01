@@ -28,7 +28,7 @@ class FarmerAddressDetail extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                fontFamily: 'Bitter')),
+                fontFamily: 'GoogleSans')),
         // centerTitle: true,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
@@ -47,7 +47,7 @@ class FarmerAddressDetail extends StatelessWidget {
               children: [
                 Text("Add_Address".tr,
                     style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        fontFamily: 'Bitter',
+                        fontFamily: 'GoogleSans',
                         color: ColorConstants.primaryColor)),
                 SizedBox(
                   height: 24,
@@ -64,7 +64,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
                       fontSize: 12,
-                      fontFamily: 'NotoSans',
+                      fontFamily: 'GoogleSans',
                     ),
                     hintText: "Address_Line_1".tr,
                   ),
@@ -94,7 +94,7 @@ class FarmerAddressDetail extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             color: Colors.grey,
                             fontSize: 12,
-                            fontFamily: 'NotoSans',
+                            fontFamily: 'GoogleSans',
                           ),
                           hintText: "Pin_Code".tr,
                         ),
@@ -125,7 +125,7 @@ class FarmerAddressDetail extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: Colors.grey,
                               fontSize: 12,
-                              fontFamily: 'NotoSans',
+                              fontFamily: 'GoogleSans',
                             ),
                           ),
                           validator: (value) {
@@ -178,7 +178,7 @@ class FarmerAddressDetail extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: Colors.grey,
                               fontSize: 12,
-                              fontFamily: 'NotoSans',
+                              fontFamily: 'GoogleSans',
                             ),
                           ),
                           // validator: (value) {
@@ -225,7 +225,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
                       fontSize: 12,
-                      fontFamily: 'NotoSans',
+                      fontFamily: 'GoogleSans',
                     ),
                     hintText: "Village".tr,
                   ),
@@ -241,7 +241,7 @@ class FarmerAddressDetail extends StatelessWidget {
                 ),
                 Text("Add_Land_Area".tr,
                     style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        fontFamily: 'Bitter',
+                        fontFamily: 'GoogleSans',
                         color: ColorConstants.primaryColor)),
                 TextFormField(
                   controller: farmerAddressController.landArea,
@@ -255,7 +255,7 @@ class FarmerAddressDetail extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
                       fontSize: 12,
-                      fontFamily: 'NotoSans',
+                      fontFamily: 'GoogleSans',
                     ),
                     hintText: "Field_area_in_acres".tr,
                   ),
@@ -323,7 +323,7 @@ class FarmerAddressDetail extends StatelessWidget {
                   : Text(
                       "Next".tr,
                       style: TextStyle(
-                          fontFamily: 'NotoSans',
+                          fontFamily: 'GoogleSans',
                           fontSize: 15,
                           fontWeight: FontWeight.w500),
                     ),

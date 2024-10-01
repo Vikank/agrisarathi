@@ -137,7 +137,7 @@ class SubmitTaskPopup extends StatelessWidget {
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                              fontFamily: "Bitter")),
+                              fontFamily: "GoogleSans")),
                     ],
                   ),
                 ),
@@ -151,7 +151,7 @@ class SubmitTaskPopup extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    fontFamily: "NotoSans",
+                    fontFamily: "GoogleSans",
                     color: Colors.black)),
             SizedBox(
               height: 16,
@@ -173,7 +173,7 @@ class SubmitTaskPopup extends StatelessWidget {
                               fontSize: 16,
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.w400,
-                              fontFamily: "NotoSans",
+                              fontFamily: "GoogleSans",
                               color: Colors.green)),
                         ],
                       )),

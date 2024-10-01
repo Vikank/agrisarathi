@@ -19,7 +19,7 @@ class CropSuggestion extends StatelessWidget {
         title: Text(
           "Crop Suggestion".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Obx(() {
@@ -98,7 +98,7 @@ class CropSuggestion extends StatelessWidget {
                       Text(crop.cropName ?? '', style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          fontFamily: "NotoSans"
+                          fontFamily: "GoogleSans"
                       ),),
                     ],
                   ),

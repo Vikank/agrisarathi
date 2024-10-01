@@ -19,7 +19,7 @@ class SelectSowing extends StatelessWidget {
         title: Text(
           "sowing".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: SingleChildScrollView(
@@ -36,7 +36,7 @@ class SelectSowing extends StatelessWidget {
                   child: Text(
                 "sowing_date".tr,
                 style: TextStyle(
-                    fontFamily: "Bitter",
+                    fontFamily: "GoogleSans",
                     fontSize: 16,
                     fontWeight: FontWeight.w700),
               )),
@@ -47,7 +47,7 @@ class SelectSowing extends StatelessWidget {
                   child: Text(
                 "sowing_date_des".tr,
                 style: TextStyle(
-                    fontFamily: "NotoSans",
+                    fontFamily: "GoogleSans",
                     fontSize: 10,
                     fontWeight: FontWeight.w400),
               )),
@@ -70,7 +70,7 @@ class SelectSowing extends StatelessWidget {
               Text(
                 "sowing_date".tr,
                 style: TextStyle(
-                    fontFamily: "NotoSans",
+                    fontFamily: "GoogleSans",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: Colors.green),
@@ -89,7 +89,7 @@ class SelectSowing extends StatelessWidget {
                           ? 'DD/MM/YYYY'
                           : controller.selectedDateForUI.value,
                       hintStyle: TextStyle(
-                          fontFamily: "NotoSans",
+                          fontFamily: "GoogleSans",
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
@@ -117,7 +117,7 @@ class SelectSowing extends StatelessWidget {
               controller.submitSowingDate(landId, filterId);
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "NEXT",
-              style: TextStyle(fontFamily: 'Roboto',
+              style: TextStyle(fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),),

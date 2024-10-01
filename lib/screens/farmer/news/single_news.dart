@@ -20,7 +20,7 @@ class SingleNewsScreen extends StatelessWidget {
         title: Text(
           "News_Details".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: SingleChildScrollView(
@@ -34,7 +34,7 @@ class SingleNewsScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  fontFamily: "Bitter"
+                  fontFamily: "GoogleSans"
                 ),
               ),
               SizedBox(height: 8),

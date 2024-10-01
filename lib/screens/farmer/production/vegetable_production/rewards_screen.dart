@@ -39,7 +39,7 @@ class RewardsScreen extends StatelessWidget {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text('Rewards', style: const TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Bitter', color: Colors.white),),
+            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans', color: Colors.white),),
       ),
       body: SafeArea(
         child: Column(
@@ -64,7 +64,7 @@ class RewardsScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          fontFamily: "Bitter"
+                          fontFamily: "GoogleSans"
                         ),
                       ),
                       SizedBox(height: 10),
@@ -73,12 +73,12 @@ class RewardsScreen extends StatelessWidget {
                       Text(
                         'Bravo! You were awarded ${controller.coins} Coins.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12, fontFamily: "NotoSans", fontWeight: FontWeight.w400),
+                        style: TextStyle(fontSize: 12, fontFamily: "GoogleSans", fontWeight: FontWeight.w400),
                       ),
                       Text(
                         'Get additional coins by finishing the next Stages!',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12, fontFamily: "NotoSans", fontWeight: FontWeight.w400),
+                        style: TextStyle(fontSize: 12, fontFamily: "GoogleSans", fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
@@ -90,7 +90,7 @@ class RewardsScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomElevatedButton(
-                  buttonColor: Colors.white, onPress: () { controller.onContinuePressed(); }, widget: Text('CONTINUE', style: TextStyle(fontSize: 15, fontFamily: "NotoSans", fontWeight: FontWeight.w500, color: Colors.green),),
+                  buttonColor: Colors.white, onPress: () { controller.onContinuePressed(); }, widget: Text('CONTINUE', style: TextStyle(fontSize: 15, fontFamily: "GoogleSans", fontWeight: FontWeight.w500, color: Colors.green),),
                 ),
               ),
             ),

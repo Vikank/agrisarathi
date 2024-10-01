@@ -48,6 +48,7 @@ class FarmerHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(fontWeight: FontWeight.w700, fontFamily: "GoogleSans", fontSize: 16, color: Colors.black),
         title: Obx(() {
           return _textOptions.elementAt(controller.selectedIndex.value);
         }),
@@ -98,7 +99,7 @@ class FarmerHomeScreen extends StatelessWidget {
                         Text(
                           "${farmerDetails?.coins ?? ""}",
                           style: const TextStyle(
-                              fontFamily: 'NotoSans',
+                              fontFamily: 'GoogleSans',
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
                         ),
@@ -158,7 +159,7 @@ class FarmerHomeScreen extends StatelessWidget {
                   title: Text(
                     'Diagnosis'.tr,
                     style: TextStyle(
-                        fontFamily: "Bitter",
+                        fontFamily: "GoogleSans",
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
@@ -176,7 +177,7 @@ class FarmerHomeScreen extends StatelessWidget {
                   title: Text(
                     'Rewards'.tr,
                     style: TextStyle(
-                        fontFamily: "Bitter",
+                        fontFamily: "GoogleSans",
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
@@ -195,7 +196,7 @@ class FarmerHomeScreen extends StatelessWidget {
                   title: Text(
                     'Crop_Suggestion'.tr,
                     style: TextStyle(
-                        fontFamily: "Bitter",
+                        fontFamily: "GoogleSans",
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
@@ -213,7 +214,7 @@ class FarmerHomeScreen extends StatelessWidget {
                   title: Text(
                     'Profile'.tr,
                     style: TextStyle(
-                        fontFamily: "Bitter",
+                        fontFamily: "GoogleSans",
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
@@ -232,7 +233,7 @@ class FarmerHomeScreen extends StatelessWidget {
                   title: Text(
                     'Log out'.tr,
                     style: TextStyle(
-                        fontFamily: "Bitter",
+                        fontFamily: "GoogleSans",
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
@@ -300,12 +301,12 @@ class FarmerHomeScreen extends StatelessWidget {
               color: Colors.green,
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Roboto'),
+              fontFamily: 'GoogleSans'),
           unselectedLabelStyle: const TextStyle(
-              color: Colors.black,
+              color: Color(0xff263238),
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Roboto'),
+              fontFamily: 'GoogleSans'),
           onTap: controller.updateSelectedIndex,
         );
       }),

@@ -36,7 +36,7 @@ class RoleScreen extends StatelessWidget {
                 style: Theme
                     .of(context)
                     .textTheme
-                    .headlineLarge!.copyWith(fontFamily: 'Bitter'),
+                    .headlineLarge!.copyWith(fontFamily: 'GoogleSans'),
               ),
               SizedBox(
                 height: 52,
@@ -45,7 +45,7 @@ class RoleScreen extends StatelessWidget {
                 buttonColor: Colors.green, onPress: () {
                 selectRoleController.setUserRole("FARMER");
                   Get.to(()=> FarmerLoginScreen());
-              }, widget: Text("Farmer".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
+              }, widget: Text("Farmer".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'GoogleSans'),),),
 
               SizedBox(
                 height: 24,
@@ -54,7 +54,7 @@ class RoleScreen extends StatelessWidget {
                 buttonColor: Colors.green, onPress: () {
                 selectRoleController.setUserRole("FPO");
                 Get.to(()=> LoginScreen());
-              }, widget: Text("Fpo".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'NotoSans'),),),
+              }, widget: Text("Fpo".tr, style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white, fontFamily: 'GoogleSans'),),),
               SizedBox(
                 height: 5,
               ),

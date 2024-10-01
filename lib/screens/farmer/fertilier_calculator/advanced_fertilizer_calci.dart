@@ -19,7 +19,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
         title: Text(
           "Fertilizer_Calculator".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: SingleChildScrollView(
@@ -54,7 +54,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                fontFamily: "Bitter"),
+                fontFamily: "GoogleSans"),
           ),
         ),
         SizedBox(height: 10),
@@ -75,7 +75,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: "NotoSans"),
+                  fontFamily: "GoogleSans"),
             ),
           ),
         ),
@@ -93,7 +93,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
             labelText: label,
             hintText: "0",
             labelStyle: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Bitter")
+                fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "GoogleSans")
             // border: OutlineInputBorder(),
             ),
       ),
@@ -114,7 +114,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                fontFamily: "Bitter"),
+                fontFamily: "GoogleSans"),
           ),
         ),
         SizedBox(height: 10),
@@ -215,7 +215,7 @@ class AdvancedFertilizerCalculatorScreen extends StatelessWidget {
                           : isFooter
                               ? FontWeight.w700
                               : FontWeight.w400,
-                      fontFamily: "NotoSans",
+                      fontFamily: "GoogleSans",
                       fontSize: isHeader ? 14 : 12,
                     ),
                     textAlign: TextAlign.center,

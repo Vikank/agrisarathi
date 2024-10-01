@@ -26,7 +26,7 @@ class FarmForFertilizer extends StatelessWidget {
         title: Text(
           "Farm_land".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -36,7 +36,7 @@ class FarmForFertilizer extends StatelessWidget {
             Text(
               "farms".tr,
               style: TextStyle(
-                fontFamily: "Bitter",
+                fontFamily: "GoogleSans",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -68,7 +68,7 @@ class FarmForFertilizer extends StatelessWidget {
                               Text(
                                 "Have_you_got_your_soil_tested".tr,
                                 style: TextStyle(
-                                    fontFamily: "Bitter",
+                                    fontFamily: "GoogleSans",
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -89,7 +89,7 @@ class FarmForFertilizer extends StatelessWidget {
                                       child: Text("No".tr, style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13,
-                                        fontFamily: "NotoSans"
+                                        fontFamily: "GoogleSans"
                                       ),),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Color(0XFFE0E0E0),
@@ -113,7 +113,7 @@ class FarmForFertilizer extends StatelessWidget {
                                       child: Text("Yes".tr, style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
-                                          fontFamily: "NotoSans"
+                                          fontFamily: "GoogleSans"
                                       ),),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: ColorConstants.primaryColor,
@@ -183,7 +183,7 @@ class FarmForFertilizer extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "NotoSans",
+                                  fontFamily: "GoogleSans",
                                   color: Colors.black),
                             ),
                             Text(
@@ -191,7 +191,7 @@ class FarmForFertilizer extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: "NotoSans"),
+                                  fontFamily: "GoogleSans"),
                             ),
                           ],
                         ),
@@ -225,7 +225,7 @@ class FarmForFertilizer extends StatelessWidget {
             //       child: Text(
             //         "Another_crop".tr,
             //         style: TextStyle(
-            //             fontFamily: "NotoSans",
+            //             fontFamily: "GoogleSans",
             //             fontSize: 12,
             //             fontWeight: FontWeight.w500),
             //       ),

@@ -153,7 +153,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontFamily: "NotoSans"),
+                                                      fontFamily: "GoogleSans"),
                                                 ),
                                               ),
                                             );
@@ -169,8 +169,12 @@ class FarmerDashboardWidget extends StatelessWidget {
                                           onPageChanged: (index, reason) {
                                             controller.currentCarousel.value =
                                                 index;
-                                            controller.updateSelectedLand(index);  // Sync the land and notifications
-
+                                            controller
+                                                .updateSelectedLandForNotification(
+                                                    index); // Sync the land and notifications
+                                            controller
+                                                .updateSelectedLandForProgress(
+                                                    index); // Sync the land and progress
                                           },
                                         ),
                                       ),
@@ -179,140 +183,152 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   SizedBox(height: 16),
 
                                   // Weather Data Carousel
-                                  Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    width: double.infinity,
-                                    child: SizedBox(
-                                      height:
-                                          56, // Adjust the height according to your needs
-                                      child: CarouselSlider(
-                                        items: controller
-                                            .farmerLands.value.data!
-                                            .asMap()
-                                            .entries
-                                            .map(
-                                          (entry) {
-                                            final item = entry.value;
-                                            final weatherData = controller
-                                                .landWeatherData[item.district];
+                                  controller.landWeatherData.isNotEmpty
+                                      ? Column(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 16),
+                                              width: double.infinity,
+                                              child: SizedBox(
+                                                height:
+                                                    56, // Adjust the height according to your needs
+                                                child: CarouselSlider(
+                                                  items: controller
+                                                      .farmerLands.value.data!
+                                                      .asMap()
+                                                      .entries
+                                                      .map(
+                                                    (entry) {
+                                                      final item = entry.value;
+                                                      final weatherData =
+                                                          controller
+                                                                  .landWeatherData[
+                                                              item.district];
 
-                                            return weatherData != null
-                                                ? GestureDetector(
-                                                    onTap: () {
-                                                      Get.to(() =>
-                                                          WeatherDetailScreen(
-                                                              districtName:
-                                                                  item.district ??
-                                                                      ""));
-                                                    },
-                                                    child: Container(
-                                                      height: 56,
-                                                      width: double.infinity,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xffBAEDBD)),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Text(
-                                                            item.crop ?? "",
-                                                            style: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontFamily:
-                                                                    "Bitter"),
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          Get.to(() =>
+                                                              WeatherDetailScreen(
+                                                                  districtName:
+                                                                      item.district ??
+                                                                          ""));
+                                                        },
+                                                        child: Container(
+                                                          // height: 56,
+                                                          // width: double.infinity,
+                                                          // padding:
+                                                          //     const EdgeInsets.all(
+                                                          //         10),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border.all(
+                                                                color: const Color(
+                                                                    0xffBAEDBD)),
                                                           ),
-                                                          Spacer(),
-                                                          Row(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
                                                             children: [
                                                               Text(
-                                                                weatherData[
-                                                                        'temperature'] ??
-                                                                    '',
+                                                                item.crop ?? "",
                                                                 style: const TextStyle(
                                                                     fontSize:
-                                                                        20,
+                                                                        14,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
                                                                     fontFamily:
-                                                                        "Bitter"),
+                                                                        "GoogleSans"),
                                                               ),
-                                                              const SizedBox(
-                                                                  width: 5),
-                                                              Image.network(
-                                                                weatherData[
-                                                                        'weatherIcon'] ??
-                                                                    '',
-                                                                width: 40,
-                                                                height: 40,
-                                                              ),
-                                                              const SizedBox(
-                                                                  width: 10),
-                                                              const Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_rounded,
-                                                                size: 15,
+                                                              Spacer(),
+                                                              Row(
+                                                                children: [
+                                                                  Text(
+                                                                    weatherData?[
+                                                                            'temperature'] ??
+                                                                        '',
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontFamily:
+                                                                            "GoogleSans"),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      width: 5),
+                                                                  Image.network(
+                                                                    weatherData?[
+                                                                            'weatherIcon'] ??
+                                                                        '',
+                                                                    width: 40,
+                                                                    height: 40,
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  const Icon(
+                                                                    Icons
+                                                                        .arrow_forward_ios_rounded,
+                                                                    size: 15,
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )
-                                                : SizedBox.shrink();
-                                          },
-                                        ).toList(),
-                                        carouselController: _controller,
-                                        options: CarouselOptions(
-                                          height: double.infinity,
-                                          enlargeCenterPage: false,
-                                          viewportFraction: 1,
-                                          autoPlay: false,
-                                          enableInfiniteScroll: false,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 16),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).toList(),
+                                                  carouselController:
+                                                      _controller,
+                                                  options: CarouselOptions(
+                                                    height: double.infinity,
+                                                    enlargeCenterPage: false,
+                                                    viewportFraction: 1,
+                                                    autoPlay: false,
+                                                    enableInfiniteScroll: false,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 16),
+                                          ],
+                                        )
+                                      : SizedBox.shrink(),
 
                                   //notificationGif Carousel
                                   Obx(() {
-                                    if (controller.filteredNotifications.isEmpty) {
+                                    if (controller
+                                        .filteredNotifications.isEmpty) {
                                       return SizedBox.shrink();
                                     } else {
                                       return Column(
                                         children: [
                                           Container(
-                                            padding:
-                                            EdgeInsets.symmetric(horizontal: 16),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 16),
                                             width: double.infinity,
                                             height: 56,
                                             child: CarouselSlider(
-                                              items: controller.filteredNotifications.map((notification) {
+                                              items: controller
+                                                  .filteredNotifications
+                                                  .map((notification) {
                                                 return Builder(
-                                                  builder: (BuildContext context) {
+                                                  builder:
+                                                      (BuildContext context) {
                                                     return Image.network(
                                                       '${ApiEndPoints.imageBaseUrl}${notification.gif}',
-                                                      width:
-                                                      double.infinity,
+                                                      width: double.infinity,
                                                       fit: BoxFit.fill,
                                                     );
                                                   },
                                                 );
                                               }).toList(),
-                                              carouselController:
-                                              _controller,
+                                              carouselController: _controller,
                                               options: CarouselOptions(
                                                 height: double.infinity,
                                                 enlargeCenterPage: false,
@@ -322,7 +338,9 @@ class FarmerDashboardWidget extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 20,)
+                                          SizedBox(
+                                            height: 20,
+                                          )
                                         ],
                                       );
                                     }
@@ -481,7 +499,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                       "Don't_leave_your_farming_success_to_chance_know_your_soil_grow_your_future"
                                           .tr,
                                       style: const TextStyle(
-                                          fontFamily: "NotoSans",
+                                          fontFamily: "GoogleSans",
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10),
                                     ),
@@ -518,7 +536,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                     ColorConstants.primaryColor,
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
-                                                fontFamily: 'NotoSans'),
+                                                fontFamily: 'GoogleSans'),
                                           ),
                                         ),
                                       ),
@@ -552,7 +570,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                       child: Text(
                         "Other_Services".tr,
                         style: const TextStyle(
-                            fontFamily: "Bitter",
+                            fontFamily: "GoogleSans",
                             fontWeight: FontWeight.w600,
                             fontSize: 14),
                       ),
@@ -592,7 +610,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSans"),
+                                        fontFamily: "GoogleSans"),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -622,7 +640,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSans"),
+                                        fontFamily: "GoogleSans"),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -652,7 +670,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSans"),
+                                        fontFamily: "GoogleSans"),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -685,7 +703,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSans"),
+                                        fontFamily: "GoogleSans"),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -710,7 +728,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSans"),
+                                        fontFamily: "GoogleSans"),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -758,7 +776,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
-                                      fontFamily: 'Bitter'),
+                                      fontFamily: 'GoogleSans'),
                                 ),
                                 Text(
                                   "Check_number_for_assistance_and_support".tr,
@@ -820,7 +838,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                       Text(
                                         "News".tr,
                                         style: const TextStyle(
-                                            fontFamily: "Bitter",
+                                            fontFamily: "GoogleSans",
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14),
                                       ),
@@ -961,7 +979,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                 article.title ?? "",
                                                 style: const TextStyle(
                                                   fontSize: 12,
-                                                  fontFamily: "NotoSans",
+                                                  fontFamily: "GoogleSans",
                                                   fontWeight: FontWeight.bold,
                                                   color: Color(0xff1C1C1C),
                                                 ),
@@ -974,7 +992,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                 article.publishDate ?? "",
                                                 style: const TextStyle(
                                                   fontSize: 12,
-                                                  fontFamily: "NotoSans",
+                                                  fontFamily: "GoogleSans",
                                                   fontWeight: FontWeight.w400,
                                                   color: Color(0xff1C1C1C),
                                                 ),

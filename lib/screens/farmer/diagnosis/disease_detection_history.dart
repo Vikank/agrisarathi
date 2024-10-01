@@ -19,7 +19,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
         title: Text(
           "Disease_Diagnosis".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body:  Padding(
@@ -79,19 +79,19 @@ class DiseaseDetectionHistory extends StatelessWidget {
                             Text(details.disease ?? 'Unknown Disease', style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
-                              fontFamily: "NotoSans",
+                              fontFamily: "GoogleSans",
                               color: Color(0xff1C1C1C)
                             ),),
                             Text(details.serviceProvider ?? 'Unknown Provider', style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 12,
-                                fontFamily: "NotoSans",
+                                fontFamily: "GoogleSans",
                               color: Color(0xff64748B)
                             ),),
                             Text(HelperFunctions().formatDate(details.uploadData), style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
-                                fontFamily: "NotoSans",
+                                fontFamily: "GoogleSans",
                               color: Color(0xff1C1C1C)
                             ),),
                           ],

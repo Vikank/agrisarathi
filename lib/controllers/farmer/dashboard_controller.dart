@@ -89,6 +89,7 @@ class FarmerDashboardController extends GetxController {
             cropsList.add({"land_id": land.id, "filter_type": land.filterId});
           }
         }
+        await fetchNotifications(); // Fetch notifications after weather data is loaded
         await fetchCropProgress(cropsList);
         farmerLandLoader.value = false;
       } else {
@@ -122,12 +123,12 @@ class FarmerDashboardController extends GetxController {
           'weatherIcon': weatherIconUrl,
           'weatherCondition': weatherCondition,
         };
-        await fetchNotifications(); // Fetch notifications after weather data is loaded
+        // await fetchNotifications(); // Fetch notifications after weather data is loaded
       } else {
-        Get.snackbar('Error', 'Unable to fetch weather data');
+        log('Error, Unable to fetch weather data');
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      log(e.toString());
     }
   }
 
@@ -145,37 +146,15 @@ class FarmerDashboardController extends GetxController {
     };
 
     var requestBody = {
-      // "crops": farmerLands.value.data!.map((land) {
-      //   return {
-      //     "land_id": land.id,
-      //     "filter_type": land.filterId,
-      //     "weather_conditions": [
-      //       landWeatherData[land.district]!['weatherCondition']
-      //     ]
-      //   };
-      // }).toList(),
-        "crops": [
-          {
-            "land_id": 32,
-            "filter_type": 14,
-            "weather_conditions": ["broken clouds"]
-          },
-          {
-            "land_id": 25,
-            "filter_type": 14,
-            "weather_conditions": ["moderate rain"]
-          },
-          {
-            "land_id": 47,
-            "filter_type": 14,
-            "weather_conditions": ["moderate rain"]
-          },
-          {
-            "land_id": 49,
-            "filter_type": 14,
-            "weather_conditions": ["moderate rain"]
-          }
-        ]
+      "crops": farmerLands.value.data!.map((land) {
+        return {
+          "land_id": land.id,
+          "filter_type": land.filterId,
+          "weather_conditions": [
+            landWeatherData[land.district]!['weatherCondition']
+          ]
+        };
+      }).toList(),
     };
 
     final response = await http.post(
@@ -188,7 +167,7 @@ class FarmerDashboardController extends GetxController {
       final jsonData = jsonDecode(response.body);
       notificationsData.value = PopNotificationResponse.fromJson(jsonData);
       // Initialize notifications for the first land if available
-      updateSelectedLand(0); // Set the initial notifications for the first land
+      updateSelectedLandForNotification(0); // Set the initial notifications for the first land
     } else {
       throw Exception('Failed to load notifications');
     }
@@ -217,7 +196,7 @@ class FarmerDashboardController extends GetxController {
         vegetableProgress.value =
             VegetableProgressModel.fromJson(jsonDecode(response.body));
         // Initialize notifications for the first land if available
-        updateSelectedLand(0); // Set the initial notifications for the first land
+        updateSelectedLandForProgress(0); // Set the initial notifications for the first land
       } else {
         throw Exception('Failed to load crop progress');
       }
@@ -226,17 +205,21 @@ class FarmerDashboardController extends GetxController {
     }
   }
 
-  void updateSelectedLand(int index) {
-    // Update selected land ID when the user changes the carousel item
-    selectedLandId.value = farmerLands.value.data![index].id!;
-
+  void updateSelectedLandForNotification(int index) {
     // Filter notifications for lands with preference == true
     if (farmerLands.value.data![index].preference == true) {
       filteredNotifications.value =
           getNotificationsForLand(farmerLands.value.data![index].id!);
-      filteredProgress.value = getProgressForLand(farmerLands.value.data![index].id!);
     } else {
       filteredNotifications.clear(); // No notifications if preference is false
+    }
+  }
+
+  void updateSelectedLandForProgress(int index) {
+    // Filter notifications for lands with preference == true
+    if (farmerLands.value.data![index].preference == true) {
+      filteredProgress.value = getProgressForLand(farmerLands.value.data![index].id!);
+    } else {
       filteredProgress.clear();
     }
   }
@@ -295,7 +278,7 @@ class FarmerDashboardController extends GetxController {
     articles.clear();
     landWeatherData.clear();
     notificationsData.value = null;
-    filteredNotifications.clear();
+    filteredNotifications.clear(); // No notifications if preference is false
     filteredProgress.clear();
     cropName.value = '';
     districtName.value = '';

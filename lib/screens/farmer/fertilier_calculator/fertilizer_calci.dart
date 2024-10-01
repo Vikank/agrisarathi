@@ -25,7 +25,7 @@ class FertilizerCalci extends StatelessWidget {
         title: Text(
           "Fertilizer_Calculator".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Column(
@@ -96,7 +96,7 @@ class FertilizerCalci extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    fontFamily: "NotoSans"),
+                    fontFamily: "GoogleSans"),
               ),
             ),
           ),

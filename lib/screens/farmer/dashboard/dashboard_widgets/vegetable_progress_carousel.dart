@@ -77,11 +77,11 @@ class CropProgressCarousel extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
-                                    fontFamily: "NotoSans")),
+                                    fontFamily: "GoogleSans")),
                             Text(
                               '${crop.overallProgress!.toStringAsFixed(1)}%',
                               style: TextStyle(
-                                  fontFamily: "NotoSans",
+                                  fontFamily: "GoogleSans",
                                   fontWeight: FontWeight.w400,
                                   fontSize: 10),
                             ),

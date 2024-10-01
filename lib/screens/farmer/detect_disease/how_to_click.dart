@@ -32,7 +32,7 @@ class HowToClick extends StatelessWidget {
         title: Text(
           "Tutorial".tr,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "Bitter"),
+              fontSize: 16, fontWeight: FontWeight.w700, fontFamily: "GoogleSans"),
         ),
       ),
       body: Padding(
@@ -64,7 +64,7 @@ class HowToClick extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          fontFamily: "NotoSans"),
+                          fontFamily: "GoogleSans"),
                     ),
                   ],
                 ),
@@ -89,7 +89,7 @@ class HowToClick extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          fontFamily: "NotoSans"),
+                          fontFamily: "GoogleSans"),
                     ),
                   ],
                 ),
@@ -114,7 +114,7 @@ class HowToClick extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          fontFamily: "NotoSans"),
+                          fontFamily: "GoogleSans"),
                     ),
                   ],
                 ),
@@ -126,7 +126,7 @@ class HowToClick extends StatelessWidget {
             Text(
               "Learn_with_video_how_to_do_it".tr,
               style: TextStyle(
-                  fontFamily: "Bitter",
+                  fontFamily: "GoogleSans",
                   fontSize: 14,
                   fontWeight: FontWeight.w600),
             ),
@@ -160,7 +160,7 @@ class HowToClick extends StatelessWidget {
                     widget: Text(
                       "Gallery".tr,
                       style: TextStyle(
-                          fontFamily: 'NotoSans',
+                          fontFamily: 'GoogleSans',
                           fontSize: 15,
                           fontWeight: FontWeight.w500),
                     ),
@@ -177,7 +177,7 @@ class HowToClick extends StatelessWidget {
                     widget: Text(
                       "Camera".tr,
                       style: TextStyle(
-                          fontFamily: 'NotoSans',
+                          fontFamily: 'GoogleSans',
                           fontSize: 15,
                           fontWeight: FontWeight.w500),
                     ),
