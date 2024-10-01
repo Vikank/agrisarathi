@@ -336,7 +336,9 @@ class MessagesTranslation extends Translations{
       "Choose_category" : "Choose Category",
       "sowing" : "Sowing",
       "sowing_date" : "Select Sowing Date",
-      "sowing_date_des" : "Please select your crop’s sowing date"
+      "sowing_date_des" : "Please select your crop’s sowing date",
+      "Please_enter_your_name" : "Please enter your name",
+      "Your_Name" : "Your Name"
     },
     'hi_IN': {
       "Recommended_Products": "उपयोग किए गए सुझावात्मक उत्पाद",
@@ -673,7 +675,9 @@ class MessagesTranslation extends Translations{
       "Choose_category" : "श्रेणी चुनें",
       "sowing" : "बुआई",
       "sowing_date" : "बुआई की तारीख चुनें",
-      "sowing_date_des" : "कृपया अपनी फसल की बुआई की तारीख चुनें"
+      "sowing_date_des" : "कृपया अपनी फसल की बुआई की तारीख चुनें",
+      "Please_enter_your_name" : "कृपया अपना नाम दर्ज करें",
+      "Your_Name" : "आपका नाम"
     },
   };
 }
