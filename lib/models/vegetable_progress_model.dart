@@ -22,6 +22,7 @@ class VegetableProgressModel {
 
 class CropsProgress {
   int? cropId;
+  int? landId;
   String? cropImage;
   String? cropName;
   int? userLanguage;
@@ -33,6 +34,7 @@ class CropsProgress {
 
   CropsProgress({
     this.cropId,
+    this.landId,
     this.cropImage,
     this.cropName,
     this.userLanguage,
@@ -46,6 +48,7 @@ class CropsProgress {
   factory CropsProgress.fromJson(Map<String, dynamic> json) {
     return CropsProgress(
       cropId: json['crop_id'],
+      landId: json['land_id'],
       cropImage: json['crop_image'],
       cropName: json['crop_name'],
       userLanguage: json['user_language'],
@@ -62,6 +65,7 @@ class CropsProgress {
   Map<String, dynamic> toJson() {
     return {
       'crop_id': cropId,
+      'landId': cropId,
       'crop_image': cropImage,
       'crop_name': cropName,
       'user_language': userLanguage,

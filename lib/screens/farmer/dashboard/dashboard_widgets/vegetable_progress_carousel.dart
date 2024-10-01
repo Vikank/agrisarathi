@@ -14,11 +14,6 @@ class CropProgressCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Check if vegetableProgress or cropsProgress is null or empty
-    if (controller.vegetableProgress.value?.cropsProgress == null ||
-        controller.vegetableProgress.value!.cropsProgress!.isEmpty) {
-      return const SizedBox.shrink(); // Or display a message like "No progress available"
-    }
     return CarouselSlider(
       options: CarouselOptions(
         height: double.infinity,
@@ -27,7 +22,7 @@ class CropProgressCarousel extends StatelessWidget {
         autoPlay: false,
         enableInfiniteScroll: false,
       ),
-      items: controller.vegetableProgress.value!.cropsProgress!.map((crop) {
+      items: controller.filteredProgress.map((crop) {
         return Builder(
           builder: (BuildContext context) {
             return Padding(

@@ -35,6 +35,7 @@ class FarmerDashboardController extends GetxController {
   var notificationsData = Rx<PopNotificationResponse?>(null);
   var filteredNotifications =
       <Notifications>[].obs; // Observable list for filtered notifications
+  var filteredProgress = <CropsProgress>[].obs;
   var selectedLandId = 0.obs;
 
   @override
@@ -193,26 +194,6 @@ class FarmerDashboardController extends GetxController {
     }
   }
 
-  List<Notifications> getNotificationsForLand(int landId) {
-    return notificationsData.value!.results
-        .firstWhere((landNotification) => landNotification.landId == landId,
-            orElse: () => LandNotification(landId: landId, notifications: []))
-        .notifications;
-  }
-
-  void updateSelectedLand(int index) {
-    // Update selected land ID when the user changes the carousel item
-    selectedLandId.value = farmerLands.value.data![index].id!;
-
-    // Filter notifications for lands with preference == true
-    if (farmerLands.value.data![index].preference == true) {
-      filteredNotifications.value =
-          getNotificationsForLand(farmerLands.value.data![index].id!);
-    } else {
-      filteredNotifications.clear(); // No notifications if preference is false
-    }
-  }
-
   Future<void> fetchCropProgress(List<Map<String, dynamic>> crops) async {
     try {
       String? accessToken = await storage.read(key: 'access_token');
@@ -223,8 +204,9 @@ class FarmerDashboardController extends GetxController {
       var headers = {
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer $accessToken' // Add the access token to the headers
+        'Bearer $accessToken' // Add the access token to the headers
       };
+      log("${jsonEncode({'crops': crops})}");
       final response = await http.post(
         Uri.parse('${ApiEndPoints.baseUrlTest}VegetableProgressAPIView'),
         headers: headers,
@@ -234,12 +216,40 @@ class FarmerDashboardController extends GetxController {
       if (response.statusCode == 200) {
         vegetableProgress.value =
             VegetableProgressModel.fromJson(jsonDecode(response.body));
+        // Initialize notifications for the first land if available
+        updateSelectedLand(0); // Set the initial notifications for the first land
       } else {
         throw Exception('Failed to load crop progress');
       }
     } catch (e) {
       print('Error fetching crop progress: $e');
     }
+  }
+
+  void updateSelectedLand(int index) {
+    // Update selected land ID when the user changes the carousel item
+    selectedLandId.value = farmerLands.value.data![index].id!;
+
+    // Filter notifications for lands with preference == true
+    if (farmerLands.value.data![index].preference == true) {
+      filteredNotifications.value =
+          getNotificationsForLand(farmerLands.value.data![index].id!);
+      filteredProgress.value = getProgressForLand(farmerLands.value.data![index].id!);
+    } else {
+      filteredNotifications.clear(); // No notifications if preference is false
+      filteredProgress.clear();
+    }
+  }
+
+  List<Notifications> getNotificationsForLand(int landId) {
+    return notificationsData.value!.results
+        .firstWhere((landNotification) => landNotification.landId == landId,
+        orElse: () => LandNotification(landId: landId, notifications: []))
+        .notifications;
+  }
+
+  List<CropsProgress> getProgressForLand(int landId) {
+    return vegetableProgress.value!.cropsProgress?.where((progress) => progress.landId == landId).toList() ?? [];
   }
 
   void fetchNews() async {
@@ -285,6 +295,8 @@ class FarmerDashboardController extends GetxController {
     articles.clear();
     landWeatherData.clear();
     notificationsData.value = null;
+    filteredNotifications.clear();
+    filteredProgress.clear();
     cropName.value = '';
     districtName.value = '';
     temperature.value = '';

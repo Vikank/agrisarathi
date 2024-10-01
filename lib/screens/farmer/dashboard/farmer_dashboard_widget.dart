@@ -329,9 +329,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   }),
 
                                   // Progress Carousel
-                                  controller.vegetableProgress.value
-                                              ?.cropsProgress ==
-                                          null
+                                  controller.filteredProgress.isEmpty
                                       ? SizedBox.shrink()
                                       : SizedBox(
                                           height: 56,
