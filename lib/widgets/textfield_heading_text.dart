@@ -13,7 +13,7 @@ class TextfieldHeadingText extends StatelessWidget {
       style: TextStyle(
           color: ColorConstants.fieldNameColor,
           fontSize: 12,
-          fontFamily: 'Roboto',
+          fontFamily: 'GoogleSans',
           fontWeight: FontWeight.w400),
     );
   }

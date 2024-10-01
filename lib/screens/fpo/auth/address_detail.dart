@@ -166,7 +166,7 @@ class AddressDetail extends StatelessWidget {
               controller.updateFpoDetail(selectedCrops, phoneNumber, registrationId, establishedDate);
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "SAVE",
-              style: TextStyle(fontFamily: 'Roboto',
+              style: TextStyle(fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),),

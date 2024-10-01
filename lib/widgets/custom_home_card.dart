@@ -30,7 +30,7 @@ Widget CustomHomeCard(
         Text(
           cardName,
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12, fontFamily: 'Roboto'),
+          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12, fontFamily: 'GoogleSans'),
         ),
       ],
     ),

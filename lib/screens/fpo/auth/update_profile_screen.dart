@@ -127,7 +127,7 @@ class UpdateProfileScreen extends StatelessWidget {
               Get.to(AddressDetail(selectedCrops, controller.phoneController.text, controller.registrationId.text, controller.establishedDate.text));
             }, widget: controller.loading.value ? progressIndicator() : Text(
               "Next",
-              style: TextStyle(fontFamily: 'Roboto',
+              style: TextStyle(fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),),

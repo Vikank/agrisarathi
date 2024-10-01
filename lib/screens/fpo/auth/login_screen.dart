@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                               : Text(
                                   "Login",
                                   style: TextStyle(
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'GoogleSans',
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500),
                                 ),

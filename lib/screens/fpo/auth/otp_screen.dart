@@ -262,7 +262,7 @@ class OtpScreen extends StatefulWidget {
                             : onButtonPressed,
                         widget: loading ? progressIndicator() : Text(
                           "VERIFY OTP",
-                          style: TextStyle(fontFamily: 'Roboto', fontSize: 15, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15, fontWeight: FontWeight.w500),
                         ),),
                       CustomTextButton(buttonText: "CHANGE PHONE", buttonColor: Color(0xff00B251), size: 14, onPress: (){
                         Get.back();

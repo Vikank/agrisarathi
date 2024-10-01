@@ -130,11 +130,11 @@ class FpoHomeScreen extends StatelessWidget {
           selectedLabelStyle: TextStyle(color: Colors.green,
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Roboto'),
+              fontFamily: 'GoogleSans'),
           unselectedLabelStyle: TextStyle(color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Roboto'),
+              fontFamily: 'GoogleSans'),
           onTap: controller.updateSelectedIndex,
         );
       }),

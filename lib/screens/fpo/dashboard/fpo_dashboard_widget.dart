@@ -170,7 +170,7 @@ class DashboardWidget extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Helpline Numbers", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'Roboto'),),
+                        Text("Helpline Numbers", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'GoogleSans'),),
                         Text("All the Govt. helpline numbers", style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.w500),),
                       ],
                     ),
