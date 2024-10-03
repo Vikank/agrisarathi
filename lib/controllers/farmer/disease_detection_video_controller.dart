@@ -63,10 +63,12 @@ class DiseaseDetectionVideoController extends GetxController {
 
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+        'Authorization':
+            'Bearer $accessToken' // Add the access token to the headers
       };
       final response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}GetDiseaseVideo?user_language=$userLanguage'),
+        Uri.parse(
+            '${ApiEndPoints.baseUrlTest}GetDiseaseVideo?user_language=$userLanguage'),
         headers: headers,
       );
 
@@ -106,14 +108,17 @@ class DiseaseDetectionVideoController extends GetxController {
       update();
     }
   }
+
   Future<void> openGallery(
       {required int serviceProviderId,
-        required int cropId,
-        required String landId,
-        required String filterType}) async {
+      required int cropId,
+      required String landId,
+      required String filterType}) async {
     try {
-      XFile? pickedImage =
-      await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 25,);
+      XFile? pickedImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 25,
+      );
       if (pickedImage != null) {
         image.value = File(pickedImage.path);
         uploadImage(File(image.value?.path ?? ""), serviceProviderId, cropId,
@@ -132,8 +137,10 @@ class DiseaseDetectionVideoController extends GetxController {
       required String landId,
       required String filterType}) async {
     try {
-      XFile? pickedImage =
-          await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 25,);
+      XFile? pickedImage = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 25,
+      );
       if (pickedImage != null) {
         image.value = File(pickedImage.path);
         uploadImage(File(image.value?.path ?? ""), serviceProviderId, cropId,
@@ -174,7 +181,7 @@ class DiseaseDetectionVideoController extends GetxController {
     );
 
     var image = await http.MultipartFile.fromPath('image', imageFile.path);
-    request.headers["Authorization"]= "Bearer $accessToken";
+    request.headers["Authorization"] = "Bearer $accessToken";
     request.files.add(image);
     request.fields['service_provider_id'] = serviceProviderId.toString();
     request.fields['crop_id'] = cropId.toString();
@@ -182,7 +189,8 @@ class DiseaseDetectionVideoController extends GetxController {
     request.fields['farmer_land_id'] = landId.toString();
     print('request is: ${request.fields} ${request.files} ${request.headers}');
     try {
-      var streamedResponse = await request.send().timeout(const Duration(minutes: 2));
+      var streamedResponse =
+          await request.send().timeout(const Duration(minutes: 2));
       var response = await http.Response.fromStream(streamedResponse);
       log("dhgfsjfgsjdfgs${response.statusCode} ${response.body}");
       if (response.statusCode == 200) {

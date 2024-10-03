@@ -85,15 +85,18 @@ class ProfileScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
             ),
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle,
+            GestureDetector(
+              onTap: profileController.pickImage,
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.photo_camera_rounded,
+                    color: Colors.white, size: 16),
               ),
-              child: Icon(Icons.photo_camera_rounded,
-                  color: Colors.white, size: 16),
             ),
           ],
         ),
@@ -138,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           child: Material(
                               color: Colors.white,
-                              child: _buildDialogContent())),
+                              child: SingleChildScrollView(child: _buildDialogContent()))),
                     ),
                   ),
                 );
@@ -151,96 +154,129 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildDialogContent() {
-    return Column(
-      mainAxisSize: MainAxisSize.min, // Make the column only as tall as its content
-      children: [
-        Text(
-          "Please_enter_your_name".tr,
-          style: TextStyle(
-            fontSize: 18, // You can customize text style
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Your_Name'.tr,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.green),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.green),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min, // Make the column only as tall as its content
+        children: [
+          Text(
+            "Please_enter_your_name".tr,
+            style: TextStyle(
+              fontSize: 18, // You can customize text style
+              fontWeight: FontWeight.bold,
+              fontFamily: "GoogleSans",
             ),
           ),
-        ),
-        SizedBox(height: 20),
-        CustomElevatedButton(
-          buttonColor: ColorConstants.primaryColor,
-          onPress: (() {
-            // Handle the submit action
-          }),
-          widget: Text("Submit".tr),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLanguageSelection(FarmerProfile profile) {
-    return SizedBox(
-      width: double.infinity,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            _languageButton('English', 'अंग्रेजी'),
-            SizedBox(width: 8),
-            _languageButton('Hindi', 'हिंदी'),
-            SizedBox(width: 8),
-            _languageButton('Marathi', 'मराठी'),
-            SizedBox(width: 8),
-            _languageButton('Marathi', 'मराठी'),
-            IconButton(
-              icon: Icon(Icons.arrow_forward_ios, size: 16),
-              onPressed: () {},
+          SizedBox(height: 20),
+          TextField(
+            controller: profileController.nameController,
+            decoration: InputDecoration(
+              hintText: 'Your_Name'.tr,
+              hintStyle: TextStyle(
+                fontSize: 14, // You can customize text style
+                fontWeight: FontWeight.w400,
+                fontFamily: "GoogleSans",
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.green),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.green),
+              ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 20),
+          CustomElevatedButton(
+            buttonColor: ColorConstants.primaryColor,
+            onPress: (() {
+              profileController.updateName();
+            }),
+            widget: Text("Submit".tr, style: TextStyle(
+              fontSize: 15, // You can customize text style
+              fontWeight: FontWeight.w500,
+              fontFamily: "GoogleSans",
+            ),),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _languageButton(String language, String nativeText) {
-    return Container(
-      width: 92,
-      height: 64,
-      child: OutlinedButton(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: Column(
-            children: [
-              Text(
-                language,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "GoogleSans",
-                    color: Colors.black),
-              ),
-              Text(
-                nativeText,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "GoogleSans",
-                    color: Colors.black),
-              ),
-            ],
+  Widget _buildLanguageSelection(FarmerProfile profile) {
+    final ScrollController scrollController = ScrollController();
+
+    // Function to scroll forward when the arrow is pressed
+    void _scrollForward() {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    }
+    Widget languageButton(String language, String nativeText, int id) {
+      bool isSelected = id == profile.fkLanguage;
+      return Container(
+        width: 92,
+        height: 64,
+        child: OutlinedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Column(
+              children: [
+                Text(
+                  language,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "GoogleSans",
+                      color: Colors.black),
+                ),
+                Text(
+                  nativeText,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "GoogleSans",
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          onPressed: () {
+            profileController.updateLanguage(id);
+          },
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            side: BorderSide(width: isSelected ? 2.0 : 1.0, color: isSelected ? Colors.green : Colors.grey,),
           ),
         ),
-        onPressed: () {},
-        style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
+      );
+    }
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  languageButton('English', 'अंग्रेजी', 1),
+                  SizedBox(width: 8),
+                  languageButton('Hindi', 'हिंदी', 2),
+                  SizedBox(width: 8),
+                  languageButton('Marathi', 'मराठी', 3),
+                  SizedBox(width: 8),
+                  languageButton('Marathi', 'मराठी', 4),
+                ],
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios, size: 16),
+            onPressed: _scrollForward,
+          ),
+        ],
       ),
     );
   }
@@ -257,10 +293,13 @@ class ProfileScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontFamily: "GoogleSans"),
           ),
-          trailing: Switch.adaptive(
-              activeColor: Colors.green,
-              value: profile.isActive ?? false,
-              onChanged: (bool value) {}),
+          trailing: Theme(
+            data: ThemeData(useMaterial3: false),
+            child: Switch(
+                activeColor: Colors.green,
+                value: profile.isActive ?? false,
+                onChanged: (bool value) {}),
+          ),
           onTap: () {},
         ),
         ListTile(
@@ -272,21 +311,26 @@ class ProfileScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontFamily: "GoogleSans"),
           ),
-          trailing: Switch.adaptive(
-              activeColor: Colors.green,
-              value: profile.smsStatus ?? false,
-              onChanged: (bool value) {}),
+          trailing: Theme(
+            data: ThemeData(useMaterial3: false),
+            child: Switch(
+                activeColor: Colors.green,
+                value: profile.smsStatus ?? false,
+                onChanged: (bool value) {}),
+          ),
           onTap: () {},
         ),
         _settingsItem('Privacy Policy', Icons.lock_outline),
         _settingsItem('Terms and Conditions', Icons.description_outlined),
         _settingsItem('Help', Icons.help_outline),
-        _settingsItem('Log out', Icons.logout),
+        _settingsItem('Log out', Icons.logout, onTap: () {
+          profileController.logout();
+        },),
       ],
     );
   }
 
-  Widget _settingsItem(String title, IconData icon, {bool isSwitch = false}) {
+  Widget _settingsItem(String title, IconData icon, {bool isSwitch = false, VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon),
       title: Text(
@@ -297,7 +341,7 @@ class ProfileScreen extends StatelessWidget {
             fontFamily: "GoogleSans"),
       ),
       trailing: Icon(Icons.arrow_forward_ios_outlined, size: 16),
-      onTap: null,
+      onTap: onTap,
     );
   }
 }

@@ -14,6 +14,7 @@ class FarmerProfile {
   final String? ipAddress;
   final bool? isActive;
   final bool? smsStatus;
+  final bool? notificationStatus;
   final bool? isDeleted;
   final String? badgeColor;
   final int? user;
@@ -36,6 +37,7 @@ class FarmerProfile {
     this.ipAddress,
     this.isActive,
     this.smsStatus,
+    this.notificationStatus,
     this.isDeleted,
     this.badgeColor,
     this.user,
@@ -60,6 +62,7 @@ class FarmerProfile {
       ipAddress: json['ip_address'],
       isActive: json['is_active'],
       smsStatus: json['sms_status'],
+      notificationStatus: json['notification_status'],
       isDeleted: json['is_deleted'],
       badgeColor: json['badgecolor'],
       user: json['user'],

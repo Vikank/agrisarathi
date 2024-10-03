@@ -7,10 +7,9 @@ import 'package:fpo_assist/controllers/farmer/farmer_home_controller.dart';
 import 'package:fpo_assist/screens/farmer/crop_suggstion/crop_suggestion.dart';
 import 'package:fpo_assist/screens/farmer/diagnosis/disease_detection_history.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../controllers/farmer/coach_marks_controller.dart';
-import '../../../controllers/profile_controller.dart';
+import '../../../controllers/farmer/profile_controller.dart';
 import '../profile/profile_screen.dart';
 import 'farmer_community_widget.dart';
 import 'farmer_dashboard_widget.dart';
@@ -19,7 +18,7 @@ import 'my_farms_widget.dart';
 
 class FarmerHomeScreen extends StatelessWidget {
   FarmerHomeController controller = Get.put(FarmerHomeController());
-  ProfileController profileController = Get.put(ProfileController());
+  FarmerProfileController profileController = Get.put(FarmerProfileController());
   CoachMarksController coachMarksController = Get.put(CoachMarksController());
 
   static List<Widget> _widgetOptions = <Widget>[
@@ -222,25 +221,25 @@ class FarmerHomeScreen extends StatelessWidget {
                     Get.to(() => ProfileScreen());
                   },
                 ),
-                Spacer(),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: Image.asset(
-                    "assets/images/logout.png",
-                    width: 20,
-                    height: 20,
-                  ),
-                  title: Text(
-                    'Log out'.tr,
-                    style: TextStyle(
-                        fontFamily: "GoogleSans",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  onTap: () {
-                    profileController.logout();
-                  },
-                ),
+                // Spacer(),
+                // ListTile(
+                //   contentPadding: EdgeInsets.zero,
+                //   leading: Image.asset(
+                //     "assets/images/logout.png",
+                //     width: 20,
+                //     height: 20,
+                //   ),
+                //   title: Text(
+                //     'Log out'.tr,
+                //     style: TextStyle(
+                //         fontFamily: "GoogleSans",
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.w700),
+                //   ),
+                //   onTap: () {
+                //     profileController.logout();
+                //   },
+                // ),
               ],
             ),
           ),

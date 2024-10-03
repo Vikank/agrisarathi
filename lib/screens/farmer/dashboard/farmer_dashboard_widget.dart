@@ -12,10 +12,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../controllers/farmer/coach_marks_controller.dart';
-import '../../../controllers/profile_controller.dart';
-import '../../../models/weatherNotificationModel.dart';
 import '../../../utils/color_constants.dart';
-import '../../../widgets/custom_home_card.dart';
 import '../crop_suggstion/crop_suggestion.dart';
 import '../fertilier_calculator/farm_for_fertilizer.dart';
 import '../gov_scheme/gov_scheme.dart';
