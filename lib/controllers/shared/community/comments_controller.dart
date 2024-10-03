@@ -7,6 +7,8 @@ import '../../../models/community_post_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import 'community_controller.dart';
+
 
 class CommentController extends GetxController {
   final storage = FlutterSecureStorage();
@@ -43,8 +45,9 @@ class CommentController extends GetxController {
         var decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == 'success') {
           // Add the new comment to the list
-          comments.add(Comment.fromJson(decodedResponse['comment']));
-          comments.refresh();
+          var newComment = Comment.fromJson(decodedResponse['comment']);
+          comments.add(newComment);
+          Get.find<CommunityController>().updateCommentCount(postId, 1);
         }
       }
     } catch (e) {

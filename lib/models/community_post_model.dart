@@ -7,8 +7,9 @@ class CommunityPost {
   final String? profilePic;
   final String postImage;
   final String postVideo;
-  final int? likeCount;
-  final bool isLikedByUser;
+  int? likeCount;
+  int? commentCount;
+  bool isLikedByUser;
   final List<UserLike> usersLiked;
   final String? description;
   final String createdDate;
@@ -21,6 +22,7 @@ class CommunityPost {
     required this.profilePic,
     required this.postImage,
     required this.likeCount,
+    required this.commentCount,
     required this.isLikedByUser,
     required this.usersLiked,
     required this.description,
@@ -38,6 +40,7 @@ class CommunityPost {
       postImage: json['post_image'] ?? '',
       postVideo: json['post_video'] ?? '',
       likeCount: json['like_count'] ?? 0,
+      commentCount: json['comment_count'] ?? 0,
       isLikedByUser: json['is_likedbysameuser'] ?? false,
       usersLiked: (json['users_liked'] as List?)
           ?.map((like) => UserLike.fromJson(like))
@@ -82,7 +85,7 @@ class Comment {
   final int id;
   final String postComment;
   final String createdDate;
-  final List<Reply> replyComments;
+  final RxList<Reply> replyComments;
 
   Comment({
     required this.userName,
@@ -102,10 +105,7 @@ class Comment {
       id: json['id'] ?? 0,
       postComment: json['post_comment'] ?? '',
       createdDate: json['created_at'] ?? '',
-      replyComments: (json['reply_comments'] as List?)
-          ?.map((reply) => Reply.fromJson(reply))
-          .toList() ??
-          [],
+      replyComments: RxList<Reply>.from((json['reply_comments'] as List?)?.map((reply) => Reply.fromJson(reply)).toList() ?? []), // Changed: made replyComments RxList for reactivity
     );
   }
 }

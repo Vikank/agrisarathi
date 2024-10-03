@@ -12,13 +12,13 @@ class CommentBottomSheet extends StatelessWidget {
   final CommentController controller = Get.put(CommentController());
   final TextEditingController textController = TextEditingController();
 
-  CommentBottomSheet({required this.post});
+  CommentBottomSheet({required this.post}) {
+    controller.initializeComments(post.comments);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Initialize the controller with the post's comments
     controller.initializeComments(post.comments);
-
     return Container(
       height: Get.height * 0.85,
       decoration: const BoxDecoration(
@@ -171,18 +171,21 @@ class CommentTile extends StatelessWidget {
                         ],
                       ),
                       Divider(),
-                      Text(comment.postComment,
-                          style: const TextStyle(
-                            fontFamily: "GoogleSans",
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Color(0xff262626),
-                          ),),
+                      Text(
+                        comment.postComment,
+                        style: const TextStyle(
+                          fontFamily: "GoogleSans",
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xff262626),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 TextButton(
-                  child: const Text('Reply',
+                  child: const Text(
+                    'Reply',
                     style: const TextStyle(
                       fontFamily: "GoogleSans",
                       fontWeight: FontWeight.w500,

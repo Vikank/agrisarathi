@@ -66,7 +66,7 @@ class CommunityPostCard extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundImage:
-                  NetworkImage(ApiEndPoints.baseUrl + post.profilePic! ?? ""),
+              NetworkImage(ApiEndPoints.baseUrl + post.profilePic! ?? ""),
             ),
             title: Text(
               post.userName!,
@@ -123,11 +123,11 @@ class CommunityPostCard extends StatelessWidget {
                       },
                       child: post.postVideo.isNotEmpty
                           ? SizedBox(
-                              height: 180,
-                              child: Chewie(
-                                controller: controller.chewieController.value!,
-                              ),
-                            )
+                        height: 180,
+                        child: Chewie(
+                          controller: controller.chewieController.value!,
+                        ),
+                      )
                           : Container(), // Display other content if there's no video
                     );
                   } else {
@@ -150,15 +150,17 @@ class CommunityPostCard extends StatelessWidget {
                   color: Color(0xff262626),
                 ),
               ),
-              Text(
-                "${post.comments.length} Comments",
-                style: const TextStyle(
-                  fontFamily: "GoogleSans",
-                  fontWeight: FontWeight.w400,
-                  fontSize: 10,
-                  color: Color(0xff262626),
-                ),
-              )
+              Obx(() {
+                return Text(
+                  "${post.comments.length} Comments",
+                  style: const TextStyle(
+                    fontFamily: "GoogleSans",
+                    fontWeight: FontWeight.w400,
+                    fontSize: 10,
+                    color: Color(0xff262626),
+                  ),
+                );
+              })
             ],
           ),
           const Divider(
@@ -167,7 +169,8 @@ class CommunityPostCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Obx(() => TextButton.icon(
+              Obx(() =>
+                  TextButton.icon(
                     icon: Image.asset(
                       isLiked.value
                           ? "assets/icons/liked.png"

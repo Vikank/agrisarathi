@@ -42,6 +42,14 @@ class CommunityController extends GetxController {
     }
   }
 
+  void updateCommentCount(int postId, int change) {
+    final postIndex = posts.indexWhere((post) => post.postId == postId);
+    if (postIndex != -1) {
+      posts[postIndex].commentCount = (posts[postIndex].commentCount ?? 0) + change; // Update count
+      posts.refresh(); // Refresh to notify listeners
+    }
+  }
+
   Future<void> fetchPosts() async {
     isLoading(true);
     try {
@@ -94,6 +102,13 @@ class CommunityController extends GetxController {
       if (response.statusCode == 200) {
         var decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == "success") {
+          // Find the post and update its like count and isLikedByUser
+          final postIndex = posts.indexWhere((post) => post.postId == postId);
+          if (postIndex != -1) {
+            posts[postIndex].likeCount = action == 'like' ? (posts[postIndex].likeCount ?? 0) + 1 : (posts[postIndex].likeCount ?? 0) - 1;
+            posts[postIndex].isLikedByUser = action == 'like';
+            posts.refresh(); // Notify listeners about the change
+          }
           return true;
         }
       }
