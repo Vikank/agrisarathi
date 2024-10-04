@@ -49,7 +49,7 @@
 //
 //     var request = http.MultipartRequest(
 //       'POST',
-//       Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.detectDisease),
+//       Uri.parse(ApiEndPoints.imageBaseUrl + ApiEndPoints.detectDisease),
 //     );
 //
 //     print("what image am sending $imageFile");

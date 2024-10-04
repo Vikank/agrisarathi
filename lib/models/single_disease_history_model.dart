@@ -36,85 +36,126 @@ class SingleDiseaseHistoryModel {
 class DiseaseResults {
   int? id;
   int? cropId;
-  String? disease;
-  String? images;
-  String? treatmentbefore;
-  String? treatmentfield;
-  String? treatment;
+  String? diseaseName;
+  String? serviceProvider;
   String? symptom;
-  String? suggestiveproduct;
-  String? uploadData;
+  String? treatmentBefore;
+  String? treatmentField;
+  String? treatment;
+  String? message;
+  String? suggestiveProduct;
+  String? uploadedImage;
 
-  DiseaseResults(
-      {this.id,
-        this.cropId,
-        this.disease,
-        this.images,
-        this.treatmentbefore,
-        this.treatmentfield,
-        this.treatment,
-        this.symptom,
-        this.suggestiveproduct,
-        this.uploadData});
+  DiseaseResults({
+    this.id,
+    this.cropId,
+    this.diseaseName,
+    this.serviceProvider,
+    this.symptom,
+    this.treatmentBefore,
+    this.treatmentField,
+    this.treatment,
+    this.message,
+    this.suggestiveProduct,
+    this.uploadedImage,
+  });
 
   DiseaseResults.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cropId = json['crop_id'];
-    disease = json['disease'];
-    images = json['images'];
-    treatmentbefore = json['treatmentbefore'];
-    treatmentfield = json['treatmentfield'];
-    treatment = json['treatment'];
+    id = json['crop_id'];
+    diseaseName = json['disease_name'];
+    serviceProvider = json['serviceprovider'];
     symptom = json['symptom'];
-    suggestiveproduct = json['suggestiveproduct'];
-    uploadData = json['Upload_Data'];
+    treatmentBefore = json['treatmentbefore'];
+    treatmentField = json['treatmentfield'];
+    treatment = json['treatment'];
+    message = json['message'];
+    suggestiveProduct = json['suggestiveproduct'];
+    uploadedImage = json['uploaded_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = id;
-    data['crop_id'] = cropId;
-    data['disease'] = disease;
-    data['images'] = images;
-    data['treatmentbefore'] = treatmentbefore;
-    data['treatmentfield'] = treatmentfield;
-    data['treatment'] = treatment;
+    data['crop_id'] = id;
+    data['disease_name'] = diseaseName;
+    data['serviceprovider'] = serviceProvider;
     data['symptom'] = symptom;
-    data['suggestiveproduct'] = suggestiveproduct;
-    data['Upload_Data'] = uploadData;
+    data['treatmentbefore'] = treatmentBefore;
+    data['treatmentfield'] = treatmentField;
+    data['treatment'] = treatment;
+    data['message'] = message;
+    data['suggestiveproduct'] = suggestiveProduct;
+    data['uploaded_image'] = uploadedImage;
     return data;
   }
 }
 
 class ProductDiseaseResults {
-  int? productid;
-  String? productimage;
-  String? productname;
-  double? price;
-  String? category;
+  List<Product>? products;
 
-  ProductDiseaseResults(
-      {this.productid,
-        this.productimage,
-        this.productname,
-        this.price,
-        this.category});
+  ProductDiseaseResults({this.products});
 
   ProductDiseaseResults.fromJson(Map<String, dynamic> json) {
-    productid = json['productid'];
-    productimage = json['productimage'];
-    productname = json['productname'];
-    price = json['price'];
-    category = json['category'];
+    if (json['products'] != null) {
+      products = <Product>[];
+      json['products'].forEach((v) {
+        products!.add(Product.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['productid'] = productid;
-    data['productimage'] = productimage;
-    data['productname'] = productname;
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Product {
+  int? productId;
+  String? productName;
+  String? productImage;
+  String? productDescription;
+  String? category;
+  List<int>? supplierIds;
+  double? price;
+
+  Product({
+    this.productId,
+    this.productName,
+    this.productImage,
+    this.productDescription,
+    this.category,
+    this.supplierIds,
+    this.price,
+  });
+
+  Product.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    productName = json['product_name'];
+    productImage = json['product_image'];
+    productDescription = json['product_description'];
+    category = json['Category'];
+    supplierIds = json['supplier_ids'] != null
+        ? List<int>.from(json['supplier_ids'])
+        : null;
+    price = json['price'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['product_image'] = productImage;
+    data['product_description'] = productDescription;
+    data['Category'] = category;
+    if (supplierIds != null) {
+      data['supplier_ids'] = supplierIds;
+    }
     data['price'] = price;
-    data['category'] = category;
     return data;
   }
 }

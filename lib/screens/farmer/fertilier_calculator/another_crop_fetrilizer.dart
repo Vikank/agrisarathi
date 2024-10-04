@@ -245,7 +245,7 @@ class AnotherCropFetrilizer extends StatelessWidget {
                                     ),
                                   ),
                                   child: CachedNetworkImage(
-                                    imageUrl: "${ApiEndPoints.baseUrl}${crop.cropImages}",
+                                    imageUrl: "${ApiEndPoints.imageBaseUrl}${crop.cropImages}",
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                           decoration: BoxDecoration(

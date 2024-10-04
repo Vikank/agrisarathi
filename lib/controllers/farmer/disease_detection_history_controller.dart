@@ -12,7 +12,7 @@ import '../../models/disease_result_model.dart';
 import '../../models/single_disease_history_model.dart';
 import '../../utils/helper_functions.dart';
 
-class DiseaseDetectionHistoryController extends GetxController{
+class DiseaseDetectionHistoryController extends GetxController {
   final storage = FlutterSecureStorage();
   var diseaseHistory = Rx<DiseaseHistoryModel?>(null);
   var isLoading = true.obs;
@@ -38,12 +38,15 @@ class DiseaseDetectionHistoryController extends GetxController{
         throw Exception('Access token not found');
       }
       isLoading(true);
-      var url = Uri.parse('${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getDiseaseHistory}');
+      var url = Uri.parse(
+          '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getDiseaseHistory}');
       log("$url");
       var response = await http.get(
-          url,
-          headers: {"Content-Type": "application/json",
-            'Authorization': 'Bearer $accessToken' },
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $accessToken'
+        },
       );
       log("message ${response.body}");
       if (response.statusCode == 200) {
@@ -55,16 +58,25 @@ class DiseaseDetectionHistoryController extends GetxController{
     }
   }
 
-  Future<SingleDiseaseHistoryModel?> fetchSingleDiseaseHistory(int diagId) async {
+  Future<SingleDiseaseHistoryModel?> fetchSingleDiseaseHistory(
+      int diagId) async {
     try {
-      var url = Uri.parse('${ApiEndPoints.baseUrl}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}?user_id=$farmerId&diag_id=$diagId');
+      String? accessToken = await storage.read(key: 'access_token');
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+      var url = Uri.parse(
+          '${ApiEndPoints.baseUrlTest}${ApiEndPoints.authEndpoints.getSingleDiseaseHistory}?diag_id=$diagId');
       var response = await http.get(
-          url,
-          headers: {"Content-Type": "application/json"},
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $accessToken'
+        },
       );
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
-        print('Response: ${jsonData}');
+        log('Response: ${jsonData}');
         return SingleDiseaseHistoryModel.fromJson(jsonData);
       } else {
         print('Response body: ${response.body}');
@@ -75,5 +87,4 @@ class DiseaseDetectionHistoryController extends GetxController{
       return null;
     }
   }
-
 }

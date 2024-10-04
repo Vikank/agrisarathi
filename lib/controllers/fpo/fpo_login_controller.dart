@@ -27,7 +27,7 @@ class FpoLoginController extends GetxController{
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.loginEmail);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.loginEmail);
     Map body = {
       'mobile_no': phoneController.text,
       'password': passwordController.text,

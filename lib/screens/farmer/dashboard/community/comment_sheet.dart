@@ -4,6 +4,7 @@ import '../../../../controllers/shared/community/comments_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../controllers/shared/community/community_controller.dart';
 import '../../../../models/community_post_model.dart';
 import '../../../../utils/api_constants.dart';
 
@@ -12,9 +13,7 @@ class CommentBottomSheet extends StatelessWidget {
   final CommentController controller = Get.put(CommentController());
   final TextEditingController textController = TextEditingController();
 
-  CommentBottomSheet({required this.post}) {
-    controller.initializeComments(post.comments);
-  }
+  CommentBottomSheet({required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +131,7 @@ class CommentTile extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage:
-                NetworkImage(ApiEndPoints.baseUrl + comment.profilePic),
+                NetworkImage(ApiEndPoints.imageBaseUrl + comment.profilePic),
           ),
           const SizedBox(
             width: 10,
@@ -218,7 +217,7 @@ class ReplyTile extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
           backgroundImage:
-              NetworkImage(ApiEndPoints.baseUrl + reply.profilePic)),
+              NetworkImage(ApiEndPoints.imageBaseUrl + reply.profilePic)),
       title: Text(reply.userName),
       subtitle: Text(reply.text),
     );

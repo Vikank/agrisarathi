@@ -57,7 +57,7 @@ class UpdateProfileController extends GetxController{
     loading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(
-        ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.updateFpoDetails);
+        ApiEndPoints.baseUrlTest + ApiEndPoints.authEndpoints.updateFpoDetails);
     Map body = {
       'userid': fpoId,
       'mobile_no': int.parse(phoneNumber),

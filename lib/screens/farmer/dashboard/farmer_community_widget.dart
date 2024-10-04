@@ -66,7 +66,7 @@ class CommunityPostCard extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundImage:
-              NetworkImage(ApiEndPoints.baseUrl + post.profilePic! ?? ""),
+              NetworkImage(ApiEndPoints.imageBaseUrl + post.profilePic! ?? ""),
             ),
             title: Text(
               post.userName!,
@@ -150,17 +150,15 @@ class CommunityPostCard extends StatelessWidget {
                   color: Color(0xff262626),
                 ),
               ),
-              Obx(() {
-                return Text(
-                  "${post.comments.length} Comments",
+              Text(
+                  "${post.commentCount} Comments",
                   style: const TextStyle(
                     fontFamily: "GoogleSans",
                     fontWeight: FontWeight.w400,
                     fontSize: 10,
                     color: Color(0xff262626),
                   ),
-                );
-              })
+                )
             ],
           ),
           const Divider(
@@ -217,9 +215,10 @@ class CommunityPostCard extends StatelessWidget {
                     ignoreSafeArea: true,
                     CommentBottomSheet(post: post),
                     isScrollControlled: true,
-                  ).whenComplete(() {
-                    Get.delete<CommentController>();
-                  });
+                  );
+                  //     .whenComplete(() {
+                  //   Get.delete<CommentController>();
+                  // });
                 },
               ),
             ],

@@ -42,10 +42,11 @@ class CommunityController extends GetxController {
     }
   }
 
-  void updateCommentCount(int postId, int change) {
+  void updateCommentCount(int postId, int change, Comment newComment) {
     final postIndex = posts.indexWhere((post) => post.postId == postId);
     if (postIndex != -1) {
       posts[postIndex].commentCount = (posts[postIndex].commentCount ?? 0) + change; // Update count
+      posts[postIndex].comments.add(newComment);
       posts.refresh(); // Refresh to notify listeners
     }
   }

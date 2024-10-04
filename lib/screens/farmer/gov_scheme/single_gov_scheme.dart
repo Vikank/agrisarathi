@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 
 import '../../../models/gov_scheme_model.dart';
@@ -47,7 +48,7 @@ class SingleSchemeScreen extends StatelessWidget {
               height: 16,
             ),
             CachedNetworkImage(
-              imageUrl: "https://api.agrisarathi.com/api/${scheme.schemeImage}",
+              imageUrl: "${ApiEndPoints.imageBaseUrl}${scheme.schemeImage}",
               imageBuilder: (context, imageProvider) => Container(
                 height: 190,
                 width: double.infinity,

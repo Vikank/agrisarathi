@@ -62,6 +62,8 @@ class CropSuggestion extends StatelessWidget {
                   Get.to(()=>SingleCropSuggestion(cropId: crop.cropId));
                 },
                 child: Container(
+                  color: Colors.white,
+                  width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [

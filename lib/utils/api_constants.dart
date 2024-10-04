@@ -1,5 +1,4 @@
 class ApiEndPoints {
-  static final String baseUrl = 'https://api.agrisarathi.com/api/';
   static final String baseUrlTest = 'https://apis.agrisarathi.com/farmer/';
   static final String imageBaseUrl = 'https://apis.agrisarathi.com';
   static final String getCommunityPost = 'Get_Community_Posts_List';

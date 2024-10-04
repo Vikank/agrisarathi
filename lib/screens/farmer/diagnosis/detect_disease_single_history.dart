@@ -30,7 +30,7 @@ class SingleDiseaseHistory extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              diseaseData.diseaseResults!.first.disease == ""
+              diseaseData.diseaseResults!.first.diseaseName == ""
                   ? SizedBox.shrink()
                   : Container(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
@@ -42,7 +42,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                     ),
                     color: Color(0xffEAFAEB)),
                 child: Text(
-                  "${diseaseData.diseaseResults!.first.disease}",
+                  "${diseaseData.diseaseResults!.first.diseaseName}",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -54,14 +54,14 @@ class SingleDiseaseHistory extends StatelessWidget {
                   height: 190,
                   width: double.infinity,
                   child: Image.network(
-                      ApiEndPoints.baseUrl +
-                          diseaseData.diseaseResults!.first.images!,
+                      ApiEndPoints.imageBaseUrl +
+                          diseaseData.diseaseResults!.first.uploadedImage!,
                       fit: BoxFit.cover,
                       width: double.infinity)),
               diseaseData.diseaseResults!.first.treatment == "" &&
-                      diseaseData.diseaseResults!.first.treatmentbefore == "" &&
-                      diseaseData.diseaseResults!.first.treatmentfield == "" &&
-                      diseaseData.diseaseResults!.first.suggestiveproduct ==
+                      diseaseData.diseaseResults!.first.treatmentBefore == "" &&
+                      diseaseData.diseaseResults!.first.treatmentField == "" &&
+                      diseaseData.diseaseResults!.first.suggestiveProduct ==
                           "" &&
                       diseaseData.diseaseResults!.first.symptom != ""
                   ? Text(
@@ -102,7 +102,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    diseaseData.diseaseResults!.first.treatmentbefore != ""
+                    diseaseData.diseaseResults!.first.treatmentBefore != ""
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -117,14 +117,14 @@ class SingleDiseaseHistory extends StatelessWidget {
                                 height: 8,
                               ),
                               Text(
-                                  "${diseaseData.diseaseResults!.first.treatmentbefore}"),
+                                  "${diseaseData.diseaseResults!.first.treatmentBefore}"),
                               SizedBox(
                                 height: 16,
                               ),
                             ],
                           )
                         : SizedBox.shrink(),
-                    diseaseData.diseaseResults!.first.treatmentfield != ""
+                    diseaseData.diseaseResults!.first.treatmentField != ""
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -139,7 +139,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                                 height: 8,
                               ),
                               Text(
-                                  "${diseaseData.diseaseResults!.first.treatmentfield}"),
+                                  "${diseaseData.diseaseResults!.first.treatmentField}"),
                               SizedBox(
                                 height: 16,
                               ),
@@ -175,7 +175,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                       ),
                     )
                   : SizedBox.shrink(),
-              diseaseData.diseaseResults!.first.suggestiveproduct != ""
+              diseaseData.diseaseResults!.first.suggestiveProduct != ""
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -190,14 +190,14 @@ class SingleDiseaseHistory extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                            "${diseaseData.diseaseResults!.first.suggestiveproduct}"),
+                            "${diseaseData.diseaseResults!.first.suggestiveProduct}"),
                       ],
                     )
                   : SizedBox.shrink(),
               SizedBox(height: 24),
               if (diseaseData.productDiseaseResults != null &&
                   diseaseData.productDiseaseResults!.isNotEmpty)
-                _buildProductResultsSection(diseaseData.productDiseaseResults!),
+                _buildProductResultsSection(diseaseData.productDiseaseResults!.first.products),
             ],
           ),
         ),
@@ -205,7 +205,7 @@ class SingleDiseaseHistory extends StatelessWidget {
     );
   }
 
-  Widget _buildProductResultsSection(List<ProductDiseaseResults> products) {
+  Widget _buildProductResultsSection(List<Product>? products) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -217,12 +217,12 @@ class SingleDiseaseHistory extends StatelessWidget {
         SizedBox(height: 10),
         ListView.builder(
           shrinkWrap: true,
-          itemCount: products.length,
+          itemCount: products?.length,
           itemBuilder: (context, index) {
-            var product = products[index];
+            var product = products![index];
             return ListTile(
               leading: Image.network(
-                'https://api.agrisarathi.com/api/${product.productimage}',
+                '${ApiEndPoints.imageBaseUrl}${product.productImage}',
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,
@@ -233,7 +233,7 @@ class SingleDiseaseHistory extends StatelessWidget {
                   child: Icon(Icons.error),
                 ),
               ),
-              title: Text(product.productname ?? 'N/A',
+              title: Text(product.productName ?? 'N/A',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

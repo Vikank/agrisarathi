@@ -54,7 +54,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: Image.network(
-                            '${ApiEndPoints.imageBaseUrl}${details.image}',
+                            '${ApiEndPoints.imageBaseUrl}${details.uploadedImage}',
                             width: 155,
                             height: 95,
                             fit: BoxFit.cover,
@@ -76,7 +76,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(details.disease ?? 'Unknown Disease', style: TextStyle(
+                            Text(details.diseaseName ?? 'Unknown Disease', style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
                               fontFamily: "GoogleSans",
@@ -88,12 +88,12 @@ class DiseaseDetectionHistory extends StatelessWidget {
                                 fontFamily: "GoogleSans",
                               color: Color(0xff64748B)
                             ),),
-                            Text(HelperFunctions().formatDate(details.uploadData), style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                fontFamily: "GoogleSans",
-                              color: Color(0xff1C1C1C)
-                            ),),
+                            // Text(HelperFunctions().formatDate(details.d), style: TextStyle(
+                            //     fontWeight: FontWeight.w400,
+                            //     fontSize: 12,
+                            //     fontFamily: "GoogleSans",
+                            //   color: Color(0xff1C1C1C)
+                            // ),),
                           ],
                         )
                       ],

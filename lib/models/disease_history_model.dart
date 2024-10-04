@@ -27,37 +27,54 @@ class DiseaseHistoryModel {
 
 class DiseaseDetails {
   int? id;
-  int? cropId;
+  String? diseaseName;
   String? serviceProvider;
-  String? disease;
-  String? image;
-  String? uploadData;
+  String? symptom;
+  String? treatmentBefore;
+  String? treatmentField;
+  String? treatment;
+  String? message;
+  String? suggestiveProduct;
+  String? uploadedImage;
 
-  DiseaseDetails(
-      {this.id,
-        this.cropId,
-        this.serviceProvider,
-        this.disease,
-        this.image,
-        this.uploadData});
+  DiseaseDetails({
+    this.id,
+    this.diseaseName,
+    this.serviceProvider,
+    this.symptom,
+    this.treatmentBefore,
+    this.treatmentField,
+    this.treatment,
+    this.message,
+    this.suggestiveProduct,
+    this.uploadedImage,
+  });
 
   DiseaseDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cropId = json['crop_id'];
-    serviceProvider = json['Service_Provider'];
-    disease = json['disease'];
-    image = json['image'];
-    uploadData = json['Upload_Data'];
+    diseaseName = json['disease_name'];
+    serviceProvider = json['serviceprovider'];
+    symptom = json['symptom'];
+    treatmentBefore = json['treatmentbefore'];
+    treatmentField = json['treatmentfield'];
+    treatment = json['treatment'];
+    message = json['message'];
+    suggestiveProduct = json['suggestiveproduct'];
+    uploadedImage = json['uploaded_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = id;
-    data['crop_id'] = cropId;
-    data['Service_Provider'] = serviceProvider;
-    data['disease'] = disease;
-    data['image'] = image;
-    data['Upload_Data'] = uploadData;
+    data['disease_name'] = diseaseName;
+    data['serviceprovider'] = serviceProvider;
+    data['symptom'] = symptom;
+    data['treatmentbefore'] = treatmentBefore;
+    data['treatmentfield'] = treatmentField;
+    data['treatment'] = treatment;
+    data['message'] = message;
+    data['suggestiveproduct'] = suggestiveProduct;
+    data['uploaded_image'] = uploadedImage;
     return data;
   }
 }

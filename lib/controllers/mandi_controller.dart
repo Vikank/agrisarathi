@@ -31,7 +31,7 @@ class MandiController extends GetxController{
   Future<void> getDukanAll() async {
     log("dukan data");
     var response =
-    await http.get(Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.dukanAll));
+    await http.get(Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.dukanAll));
     print("dukan data ${response.body}");
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -52,7 +52,7 @@ class MandiController extends GetxController{
 
   Future<void> getShopAll() async {
     var response = await http.get(
-      Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.getOnlyShop),
+      Uri.parse(ApiEndPoints.baseUrlTest + ApiEndPoints.getOnlyShop),
     );
     print("dukan shop data ${response.body}");
     if (response.statusCode == 200) {
@@ -81,7 +81,7 @@ class MandiController extends GetxController{
     String encodeData = jsonEncode(request);
     var response = await http.post(
         Uri.parse(
-            '${ApiEndPoints.baseUrl}${ApiEndPoints.getSingleShop}'),
+            '${ApiEndPoints.baseUrlTest}${ApiEndPoints.getSingleShop}'),
         body: encodeData
     );
     log("Single shop data ${response.body}");
@@ -113,7 +113,7 @@ class MandiController extends GetxController{
     String encodeData = jsonEncode(request);
     var response = await http.post(
         Uri.parse(
-            '${ApiEndPoints.baseUrl}${ApiEndPoints.getSingleProduct}'),
+            '${ApiEndPoints.baseUrlTest}${ApiEndPoints.getSingleProduct}'),
         body: encodeData
     );
     log("Single product data ${response.body}");

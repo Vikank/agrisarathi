@@ -11,6 +11,7 @@ import 'community_controller.dart';
 
 
 class CommentController extends GetxController {
+  CommunityController controller = Get.find<CommunityController>();
   final storage = FlutterSecureStorage();
   var comments = <Comment>[].obs;
   var replyingTo = Rxn<Comment>();
@@ -47,7 +48,7 @@ class CommentController extends GetxController {
           // Add the new comment to the list
           var newComment = Comment.fromJson(decodedResponse['comment']);
           comments.add(newComment);
-          Get.find<CommunityController>().updateCommentCount(postId, 1);
+          controller.updateCommentCount(postId, 1, newComment);
         }
       }
     } catch (e) {

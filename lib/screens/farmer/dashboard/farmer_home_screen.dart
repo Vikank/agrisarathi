@@ -188,7 +188,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: Image.asset(
-                    "assets/images/crop_suggestion.png",
+                    "assets/images/crop_suggestion_black.png",
                     width: 20,
                     height: 20,
                   ),
