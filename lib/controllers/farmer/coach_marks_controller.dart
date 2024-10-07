@@ -7,7 +7,7 @@ class CoachMarksController extends GetxController{
   final List<TargetFocus> targets = <TargetFocus>[];
   final communityCoachKey = GlobalKey();
   final mandiCoachKey = GlobalKey();
-  final farmCoachKey = GlobalKey();
+  // final farmCoachKey = GlobalKey();
   // var weatherCoachKey = GlobalKey();
   final productionCoachKey = GlobalKey();
   final fertilizerCoachKey = GlobalKey();
@@ -24,19 +24,19 @@ class CoachMarksController extends GetxController{
 
   void createTargets() {
     targets.addAll([
-      TargetFocus(
-        identify: "farmCoachKey",
-        keyTarget: farmCoachKey,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              "You_can_select_and_add_more_Farms_here".tr,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
-            ),
-          ),
-        ],
-      ),
+      // TargetFocus(
+      //   identify: "farmCoachKey",
+      //   keyTarget: farmCoachKey,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.bottom,
+      //       child: Text(
+      //         "You_can_select_and_add_more_Farms_here".tr,
+      //         style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "GoogleSans"),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       // TargetFocus(
       //   identify: "weatherCoachKey",
       //   keyTarget: weatherCoachKey,

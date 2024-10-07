@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fpo_assist/controllers/shared/language_selection_controller.dart';
 import 'package:fpo_assist/screens/farmer/auth/farmer_login_screen.dart';
 import 'package:fpo_assist/screens/initial/role_screen.dart';
@@ -82,10 +83,10 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // controller.langSel.value = 2;
-                          // controller.changeLanguage('hi', 'IN');
-                          controller.langSel.value = 1;
-                          controller.changeLanguage('en', 'US');
+                          controller.langSel.value = 2;
+                          controller.changeLanguage('hi', 'IN');
+                          // controller.langSel.value = 1;
+                          // controller.changeLanguage('en', 'US');
                         },
                         child: Container(
                           height: 42,
@@ -114,7 +115,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -139,7 +145,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -164,7 +175,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -189,7 +205,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -214,7 +235,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -239,7 +265,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -264,7 +295,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,
@@ -289,7 +325,12 @@ class LanguageSelection extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.changeLanguage('en', 'US');
+                          Fluttertoast.showToast(
+                            msg: "Coming Soon",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Container(
                           height: 42,

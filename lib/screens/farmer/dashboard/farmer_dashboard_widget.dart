@@ -375,91 +375,108 @@ class FarmerDashboardWidget extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           onTap: () {
                             Get.to(() => ChooseFarmProduction());
                           },
-                          child: Column(
-                            key: coachMarksController.productionCoachKey,
-                            children: [
-                              Image.asset(
-                                "assets/images/production.png",
-                                height: 40,
-                                width: 40,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Production".tr,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "GoogleSans"),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          child: SizedBox(
+                            height: 93,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              key: coachMarksController.productionCoachKey,
+                              children: [
+                                Image.asset(
+                                  "assets/images/production.png",
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Production".tr,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "GoogleSans"),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        GestureDetector(
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           onTap: () {
                             Get.to(() => FarmForFertilizer());
                           },
-                          child: Column(
-                            key: coachMarksController.fertilizerCoachKey,
-                            children: [
-                              Image.asset(
-                                "assets/images/fertilizer_calci.png",
-                                height: 40,
-                                width: 40,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Fertilizer_Calculator_home".tr,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "GoogleSans"),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          child: SizedBox(
+                            height: 93,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              key: coachMarksController.fertilizerCoachKey,
+                              children: [
+                                Image.asset(
+                                  "assets/images/fertilizer_calci.png",
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Fertilizer_Calculator_home".tr,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "GoogleSans"),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        GestureDetector(
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           onTap: () {
                             Get.to(() => SelectServiceProvider());
                           },
-                          child: Column(
-                            key: coachMarksController.detectCoachKey,
-                            children: [
-                              Image.asset(
-                                "assets/images/detect_disease.png",
-                                height: 40,
-                                width: 40,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Detect_Disease_home".tr,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "GoogleSans"),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          child: SizedBox(
+                            height: 93,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              key: coachMarksController.detectCoachKey,
+                              children: [
+                                Image.asset(
+                                  "assets/images/detect_disease.png",
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Detect_Disease_home".tr,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "GoogleSans"),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,
@@ -576,14 +593,13 @@ class FarmerDashboardWidget extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Fluttertoast.showToast(
                                   msg: "Coming Soon",
@@ -592,28 +608,35 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   textColor: Colors.white,
                                 );
                               },
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/farmer_economics.png",
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Farmer_Economics_home".tr,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "GoogleSans"),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: SizedBox(
+                                height: 93,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/farmer_economics.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Farmer_Economics_home".tr,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "GoogleSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            GestureDetector(
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Fluttertoast.showToast(
                                   msg: "Coming Soon",
@@ -622,28 +645,35 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   textColor: Colors.white,
                                 );
                               },
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/irrigation_alarm.png",
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Irrigation_Alarm_home".tr,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "GoogleSans"),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: SizedBox(
+                                height: 93,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/irrigation_alarm.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Irrigation_Alarm_home".tr,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "GoogleSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            GestureDetector(
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Fluttertoast.showToast(
                                   msg: "Coming Soon",
@@ -652,94 +682,107 @@ class FarmerDashboardWidget extends StatelessWidget {
                                   textColor: Colors.white,
                                 );
                               },
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/soil_testing.png",
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Soil_Testing_home".tr,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "GoogleSans"),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: SizedBox(
+                                height: 93,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/soil_testing.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Soil_Testing_home".tr,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "GoogleSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Get.to(() => SchemeListView());
                               },
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/gov_schemes.png",
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "gov_scheme_home".tr,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "GoogleSans"),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: SizedBox(
+                                height: 93,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/gov_schemes.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "gov_scheme_home".tr,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "GoogleSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            GestureDetector(
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Get.to(CropSuggestion());
                               },
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/crop_suggestion.png",
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Crop_Suggestion_home".tr,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "GoogleSans"),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: SizedBox(
+                                height: 93,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/crop_suggestion.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Crop_Suggestion_home".tr,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "GoogleSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            GestureDetector(
-                                child: Container(
-                              height: 40,
-                              width: 40,
-                            ))
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          Expanded(child: Container()),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,

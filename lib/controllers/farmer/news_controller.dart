@@ -51,15 +51,7 @@ class NewsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getUserLanguage().then((userlanguage) {
-      fetchNews();
-    });
-  }
-
-  Future<int?> getUserLanguage() async {
-    userLanguage = await HelperFunctions.getUserLanguage();
-    log("UserRole $userLanguage");
-    return userLanguage;
+    fetchNews();
   }
 
   Future<void> fetchNews({bool loadMore = false}) async {
