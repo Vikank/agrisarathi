@@ -24,11 +24,13 @@ class SchemeController extends GetxController {
     {
       "name": "Central".tr,
       "image": "assets/images/central_scheme.png",
+      "active_image": "assets/images/active_central_scheme.png",
       "filter": "central"
     },
     {
       "name": "State".tr,
       "image": "assets/images/state_scheme.png",
+      "active_image": "assets/images/active_state_scheme.png",
       "filter": "state"
     },
   ];
@@ -57,10 +59,12 @@ class SchemeController extends GetxController {
 
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken'  // Add the access token to the headers
+        'Authorization':
+            'Bearer $accessToken' // Add the access token to the headers
       };
       var response = await http.get(
-        Uri.parse('${ApiEndPoints.baseUrlTest}GetallGovtSchemes?filter_type=all'),
+        Uri.parse(
+            '${ApiEndPoints.baseUrlTest}GetallGovtSchemes?filter_type=all'),
         headers: headers,
       );
       if (response.statusCode == 200) {
