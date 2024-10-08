@@ -212,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
         curve: Curves.ease,
       );
     }
-    Widget languageButton(String language, String nativeText, int id) {
+    Widget languageButton(String language, String nativeText, int id, String param1, String param2) {
       bool isSelected = id == profile.fkLanguage;
       return Container(
         width: 92,
@@ -242,7 +242,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            profileController.updateLanguage(id);
+            profileController.updateLanguage(id, param1, param2);
           },
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -261,13 +261,13 @@ class ProfileScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  languageButton('English', 'अंग्रेजी', 1),
+                  languageButton('English', 'अंग्रेजी', 1, 'en', 'US'),
                   SizedBox(width: 8),
-                  languageButton('Hindi', 'हिंदी', 2),
+                  languageButton('Hindi', 'हिंदी', 2, 'hi', 'IN'),
                   SizedBox(width: 8),
-                  languageButton('Marathi', 'मराठी', 3),
+                  languageButton('Marathi', 'मराठी', 3, 'hi', 'IN'),
                   SizedBox(width: 8),
-                  languageButton('Marathi', 'मराठी', 4),
+                  languageButton('Marathi', 'मराठी', 4, 'hi', 'IN'),
                 ],
               ),
             ),

@@ -4,10 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fpo_assist/screens/farmer/dashboard/farmer_home_screen.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/profile_model.dart';
 import '../../screens/initial/role_screen.dart';
 import 'dashboard_controller.dart';
@@ -152,7 +154,7 @@ class FarmerProfileController extends GetxController {
   }
 
   // Function to update the language
-  Future<void> updateLanguage(int fkLanguageId) async {
+  Future<void> updateLanguage(int fkLanguageId, param1, param2) async {
     final url = Uri.parse('${ApiEndPoints.baseUrlTest}FarmerDetailsGetUpdate');
     log("language updating $fkLanguageId");
     // Request body
@@ -175,7 +177,14 @@ class FarmerProfileController extends GetxController {
       );
       log("response ${response.body.toString()}");
       if (response.statusCode == 200) {
-        fetchProfile();
+        SharedPreferences prefLang = await SharedPreferences.getInstance();
+        var locale = Locale(param1, param2);
+        Get.updateLocale(locale);
+        await prefLang.setInt('selected_language', fkLanguageId);
+        fetchProfile().then((ele){
+          Get.offAll(()=> FarmerHomeScreen());
+        });
+
       } else {
         Fluttertoast.showToast(
                   msg: "Failed to update language",

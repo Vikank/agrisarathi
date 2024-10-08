@@ -253,7 +253,7 @@ class FarmerDashboardController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         var articlesJson = jsonData['results'] as List;
         articles.value = articlesJson
             .map((articleJson) => NewsArticle.fromJson(articleJson))
