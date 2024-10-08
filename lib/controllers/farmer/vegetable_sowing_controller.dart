@@ -9,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import 'dashboard_controller.dart';
+
 class VegetableSowingController extends GetxController {
   final storage = FlutterSecureStorage();
   var selectedDateForUI = ''.obs;  // For UI display in DD/MM/YYYY format
@@ -67,7 +69,6 @@ class VegetableSowingController extends GetxController {
       log("repsonse body me aaya ${jsonResponse}");
       if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
         Get.off(()=> VegetableStagesScreen(landId: landId, filterId: filterId,));
-        Fluttertoast.showToast(msg: jsonResponse['message']);
       } else {
         Fluttertoast.showToast(msg: "Error: ${jsonResponse['message']}");
       }

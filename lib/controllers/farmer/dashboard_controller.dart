@@ -44,7 +44,7 @@ class FarmerDashboardController extends GetxController {
     fetchFarmerLands();
   }
 
-  void fetchFarmerLands() async {
+  Future<void> fetchFarmerLands() async {
     farmerLandLoader.value = true;
     String? accessToken = await storage.read(key: 'access_token');
     if (accessToken == null) {
