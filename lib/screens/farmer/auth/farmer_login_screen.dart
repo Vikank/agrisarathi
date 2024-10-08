@@ -34,7 +34,7 @@ class FarmerLoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 75,
+                height: 170,
               ),
               Center(
                 child: Text(

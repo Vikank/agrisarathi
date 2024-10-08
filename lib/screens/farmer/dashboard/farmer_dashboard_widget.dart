@@ -177,7 +177,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 16),
+                                  SizedBox(height: 10),
 
                                   // Weather Data Carousel
                                   controller.landWeatherData.isNotEmpty
@@ -292,7 +292,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 16),
+                                            SizedBox(height: 10),
                                           ],
                                         )
                                       : SizedBox.shrink(),
@@ -309,7 +309,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 16),
                                             width: double.infinity,
-                                            height: 56,
+                                            height: 110,
                                             child: CarouselSlider(
                                               items: controller
                                                   .filteredNotifications
@@ -336,7 +336,7 @@ class FarmerDashboardWidget extends StatelessWidget {
                                             ),
                                           ),
                                           SizedBox(
-                                            height: 20,
+                                            height: 10,
                                           )
                                         ],
                                       );

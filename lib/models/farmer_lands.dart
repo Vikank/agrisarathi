@@ -30,8 +30,8 @@ class Data {
   String? district;
   String? engDistrict;
   String? village;
-  double? lat1;
-  double? lat2;
+  double? lat;
+  double? long;
   String? crop;
   bool? preference;
   bool? isCompleted;
@@ -48,8 +48,8 @@ class Data {
         this.district,
         this.engDistrict,
         this.village,
-        this.lat1,
-        this.lat2,
+        this.lat,
+        this.long,
         this.crop,
         this.preference,
         this.isCompleted,
@@ -66,8 +66,8 @@ class Data {
     district = json['district'];
     engDistrict = json['eng_district'];
     village = json['village'];
-    lat1 = json['lat1'];
-    lat2 = json['lat2'];
+    lat = json['lat'];
+    long = json['long'];
     crop = json['crop'];
     preference = json['preference'];
     isCompleted = json['completed'];
@@ -78,22 +78,22 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['land_area'] = this.landArea;
-    data['address'] = this.address;
-    data['pincode'] = this.pincode;
-    data['state'] = this.state;
-    data['district'] = this.district;
-    data['eng_district'] = this.engDistrict;
-    data['village'] = this.village;
-    data['lat1'] = this.lat1;
-    data['lat2'] = this.lat2;
-    data['crop'] = this.crop;
-    data['preference'] = this.preference;
-    data['completed'] = this.isCompleted;
-    data['filter_id'] = this.filterId;
-    data['crop_id'] = this.cropId;
-    data['crop_images'] = this.cropImages;
+    data['id'] = id;
+    data['land_area'] = landArea;
+    data['address'] = address;
+    data['pincode'] = pincode;
+    data['state'] = state;
+    data['district'] = district;
+    data['eng_district'] = engDistrict;
+    data['village'] = village;
+    data['lat'] = lat;
+    data['long'] = long;
+    data['crop'] = crop;
+    data['preference'] = preference;
+    data['completed'] = isCompleted;
+    data['filter_id'] = filterId;
+    data['crop_id'] = cropId;
+    data['crop_images'] = cropImages;
     return data;
   }
 }

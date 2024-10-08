@@ -20,7 +20,6 @@ class FarmerDashboardController extends GetxController {
   var vegetableProgress = Rx<VegetableProgressModel?>(null);
   RxString cropName = "".obs;
   String? farmerId;
-  RxString districtName = "".obs;
   RxBool farmerLandLoader = true.obs;
   RxBool newsLoader = true.obs;
   int? userLanguage;
@@ -45,11 +44,6 @@ class FarmerDashboardController extends GetxController {
     fetchFarmerLands();
   }
 
-  Future<int?> getUserLanguage() async {
-    userLanguage = await HelperFunctions.getUserLanguage();
-    return userLanguage;
-  }
-
   void fetchFarmerLands() async {
     farmerLandLoader.value = true;
     String? accessToken = await storage.read(key: 'access_token');
@@ -72,7 +66,7 @@ class FarmerDashboardController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        final jsonData = jsonDecode((response.body));
         farmerLands.value = FarmerLands.fromJson(jsonData);
         // Clear previously fetched weather data
         landWeatherData.clear();
@@ -81,15 +75,17 @@ class FarmerDashboardController extends GetxController {
         // Loop through all lands and fetch weather for each
         for (var land in farmerLands.value.data!) {
           String? district = land.engDistrict;
-          if (district != null && district.isNotEmpty) {
-            await fetchWeatherForLand(district);
+          double? lat = land.lat;
+          double? long = land.long;
+          if (lat != null && long != null && district != null) {
+            await fetchWeatherForLand(lat, long, district);
           }
 
           if (land.cropId != null && land.filterId != null) {
             cropsList.add({"land_id": land.id, "filter_type": land.filterId});
           }
         }
-        await fetchNotifications(); // Fetch notifications after weather data is loaded
+        // await fetchNotifications(); // Fetch notifications after weather data is loaded
         await fetchCropProgress(cropsList);
         farmerLandLoader.value = false;
       } else {
@@ -102,11 +98,12 @@ class FarmerDashboardController extends GetxController {
     }
   }
 
-  Future<void> fetchWeatherForLand(String district) async {
+  Future<void> fetchWeatherForLand(double lat, double long, String district) async {
     try {
       final response = await http.get(
         Uri.parse(
-          'https://api.openweathermap.org/data/2.5/weather?q=$district&appid=$apiKey&units=metric',
+          // 'https://api.openweathermap.org/data/2.5/weather?q=$district&appid=$apiKey&units=metric',
+          'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$apiKey&units=metric'
         ),
       );
       if (response.statusCode == 200) {
@@ -123,7 +120,7 @@ class FarmerDashboardController extends GetxController {
           'weatherIcon': weatherIconUrl,
           'weatherCondition': weatherCondition,
         };
-        // await fetchNotifications(); // Fetch notifications after weather data is loaded
+        await fetchNotifications(); // Fetch notifications after weather data is loaded
       } else {
         log('Error, Unable to fetch weather data');
       }
@@ -156,7 +153,7 @@ class FarmerDashboardController extends GetxController {
         };
       }).toList(),
     };
-
+    log("request body is ${requestBody}");
     final response = await http.post(
       Uri.parse('${ApiEndPoints.baseUrlTest}GetVegetablePopNotification'),
       headers: headers,
@@ -281,7 +278,6 @@ class FarmerDashboardController extends GetxController {
     filteredNotifications.clear(); // No notifications if preference is false
     filteredProgress.clear();
     cropName.value = '';
-    districtName.value = '';
     temperature.value = '';
     weatherIcon.value = '';
     currentCarousel.value = 0;
