@@ -52,6 +52,11 @@ class AdvancedFertilizerCalculatorController extends GetxController {
       );
       log("data ${cropId}${landId}");
       if (response.statusCode == 200) {
+        daep.value = '';
+        complexes.value = '';
+        urea.value = '';
+        ssp.value = '';
+        mop.value = '';
         apiResponse.value = jsonDecode(response.body);
       } else {
         Get.snackbar('Error', 'Failed to calculate. Please try again.');

@@ -77,7 +77,7 @@ class FarmerHomeScreen extends StatelessWidget {
 
                   if (controller.farmerDetails.value == null) {
                     // Show an error message or empty state if there's no data
-                    return Center(child: Text('No data available'));
+                    return Center(child: Text('No_data_available'.tr));
                   }
                   final farmerDetails = controller.farmerDetails.value!.data;
                   return Container(
@@ -266,7 +266,7 @@ class FarmerHomeScreen extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              label: 'My Farms'.tr,
+              label: 'MyFarms'.tr,
             ),
             BottomNavigationBarItem(
               icon: Image.asset(

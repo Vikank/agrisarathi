@@ -47,7 +47,7 @@ class CropVarietyScreen extends StatelessWidget {
                       return
                         ListTile(
                         onTap: () {
-                          Get.to(FarmerAddressDetail(
+                          Get.to(()=>FarmerAddressDetail(
                               selectedCrops: selectedCrops,
                               cropVariety: variety.varietyId));
                         },

@@ -45,7 +45,7 @@ class CropController extends GetxController {
     };
     final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'), headers: headers);
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
       var loadedCrops = <Crop>[];
       var categorySet = Set<String>();  // Use a set to store unique categories
       data.forEach((category, crops) {

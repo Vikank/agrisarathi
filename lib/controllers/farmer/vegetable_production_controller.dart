@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -45,6 +46,27 @@ class VegetableStagesController extends GetxController {
       final videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(ApiEndPoints.imageBaseUrl+videoUrl));
 
       chewieController.value = ChewieController(
+        aspectRatio: 16 / 9,
+        placeholder: CachedNetworkImage(
+          imageUrl: "${ApiEndPoints.imageBaseUrl}${filteredStages[currentStageIndex.value].stageThumbnail}",
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.black,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => SizedBox(
+              height: 10,
+              width: 10,
+              child: const CircularProgressIndicator(
+                strokeAlign: 2,
+                strokeWidth: 2,
+              )),
+        ),
         videoPlayerController: videoPlayerController,
         autoPlay: false,
         looping: false,
@@ -148,7 +170,7 @@ class VegetableStagesController extends GetxController {
           headers: headers);
 
       if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body);
+        var jsonResponse = json.decode(utf8.decode(response.bodyBytes));
         vegetableProduction.value =
             VegetableProductionModel.fromJson(jsonResponse);
 

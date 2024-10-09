@@ -45,13 +45,6 @@ class FarmerAddressController extends GetxController{
     super.onInit();
     fetchStates();
     fetchCrops();
-    getUserLanguage();
-  }
-
-
-  void getUserLanguage() async{
-    userLanguage = await HelperFunctions.getUserLanguage();
-    log("UserLanguage $userLanguage");
   }
 
 // Fetch all states from API
@@ -72,7 +65,7 @@ class FarmerAddressController extends GetxController{
       );
 
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
 
         // Check if data contains 'data' key and it is a List<dynamic>
         if (data['success'] == 'ok' && data.containsKey('data') && data['data'] is List<dynamic>) {
@@ -107,7 +100,7 @@ class FarmerAddressController extends GetxController{
       );
 
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
         // Check if data contains 'success' key with value 'Ok' and 'data' key with List<dynamic> value
         if (data['success'] == 'Ok' && data.containsKey('data') && data['data'] is List<dynamic>) {
           districts.assignAll(data['data']); // Update RxList with the list of districts
@@ -134,7 +127,7 @@ class FarmerAddressController extends GetxController{
     };
     final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'), headers : headers);
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
       jsonData.forEach((key, value) {
         value.forEach((crop) {
           crops.add({
@@ -160,7 +153,7 @@ class FarmerAddressController extends GetxController{
     final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId'), headers : headers);
     log("aaya response me ${response.statusCode}");
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
       varieties.clear();
       jsonData['data'].forEach((variety) {
         varieties.add({
@@ -205,7 +198,6 @@ class FarmerAddressController extends GetxController{
       village.clear();
       landArea.clear();
       addressLine.clear();
-      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
       Get.to(() => FarmerUpdateProfileScreen());
     } else {
@@ -248,7 +240,6 @@ class FarmerAddressController extends GetxController{
       village.clear();
       landArea.clear();
       addressLine.clear();
-      Get.snackbar("Success", json['message'].toString(), snackPosition: SnackPosition.BOTTOM);
       loading.value = false;
     } else {
       loading.value = false;

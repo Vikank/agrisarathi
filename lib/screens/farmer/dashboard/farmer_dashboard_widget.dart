@@ -201,22 +201,22 @@ class FarmerDashboardWidget extends StatelessWidget {
                                                       final weatherData =
                                                           controller
                                                                   .landWeatherData[
-                                                              item.district];
+                                                              item.engDistrict];
 
                                                       return GestureDetector(
                                                         onTap: () {
                                                           Get.to(() =>
                                                               WeatherDetailScreen(
                                                                   districtName:
-                                                                      item.district ??
+                                                                      item.engDistrict ??
                                                                           ""));
                                                         },
                                                         child: Container(
                                                           // height: 56,
                                                           // width: double.infinity,
-                                                          // padding:
-                                                          //     const EdgeInsets.all(
-                                                          //         10),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                  10),
                                                           decoration:
                                                               BoxDecoration(
                                                             border: Border.all(

@@ -135,32 +135,32 @@ class ChooseFarmLand extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(
-              height: 16,
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.to(ChooseAnotherCrop(serviceProviderId: serviceProviderId));
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Another_crop".tr,
-                    style: TextStyle(
-                        fontFamily: "GoogleSans",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: 16,
+            // ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Get.to(ChooseAnotherCrop(serviceProviderId: serviceProviderId));
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
+            //     decoration: BoxDecoration(
+            //       border: Border.all(width: 1, color: Colors.grey),
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(10),
+            //       ),
+            //     ),
+            //     child: Center(
+            //       child: Text(
+            //         "Another_crop".tr,
+            //         style: TextStyle(
+            //             fontFamily: "GoogleSans",
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w500),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -34,7 +34,7 @@ class NewsListView extends StatelessWidget {
                   ? _buildNewsList(context)
                   : Center(
                   child: Text(
-                    "No data available",
+                    "No_data_available".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,

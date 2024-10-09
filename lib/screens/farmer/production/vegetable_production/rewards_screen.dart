@@ -19,7 +19,7 @@ class RewardsController extends GetxController {
 
   void onContinuePressed() {
     isLast
-        ? Get.offAll(()=>FarmerHomeScreen())
+        ? Get.offAll(() => FarmerHomeScreen())
         : Get.off(() => VegetableStagesScreen(
               landId: landId,
               filterId: filterId,
@@ -38,8 +38,14 @@ class RewardsScreen extends StatelessWidget {
         backgroundColor: Color(0xFF4CAF50),
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: Text('Rewards', style: const TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'GoogleSans', color: Colors.white),),
+        title: Text(
+          'Rewards'.tr,
+          style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'GoogleSans',
+              color: Colors.white),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -56,29 +62,59 @@ class RewardsScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset('assets/images/coins.png', height: 100),
+                      Image.asset('assets/images/coins.png', height: 60),
                       // Make sure to add this image to your assets
                       SizedBox(height: 20),
                       Text(
-                        'Congratulations!',
+                        'Congratulations'.tr,
                         style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "GoogleSans"
-                        ),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "GoogleSans"),
                       ),
                       SizedBox(height: 10),
                       Divider(),
                       SizedBox(height: 10),
-                      Text(
-                        'Bravo! You were awarded ${controller.coins} Coins.',
+                      RichText(
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12, fontFamily: "GoogleSans", fontWeight: FontWeight.w400),
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: "GoogleSans",
+                            fontWeight: FontWeight.w400,
+                            color: Colors
+                                .black, // You can set a default color for the text
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Bravo_You_were_awarded'.tr,
+                            ),
+                            TextSpan(
+                              text: '${controller.coins} ',
+                              style: TextStyle(
+                                fontWeight:
+                                    FontWeight.bold, // Bold for the coins part
+                                color: Colors.blue, // Change color as needed
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Coins'.tr,
+                              style: TextStyle(
+                                fontWeight:
+                                    FontWeight.bold, // Bold for the coins part
+                                color: Colors.blue, // Change color as needed
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Text(
-                        'Get additional coins by finishing the next Stages!',
+                        'Get_additional_coins_by_finishing_the_next_Stages'.tr,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12, fontFamily: "GoogleSans", fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: "GoogleSans",
+                            fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
@@ -90,7 +126,18 @@ class RewardsScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomElevatedButton(
-                  buttonColor: Colors.white, onPress: () { controller.onContinuePressed(); }, widget: Text('CONTINUE', style: TextStyle(fontSize: 15, fontFamily: "GoogleSans", fontWeight: FontWeight.w500, color: Colors.green),),
+                  buttonColor: Colors.white,
+                  onPress: () {
+                    controller.onContinuePressed();
+                  },
+                  widget: Text(
+                    'continue'.tr,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: "GoogleSans",
+                        fontWeight: FontWeight.w500,
+                        color: Colors.green),
+                  ),
                 ),
               ),
             ),

@@ -50,6 +50,7 @@ class Stage {
   final int stageId;
   final String stages;
   final String stageName;
+  final String stageThumbnail;
   final String stageAudio;
   final String stageVideo;
   final String? sowPeriod;
@@ -66,6 +67,7 @@ class Stage {
     required this.stageId,
     required this.stages,
     required this.stageName,
+    required this.stageThumbnail,
     required this.stageAudio,
     required this.stageVideo,
     this.sowPeriod,
@@ -84,9 +86,10 @@ class Stage {
       stageId: json['stage_id'] as int,
       stages: json['stages'] as String,
       stageName: json['stage_name'] as String,
+      stageThumbnail: json['stage_thumbnail'] as String,
       stageAudio: json['stage_audio'] as String,
       stageVideo: json['stage_video'] as String,
-      sowPeriod: json['sow_period'] as String?,
+      sowPeriod: json['sow_period'] ?? "",
       description: json['description'] as String,
       stageNumber: json['stage_number'] as int,
       preference: json['preference'] as int,
@@ -105,6 +108,7 @@ class Stage {
       'stage_id': stageId,
       'stages': stages,
       'stage_name': stageName,
+      'stage_thumbnail': stageThumbnail,
       'stage_audio': stageAudio,
       'stage_video': stageVideo,
       'sow_period': sowPeriod,

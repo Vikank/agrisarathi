@@ -9,7 +9,7 @@ void main() async{
 
   // Load the saved language
   final prefs = await SharedPreferences.getInstance();
-  int? languageCode = prefs.getInt('selected_language');
+  int? languageCode = prefs.getInt('selected_language') ?? 1;
   runApp(MyApp(languageCode: languageCode,));
 }
 

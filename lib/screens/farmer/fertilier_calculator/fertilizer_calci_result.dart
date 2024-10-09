@@ -123,7 +123,7 @@ class FertilizerResultScreen extends StatelessWidget {
         ),
         TableRow(
           children: [
-            'Urea',
+            'Urea'.tr,
             urea.kgPerHa.toString(),
             urea.bags50Kg.toString(),
             '₹${urea.priceRs}',
@@ -131,7 +131,7 @@ class FertilizerResultScreen extends StatelessWidget {
         ),
         TableRow(
           children: [
-            'Super Phosphate',
+            'Super_Phosphate'.tr,
             superPhosphate.kgPerHa.toString(),
             superPhosphate.bags50Kg.toString(),
             '₹${superPhosphate.priceRs}',
@@ -139,7 +139,7 @@ class FertilizerResultScreen extends StatelessWidget {
         ),
         TableRow(
           children: [
-            'Potash',
+            'Potash'.tr,
             potash.kgPerHa.toString(),
             potash.bags50Kg.toString(),
             '₹${potash.priceRs}',
@@ -172,11 +172,11 @@ class FertilizerResultScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Already have some stock',
+              'Already_have_some_stock'.tr,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),
             ),
             SizedBox(height: 8),
-            Text('Do you have any stock already with you, then calculate how much you need now',
+            Text('Do_you_have_any_stock_already_with_you_then_calculate_how_much_you_need_now'.tr,
               style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: "GoogleSans"),),
             SizedBox(height: 16),
             Row(
@@ -185,7 +185,7 @@ class FertilizerResultScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(()=>AdvancedFertilizerCalculatorScreen(cropId : cropId, landId: landId,));
                   },
-                  child: Text('CALCULATE',
+                  child: Text('Calculate'.tr,
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "GoogleSans"),),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

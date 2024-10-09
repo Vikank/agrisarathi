@@ -58,7 +58,7 @@ class FarmForFertilizer extends StatelessWidget {
                       Dialog(
                         child: Container(
                           color: Colors.white,
-                          height: 144,
+                          height: 170,
                           width: double.infinity,
                           padding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 32),

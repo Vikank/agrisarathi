@@ -116,7 +116,7 @@ class SelectSowing extends StatelessWidget {
             child: CustomElevatedButton(buttonColor: Colors.green, onPress: () {
               controller.submitSowingDate(landId, filterId);
             }, widget: controller.loading.value ? progressIndicator() : Text(
-              "NEXT",
+              "Next".tr,
               style: TextStyle(fontFamily: 'GoogleSans',
                   fontSize: 15,
                   fontWeight: FontWeight.w500),

@@ -194,11 +194,11 @@ class DiseaseDetectionVideoController extends GetxController {
       var response = await http.Response.fromStream(streamedResponse);
       log("dhgfsjfgsjdfgs${response.statusCode} ${response.body}");
       if (response.statusCode == 200) {
-        var data = json.decode(response.body);
+        var data = json.decode(utf8.decode(response.bodyBytes));
         print('Response: ${data}');
         diseaseResultModel = DiseaseResultModel.fromJson(data);
         Get.back();
-        Get.to(DiseaseResultScreen());
+        Get.to(()=>DiseaseResultScreen());
       } else {
         Get.back();
         Fluttertoast.showToast(

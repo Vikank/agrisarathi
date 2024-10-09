@@ -29,7 +29,7 @@ class DiseaseDetectionHistory extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else if (controller.diseaseHistory.value == null ||
               controller.diseaseHistory.value!.diseaseDetails == null) {
-            return Center(child: Text('No data available'));
+            return Center(child: Text('No_data_available'.tr));
           } else {
             return ListView.separated(
               itemCount: controller.diseaseHistory.value!.diseaseDetails!.length,

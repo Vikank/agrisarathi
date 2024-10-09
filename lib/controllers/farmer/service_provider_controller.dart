@@ -50,7 +50,7 @@ class ServiceProviderController extends GetxController{
     );
     if (response.statusCode == 200) {
       log("heyyyyyy${response.body}");
-      var data = json.decode(response.body);
+      var data = json.decode(utf8.decode(response.bodyBytes));
       serviceProviderModel.value = ServiceProviderModel.fromJson(data);
       loading.value = false;
     } else {

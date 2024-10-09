@@ -102,11 +102,11 @@ class SingleSchemeScreen extends StatelessWidget {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          detailsTab(scheme.details ?? "No data available"),
-                          benefitsTab(scheme.benefits ?? "No data available"),
-                          eligibilityTab(scheme.eligibility ?? "No data available"),
-                          applicationProcessTab(scheme.applicationProcess ?? "No data available"),
-                          documentRequiredTab(scheme.documentRequire ?? "No data available"),
+                          detailsTab(scheme.details ?? "No_data_available".tr),
+                          benefitsTab(scheme.benefits ?? "No_data_available".tr),
+                          eligibilityTab(scheme.eligibility ?? "No_data_available".tr),
+                          applicationProcessTab(scheme.applicationProcess ?? "No_data_available".tr),
+                          documentRequiredTab(scheme.documentRequire ?? "No_data_available".tr),
                           schemeLinksTab(scheme.applicationformLink ?? "" + scheme.reference! ?? ""),
                         ],
                       ),
@@ -159,7 +159,7 @@ class SingleSchemeScreen extends StatelessWidget {
   Widget schemeLinksTab(String links){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Text(links ?? "No data available", style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
+      child: Text(links ?? "No_data_available".tr, style: TextStyle(fontFamily: "GoogleSans", fontSize: 12, fontWeight: FontWeight.w400),),
     );
   }
 }

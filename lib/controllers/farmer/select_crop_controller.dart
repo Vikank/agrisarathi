@@ -23,7 +23,7 @@ class CropController extends GetxController {
     final response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetInitialScreenCrops'));
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
       var loadedCrops = <Crop>[];
       data.forEach((category, crops) {
         loadedCrops.addAll((crops as List).map((json) => Crop.fromJson(json, category)).toList());

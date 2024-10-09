@@ -66,7 +66,7 @@ class FarmerDashboardController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode((response.body));
+        final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         farmerLands.value = FarmerLands.fromJson(jsonData);
         // Clear previously fetched weather data
         landWeatherData.clear();
@@ -161,7 +161,7 @@ class FarmerDashboardController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
       notificationsData.value = PopNotificationResponse.fromJson(jsonData);
       // Initialize notifications for the first land if available
       updateSelectedLandForNotification(0); // Set the initial notifications for the first land
@@ -191,7 +191,7 @@ class FarmerDashboardController extends GetxController {
 
       if (response.statusCode == 200) {
         vegetableProgress.value =
-            VegetableProgressModel.fromJson(jsonDecode(response.body));
+            VegetableProgressModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         // Initialize notifications for the first land if available
         updateSelectedLandForProgress(0); // Set the initial notifications for the first land
       } else {

@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:fpo_assist/utils/api_constants.dart';
+import 'package:fpo_assist/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../../../../controllers/farmer/vegetable_production_controller.dart';
@@ -42,6 +43,7 @@ class VegetableStagesScreen extends StatelessWidget {
                 children: [
                   _buildStageProgress(controller),
                   // _buildSubStages(controller),
+                  SizedBox(height: 16,),
                   _buildVideoPlayer(controller),
                   _buildDescription(controller),
                   _buildProducts(controller),
@@ -57,7 +59,7 @@ class VegetableStagesScreen extends StatelessWidget {
 
   Widget _buildStageProgress(VegetableStagesController controller) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,7 +67,7 @@ class VegetableStagesScreen extends StatelessWidget {
             controller
                 .filteredStages[controller.currentStageIndex.value].stages,
             style: const TextStyle(
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
                 fontFamily: "GoogleSans"),
           ),
@@ -101,21 +103,16 @@ class VegetableStagesScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            controller
-                .filteredStages[controller.currentStageIndex.value].stageName,
-            style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                fontFamily: "GoogleSans"),
-          ),
           Obx(() {
             if (controller.chewieController.value == null) {
               return Center(child: Text('Failed_to_load_video'.tr));
             } else {
               return Container(
                 height: 180,
-                child: Chewie(controller: controller.chewieController.value!) // Show loading until video initializes
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                  child: Chewie(controller: controller.chewieController.value!) // Show loading until video initializes
+                ),
               );
             }
           }),
@@ -126,44 +123,51 @@ class VegetableStagesScreen extends StatelessWidget {
 
   Widget _buildDescription(VegetableStagesController controller) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
-                  controller.filteredStages[controller.currentStageIndex.value]
-                      .description,
+                  controller
+                      .filteredStages[controller.currentStageIndex.value].stageName,
                   style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                       fontFamily: "GoogleSans"),
                 ),
               ),
-              Column(
-                children: [
-                  Obx(() =>
-                      IconButton(
-                          icon: Icon(
-                            controller.isPlaying.value
-                                ? Icons.stop
-                                : Icons.volume_up_outlined,
-                            color: Colors.green,
-                          ),
-                          onPressed: () {
-                            controller.toggleAudio(controller
-                                .filteredStages[controller.currentStageIndex
-                                .value]
-                                .stageAudio);
-                          })),
-                  _buildNextButton(controller)
-                ],
-              ),
+              Obx(() =>
+                  IconButton(
+                      icon: Icon(
+                        controller.isPlaying.value
+                            ? Icons.stop
+                            : Icons.volume_up_outlined,
+                        color: Colors.green,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        controller.toggleAudio(controller
+                            .filteredStages[controller.currentStageIndex
+                            .value]
+                            .stageAudio);
+                      })),
             ],
           ),
+          Text(
+            controller.filteredStages[controller.currentStageIndex.value]
+                .description,
+            style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                fontFamily: "GoogleSans"),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Center(child: _buildNextButton(controller))
         ],
       ),
     );
@@ -182,7 +186,7 @@ class VegetableStagesScreen extends StatelessWidget {
               color: const Color(0xfdfF1FBF2),
               borderRadius: BorderRadius.circular(5),
             ),
-            child: const Text('Products',
+            child: Text('Products'.tr,
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -266,14 +270,19 @@ class VegetableStagesScreen extends StatelessWidget {
   }
 
   Widget _buildNextButton(VegetableStagesController controller) {
-    return TextButton(
-      onPressed: controller.nextStage,
-      child: const Text('Next',
-          style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              fontFamily: "GoogleSans",
-              color: Colors.green)),
+    return SizedBox(
+      width: 92,
+      height: 34,
+      child: CustomElevatedButton(
+        buttonColor: Colors.green,
+        onPress: controller.nextStage,
+        widget: Text('Next'.tr,
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                fontFamily: "GoogleSans",
+                color: Colors.white     )),
+      ),
     );
   }
 }

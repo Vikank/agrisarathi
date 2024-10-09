@@ -70,12 +70,10 @@ class SubmitTaskController extends GetxController {
       request.files.add(pic);
 
       var response = await request.send();
-      log("heyyyyy${response.toString()}");
       if (response.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var responseBody = await response.stream.bytesToString();
         var decodedResponse = json.decode(responseBody);
-        log("heyyyyy data aaya${decodedResponse.toString()}");
         await prefs.setString('coins', decodedResponse['total_coins'].toString());
         success.value = true;
         // for popup
@@ -119,93 +117,102 @@ class SubmitTaskPopup extends StatelessWidget {
         isLast: isLast));
 
     return Dialog(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Submit Task',
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                              fontFamily: "GoogleSans")),
-                    ],
-                  ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     // Expanded(
+                //     //   child: Row(
+                //     //     mainAxisAlignment: MainAxisAlignment.end,
+                //     //     children: [
+                //     //       // Text('Submit Task',
+                //     //       //     style: TextStyle(
+                //     //       //         fontSize: 24,
+                //     //       //         fontWeight: FontWeight.w600,
+                //     //       //         color: Colors.black,
+                //     //       //         fontFamily: "GoogleSans")),
+                //     //     ],
+                //     //   ),
+                //     // ),
+                //     IconButton(
+                //       icon: Icon(Icons.close, size: 16,),
+                //       onPressed: () => Get.back(),
+                //     ),
+                //   ],
+                // ),
+                Text('Please_upload_picture_of_Task'.tr,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "GoogleSans",
+                        color: Colors.black)),
+                SizedBox(
+                  height: 16,
                 ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-            Text('Please upload picture of Task',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "GoogleSans",
-                    color: Colors.black)),
-            SizedBox(
-              height: 16,
-            ),
-            Obx(() => controller.image.value != null
-                ? Image.file(controller.image.value!, height: 150)
-                : GestureDetector(
-              onTap: controller.pickImage,
+                Obx(() => controller.image.value != null
+                    ? Image.file(controller.image.value!, height: 150)
+                    : GestureDetector(
+                  onTap: controller.pickImage,
                   child: Container(
-                      height: 150,
-                      decoration: BoxDecoration(
+                    height: 150,
+                    decoration: BoxDecoration(
                         border: Border.all(width: 1, color: Colors.grey)
-                      ),
-                      child: Center(child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/icons/upload_image_icon.png", height: 40, width: 40,),
-                          Text('Upload here', style: TextStyle(
-                              fontSize: 16,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "GoogleSans",
-                              color: Colors.green)),
-                        ],
-                      )),
                     ),
+                    child: Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/icons/upload_image_icon.png", height: 40, width: 40,),
+                        Text('Upload_here'.tr, style: TextStyle(
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "GoogleSans",
+                            color: Colors.green)),
+                      ],
+                    )),
+                  ),
                 )),
-            // SizedBox(height: 16),
-            // ElevatedButton(
-            //   onPressed: controller.pickImage,
-            //   child: Text('Select Image'),
-            // ),
-            SizedBox(height: 16),
-            Obx(() => controller.error.value.isNotEmpty
-                ? Text(controller.error.value,
+                // SizedBox(height: 16),
+                // ElevatedButton(
+                //   onPressed: controller.pickImage,
+                //   child: Text('Select Image'),
+                // ),
+                SizedBox(height: 16),
+                Obx(() => controller.error.value.isNotEmpty
+                    ? Text(controller.error.value,
                     style: TextStyle(color: Colors.red))
-                : SizedBox.shrink()),
-            Obx(() => controller.success.value
-                ? Text('Task submitted successfully!',
+                    : SizedBox.shrink()),
+                Obx(() => controller.success.value
+                    ? Text('Task submitted successfully!',
                     style: TextStyle(color: Colors.green))
-                : SizedBox.shrink()),
-            SizedBox(height: 16),
-            Obx(() => CustomElevatedButton(
+                    : SizedBox.shrink()),
+                SizedBox(height: 16),
+                Obx(() => CustomElevatedButton(
                   buttonColor: Colors.green,
                   onPress: controller.isSubmitting.value
                       ? null
                       : controller.submitTask,
                   widget: Text(controller.isSubmitting.value
-                      ? 'Submitting...'
-                      : 'SUBMIT'),
+                      ? 'Submitting'.tr
+                      : 'Submit'.tr),
                 )),
-          ],
-        ),
-      ),
+              ],
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.close, size: 16,),
+            onPressed: () => Get.back(),
+          ),
+        ],
+      )
     );
   }
 }

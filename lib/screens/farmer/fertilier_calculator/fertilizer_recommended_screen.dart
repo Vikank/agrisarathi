@@ -44,7 +44,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             width: double.infinity,
             color: Colors.green[50],
-            child: Text('No. of Bags',
+            child: Text('No_of_Bags'.tr,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),),),
         SizedBox(height: 10),
         Obx(() {
@@ -53,7 +53,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
           }
           final data = controller.fertilizerData.value;
           if (data == null) {
-            return Center(child: Text('No data available'));
+            return Center(child: Text('No_data_available'.tr));
           }
           return Table(
             border: TableBorder.all(color: Colors.grey[300]!, borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -66,19 +66,19 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
             children: [
               _buildTableRow(['', 'Kg/ha', '50 kg bag', 'Price'], isHeader: true),
               _buildTableRow([
-                'Urea',
+                'Urea'.tr,
                 data['Urea']['Kg/ha'].toString(),
                 data['Urea']['(50 kg bag)'].toString(),
                 '₹${data['Urea']['Price (Rs)']}',
               ]),
               _buildTableRow([
-                'Super Phosphate',
+                'Super_Phosphate'.tr,
                 data['Super Phosphate']['Kg/ha'].toString(),
                 data['Super Phosphate']['(50 kg bag)'].toString(),
                 '₹${data['Super Phosphate']['Price (Rs)']}',
               ]),
               _buildTableRow([
-                'Potash',
+                'Potash'.tr,
                 data['Potash']['Kg/ha'].toString(),
                 data['Potash']['(50 kg bag)'].toString(),
                 '₹${data['Potash']['Price (Rs)']}',
@@ -114,11 +114,11 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Already have some stock',
+              'Already_have_some_stock'.tr,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: "GoogleSans"),
             ),
             SizedBox(height: 8),
-            Text('Do you have any stock already with you, then calculate how much you need now',
+            Text('Do_you_have_any_stock_already_with_you_then_calculate_how_much_you_need_now'.tr,
               style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: "GoogleSans"),),
             SizedBox(height: 16),
             Row(
@@ -127,7 +127,7 @@ class FertilizerRecommendedrScreen extends StatelessWidget {
                   onPressed: () {
                   Get.to(()=>AdvancedFertilizerCalculatorScreen(cropId: cropId, landId: landId,));
                 },
-                  child: Text('CALCULATE', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "GoogleSans"),),
+                  child: Text('Calculate'.tr, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "GoogleSans"),),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),

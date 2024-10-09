@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageSelectionController extends GetxController {
-  RxInt langSel = 0.obs;
+  RxInt langSel = 1.obs;
 
   void changeLanguage(var param1, var param2) async {
     SharedPreferences prefLang = await SharedPreferences.getInstance();

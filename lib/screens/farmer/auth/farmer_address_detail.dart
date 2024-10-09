@@ -246,6 +246,7 @@ class FarmerAddressDetail extends StatelessWidget {
                 TextFormField(
                   controller: farmerAddressController.landArea,
                   cursorColor: ColorConstants.primaryColor,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide:

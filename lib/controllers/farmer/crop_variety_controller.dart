@@ -29,7 +29,7 @@ class CropVarietyController extends GetxController {
       isLoading(true);
       var response = await http.get(Uri.parse('${ApiEndPoints.baseUrlTest}GetCropVariety?crop_id=$cropId'), headers: headers);
       if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body);
+        var jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
         if (jsonResponse['message'] == 'success') {
           var varietiesJson = jsonResponse['data'] as List;
           cropVarieties.value = varietiesJson.map((variety) => CropVariety.fromJson(variety)).toList();
