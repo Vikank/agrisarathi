@@ -38,7 +38,7 @@ class CommunityController extends GetxController {
       update();
     } catch (e) {
       print('Error initializing video player: $e');
-      chewieController.value = null; // Ensure this is set to null on error
+      // chewieController.value = null; // Ensure this is set to null on error
     }
   }
 
@@ -104,12 +104,12 @@ class CommunityController extends GetxController {
         var decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == "success") {
           // Find the post and update its like count and isLikedByUser
-          final postIndex = posts.indexWhere((post) => post.postId == postId);
-          if (postIndex != -1) {
-            posts[postIndex].likeCount = action == 'like' ? (posts[postIndex].likeCount ?? 0) + 1 : (posts[postIndex].likeCount ?? 0) - 1;
-            posts[postIndex].isLikedByUser = action == 'like';
-            posts.refresh(); // Notify listeners about the change
-          }
+          // final postIndex = posts.indexWhere((post) => post.postId == postId);
+          // if (postIndex != -1) {
+          //   posts[postIndex].likeCount = action == 'like' ? (posts[postIndex].likeCount ?? 0) + 1 : (posts[postIndex].likeCount ?? 0) - 1;
+          //   posts[postIndex].isLikedByUser = action == 'like';
+          //   posts.refresh(); // Notify listeners about the change
+          // }
           return true;
         }
       }

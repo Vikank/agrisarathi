@@ -26,8 +26,9 @@ class CommunityForumScreen extends StatelessWidget {
           return ListView.separated(
             itemCount: controller.posts.length,
             itemBuilder: (context, index) {
-              final post = controller.posts[index];
-              return CommunityPostCard(post: post, controller: controller);
+
+              // final post = controller.posts[index];
+              return CommunityPostCard(index:index, controller: controller);
             },
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 30);
@@ -48,15 +49,18 @@ class CommunityForumScreen extends StatelessWidget {
 }
 
 class CommunityPostCard extends StatelessWidget {
-  final CommunityPost post;
+  // final CommunityPost post;
+  int index;
   final CommunityController controller;
 
-  CommunityPostCard({required this.post, required this.controller});
+  CommunityPostCard({required this.index, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     // Use the controller to manage isLiked state
-    final isLiked = post.isLikedByUser.obs;
+    final isLiked = controller.posts[index].isLikedByUser.obs;
+    var likeCount = controller.posts[index].likeCount.obs;
+    // var post = controller.posts[index];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -66,10 +70,10 @@ class CommunityPostCard extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundImage:
-              NetworkImage(ApiEndPoints.imageBaseUrl + post.profilePic! ?? ""),
+              NetworkImage(ApiEndPoints.imageBaseUrl + controller.posts[index].profilePic! ?? ""),
             ),
             title: Text(
-              post.userName!,
+              controller.posts[index].userName!,
               style: const TextStyle(
                 fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w500,
@@ -77,7 +81,7 @@ class CommunityPostCard extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              HelperFunctions().formatDate(post.createdDate),
+              HelperFunctions().formatDate(controller.posts[index].createdDate),
               style: const TextStyle(
                 fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w400,
@@ -88,7 +92,7 @@ class CommunityPostCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              post.description ?? "",
+              controller.posts[index].description ?? "",
               style: const TextStyle(
                 fontFamily: "GoogleSans",
                 fontWeight: FontWeight.w400,
@@ -96,40 +100,28 @@ class CommunityPostCard extends StatelessWidget {
               ),
             ),
           ),
-          if (post.postImage.isNotEmpty)
+          if (controller.posts[index].postImage.isNotEmpty)
             Image.network(
-              ApiEndPoints.imageBaseUrl + post.postImage,
+              ApiEndPoints.imageBaseUrl + controller.posts[index].postImage,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
-          if (post.postVideo.isNotEmpty)
+          if (controller.posts[index].postVideo.isNotEmpty)
             FutureBuilder<void>(
               future: controller.initializeVideoPlayer(
-                  ApiEndPoints.imageBaseUrl + post.postVideo),
+                  ApiEndPoints.imageBaseUrl + controller.posts[index].postVideo),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   // Check if chewieController is not null
                   if (controller.chewieController.value != null) {
-                    return VisibilityDetector(
-                      key: Key(post.postId.toString()),
-                      onVisibilityChanged: (visibilityInfo) {
-                        if (visibilityInfo.visibleFraction == 0) {
-                          // Pause the video when not visible
-                          controller.chewieController.value?.pause();
-                        } else {
-                          // Play the video when visible
-                          controller.chewieController.value?.play();
-                        }
-                      },
-                      child: post.postVideo.isNotEmpty
-                          ? SizedBox(
-                        height: 180,
-                        child: Chewie(
-                          controller: controller.chewieController.value!,
-                        ),
-                      )
-                          : Container(), // Display other content if there's no video
-                    );
+                    return controller.posts[index].postVideo.isNotEmpty
+                        ? SizedBox(
+                      height: 180,
+                      child: Chewie(
+                        controller: controller.chewieController.value!,
+                      ),
+                    )
+                        : Container();
                   } else {
                     return const Center(child: Text('Failed to load video'));
                   }
@@ -141,17 +133,19 @@ class CommunityPostCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${post.likeCount} Likes",
-                style: const TextStyle(
-                  fontFamily: "GoogleSans",
-                  fontWeight: FontWeight.w400,
-                  fontSize: 10,
-                  color: Color(0xff262626),
+              Obx(
+                ()=> Text(
+                  "${likeCount.value} Likes",
+                  style: const TextStyle(
+                    fontFamily: "GoogleSans",
+                    fontWeight: FontWeight.w400,
+                    fontSize: 10,
+                    color: Color(0xff262626),
+                  ),
                 ),
               ),
               Text(
-                  "${post.commentCount} Comments",
+                  "${controller.posts[index].commentCount} Comments",
                   style: const TextStyle(
                     fontFamily: "GoogleSans",
                     fontWeight: FontWeight.w400,
@@ -185,14 +179,22 @@ class CommunityPostCard extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
+                    // onPressed: () async {
+                    //   final success = await controller.likePost(
+                    //     postId: post.postId,
+                    //     action: isLiked.value ? "unlike" : "like",
+                    //   );
+                    //   if (success) {
+                    //     isLiked.value = !isLiked.value;
+                    //   }
+                    // },
                     onPressed: () async {
-                      final success = await controller.likePost(
-                        postId: post.postId,
+                      await controller.likePost(
+                        postId: controller.posts[index].postId,
                         action: isLiked.value ? "unlike" : "like",
                       );
-                      if (success) {
-                        isLiked.value = !isLiked.value;
-                      }
+                      likeCount.value = isLiked.value ? likeCount.value! - 1 : likeCount.value! + 1;
+                      isLiked.value = !isLiked.value;
                     },
                   )),
               TextButton.icon(
@@ -213,7 +215,7 @@ class CommunityPostCard extends StatelessWidget {
                 onPressed: () {
                   Get.bottomSheet(
                     ignoreSafeArea: true,
-                    CommentBottomSheet(post: post),
+                    CommentBottomSheet(post: controller.posts[index]),
                     isScrollControlled: true,
                   );
                   //     .whenComplete(() {
